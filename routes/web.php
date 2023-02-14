@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
+use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'change-password' => ChangePasswordController::class
             ], ['only' => ['index', 'update']]);
         });
+
+        Route::name('customer.')->prefix('customer')->group(function () {
+            Route::get('/', [CustomerController::class, 'index'])->name('index');
+        });
+
     });
 
 

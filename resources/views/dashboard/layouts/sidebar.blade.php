@@ -34,18 +34,11 @@
     </li>
 
     <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('customer.index') ? 'active' : '' }}"
+           href="{{ route('customer.index') }}">
             <i class="ri-user-3-line"></i>
-            <span>Pengguna</span>
+            <span>Pelanggan</span>
         </a>
-        <ul class="sidebar-submenu">
-            <li>
-                <a href="all-users.html">All users</a>
-            </li>
-            <li>
-                <a href="add-new-user.html">Add new user</a>
-            </li>
-        </ul>
     </li>
 
     <li class="sidebar-list">

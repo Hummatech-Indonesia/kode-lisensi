@@ -33,9 +33,6 @@
 <script src="{{ asset('dashboard_assets/js/slick.min.js') }}"></script>
 <script src="{{ asset('dashboard_assets/js/custom-slick.js') }}"></script>
 
-<!-- customizer js -->
-<script src="{{ asset('dashboard_assets/js/customizer.js') }}"></script>
-
 <!-- ratio js -->
 <script src="{{ asset('dashboard_assets/js/ratio.js') }}"></script>
 
