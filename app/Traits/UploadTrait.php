@@ -6,49 +6,28 @@ use Illuminate\Support\Facades\Storage;
 
 trait UploadTrait
 {
-
     /**
-     * Handle upload file to gcs
-     * @param string $disk_name
-     * @param object $uploaded_file
-     * @return string
-     */
-
-    public function handleFileUpload(string $disk_name, object $uploaded_file): string
-    {
-        return Storage::disk('gcs')->put($disk_name, $uploaded_file);
-    }
-
-    /**
-     * delete specified file in google cloud storage
-     * @param string $filename
+     * delete specified file in storage
+     * @param string $file
      * @return void
      */
 
-    public function handleFileDelete(string $filename): void
+    public function remove(string $file): void
     {
-        if (self::checkIfExist($filename)) Storage::disk('gcs')->delete($filename);
+        if (Storage::exists($file)) Storage::delete($file);
     }
 
     /**
-     * Check if file is already exist in cloud storage
-     * @param string $filename
-     * @return bool
-     */
-
-    public function checkIfExist(string $filename): bool
-    {
-        return Storage::disk('gcs')->exists($filename);
-    }
-
-    /**
-     * Get Realpath or access path from specified file stored in gcs
-     * @param string $filename
+     * Handle upload file to storage
+     * @param string $disk
+     * @param object $file
      * @return string
      */
 
-    public function getRealPath(string $filename): string
+    public function upload(string $disk, object $file): string
     {
-        return Storage::disk('gcs')->url($filename);
+        if (!Storage::exists($disk)) Storage::makeDirectory($disk);
+
+        return Storage::put($disk, $file);
     }
 }

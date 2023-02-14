@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ChangePasswordController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +22,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes([
+    'verify' => true
+]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('dashboard')->group(function () {
+        Route::name('dashboard.')->group(function () {
+            Route::get('/', [DashboardController::class, 'index'])->name('index');
+        });
+        Route::resource('categories', CategoryController::class)->except('show');
 
-Auth::routes();
+        Route::name('user.')->group(function () {
+            Route::resources([
+                'profile' => ProfileController::class,
+                'change-password' => ChangePasswordController::class
+            ], ['only' => ['index', 'update']]);
+        });
+    });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+});

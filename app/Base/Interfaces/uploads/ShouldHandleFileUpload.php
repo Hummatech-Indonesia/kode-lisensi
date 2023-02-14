@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Base\Interfaces;
+namespace App\Base\Interfaces\uploads;
 
 interface ShouldHandleFileUpload
 {
     /**
      * Handle class should implement file upload.
      *
-     * @param string $diskName
+     * @param string $disk
      * @param object $file
-     * @return void
+     * @return string
      */
 
-    public function upload(string $diskName, object $file): void;
+    public function upload(string $disk, object $file): string;
 
     /**
      * Handle class should implement file delete.
      *
-     * @param string $diskName
+     * @param string $file
      * @return void
      */
 
-    public function remove(string $diskName): void;
+    public function remove(string $file): void;
 }

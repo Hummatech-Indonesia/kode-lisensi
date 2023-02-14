@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Interfaces\CategoryInterface;
+use App\Contracts\Interfaces\ProfileInterface;
+use App\Contracts\Repositories\CategoryRepository;
+use App\Contracts\Repositories\ProfileRepository;
 use App\Helpers\CurrencyHelper;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -13,9 +17,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        // $this->app->bind();
+        $this->app->bind(CategoryInterface::class, CategoryRepository::class);
+        $this->app->bind(ProfileInterface::class, ProfileRepository::class);
+
     }
 
     /**
@@ -23,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Blade::directive('currency', function ($expression) {
             return CurrencyHelper::rupiahCurrency($expression);

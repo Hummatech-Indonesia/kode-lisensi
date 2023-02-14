@@ -11,10 +11,15 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable Implements MustVerifyEmail, CanResetPassword
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+
+    public $incrementing = false;
+    public $keyType = 'char';
+    protected $table = 'users';
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that are mass assignable.
@@ -22,9 +27,13 @@ class User extends Authenticatable Implements MustVerifyEmail, CanResetPassword
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
+        'photo',
+        'phone_number',
         'password',
+        'balance',
     ];
 
     /**
