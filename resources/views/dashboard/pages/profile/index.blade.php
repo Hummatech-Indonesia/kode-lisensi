@@ -7,6 +7,14 @@
                 <div class="title-header option-title">
                     <h5>Pengaturan Akun</h5>
                 </div>
+                <div class="col-sm-4 mb-3">
+                    @if (session('success'))
+                        <x-alert-success></x-alert-success>
+                    @elseif($errors->any())
+                        <x-validation-errors :errors="$errors"></x-validation-errors>
+                    @endif
+                </div>
+
                 <form action="{{ route('user.profile.update', $user->id) }}" class="theme-form theme-form-2 mega-form"
                       method="POST" enctype="multipart/form-data">
                     @method("PATCH")

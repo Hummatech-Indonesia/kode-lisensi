@@ -20,5 +20,6 @@ return [
     'delete_success' => 'Berhasil menghapus data',
     'delete_constrained' => 'Gagal menghapus! data sedang digunakan',
     'delete_failed' => 'Gagal menghapus data',
-    'profile_updated' => 'Berhasil memperbarui profil'
+    'profile_updated' => 'Berhasil memperbarui profil',
+    'password_updated' => 'Berhasil memperbarui password'
 ];

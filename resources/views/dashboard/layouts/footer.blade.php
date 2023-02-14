@@ -20,10 +20,8 @@
 
 <!-- Plugins JS -->
 <script src="{{ asset('dashboard_assets/js/sidebar-menu.js') }}"></script>
-<script src="{{ asset('dashboard_assets/js/notify/bootstrap-notify.min.js') }}"></script>
-<script src="{{ asset('dashboard_assets/js/notify/index.js') }}"></script>
 
-<!-- Apexchar js -->
+<!-- Apexchart js -->
 <script src="{{ asset('dashboard_assets/js/chart/apex-chart/apex-chart1.js') }}"></script>
 <script src="{{ asset('dashboard_assets/js/chart/apex-chart/moment.min.js') }}"></script>
 <script src="{{ asset('dashboard_assets/js/chart/apex-chart/apex-chart.js') }}"></script>

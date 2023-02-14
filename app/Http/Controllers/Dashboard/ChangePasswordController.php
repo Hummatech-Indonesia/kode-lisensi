@@ -2,84 +2,48 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Contracts\Interfaces\ChangePasswordInterface;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Dashboard\ChangePasswordRequest;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ChangePasswordController extends Controller
 {
+    private ChangePasswordInterface $changePassword;
+
+    public function __construct(ChangePasswordInterface $changePassword)
+    {
+        $this->changePassword = $changePassword;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $user = auth()->user();
+        return view('dashboard.pages.profile.change-password', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ChangePasswordRequest $request
+     * @param User $change_password
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ChangePasswordRequest $request, User $change_password): RedirectResponse
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $this->changePassword->update($change_password->id, [
+            'password' => bcrypt($validated['password'])
+        ]);
+        
+        return back()->with('success', trans('alert.password_updated'));
     }
 }
