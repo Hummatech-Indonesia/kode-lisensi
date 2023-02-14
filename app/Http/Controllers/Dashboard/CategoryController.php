@@ -6,10 +6,9 @@ use App\Contracts\Interfaces\CategoryInterface;
 use App\Enums\UploadDiskEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CategoryRequest;
+use App\Models\Category;
 use App\Services\CategoryService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -30,7 +29,8 @@ class CategoryController extends Controller
      */
     public function index(): View
     {
-        return view('dashboard.pages.categories.index');
+        $categories = $this->category->get();
+        return view('dashboard.pages.categories.index', compact('categories'));
     }
 
     /**
@@ -41,6 +41,39 @@ class CategoryController extends Controller
     public function create(): View
     {
         return view('dashboard.pages.categories.add');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Category $category
+     * @return View
+     */
+    public function edit(Category $category): View
+    {
+        return view('dashboard.pages.categories.edit', compact('category'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param CategoryRequest $request
+     * @param Category $category
+     * @return RedirectResponse
+     */
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
+    {
+        $data = $request->validated();
+        if ($request->hasFile('icon')) {
+            $upload = $this->categoryService->validateAndUpload(UploadDiskEnum::CATEGORIES->value, $request->file('icon'), $category->icon);
+        }
+
+        $this->category->update($category->id, [
+            'name' => $data['name'],
+            'icon' => $upload ?? $category->icon
+        ]);
+
+        return to_route('categories.index')->with('success', trans('alert.update_success'));
     }
 
     /**
@@ -66,36 +99,19 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param Category $category
+     * @return RedirectResponse
      */
-    public function destroy($id)
+
+    public function destroy(Category $category): RedirectResponse
     {
-        //
+        if (!$this->category->delete($category->id)) {
+            return back()->with('error', trans('alert.delete_constrained'));
+        }
+
+        $this->categoryService->remove($category->icon);
+        return back()->with('success', trans('alert.delete_success'));
     }
 }

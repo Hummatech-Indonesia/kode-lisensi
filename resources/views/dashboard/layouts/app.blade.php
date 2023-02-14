@@ -3,6 +3,7 @@
 <html lang="en" dir="ltr">
 <head>
     @include('dashboard.layouts.header')
+    @yield('css')
 </head>
 
 <body>

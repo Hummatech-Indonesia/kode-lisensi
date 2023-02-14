@@ -7,9 +7,6 @@
                     <div class="card-body">
                         <div class="card-header-2">
                             <h5>Tambah Kategori</h5>
-                            @if (session('success'))
-                                <x-alert-success></x-alert-success>
-                            @endif
                         </div>
 
                         @if($errors->any())

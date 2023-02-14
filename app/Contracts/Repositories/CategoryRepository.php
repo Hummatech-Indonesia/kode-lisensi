@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Models\Category;
+use Illuminate\Database\QueryException;
 
 class CategoryRepository extends BaseRepository implements CategoryInterface
 {
@@ -21,17 +22,12 @@ class CategoryRepository extends BaseRepository implements CategoryInterface
      */
     public function delete(mixed $id): mixed
     {
-        // TODO: Implement delete() method.
-    }
+        try {
+            return $this->show($id)->delete($id);
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1451) return false;
+        }
 
-    /**
-     * Handle the Get all data event from models.
-     *
-     * @return mixed
-     */
-    public function get(): mixed
-    {
-        // TODO: Implement get() method.
     }
 
     /**
@@ -43,7 +39,19 @@ class CategoryRepository extends BaseRepository implements CategoryInterface
      */
     public function show(mixed $id): mixed
     {
-        // TODO: Implement show() method.
+        return $this->model->query()
+            ->findOrFail($id);
+    }
+
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     */
+    public function get(): mixed
+    {
+        return $this->model->query()
+            ->get();
     }
 
     /**
@@ -69,6 +77,6 @@ class CategoryRepository extends BaseRepository implements CategoryInterface
      */
     public function update(mixed $id, array $data): mixed
     {
-        // TODO: Implement update() method.
+        return $this->show($id)->update($data);
     }
 }
