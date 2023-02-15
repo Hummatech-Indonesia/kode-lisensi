@@ -41,3 +41,10 @@
 
 <!-- Theme js -->
 <script src="{{ asset('dashboard_assets/js/script.js') }}"></script>
+
+<!-- select2 js -->
+<script src="{{ asset('dashboard_assets/js/select2.min.js') }}"></script>
+<script src="{{ asset('dashboard_assets/js/select2-custom.js') }}"></script>
+
+<!-- ck editor js -->
+<script src="{{ asset('dashboard_assets/js/ckeditor/ckeditor.js') }}"></script>

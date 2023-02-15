@@ -5,11 +5,13 @@ namespace App\Providers;
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\ChangePasswordInterface;
 use App\Contracts\Interfaces\CustomerInterface;
+use App\Contracts\Interfaces\ProductInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\ResellerInterface;
 use App\Contracts\Repositories\CategoryRepository;
 use App\Contracts\Repositories\ChangePasswordRepository;
 use App\Contracts\Repositories\CustomerRepository;
+use App\Contracts\Repositories\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\ResellerRepository;
 use App\Helpers\CurrencyHelper;
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ChangePasswordInterface::class, ChangePasswordRepository::class);
         $this->app->bind(CustomerInterface::class, CustomerRepository::class);
         $this->app->bind(ResellerInterface::class, ResellerRepository::class);
+        $this->app->bind(ProductInterface::class, ProductRepository::class);
 
     }
 

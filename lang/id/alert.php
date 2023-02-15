@@ -21,5 +21,6 @@ return [
     'delete_constrained' => 'Gagal menghapus! data sedang digunakan',
     'delete_failed' => 'Gagal menghapus data',
     'profile_updated' => 'Berhasil memperbarui profil',
-    'password_updated' => 'Berhasil memperbarui password'
+    'password_updated' => 'Berhasil memperbarui password',
+    'file_exist' => 'File telah tersedia di server'
 ];

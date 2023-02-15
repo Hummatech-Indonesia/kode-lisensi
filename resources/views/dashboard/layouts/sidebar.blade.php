@@ -18,19 +18,11 @@
     </li>
 
     <li class="sidebar-list">
-        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('products.*') ? 'active' : '' }}"
+           href="{{ route('products.index') }}">
             <i class="ri-store-3-line"></i>
             <span>Produk</span>
         </a>
-        <ul class="sidebar-submenu">
-            <li>
-                <a href="products.html">Tambah Produk</a>
-            </li>
-
-            <li>
-                <a href="add-new-product.html">List Produk</a>
-            </li>
-        </ul>
     </li>
 
     <li class="sidebar-list">

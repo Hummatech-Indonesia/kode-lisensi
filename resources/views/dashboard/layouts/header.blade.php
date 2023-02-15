@@ -36,8 +36,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vendors/scrollbar.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vendors/animate.css') }}">
 
-<!-- Bootstrap css-->
-<link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vendors/bootstrap.css') }}">
+<!-- Select2 css -->
 
 <!-- vector map css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vector-map.css') }}">
@@ -45,5 +44,13 @@
 <!-- Slick Slider Css -->
 <link rel="stylesheet" href="{{ asset('dashboard_assets/css/vendors/slick.css') }}">
 
+<!-- Bootstrap css-->
+<link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vendors/bootstrap.css') }}">
+
 <!-- App css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/style.css') }}">
+
+
+<link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/select2.min.css') }}">
+
+

@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::name('dashboard.')->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
         });
+
         Route::resource('categories', CategoryController::class)->except('show');
 
         Route::name('user.')->group(function () {
@@ -49,6 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::name('reseller.')->prefix('reseller')->group(function () {
             Route::get('/', [ResellerController::class, 'index'])->name('index');
         });
+
+        Route::resource('products', ProductController::class);
 
     });
 

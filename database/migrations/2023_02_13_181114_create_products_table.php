@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
-            $table->enum('status', ['available', 'preorder']);
+            $table->enum('status', ['stocking', 'preorder']);
             $table->enum('type', ['serial', 'credential']);
             $table->string('name');
             $table->text('photo')->nullable();
@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->integer('discount')->default(0);
             $table->integer('reseller_discount');
             $table->text('description');
+            $table->text('installation');
             $table->text('attachment_file');
             $table->timestamps();
         });

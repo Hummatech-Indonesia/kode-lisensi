@@ -29,13 +29,13 @@ trait ResellerDatatable
                 return view('dashboard.pages.resellers.datatables.photo', compact('data'));
             })
             ->editColumn('phone_number', function ($data) {
-                return $data->phone_number ?? 'Nomor belum terdaftar';
+                return $data->phone_number ?? '-';
             })
             ->addColumn('transactions.total', function ($data) {
-                return ($data->transactions_count > 0) ? $data->transactions_count . " item" : 'Belum ada item';
+                return ($data->transactions_count > 0) ? $data->transactions_count . " item" : '-';
             })
             ->addColumn('transactions.paid_amount', function ($data) {
-                return ($data->transactions_sum_paid_amount) ? CurrencyHelper::rupiahCurrency($data->transactions_sum_paid_amount) : 'Belum ada pembelian';
+                return ($data->transactions_sum_paid_amount) ? CurrencyHelper::rupiahCurrency($data->transactions_sum_paid_amount) : '-';
             })
             ->editColumn('created_at', function ($data) {
                 return Carbon::parse($data->created_at)->translatedFormat('d F Y');

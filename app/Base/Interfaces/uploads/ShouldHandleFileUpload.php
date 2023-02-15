@@ -2,17 +2,27 @@
 
 namespace App\Base\Interfaces\uploads;
 
+use Illuminate\Http\UploadedFile;
+
 interface ShouldHandleFileUpload
 {
+    /**
+     * check specified file in storage
+     * @param string $file
+     * @return bool
+     */
+
+    public function exist(string $file): bool;
+
     /**
      * Handle class should implement file upload.
      *
      * @param string $disk
-     * @param object $file
+     * @param UploadedFile $file
      * @return string
      */
 
-    public function upload(string $disk, object $file): string;
+    public function upload(string $disk, UploadedFile $file): string;
 
     /**
      * Handle class should implement file delete.
