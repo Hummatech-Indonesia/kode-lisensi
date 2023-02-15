@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\ChangePasswordController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\ResellerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::name('customer.')->prefix('customer')->group(function () {
             Route::get('/', [CustomerController::class, 'index'])->name('index');
+        });
+
+        Route::name('reseller.')->prefix('reseller')->group(function () {
+            Route::get('/', [ResellerController::class, 'index'])->name('index');
         });
 
     });

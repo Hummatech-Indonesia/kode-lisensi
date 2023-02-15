@@ -6,7 +6,7 @@
     <div class="card card-table">
         <div class="card-body">
             <div class="title-header option-title">
-                <h5>Halaman Pelanggan</h5>
+                <h5>Halaman Reseller</h5>
             </div>
 
             <div class="table-responsive table-product">
@@ -18,6 +18,8 @@
                         <th>Nama</th>
                         <th>Nomor Telepon</th>
                         <th>Email</th>
+                        <th>Jumlah</th>
+                        <th>Total</th>
                         <th>Tanggal Registrasi</th>
                     </tr>
                     </thead>
@@ -46,7 +48,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('customer.index') }}",
+                ajax: "{{ route('reseller.index') }}",
                 columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
@@ -67,6 +69,16 @@
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'transactions.total',
+                        name: 'transactions.total',
+                        searchable: false
+                    },
+                    {
+                        data: 'transactions.paid_amount',
+                        name: 'transactions.paid_amount',
+                        searchable: false
                     },
                     {
                         data: 'created_at',

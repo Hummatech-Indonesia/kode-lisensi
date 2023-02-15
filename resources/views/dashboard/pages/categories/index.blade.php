@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/datatables.css') }}">
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('content')
     <div class="card card-table">

@@ -42,18 +42,11 @@
     </li>
 
     <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('reseller.index') ? 'active' : '' }}"
+           href="{{ route('reseller.index') }}">
             <i class="ri-user-3-line"></i>
             <span>Reseller</span>
         </a>
-        <ul class="sidebar-submenu">
-            <li>
-                <a href="role.html">All roles</a>
-            </li>
-            <li>
-                <a href="create-role.html">Create Role</a>
-            </li>
-        </ul>
     </li>
 
     <li class="sidebar-list">

@@ -19,7 +19,8 @@ return new class extends Migration {
             $table->enum('type', ['serial', 'credential']);
             $table->string('name');
             $table->text('photo')->nullable();
-            $table->integer('price');
+            $table->integer('buy_price');
+            $table->integer('sell_price');
             $table->integer('discount')->default(0);
             $table->integer('reseller_discount');
             $table->text('description');
