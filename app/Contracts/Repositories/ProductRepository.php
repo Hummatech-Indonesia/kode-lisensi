@@ -3,6 +3,7 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ProductInterface;
+use App\Enums\ProductStatusEnum;
 use App\Models\Product;
 use App\Traits\Datatables\ProductDatatable;
 use Exception;
@@ -28,7 +29,8 @@ class ProductRepository extends BaseRepository implements ProductInterface
         return $this->ProductMockup($this->model->query()
             ->with('category')
             ->withCount('licenses')
-            ->oldest('licenses_count'));
+            ->oldest('licenses_count')
+            ->where('status', ProductStatusEnum::AVAILABLE->value));
     }
 
     /**
@@ -54,7 +56,20 @@ class ProductRepository extends BaseRepository implements ProductInterface
      */
     public function update(mixed $id, array $data): mixed
     {
-        // TODO: Implement update() method.
+        return $this->show($id)->update($data);
+    }
+
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     */
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->findOrFail($id);
     }
 
     /**
@@ -84,18 +99,5 @@ class ProductRepository extends BaseRepository implements ProductInterface
         }
 
         return true;
-    }
-
-    /**
-     * Handle get the specified data by id from models.
-     *
-     * @param mixed $id
-     *
-     * @return mixed
-     */
-    public function show(mixed $id): mixed
-    {
-        return $this->model->query()
-            ->findOrFail($id);
     }
 }

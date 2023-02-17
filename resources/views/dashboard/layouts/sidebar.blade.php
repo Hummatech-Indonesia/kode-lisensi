@@ -25,10 +25,13 @@
         </a>
         <ul class="sidebar-submenu">
             <li>
-                <a href="{{ route('products.index') }}">Aktif</a>
+                <a href="{{ route('products.index') }}">Produk Stok</a>
             </li>
             <li>
-                <a href="{{ route('products.index') }}">Arsip</a>
+                <a href="{{ route('products.index') }}">Produk Preorder</a>
+            </li>
+            <li>
+                <a href="{{ route('products.index') }}">Arsip Produk</a>
             </li>
         </ul>
     </li>

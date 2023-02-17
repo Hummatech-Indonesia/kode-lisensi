@@ -158,7 +158,7 @@
                         <h5>Foto Produk dan Panduan Penggunaan</h5>
                         <div class="col-sm-6 mt-3">
                             <div class="alert alert-warning">
-                                Note: <br>
+                                Catatan: <br>
                                 <ul>
                                     <li>Foto Produk harus berupa jpg,png,jpeg dengan ukuran maksimal 5Mb</li>
                                     <li>Berkas Panduan harus berupa pdf dengan ukuran maksimal 20Mb</li>

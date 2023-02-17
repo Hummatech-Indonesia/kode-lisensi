@@ -13,6 +13,15 @@
 
                 @endif
             </div>
+            <div class="col-sm-8 mt-3 mb-3">
+                <div class="alert alert-warning">
+                    Catatan: <br>
+                    <ul>
+                        <li>Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
+                    </ul>
+
+                </div>
+            </div>
             <div class="title-header option-title">
                 <h5>Halaman Produk</h5>
                 <div class="right-options">
