@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\ProductInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,13 +15,13 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    private ProductService $service;
+    private ProductService $productService;
     private ProductInterface $product;
     private CategoryInterface $category;
 
-    public function __construct(ProductService $service, ProductInterface $product, CategoryInterface $category)
+    public function __construct(ProductService $productService, ProductInterface $product, CategoryInterface $category)
     {
-        $this->service = $service;
+        $this->productService = $productService;
         $this->product = $product;
         $this->category = $category;
     }
@@ -58,7 +59,7 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request): RedirectResponse
     {
-        if (!$data = $this->service->store($request)) {
+        if (!$data = $this->productService->store($request)) {
             return back()->with('error', trans('alert.file_exist'));
         }
 
@@ -70,23 +71,23 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param Product $product
+     * @return View
      */
-    public function show($id)
+    public function show(Product $product): View
     {
-        //
+        return view('dashboard.pages.products.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param Product $product
+     * @return View
      */
-    public function edit($id)
+    public function edit(Product $product): View
     {
-        //
+        return view('dashboard.pages.products.edit', compact('product'));
     }
 
     /**
@@ -104,11 +105,18 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param Product $product
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Product $product): RedirectResponse
     {
-        //
+        if (!$this->product->delete($product->id)) {
+            return back()->with('error', trans('alert.delete_constrained'));
+        }
+
+        $this->productService->remove($product->photo);
+        $this->productService->remove($product->attachment_file);
+
+        return back()->with('success', trans('alert.delete_success'));
     }
 }

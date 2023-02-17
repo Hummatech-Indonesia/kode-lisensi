@@ -36,8 +36,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vendors/scrollbar.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vendors/animate.css') }}">
 
-<!-- Select2 css -->
-
 <!-- vector map css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/vector-map.css') }}">
 
@@ -50,7 +48,8 @@
 <!-- App css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/style.css') }}">
 
-
+<!-- Select2 css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/select2.min.css') }}">
 
-
+<!-- sweetalert css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/css/sweetalert.min.css') }}">

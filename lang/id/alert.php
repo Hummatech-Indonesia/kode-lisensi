@@ -22,5 +22,5 @@ return [
     'delete_failed' => 'Gagal menghapus data',
     'profile_updated' => 'Berhasil memperbarui profil',
     'password_updated' => 'Berhasil memperbarui password',
-    'file_exist' => 'File telah tersedia di server'
+    'file_exist' => 'File berkas panduan telah tersedia di server. Silahkan ubah nama file'
 ];

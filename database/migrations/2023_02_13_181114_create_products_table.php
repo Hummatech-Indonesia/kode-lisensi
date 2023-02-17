@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->text('description');
             $table->text('installation');
             $table->text('attachment_file');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

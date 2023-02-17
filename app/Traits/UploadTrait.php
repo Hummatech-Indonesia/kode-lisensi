@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Storage;
 trait UploadTrait
 {
     /**
+     * delete specified file in storage
+     * @param string $file
+     * @return void
+     */
+
+    public function remove(string $file): void
+    {
+        if ($this->exist($file)) Storage::delete($file);
+    }
+
+    /**
      * check specified file in storage
      * @param string $file
      * @return bool
@@ -16,17 +27,6 @@ trait UploadTrait
     public function exist(string $file): bool
     {
         return Storage::exists($file);
-    }
-
-    /**
-     * delete specified file in storage
-     * @param string $file
-     * @return void
-     */
-
-    public function remove(string $file): void
-    {
-        if (Storage::exists($file)) Storage::delete($file);
     }
 
     /**
@@ -39,7 +39,7 @@ trait UploadTrait
 
     public function upload(string $disk, UploadedFile $file, bool $originalName = false): string
     {
-        if (!Storage::exists($disk)) Storage::makeDirectory($disk);
+        if (!$this->exist($disk)) Storage::makeDirectory($disk);
 
         if ($originalName) {
             return $file->storeAs($disk, $file->getClientOriginalName());

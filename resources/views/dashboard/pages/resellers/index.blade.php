@@ -15,9 +15,7 @@
                     <tr>
                         <th>#</th>
                         <th>User</th>
-                        <th>Nama</th>
-                        <th>Nomor Telepon</th>
-                        <th>Email</th>
+                        <th>Telepon</th>
                         <th>Jumlah</th>
                         <th>Total</th>
                         <th>Tanggal Registrasi</th>
@@ -55,20 +53,12 @@
                     searchable: false
                 },
                     {
-                        data: 'photo',
-                        name: 'photo'
-                    },
-                    {
                         data: 'name',
                         name: 'name'
                     },
                     {
                         data: 'phone_number',
                         name: 'phone_number'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
                     },
                     {
                         data: 'transactions.total',

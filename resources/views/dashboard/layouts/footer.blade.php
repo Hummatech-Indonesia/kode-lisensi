@@ -48,3 +48,30 @@
 
 <!-- ck editor js -->
 <script src="{{ asset('dashboard_assets/js/ckeditor/ckeditor.js') }}"></script>
+
+<!-- sweetalert js -->
+<script src="{{ asset('dashboard_assets/js/sweetalert.min.js') }}"></script>
+
+<x-delete-modal></x-delete-modal>
+<script>
+
+    $('.delete-sweetalert').on('click', function (e) {
+        e.preventDefault();
+        const form = $(this).closest("form");
+        swal({
+            title: "Apa Anda Yakin?",
+            text: "Data yang dihapus tidak dapat dikembalikan",
+            icon: "warning",
+            buttons: {
+                confirm: 'Hapus',
+                cancel: 'Batal'
+            },
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit()
+                }
+            });
+    });
+</script>

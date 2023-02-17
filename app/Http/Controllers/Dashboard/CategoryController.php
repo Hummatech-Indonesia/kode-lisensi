@@ -112,6 +112,7 @@ class CategoryController extends Controller
         }
 
         $this->categoryService->remove($category->icon);
+
         return back()->with('success', trans('alert.delete_success'));
     }
 }

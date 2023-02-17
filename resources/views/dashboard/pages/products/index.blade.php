@@ -5,6 +5,14 @@
 @section('content')
     <div class="card card-table">
         <div class="card-body">
+            <div class="col-sm-6 mb-3">
+                @if (session('success'))
+                    <x-alert-success></x-alert-success>
+                @elseif(session('error'))
+                    <x-alert-failed></x-alert-failed>
+
+                @endif
+            </div>
             <div class="title-header option-title">
                 <h5>Halaman Produk</h5>
                 <div class="right-options">
@@ -28,8 +36,6 @@
                         <th>Stok</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>Status</th>
-                        <th>Tipe</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -39,14 +45,12 @@
             </div>
         </div>
     </div>
-
 @endsection
+
 @section('script')
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function () {
-
-
             // Datatables Responsive
             $("#table_id").DataTable({
                 scrollX: false,
@@ -69,12 +73,13 @@
                         name: 'name'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'category.name',
+                        name: 'category.name'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'stock',
+                        name: 'licenses_count',
+                        searchable: false
                     },
                     {
                         data: 'buy_price',
@@ -85,14 +90,6 @@
                         name: 'sell_price'
                     },
                     {
-                        data: 'status',
-                        name: 'status',
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
@@ -100,6 +97,14 @@
                     }
                 ]
             });
+
+            $(document).on('click', '.delete-alert', function () {
+                $('#exampleModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('products.destroy', ':id') }}`.replace(':id', id);
+                $('#deleteForm').attr('action', url);
+            });
+
         });
     </script>
 @endsection

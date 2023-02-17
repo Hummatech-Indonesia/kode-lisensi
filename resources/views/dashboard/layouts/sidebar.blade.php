@@ -18,27 +18,35 @@
     </li>
 
     <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('products.*') ? 'active' : '' }}"
-           href="{{ route('products.index') }}">
+        <a class="sidebar-link sidebar-title {{ request()->routeIs('products.*') ? 'active' : '' }}"
+           href="javascript:void(0)">
             <i class="ri-store-3-line"></i>
             <span>Produk</span>
         </a>
+        <ul class="sidebar-submenu">
+            <li>
+                <a href="{{ route('products.index') }}">Aktif</a>
+            </li>
+            <li>
+                <a href="{{ route('products.index') }}">Arsip</a>
+            </li>
+        </ul>
     </li>
 
     <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('customer.index') ? 'active' : '' }}"
-           href="{{ route('customer.index') }}">
+        <a class="sidebar-link sidebar-title {{ request()->routeIs('customer.index') || request()->routeIs('reseller.index') ? 'active' : '' }}"
+           href="javascript:void(0)">
             <i class="ri-user-3-line"></i>
-            <span>Pelanggan</span>
+            <span>Pengguna</span>
         </a>
-    </li>
-
-    <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('reseller.index') ? 'active' : '' }}"
-           href="{{ route('reseller.index') }}">
-            <i class="ri-user-3-line"></i>
-            <span>Reseller</span>
-        </a>
+        <ul class="sidebar-submenu">
+            <li>
+                <a href="{{ route('customer.index') }}">Pelanggan</a>
+            </li>
+            <li>
+                <a href="{{ route('reseller.index') }}">Reseller</a>
+            </li>
+        </ul>
     </li>
 
     <li class="sidebar-list">

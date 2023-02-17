@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\ProductInterface;
 use App\Models\Product;
 use App\Traits\Datatables\ProductDatatable;
 use Exception;
+use Illuminate\Database\QueryException;
 
 class ProductRepository extends BaseRepository implements ProductInterface
 {
@@ -17,18 +18,6 @@ class ProductRepository extends BaseRepository implements ProductInterface
     }
 
     /**
-     * Handle show method and delete data instantly from models.
-     *
-     * @param mixed $id
-     *
-     * @return mixed
-     */
-    public function delete(mixed $id): mixed
-    {
-
-    }
-
-    /**
      * Handle the Get all data event from models.
      *
      * @return mixed
@@ -36,19 +25,10 @@ class ProductRepository extends BaseRepository implements ProductInterface
      */
     public function get(): mixed
     {
-        return $this->ProductMockup($this->model->query());
-    }
-
-    /**
-     * Handle get the specified data by id from models.
-     *
-     * @param mixed $id
-     *
-     * @return mixed
-     */
-    public function show(mixed $id): mixed
-    {
-        // TODO: Implement show() method.
+        return $this->ProductMockup($this->model->query()
+            ->with('category')
+            ->withCount('licenses')
+            ->oldest('licenses_count'));
     }
 
     /**
@@ -75,5 +55,47 @@ class ProductRepository extends BaseRepository implements ProductInterface
     public function update(mixed $id, array $data): mixed
     {
         // TODO: Implement update() method.
+    }
+
+    /**
+     * Implement soft delete method
+     *
+     * @param mixed $id
+     * @return mixed
+     */
+    public function softDelete(mixed $id): mixed
+    {
+        return $this->show($id)->delete($id);
+    }
+
+    /**
+     * Handle show method and delete data instantly from models.
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     */
+    public function delete(mixed $id): mixed
+    {
+        try {
+            $this->show($id)->forceDelete($id);
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1451) return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     */
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->findOrFail($id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Traits\Datatables;
 
+use App\Helpers\CurrencyHelper;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\DataTables;
@@ -26,8 +27,17 @@ trait ProductDatatable
             ->editColumn('photo', function ($data) {
                 return view('dashboard.pages.products.datatables.photo', compact('data'));
             })
+            ->editColumn('stock', function ($data) {
+                return view('dashboard.pages.products.datatables.stock', compact('data'));
+            })
+            ->editColumn('buy_price', function ($data) {
+                return CurrencyHelper::rupiahCurrency($data->buy_price);
+            })
+            ->editColumn('sell_price', function ($data) {
+                return CurrencyHelper::rupiahCurrency($data->sell_price);
+            })
             ->editColumn('action', function ($data) {
-
+                return view('dashboard.pages.products.datatables.action', compact('data'));
             })
             ->rawColumns(['action'])
             ->toJson();

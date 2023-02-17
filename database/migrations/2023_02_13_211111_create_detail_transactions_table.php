@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('detail_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->char('transaction_id', 30);
+            $table->char('transaction_id', 36);
             $table->foreignUuid('product_id')->constrained()->restrictOnDelete();
             $table->string('name');
             $table->string('phone_number', 50);

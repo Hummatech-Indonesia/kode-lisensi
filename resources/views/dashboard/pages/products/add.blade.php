@@ -162,6 +162,7 @@
                                 <ul>
                                     <li>Foto Produk harus berupa jpg,png,jpeg dengan ukuran maksimal 5Mb</li>
                                     <li>Berkas Panduan harus berupa pdf dengan ukuran maksimal 20Mb</li>
+                                    <li>Pastikan nama file berkas berbeda tiap produknya</li>
                                 </ul>
 
                             </div>
@@ -212,13 +213,12 @@
             CKEDITOR.replace('editor');
             CKEDITOR.replace('installation');
 
-            $('#discount').on('keyup', function () {
-                console.log('discount')
+            $('#discount').on('keydown', function (evt) {
+                ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault();
             })
 
-            $('#reseller_discount').on('keyup', function () {
-                console.log('reseller')
-
+            $('#reseller_discount').on('keydown', function (evt) {
+                ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault();
             })
         });
     </script>

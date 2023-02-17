@@ -23,11 +23,12 @@ class CategoryRepository extends BaseRepository implements CategoryInterface
     public function delete(mixed $id): mixed
     {
         try {
-            return $this->show($id)->delete($id);
+            $this->show($id)->delete($id);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1451) return false;
         }
 
+        return true;
     }
 
     /**

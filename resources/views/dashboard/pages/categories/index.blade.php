@@ -55,8 +55,7 @@
                                             <form method="POST" action="{{ route('categories.destroy', $category) }}">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button class="btn text-danger" type="submit"
-                                                        onclick="return confirm('Yakin ingin menghapus data?')">
+                                                <button class="btn text-danger delete-sweetalert" type="submit">
                                                     <i class="ri-delete-bin-line"></i>
                                                 </button>
                                             </form>

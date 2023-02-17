@@ -25,8 +25,8 @@ trait ResellerDatatable
         return DataTables::of($collection)
             ->addIndexColumn()
             ->setFilteredRecords(250)
-            ->editColumn('photo', function ($data) {
-                return view('dashboard.pages.resellers.datatables.photo', compact('data'));
+            ->editColumn('name', function ($data) {
+                return view('dashboard.pages.resellers.datatables.name', compact('data'));
             })
             ->editColumn('phone_number', function ($data) {
                 return $data->phone_number ?? '-';
