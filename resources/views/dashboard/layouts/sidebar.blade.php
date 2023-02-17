@@ -25,6 +25,9 @@
         </a>
         <ul class="sidebar-submenu">
             <li>
+                <a href="{{ route('products.create') }}">Tambah Produk Baru</a>
+            </li>
+            <li>
                 <a href="{{ route('products.index') }}">Produk Stok</a>
             </li>
             <li>

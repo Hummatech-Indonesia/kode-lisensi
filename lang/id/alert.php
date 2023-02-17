@@ -17,6 +17,7 @@ return [
     'add_failed' => 'Gagal menambahkan data',
     'update_success' => 'Berhasil memperbarui data',
     'update_failed' => 'Gagal memperbarui data',
+    'soft_delete_success' => 'Berhasil mengarsipkan data',
     'delete_success' => 'Berhasil menghapus data',
     'delete_constrained' => 'Gagal menghapus! data sedang digunakan',
     'delete_failed' => 'Gagal menghapus data',

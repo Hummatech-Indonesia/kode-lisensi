@@ -54,6 +54,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('products', ProductController::class);
 
+        Route::name('product.')->prefix('product')->group(function () {
+            Route::get('pre-order', [ProductController::class, 'preorder'])->name('preorder');
+            Route::delete('soft-delete/{product}', [ProductController::class, 'softDestroy'])->name('soft.delete');
+            Route::prefix('archive')->group(function () {
+                Route::get('archive', [ProductController::class, 'archive']);
+            });
+        });
+
     });
 
 

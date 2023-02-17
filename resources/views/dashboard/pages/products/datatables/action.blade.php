@@ -16,9 +16,9 @@
     <li>
         <a href="#"
            data-toggle="modal"
-           data-target="#exampleModal"
+           data-target="#softModal"
            data-id='{{ $data->id }}'
-           class="text-warning delete-alert"><i
+           class="text-warning delete-soft"><i
                 class="ri-archive-line"></i></a>
     </li>
 </ul>

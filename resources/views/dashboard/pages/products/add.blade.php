@@ -134,7 +134,8 @@
                                 <label class="form-label-title col-sm-3 mb-0">Produk <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" id="editor" name="description"></textarea>
+                                    <textarea class="form-control" id="editor"
+                                              name="description">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +145,7 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" id="installation"
-                                              name="installation"></textarea>
+                                              name="installation">{{ old('installation') }}</textarea>
                                 </div>
                             </div>
                         </div>

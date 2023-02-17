@@ -24,15 +24,6 @@
             </div>
             <div class="title-header option-title">
                 <h5>Halaman Produk</h5>
-                <div class="right-options">
-                    <ul>
-                        <li>
-                            <a class="btn btn-solid" href="{{ route('products.create') }}"><i
-                                    class="ri-add-line ri-1x me-2"></i>Tambah
-                                produk baru</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
             <div class="table-responsive table-product">
@@ -57,6 +48,9 @@
 @endsection
 
 @section('script')
+    <x-delete-modal></x-delete-modal>
+    <x-soft-delete-modal></x-soft-delete-modal>
+
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function () {
@@ -112,6 +106,13 @@
                 const id = $(this).attr('data-id');
                 let url = `{{ route('products.destroy', ':id') }}`.replace(':id', id);
                 $('#deleteForm').attr('action', url);
+            });
+
+            $(document).on('click', '.delete-soft', function () {
+                $('#softModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('product.soft.delete', ':id') }}`.replace(':id', id);
+                $('#deleteSoft').attr('action', url);
             });
 
         });

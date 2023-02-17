@@ -119,4 +119,28 @@ class ProductController extends Controller
 
         return back()->with('success', trans('alert.delete_success'));
     }
+
+    public function preorder()
+    {
+
+    }
+
+    public function archive()
+    {
+
+    }
+
+    /**
+     * Remove the specified resource using soft delete from storage.
+     *
+     * @param Product $product
+     * @return RedirectResponse
+     */
+
+    public function softDestroy(Product $product): RedirectResponse
+    {
+        $this->product->softDelete($product->id);
+
+        return back()->with('success', trans('alert.soft_delete_success'));
+    }
 }
