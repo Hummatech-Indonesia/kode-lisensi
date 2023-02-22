@@ -61,7 +61,8 @@
                             <label class="form-label-title col-sm-3 mb-0">Harga Jual <span
                                     class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input min="0" autocomplete="off" name="sell_price" class="form-control" type="text"
+                                <input id="sell_price" min="0" autocomplete="off" name="sell_price" class="form-control"
+                                       type="text"
                                        placeholder="250000">
                             </div>
                         </div>
@@ -70,7 +71,7 @@
                         <tr>
                             <th scope="col">Jenis Pengguna</th>
                             <th scope="col">Diskon <span
-                                    class="text-danger">*</span></th>
+                                    class="text-danger">* (0-100%)</span></th>
                             <th scope="col">Total Harga</th>
                             <th scope="col"></th>
                         </tr>
@@ -79,21 +80,31 @@
                         <tr>
                             <td>Customer</td>
                             <td>
-                                <input id="discount" name="discount" value="0" class="form-control"
+                                <input min="0" max="100" id="discount" name="discount" value="{{ old('discount') }}"
+                                       class="form-control"
                                        type="number">
                             </td>
                             <td>
-                                <input id="reseller_discount" name="reseller_discount"
-                                       value="0" class="form-control" type="number">
+                                <span id="customer_label">Rp. 0</span>
                             </td>
                         </tr>
                         <tr>
                             <td>Reseller</td>
                             <td>
-                                <input class="form-control" type="number" placeholder="0">
+                                <input value="{{ old('reseller_discount') }}" id="reseller_discount"
+                                       name="reseller_discount" class="form-control"
+                                       type="number" placeholder="0">
                             </td>
                             <td>
-                                <input class="form-control" type="number" placeholder="0">
+                                <span id="reseller_label">Rp. 0</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button id="convert_button" type="button" class="btn btn-sm btn-primary">Konversi
+                                    Harga
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -215,13 +226,51 @@
             CKEDITOR.replace('editor');
             CKEDITOR.replace('installation');
 
-            $('#discount').on('keydown', function (evt) {
+            const calculateDiscount = (price, discount) => {
+                const total = price * (discount / 100)
+
+                return price - total
+            }
+
+            const convertRupiah = (number) => {
+                return new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR"
+                }).format(number);
+            }
+
+
+            let discount = $('#discount')
+            let reseller = $('#reseller_discount')
+
+            let seller_price = null
+
+            $('#sell_price').change((e) => {
+                seller_price = $('#sell_price').val()
+            })
+
+            $('#convert_button').click((e) => {
+                const customer_discount = calculateDiscount(seller_price, discount.val())
+                const reseller_discount = calculateDiscount(seller_price, reseller.val())
+
+                if (discount.val() >= 0 || discount.val() <= 100) {
+                    $('#customer_label').text(convertRupiah(customer_discount))
+                }
+
+                if (reseller.val() >= 0 || reseller.val() <= 100) {
+                    $('#reseller_label').text(convertRupiah(reseller_discount))
+                }
+
+            })
+
+            discount.on('keyup', function (evt) {
                 ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault();
             })
 
-            $('#reseller_discount').on('keydown', function (evt) {
+            reseller.on('keyup', function (evt) {
                 ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault();
             })
+
         });
     </script>
 @endsection

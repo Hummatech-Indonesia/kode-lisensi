@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->integer('buy_price');
             $table->integer('sell_price');
             $table->integer('discount')->default(0);
-            $table->integer('reseller_discount');
+            $table->integer('reseller_discount')->default(0);
             $table->text('description');
             $table->text('installation');
             $table->text('attachment_file');
