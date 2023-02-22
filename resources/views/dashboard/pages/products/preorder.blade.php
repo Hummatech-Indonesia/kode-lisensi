@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="title-header option-title">
-                <h5>Halaman Produk</h5>
+                <h5>Halaman Produk Preorder</h5>
             </div>
 
             <div class="table-responsive table-product">
@@ -65,7 +65,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('products.index') }}",
+                ajax: "{{ route('preorder-products.index') }}",
                 columns: [
                     {
                         data: 'photo',

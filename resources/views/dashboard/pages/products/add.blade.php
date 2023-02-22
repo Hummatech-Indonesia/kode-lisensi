@@ -114,8 +114,9 @@
                             <select class="form-control" name="type">
                                 <option>--Pilih--</option>
                                 <option value="stocking-credential">Stocking - Username & Password</option>
-                                <option value="stocking-serial">Stocking - Lisensi</option>
-                                <option value="preoder">Preorder</option>
+                                <option value="stocking-serial">Stocking - Serial Key</option>
+                                <option value="preorder-credential">Preorder - Username & Password</option>
+                                <option value="preorder-serial">Preorder - Serial Key</option>
                             </select>
                         </div>
                     </div>

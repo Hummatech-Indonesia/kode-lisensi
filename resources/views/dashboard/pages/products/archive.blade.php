@@ -13,17 +13,8 @@
 
                 @endif
             </div>
-            <div class="col-sm-8 mt-3 mb-3">
-                <div class="alert alert-warning">
-                    Catatan: <br>
-                    <ul>
-                        <li>Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
-                    </ul>
-
-                </div>
-            </div>
             <div class="title-header option-title">
-                <h5>Halaman Produk</h5>
+                <h5>Halaman Arsip Produk</h5>
             </div>
 
             <div class="table-responsive table-product">
@@ -49,7 +40,7 @@
 
 @section('script')
     <x-delete-modal></x-delete-modal>
-    <x-soft-delete-modal></x-soft-delete-modal>
+    <x-restore-modal></x-restore-modal>
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
@@ -65,7 +56,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('products.index') }}",
+                ajax: "{{ route('archive-products.index') }}",
                 columns: [
                     {
                         data: 'photo',
@@ -109,10 +100,10 @@
             });
 
             $(document).on('click', '.delete-soft', function () {
-                $('#softModal').modal('show')
+                $('#restoreModal').modal('show')
                 const id = $(this).attr('data-id');
-                let url = `{{ route('product.soft.delete', ':id') }}`.replace(':id', id);
-                $('#deleteSoft').attr('action', url);
+                let url = `{{ route('archive-products.update', ':id') }}`.replace(':id', id);
+                $('#restoreForm').attr('action', url);
             });
 
         });

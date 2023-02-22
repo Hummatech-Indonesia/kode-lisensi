@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Products;
 
 use App\Contracts\Interfaces\CategoryInterface;
-use App\Contracts\Interfaces\ProductInterface;
+use App\Contracts\Interfaces\Products\ProductInterface;
+use App\Enums\ProductStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -63,9 +63,13 @@ class ProductController extends Controller
             return back()->with('error', trans('alert.file_exist'));
         }
 
-        $this->product->store($data);
+        $product = $this->product->store($data);
 
-        return to_route('products.index')->with('status', trans('alert.add_success'));
+        if ($product->status == ProductStatusEnum::PREORDER->value) {
+            return to_route('preorder-products.index')->with('success', trans('alert.add_success'));
+        }
+
+        return to_route('products.index')->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -94,53 +98,11 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
      * @param Product $product
      * @return RedirectResponse
      */
-    public function destroy(Product $product): RedirectResponse
+    public function update(Request $request, Product $product): RedirectResponse
     {
-        if (!$this->product->delete($product->id)) {
-            return back()->with('error', trans('alert.delete_constrained'));
-        }
-
-        $this->productService->remove($product->photo);
-        $this->productService->remove($product->attachment_file);
-
-        return back()->with('success', trans('alert.delete_success'));
-    }
-
-    public function preorder()
-    {
-
-    }
-
-    public function archive()
-    {
-
-    }
-
-    /**
-     * Remove the specified resource using soft delete from storage.
-     *
-     * @param Product $product
-     * @return RedirectResponse
-     */
-
-    public function softDestroy(Product $product): RedirectResponse
-    {
-        $this->product->softDelete($product->id);
-
-        return back()->with('success', trans('alert.soft_delete_success'));
+        return to_route('')->with('success', trans('alert.update_success'));
     }
 }

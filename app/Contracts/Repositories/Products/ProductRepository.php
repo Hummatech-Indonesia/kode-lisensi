@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Contracts\Repositories;
+namespace App\Contracts\Repositories\Products;
 
-use App\Contracts\Interfaces\ProductInterface;
+use App\Contracts\Interfaces\Products\ProductInterface;
+use App\Contracts\Repositories\BaseRepository;
 use App\Enums\ProductStatusEnum;
 use App\Models\Product;
 use App\Traits\Datatables\ProductDatatable;
@@ -16,6 +17,22 @@ class ProductRepository extends BaseRepository implements ProductInterface
     public function __construct(Product $product)
     {
         $this->model = $product;
+    }
+
+    /**
+     * Handle the Get all preorder data event from models.
+     *
+     * @return mixed
+     * @throws Exception
+     */
+
+    public function preorder(): mixed
+    {
+        return $this->ProductMockup($this->model->query()
+            ->with('category')
+            ->withCount('licenses')
+            ->oldest('licenses_count')
+            ->where('status', ProductStatusEnum::PREORDER->value));
     }
 
     /**
@@ -92,12 +109,34 @@ class ProductRepository extends BaseRepository implements ProductInterface
      */
     public function delete(mixed $id): mixed
     {
+        $query = $this->model->query();
         try {
-            $this->show($id)->forceDelete($id);
+            if ($this->showSoftDelete($id)) {
+                $query->onlyTrashed()
+                    ->find($id)
+                    ->forceDelete();
+            } else {
+                $query->find($id)
+                    ->forceDelete();
+            }
+
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1451) return false;
         }
 
         return true;
+    }
+
+    /**
+     * Implement show soft delete method
+     *
+     * @param mixed $id
+     * @return mixed
+     */
+    public function showSoftDelete(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->onlyTrashed()
+            ->find($id);
     }
 }

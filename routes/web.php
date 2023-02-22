@@ -4,7 +4,10 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\Products\ArchiveProductController;
+use App\Http\Controllers\Dashboard\Products\DestroyProductController;
+use App\Http\Controllers\Dashboard\Products\PreorderProductController;
+use App\Http\Controllers\Dashboard\Products\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
 use Illuminate\Support\Facades\Auth;
@@ -52,17 +55,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', [ResellerController::class, 'index'])->name('index');
         });
 
-        Route::resource('products', ProductController::class);
+        Route::resources([
+            'products' => ProductController::class,
+            'archive-products' => ArchiveProductController::class
+        ]);
+
+        Route::resource('preorder-products', PreorderProductController::class)->only('index');
 
         Route::name('product.')->prefix('product')->group(function () {
-            Route::get('pre-order', [ProductController::class, 'preorder'])->name('preorder');
-            Route::delete('soft-delete/{product}', [ProductController::class, 'softDestroy'])->name('soft.delete');
-            Route::prefix('archive')->group(function () {
-                Route::get('archive', [ProductController::class, 'archive']);
-            });
+            Route::delete('destroy/{product}', [DestroyProductController::class, 'destroy'])->name('destroy');
+            Route::delete('soft-delete/{product}', [DestroyProductController::class, 'softDestroy'])->name('soft.delete');
         });
 
     });
-
 
 });
