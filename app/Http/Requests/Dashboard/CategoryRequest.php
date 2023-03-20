@@ -17,7 +17,7 @@ class CategoryRequest extends BaseRequest
     {
         return [
             'name' => 'required|max:255',
-            'icon' => 'nullable|image|max:2048|mimes:jpg,png,jpeg'
+            'icon' => 'nullable|image|max:2048|mimes:jpg,png,jpeg',
         ];
     }
 

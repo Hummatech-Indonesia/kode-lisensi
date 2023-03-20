@@ -33,7 +33,6 @@
                         <th>#</th>
                         <th>Produk</th>
                         <th>Kategori</th>
-                        <th>Stok</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
                         <th>Aksi</th>
@@ -78,11 +77,6 @@
                     {
                         data: 'category.name',
                         name: 'category.name'
-                    },
-                    {
-                        data: 'stock',
-                        name: 'licenses_count',
-                        searchable: false
                     },
                     {
                         data: 'buy_price',

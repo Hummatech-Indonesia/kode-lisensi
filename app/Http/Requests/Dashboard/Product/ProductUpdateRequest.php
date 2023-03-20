@@ -4,8 +4,9 @@ namespace App\Http\Requests\Dashboard\Product;
 
 use App\Http\Requests\BaseRequest;
 
-class ProductStoreRequest extends BaseRequest
+class ProductUpdateRequest extends BaseRequest
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,18 +25,18 @@ class ProductStoreRequest extends BaseRequest
             'status' => 'required',
             'description' => 'required',
             'installation' => 'required',
-            'photo' => 'required|max:5000|mimes:jpg,png,jpeg',
-            'attachment_file' => 'required|max:20000|mimes:pdf'
-
+            'photo' => 'nullable|max:5000|mimes:jpg,png,jpeg',
+            'attachment_file' => 'nullable|max:20000|mimes:pdf'
         ];
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Custom Validation Messages
      *
      * @return array<string, mixed>
      */
-    public function messages(): array
+
+    public function messages()
     {
         return [
             'name.required' => 'Nama tidak boleh kosong',
@@ -58,10 +59,8 @@ class ProductStoreRequest extends BaseRequest
             'type.required' => 'Tipe lisensi tidak boleh kosong',
             'description.required' => 'Deskripsi tidak boleh kosong',
             'installation.required' => 'Panduan penggunaan tidak boleh kosong',
-            'photo.required' => 'Foto tidak boleh kosong',
             'photo.max' => 'Foto maksimal 5Mb',
             'photo.mimes' => 'Ekstensi foto harus berupa jpg,png,jpeg',
-            'attachment_file.required' => 'Panduan tidak boleh kosong',
             'attachment_file.max' => 'Panduan maksimal 20Mb',
             'attachment_file.mimes' => 'Ekstensi Panduan harus berupa pdf'
         ];

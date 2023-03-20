@@ -8,7 +8,7 @@ use Faker\Provider\Uuid;
 class ProductObserver
 {
     /**
-     * Handle the Product "created" event.
+     * Handle the Product "creating" event.
      *
      * @param Product $product
      * @return void
@@ -17,4 +17,6 @@ class ProductObserver
     {
         $product->id = Uuid::uuid();
     }
+
+
 }

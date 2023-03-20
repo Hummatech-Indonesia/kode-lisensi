@@ -30,8 +30,7 @@ class ProductRepository extends BaseRepository implements ProductInterface
     {
         return $this->ProductMockup($this->model->query()
             ->with('category')
-            ->withCount('licenses')
-            ->oldest('licenses_count')
+            ->oldest()
             ->where('status', ProductStatusEnum::PREORDER->value));
     }
 

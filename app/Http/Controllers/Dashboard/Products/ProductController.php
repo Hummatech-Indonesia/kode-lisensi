@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Enums\ProductStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
+use App\Http\Requests\Dashboard\Product\ProductUpdateRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\RedirectResponse;
@@ -52,27 +53,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param ProductStoreRequest $request
-     * @return RedirectResponse
-     */
-    public function store(ProductStoreRequest $request): RedirectResponse
-    {
-        if (!$data = $this->productService->store($request)) {
-            return back()->with('error', trans('alert.file_exist'));
-        }
-
-        $product = $this->product->store($data);
-
-        if ($product->status == ProductStatusEnum::PREORDER->value) {
-            return to_route('preorder-products.index')->with('success', trans('alert.add_success'));
-        }
-
-        return to_route('products.index')->with('success', trans('alert.add_success'));
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param Product $product
@@ -91,18 +71,50 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        return view('dashboard.pages.products.edit', compact('product'));
+        $categories = $this->category->get();
+        return view('dashboard.pages.products.edit', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param ProductUpdateRequest $request
      * @param Product $product
      * @return RedirectResponse
      */
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        return to_route('')->with('success', trans('alert.update_success'));
+        if (!$data = $this->productService->update($product->id, $request)) {
+            return back()->with('error', trans('alert.file_exist'));
+        }
+
+        $this->product->update($product->id, $data);
+
+        if ($product->status == ProductStatusEnum::PREORDER->value) {
+            return to_route('preorder-products.index')->with('success', trans('alert.update_success'));
+        }
+
+        return to_route('products.index')->with('success', trans('alert.update_success'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param ProductStoreRequest $request
+     * @return RedirectResponse
+     */
+    public function store(ProductStoreRequest $request): RedirectResponse
+    {
+        if (!$data = $this->productService->store($request)) {
+            return back()->with('error', trans('alert.file_exist'));
+        }
+
+        $product = $this->product->store($data);
+
+        if ($product->status == ProductStatusEnum::PREORDER->value) {
+            return to_route('preorder-products.index')->with('success', trans('alert.add_success'));
+        }
+
+        return to_route('products.index')->with('success', trans('alert.add_success'));
     }
 }

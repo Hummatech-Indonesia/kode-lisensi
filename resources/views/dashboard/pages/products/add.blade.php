@@ -122,12 +122,29 @@
                         <label class="form-label-title col-sm-3 mb-0">Tipe Lisensi <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
+                            <select class="form-control" name="status">
+                                <option>--Pilih--</option>
+                                <option {{ old('status') == 'stocking' ? 'selected' : '' }} value="stocking">Stock
+                                    Produk
+                                </option>
+                                <option {{ old('status') == 'preorder' ? 'selected' : '' }} value="preorder">Preorder
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">Jenis Lisensi <span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-9">
                             <select class="form-control" name="type">
                                 <option>--Pilih--</option>
-                                <option value="stocking-credential">Stocking - Username & Password</option>
-                                <option value="stocking-serial">Stocking - Serial Key</option>
-                                <option value="preorder-credential">Preorder - Username & Password</option>
-                                <option value="preorder-serial">Preorder - Serial Key</option>
+                                <option {{ old('type') == 'credential' ? 'selected' : '' }} value="credential">Username
+                                    & Password
+                                </option>
+                                <option {{ old('credential') == 'serial' ? 'selected' : '' }} value="serial">Serial
+                                    Key
+                                </option>
                             </select>
                         </div>
                     </div>
