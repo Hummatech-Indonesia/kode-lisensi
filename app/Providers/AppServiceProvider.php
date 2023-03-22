@@ -16,8 +16,6 @@ use App\Contracts\Repositories\Products\ArchiveProductRepository;
 use App\Contracts\Repositories\Products\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\ResellerRepository;
-use App\Helpers\CurrencyHelper;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -46,8 +44,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Blade::directive('currency', function ($expression) {
-            return CurrencyHelper::rupiahCurrency($expression);
-        });
+        //
     }
 }

@@ -84,7 +84,7 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        if (!$data = $this->productService->update($product->id, $request)) {
+        if (!$data = $this->productService->update($product, $request)) {
             return back()->with('error', trans('alert.file_exist'));
         }
 

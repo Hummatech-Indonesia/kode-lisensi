@@ -5,6 +5,13 @@
         @csrf
         @method("PATCH")
         <div class="col-sm-12 m-auto">
+            <div class="mb-4 row align-items-center">
+                <div class="col-sm-2">
+                    <a href="{{ route('products.show', $product) }}" class="btn btn-primary"><i
+                            class="ri-arrow-left-line"></i> Kembali</a>
+                </div>
+            </div>
+
             @if($errors->any())
                 <x-validation-errors :errors="$errors"></x-validation-errors>
             @elseif(session('error'))

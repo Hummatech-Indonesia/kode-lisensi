@@ -11,13 +11,7 @@ use App\Traits\UploadTrait;
 
 class ProductService implements ShouldHandleFileUpload
 {
-    private Product $product;
     use UploadTrait;
-
-    public function __construct(Product $product)
-    {
-        $this->product = $product;
-    }
 
     /**
      * Handle store data event to models.
@@ -59,13 +53,12 @@ class ProductService implements ShouldHandleFileUpload
      * @return array|bool
      */
 
-    public function update(string $id, ProductUpdateRequest $request): array|bool
+    public function update(Product $product, ProductUpdateRequest $request): array|bool
     {
         $data = $request->validated();
-        $old_data = $this->product->query()->findOrFail($id);
 
-        $old_photo = $old_data->photo;
-        $old_attachment = $old_data->attachment_file;
+        $old_photo = $product->photo;
+        $old_attachment = $product->attachment_file;
 
         if ($request->hasFile('attachment_file')) {
             $attachment = $request->file('attachment_file');
