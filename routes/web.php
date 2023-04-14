@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\LicenseController;
 use App\Http\Controllers\Dashboard\Products\ArchiveProductController;
 use App\Http\Controllers\Dashboard\Products\DestroyProductController;
 use App\Http\Controllers\Dashboard\Products\PreorderProductController;
@@ -27,6 +28,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('privacy-policy', function () {
+    return "TEST";
+})->name('terms');
 
 Auth::routes([
     'verify' => true
@@ -61,6 +66,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
 
         Route::resource('preorder-products', PreorderProductController::class)->only('index');
+
+        Route::resource('licenses', LicenseController::class)->except('create');
 
         Route::name('product.')->prefix('product')->group(function () {
             Route::delete('destroy/{product}', [DestroyProductController::class, 'destroy'])->name('destroy');

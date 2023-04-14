@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->text('username')->nullable();
             $table->text('password')->nullable();
             $table->text('serial_key')->nullable();
-            $table->boolean('is_purchased');
+            $table->boolean('is_purchased')->default(0);
             $table->timestamps();
         });
     }

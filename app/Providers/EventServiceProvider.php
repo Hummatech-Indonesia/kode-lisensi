@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\License;
 use App\Models\Product;
+use App\Observers\LicenseObserver;
 use App\Observers\ProductObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Product::observe(ProductObserver::class);
+        License::observe(LicenseObserver::class);
     }
 
     /**

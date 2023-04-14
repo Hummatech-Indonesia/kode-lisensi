@@ -1,73 +1,138 @@
-@extends('layouts.app')
-
+@php use Biscolab\ReCaptcha\Facades\ReCaptcha; @endphp
+@extends('layouts.main')
+@section('captcha')
+    {!! ReCaptcha::htmlScriptTagJsApi() !!}
+@endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>Masuk untuk mengakses halaman dashboard</h2>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- log in section start -->
+    <section class="log-in-section section-b-space">
+        <div class="container-fluid-lg w-100">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
+                    <div class="image-contain">
+                        <img src="../assets/images/inner-page/sign-up.png" class="img-fluid" alt="">
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
+                    <div class="log-in-box">
+                        <div class="log-in-title">
+                            <h3>Masuk ke akun anda</h3>
+                        </div>
+
+                        <div class="input-box">
+                            <form class="row g-4" method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <div class="col-12">
+                                    <div class="form-floating theme-form-floating">
+                                        <input value="{{ old('email') }}" autocomplete="off" type="email" name="email"
+                                               class="form-control @error('email') is-invalid @enderror" id="email"
+                                               placeholder="Email Address" autofocus>
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
+                                        <label for="email">Email Address</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating theme-form-floating">
+                                        <input name="password" type="password"
+                                               class="form-control @error('password') is-invalid @enderror"
+                                               id="password"
+                                               placeholder="Password">
+                                        <label for="password">Password</label>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12 fv-row mb-10">
+                                    {!! htmlFormSnippet() !!}
+                                </div>
+
+                                <div class="forgot-box mt-3">
+                                    @error('g-recaptcha-response')
+                                    <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="forgot-box">
+                                        <div class="form-check ps-0 m-0 remember-box">
+                                            <input name="checkbox-term"
+                                                   class="checkbox_animated check-box @error('checkbox-term') is-invalid @enderror"
+                                                   type="checkbox"
+                                                   id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Saya Menyetujui
+                                                <a href="{{ route('terms') }}">
+                                                    <span>Syarat Dan Ketentuan</span>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="forgot-box mt-3">
+                                        @error('checkbox-term')
+                                        <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="forgot-box">
+
+                                        <a href="{{ route('password.request') }}" class="forgot-password">Lupa
+                                            Password?</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <button class="btn btn-animation w-100" type="submit">Masuk</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="other-log-in">
+                            <h6>Belum Punya Akun?</h6>
+                        </div>
+
+                        <div class="sign-up-box">
+                            <a href="{{ route('register') }}">Daftar Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-7 col-xl-6 col-lg-6"></div>
+            </div>
+        </div>
+    </section>
+
 @endsection
+
+<!-- mobile fix menu start -->

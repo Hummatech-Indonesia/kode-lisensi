@@ -1,9 +1,21 @@
-@php use App\Helpers\CurrencyHelper; @endphp
+@php use App\Enums\ProductStatusEnum;
+use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
 @extends('dashboard.layouts.app')
+@section('css')
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
+@endsection
 @section('content')
 
     <div class="card">
         <div class="card-body">
+            <div class="col-sm-6 mb-3">
+                @if (session('success'))
+                    <x-alert-success></x-alert-success>
+                @elseif(session('error'))
+                    <x-alert-failed></x-alert-failed>
+
+                @endif
+            </div>
             <div class="title-header option-title">
                 <h5>Produk: {{ $product->name }}</h5>
                 <a class="btn btn-warning" href="{{ route('products.edit', $product) }}">Edit</a>
@@ -17,6 +29,11 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-profile" type="button">Lisensi
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
+                            type="button">Panduan
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -85,16 +102,6 @@
                                                     id="reseller_label">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="col">Buku Panduan</th>
-                                            <td>
-                                                <a style="width: 30%" target="_blank" class="btn btn-danger"
-                                                   href="{{ asset('storage/' . $product->attachment_file) }}"> Lihat
-                                                    File
-                                                </a>
-                                            </td>
-                                        </tr>
-
                                         </thead>
                                     </table>
                                 </div>
@@ -106,85 +113,89 @@
                 </div>
 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel">
-                    <form class="theme-form theme-form-2 mega-form">
-                        <div class="card-header-1">
-                            <h5>Restriction</h5>
-                        </div>
+                    <div class="card-header-1">
+                    </div>
 
-                        <div class="row">
-                            <div class="mb-4 row align-items-center">
-                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Products</label>
-                                <div class="col-md-9 col-lg-10">
-                                    <input class="form-control" type="text">
-                                </div>
+                    <div class="row">
+                        @if(ProductStatusEnum::AVAILABLE->value == $product->status)
+                            <div class="mb-4 row d-flex flex-row justify-content-end">
+                                <a data-bs-toggle="modal" data-bs-target="#addLicensesModal" style="width: 20%"
+                                   class="btn btn-primary">Tambah Lisensi</a>
                             </div>
-
-                            <div class="mb-4 row align-items-center">
-                                <label class="col-sm-2 col-form-label form-label-title">Category</label>
-                                <div class="col-sm-10">
-                                    <select class="js-example-basic-single select2-hidden-accessible" name="state"
-                                            data-select2-id="select2-data-4-ug6b" tabindex="-1" aria-hidden="true">
-                                        <option disabled="">--Select--</option>
-                                        <option data-select2-id="select2-data-6-j89i">Electronics</option>
-                                        <option>Clothes</option>
-                                        <option>Shoes</option>
-                                        <option>Digital</option>
-                                    </select><span class="select2 select2-container select2-container--default"
-                                                   dir="ltr" data-select2-id="select2-data-5-7qcw" style="width: auto;"><span
-                                            class="selection"><span class="select2-selection select2-selection--single"
-                                                                    role="combobox" aria-haspopup="true"
-                                                                    aria-expanded="false" tabindex="0"
-                                                                    aria-disabled="false"
-                                                                    aria-labelledby="select2-state-nm-container"
-                                                                    aria-controls="select2-state-nm-container"><span
-                                                    class="select2-selection__rendered" id="select2-state-nm-container"
-                                                    role="textbox" aria-readonly="true"
-                                                    title="Electronics">Electronics</span><span
-                                                    class="select2-selection__arrow" role="presentation"><b
-                                                        role="presentation"></b></span></span></span><span
-                                            class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                </div>
+                        @else
+                            <div class="mb-4 row d-flex flex-row justify-content-end">
+                                <a style="width: 40%" class="btn btn-primary">Fitur Lisensi hanya tersedia pada jenis
+                                    produk stocking</a>
                             </div>
+                        @endif
 
-                            <div class="mb-4 row align-items-center">
-                                <label class="col-lg-2 col-md-3 col-form-label form-label-title">Minimum
-                                    Spend</label>
-                                <div class="col-md-9 col-lg-10">
-                                    <input class="form-control" type="number">
-                                </div>
-                            </div>
-
-                            <div class="row align-items-center">
-                                <label class="col-lg-2 col-md-3 col-form-label form-label-title">Maximum
-                                    Spend</label>
-                                <div class="col-md-9 col-lg-10">
-                                    <input class="form-control" type="number">
-                                </div>
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-lg-2 col-md-3 mb-0">Tipe</label>
+                            <div class="col-md-9 col-lg-10">
+                                <h5>{{ $product->type }}</h5>
                             </div>
                         </div>
-                    </form>
+
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-lg-2 col-md-3 mb-0">Jenis</label>
+                            <div class="col-md-9 col-lg-10">
+                                <h5>{{ $product->status }}</h5>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-12 mb-3">
+                            <button id="btnUpdateData" class="btn btn-sm btn-danger">Update Data</button>
+                        </div>
+                        <div class="table-responsive table-product">
+                            <table class="table theme-table" id="table_id" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    @if($product->type == ProductTypeEnum::CREDENTIAL->value)
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                    @else
+                                        <th>Serial Key</th>
+                                    @endif
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="tab-pane fade" id="pills-usage" role="tabpanel">
                     <form class="theme-form theme-form-2 mega-form">
-                        <div class="card-header-1">
-                            <h5>Usage Limits</h5>
-                        </div>
+                        <div class="card-header-1"></div>
 
                         <div class="row">
                             <div class="mb-4 row align-items-center">
-                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Per
-                                    Limited</label>
+                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Deskripsi</label>
                                 <div class="col-md-9 col-lg-10">
-                                    <input class="form-control" type="number">
+                                    <textarea readonly id="description" cols="30"
+                                              rows="10">{!! $product->description !!}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 row align-items-center">
+                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Instalasi</label>
+                                <div class="col-md-9 col-lg-10">
+                                   <textarea readonly id="installation" cols="30"
+                                             rows="10">{!! $product->installation !!}</textarea>
                                 </div>
                             </div>
 
                             <div class="row align-items-center">
-                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Per
-                                    Customer</label>
+                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Buku Panduan</label>
                                 <div class="col-md-9 col-lg-10">
-                                    <input class="form-control" type="number">
+                                    <a style="width: 20%;" target="_blank"
+                                       href="{{ asset('storage/' . $product->attachment_file) }}"
+                                       class="btn btn-danger">Lihat File</a>
                                 </div>
                             </div>
                         </div>
@@ -192,15 +203,138 @@
                 </div>
             </div>
         </div>
+        <x-add-licenses-modal></x-add-licenses-modal>
+        <x-delete-modal></x-delete-modal>
     </div>
-
 @endsection
+
 @section('script')
+
+    <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(() => {
+            let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            CKEDITOR.replace('description');
+            CKEDITOR.replace('installation');
 
-            CKEDITOR.replace('editor');
+            const id = `{{ $product->id }}`
+            const type = `{{ $product->type }}`
+            const status = `{{ $product->status }}`
+
+            let username = null
+            let password = null
+            let serialKey = null
+            let table = null
+            let columns = null
+
+            if (type === 'serial') {
+                $('#divUsername').css('display', 'none');
+                $('#divPassword').css('display', 'none');
+
+                columns = [
+                    {
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'serial_key',
+                        name: 'serial_key'
+                    },
+                    {
+                        data: 'is_purchased',
+                        name: 'is_purchased'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            } else {
+                $('#divSerial').css('display', 'none');
+                columns = [
+                    {
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'username',
+                        name: 'username'
+                    },
+                    {
+                        data: 'password',
+                        name: 'password'
+                    },
+                    {
+                        data: 'is_purchased',
+                        name: 'is_purchased'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            }
+
+            if (status === 'stocking') {
+                table = $("#table_id").DataTable({
+                    scrollX: false,
+                    scrollY: '500px',
+                    paging: true,
+                    ordering: true,
+                    responsive: true,
+                    pageLength: 25,
+                    processing: true,
+                    serverSide: true,
+                    searching: true,
+                    ajax: "{{ route('licenses.index') }}",
+                    columns: columns
+                });
+            }
+
+            $('#addLicenses').on('submit', function (e) {
+                e.preventDefault();
+                password = $('#addPassword').val()
+                serialKey = $('#addSerial_key').val()
+                username = $('#addUsername').val()
+
+                console.log(password, serialKey, username)
+
+                $.ajax({
+                    url: "{{ route('licenses.store') }}",
+                    method: 'post',
+                    data: {
+                        _token: CSRF_TOKEN,
+                        id: id,
+                        username: username,
+                        password: password,
+                        serial_key: serialKey
+                    },
+                    success: (data) => {
+                        swal({
+                            title: "Berhasil",
+                            text: data.meta.message,
+                            icon: data.meta.status,
+                        })
+                        table.ajax.reload();
+                        $('#addLicensesModal').modal('hide')
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            });
+
+            $('#btnUpdateData').on('click', () => {
+                alert('test')
+            })
 
         });
+
     </script>
 @endsection

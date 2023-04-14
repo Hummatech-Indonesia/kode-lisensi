@@ -90,11 +90,8 @@ class ProductController extends Controller
 
         $this->product->update($product->id, $data);
 
-        if ($product->status == ProductStatusEnum::PREORDER->value) {
-            return to_route('preorder-products.index')->with('success', trans('alert.update_success'));
-        }
+        return to_route('products.show', $product->id)->with('success', trans('alert.update_success'));
 
-        return to_route('products.index')->with('success', trans('alert.update_success'));
     }
 
     /**
