@@ -9,6 +9,7 @@ use App\Services\Auth\LoginService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class LoginController extends Controller
 {
@@ -43,6 +44,18 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->loginService = $loginService;
     }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return View
+     */
+    public function showLoginForm(): View
+    {
+        $title = trans('title.login');
+        return view('auth.login', compact('title'));
+    }
+
 
     /**
      * Handle a login request to the application.

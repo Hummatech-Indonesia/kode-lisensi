@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\LicenseInterface;
 use App\Contracts\Interfaces\Products\ArchiveProductInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\ProfileInterface;
+use App\Contracts\Interfaces\RegisterInterface;
 use App\Contracts\Interfaces\ResellerInterface;
 use App\Contracts\Repositories\CategoryRepository;
 use App\Contracts\Repositories\ChangePasswordRepository;
@@ -17,6 +18,7 @@ use App\Contracts\Repositories\LicenseRepository;
 use App\Contracts\Repositories\Products\ArchiveProductRepository;
 use App\Contracts\Repositories\Products\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
+use App\Contracts\Repositories\RegisterRepository;
 use App\Contracts\Repositories\ResellerRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,7 +32,8 @@ class AppServiceProvider extends ServiceProvider
         ResellerInterface::class => ResellerRepository::class,
         ProductInterface::class => ProductRepository::class,
         ArchiveProductInterface::class => ArchiveProductRepository::class,
-        LicenseInterface::class => LicenseRepository::class
+        LicenseInterface::class => LicenseRepository::class,
+        RegisterInterface::class => RegisterRepository::class
     ];
 
     /**

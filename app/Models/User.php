@@ -4,10 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Base\Interfaces\HasTransactions;
+use App\Notifications\RegistrationNotification;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+    use SoftDeletes;
 
     public $incrementing = false;
     public $keyType = 'char';
@@ -34,8 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
         'email',
         'photo',
         'phone_number',
-        'password',
-        'balance',
+        'password'
     ];
 
     /**
@@ -65,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
 
     public function sendEmailVerificationNotification(): void
     {
-        //$this->notify(new RegistrationNotification);
+        $this->notify(new RegistrationNotification);
     }
 
     /**
@@ -78,7 +81,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
 
     public function sendPasswordResetNotification($token): void
     {
-        //$this->notify(new ResetPasswordNotification($token));
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     /**

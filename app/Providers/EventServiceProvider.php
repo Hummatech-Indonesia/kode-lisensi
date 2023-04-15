@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\License;
 use App\Models\Product;
+use App\Models\User;
 use App\Observers\LicenseObserver;
 use App\Observers\ProductObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -32,6 +34,8 @@ class EventServiceProvider extends ServiceProvider
     {
         Product::observe(ProductObserver::class);
         License::observe(LicenseObserver::class);
+        User::observe(UserObserver::class);
+
     }
 
     /**
@@ -39,7 +43,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return bool
      */
-    public function shouldDiscoverEvents()
+    public function shouldDiscoverEvents(): bool
     {
         return false;
     }

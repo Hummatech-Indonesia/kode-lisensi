@@ -21,8 +21,6 @@ return [
     'invalid_api_token' => 'Api token tidak valid',
     'logout_success' => 'Berhasil logout',
     'logout_error' => 'Terjadi kesalahan! gagal logout, coba lagi nanti',
-    'user_not_teacher' => 'Pengguna tidak terdaftar sebagai guru',
-    'user_not_school' => 'Pengguna tidak terdaftar sebagai sekolah',
     'register_success' => 'Registrasi berhasil! Silahkan cek email anda untuk verifikasi akun',
     'user_registered_with_google' => 'Email yang anda masukkan terdaftar di akun google'
 

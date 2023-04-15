@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\Products\PreorderProductController;
 use App\Http\Controllers\Dashboard\Products\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +26,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::fallback(function () {
+    return view('errors.404');
 });
 
 Route::get('privacy-policy', function () {
@@ -36,6 +37,21 @@ Route::get('privacy-policy', function () {
 Auth::routes([
     'verify' => true
 ]);
+
+Route::name('home.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+//    Route::get('faq', [HelpController::class, 'index'])->name('faq');
+//    Route::name('pricing.')->prefix('pricing')->group(function () {
+//        Route::get('school', [PricingController::class, 'school'])->name('school');
+//        Route::get('teacher', [PricingController::class, 'teacher'])->name('teacher');
+//    });
+//    Route::get('contact', [ContactController::class, 'index'])->name('contact');
+//    Route::get('terms', [TermController::class, 'index'])->name('term');
+//    Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
+//    Route::prefix('news')->group(function () {
+//        Route::get('/', [NewsController::class, 'index'])->name('news');
+//    });
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->group(function () {

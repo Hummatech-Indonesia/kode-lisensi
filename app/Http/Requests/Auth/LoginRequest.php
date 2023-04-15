@@ -16,8 +16,7 @@ class LoginRequest extends BaseRequest
         return [
             'email' => 'required|email',
             'password' => 'required',
-            'g-recaptcha-response' => 'required',
-            'checkbox-term' => 'required'
+            'g-recaptcha-response' => 'required'
         ];
     }
 
@@ -33,8 +32,7 @@ class LoginRequest extends BaseRequest
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Email harus valid',
             'password.required' => 'Password tidak boleh kosong',
-            'g-recaptcha-response.required' => 'Captcha tidak boleh kosong',
-            'checkbox-term.required' => 'Syarat dan Ketentuan tidak boleh kosong'
+            'g-recaptcha-response.required' => 'Captcha tidak boleh kosong'
         ];
     }
 }

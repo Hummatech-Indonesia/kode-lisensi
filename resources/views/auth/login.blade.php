@@ -5,27 +5,13 @@
 @endsection
 @section('content')
 
-    <!-- Breadcrumb Section Start -->
-    <section class="breadscrumb-section pt-0">
-        <div class="container-fluid-lg">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadscrumb-contain">
-                        <h2>Masuk untuk mengakses halaman dashboard</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-
     <!-- log in section start -->
     <section class="log-in-section section-b-space">
         <div class="container-fluid-lg w-100">
             <div class="row">
                 <div class="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
                     <div class="image-contain">
-                        <img src="../assets/images/inner-page/sign-up.png" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/images/inner-page/log-in.png') }}" class="img-fluid" alt="">
                     </div>
                 </div>
 
@@ -77,31 +63,6 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                     @enderror
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="forgot-box">
-                                        <div class="form-check ps-0 m-0 remember-box">
-                                            <input name="checkbox-term"
-                                                   class="checkbox_animated check-box @error('checkbox-term') is-invalid @enderror"
-                                                   type="checkbox"
-                                                   id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Saya Menyetujui
-                                                <a href="{{ route('terms') }}">
-                                                    <span>Syarat Dan Ketentuan</span>
-                                                </a>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="forgot-box mt-3">
-                                        @error('checkbox-term')
-                                        <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
                                 </div>
 
                                 <div class="col-12">
