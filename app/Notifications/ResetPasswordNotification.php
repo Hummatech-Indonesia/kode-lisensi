@@ -2,60 +2,40 @@
 
 namespace App\Notifications;
 
+use App\Mail\ForgotPasswordMail;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Mail;
 
-class ResetPasswordNotification extends Notification
+class ResetPasswordNotification extends ResetPassword implements ShouldQueue
 {
     use Queueable;
+
+    public $token;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
-        //
+        $this->token = $token;
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Build the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
-     * @return array
+     * @param mixed $notifiable
+     *
+     * @return mixed
      */
-    public function via($notifiable)
-    {
-        return ['mail'];
-    }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toMail($notifiable): mixed
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+        $resetUrl = $this->resetUrl($notifiable);
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
+        return Mail::to($notifiable)->queue(new ForgotPasswordMail($notifiable, $resetUrl));
     }
 }

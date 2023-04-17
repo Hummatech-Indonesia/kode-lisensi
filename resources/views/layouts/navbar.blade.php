@@ -66,14 +66,32 @@
 
                                 <div class="onhover-div onhover-div-login">
                                     <ul class="user-box-name">
-                                        <li class="product-box-contain">
-                                            <i></i>
-                                            <a href="{{ route('login') }}">Masuk</a>
-                                        </li>
+                                        @guest
+                                            <li class="product-box-contain">
+                                                <i></i>
+                                                <a href="{{ route('login') }}">Masuk</a>
+                                            </li>
 
-                                        <li class="product-box-contain">
-                                            <a href="{{ route('register') }}">Daftar</a>
-                                        </li>
+                                            <li class="product-box-contain">
+                                                <a href="{{ route('register') }}">Daftar</a>
+                                            </li>
+                                        @else
+                                            <li class="product-box-contain">
+                                                <a href="{{ route('dashboard.index') }}">Dashboard</a>
+                                            </li>
+
+                                            <li class="product-box-contain">
+                                                <a href="{{ route('logout') }}"
+                                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                                </a>
+                                            </li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                  class="d-none">
+                                                @csrf
+                                            </form>
+                                        @endguest
                                     </ul>
                                 </div>
                             </li>
