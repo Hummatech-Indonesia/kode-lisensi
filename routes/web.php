@@ -67,7 +67,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('configuration')->group(function () {
 
-            Route::resource('site-setting', SiteSettingController::class)->only('index', 'update');
+            Route::resource('faqs', HelpController::class);
+
+            Route::resources([
+                'site-setting' => SiteSettingController::class,
+                'terms' => TermController::class,
+                'privacy' => PrivacyController::class
+            ], ['only' => ['index', 'update']]);
+
         });
 
         Route::resource('categories', CategoryController::class)->except('show');

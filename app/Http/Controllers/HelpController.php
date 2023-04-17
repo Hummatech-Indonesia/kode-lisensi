@@ -2,83 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Contracts\Interfaces\HelpInterface;
+use App\Http\Requests\Dashboard\HelpRequest;
+use App\Models\Help;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class HelpController extends Controller
 {
+    private HelpInterface $help;
+
+    public function __construct(HelpInterface $help)
+    {
+        $this->help = $help;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+
+    public function index(): View
     {
-        //
+        $helps = $this->help->get();
+
+        return view('dashboard.pages.faqs.index', compact('helps'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+
+    public function create(): View
     {
-        //
+        return view('dashboard.pages.faqs.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param HelpRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(HelpRequest $request): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $this->help->store($request->validated());
+        return to_route('faqs.index')->with('success', trans('alert.add_success'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Help $faq
+     * @return View
      */
-    public function edit($id)
+
+    public function edit(Help $faq): View
     {
-        //
+        return view('dashboard.pages.faqs.edit', compact('faq'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param HelpRequest $request
+     * @param Help $faq
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(HelpRequest $request, Help $faq): RedirectResponse
     {
-        //
+        $this->help->update($faq->id, $request->validated());
+        return to_route('faqs.index')->with('success', trans('alert.update_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Help $faq
+     * @return RedirectResponse
      */
-    public function destroy($id)
+
+    public function destroy(Help $faq): RedirectResponse
     {
-        //
+        $this->help->delete($faq->id);
+        return to_route('faqs.index')->with('success', trans('alert.delete_success'));
     }
 }

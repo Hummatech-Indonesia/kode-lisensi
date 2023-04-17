@@ -2,6 +2,9 @@
 @section('content')
     <div class="col-12">
         <div class="row">
+            @if ($errors->any())
+                <x-validation-errors :errors="$errors"></x-validation-errors>
+            @endif
             <div class="col-sm-8 m-auto">
                 <div class="card">
                     <div class="card-body">
@@ -9,19 +12,19 @@
                             <h5>Tambah Kategori</h5>
                         </div>
 
-                        @if($errors->any())
+                        @if ($errors->any())
                             <x-validation-errors :errors="$errors"></x-validation-errors>
                         @endif
 
                         <form enctype="multipart/form-data" action="{{ route('categories.store') }}"
-                              class="theme-form theme-form-2 mega-form" method="POST">
+                            class="theme-form theme-form-2 mega-form" method="POST">
                             @csrf
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">Nama Kategori <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
                                     <input name="name" autocomplete="off" class="form-control" type="text"
-                                           placeholder="Nama Kategori">
+                                        placeholder="Nama Kategori">
                                 </div>
                             </div>
 
@@ -35,7 +38,8 @@
                             <div class="mb-4 row align-items-center">
                                 <div class="col-sm-6">
 
-                                    <button class="btn btn-primary" type="submit"><i class="ri-add-line ri-1x me-2"></i>Tambah
+                                    <button class="btn btn-primary" type="submit"><i
+                                            class="ri-add-line ri-1x me-2"></i>Tambah
                                         Data
                                     </button>
                                 </div>
