@@ -91,8 +91,7 @@
             <li>
                 <a href="{{ route('site-setting.index') }}">Pengaturan Website</a>
                 <a href="{{ route('faqs.index') }}">FAQ</a>
-                <a href="{{ route('terms.index') }}">Terms</a>
-                <a href="{{ route('privacy.index') }}">Privacy Policy</a>
+                <a href="{{ route('terms.index') }}">Terms and Policy</a>
             </li>
         </ul>
     </li>

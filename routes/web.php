@@ -38,10 +38,6 @@ Route::fallback(function () {
     return view('errors.404');
 });
 
-Route::get('privacy-policy', function () {
-    return "TEST";
-})->name('terms');
-
 Auth::routes([
     'verify' => true
 ]);
@@ -51,7 +47,7 @@ Route::name('home.')->group(function () {
     Route::get('about', [AboutController::class, 'index'])->name('about');
     Route::get('faq', [HelpController::class, 'index'])->name('faq');
     Route::get('contact', [ContactController::class, 'index'])->name('contact');
-    Route::get('terms', [TermController::class, 'index'])->name('term');
+    Route::get('term-and-condition', [TermController::class, 'index'])->name('term-and-condition');
     Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
     Route::resources([
         'products' => ProductController::class,
@@ -71,8 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::resources([
                 'site-setting' => SiteSettingController::class,
-                'terms' => TermController::class,
-                'privacy' => PrivacyController::class
+                'terms' => TermController::class
             ], ['only' => ['index', 'update']]);
 
         });
