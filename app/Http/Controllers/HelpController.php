@@ -90,4 +90,16 @@ class HelpController extends Controller
         $this->help->delete($faq->id);
         return to_route('faqs.index')->with('success', trans('alert.delete_success'));
     }
+
+    /**
+     * Render faq in Homepage
+     *
+     * @return View
+     */
+
+    public function homepage(): View
+    {
+        $helps = $this->help->get();
+        return view('pages.faq', compact('helps'));
+    }
 }

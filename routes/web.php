@@ -45,9 +45,9 @@ Auth::routes([
 Route::name('home.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('about', [AboutController::class, 'index'])->name('about');
-    Route::get('faq', [HelpController::class, 'index'])->name('faq');
+    Route::get('frequently-asked-question', [HelpController::class, 'homepage'])->name('faq');
     Route::get('contact', [ContactController::class, 'index'])->name('contact');
-    Route::get('term-and-condition', [TermController::class, 'index'])->name('term-and-condition');
+    Route::get('term-and-condition', [TermController::class, 'index'])->name('term');
     Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
     Route::resources([
         'products' => ProductController::class,
