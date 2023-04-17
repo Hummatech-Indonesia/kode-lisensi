@@ -1,4 +1,6 @@
 <ul class="sidebar-links" id="simple-bar">
+    @role('admin')
+
     <li class="back-btn"></li>
 
     <li class="sidebar-list">
@@ -83,12 +85,14 @@
     <li class="sidebar-list">
         <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
             <i class="ri-settings-line"></i>
-            <span>Settings</span>
+            <span>Konfigurasi</span>
         </a>
         <ul class="sidebar-submenu">
             <li>
-                <a href="profile-setting.html">Profile Setting</a>
+                <a href="{{ route('site-setting.index') }}">Pengaturan Website</a>
             </li>
         </ul>
     </li>
+    @endrole
 </ul>
+

@@ -11,6 +11,7 @@ use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RegisterInterface;
 use App\Contracts\Interfaces\ResellerInterface;
+use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Repositories\CategoryRepository;
 use App\Contracts\Repositories\ChangePasswordRepository;
 use App\Contracts\Repositories\CustomerRepository;
@@ -20,6 +21,9 @@ use App\Contracts\Repositories\Products\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\RegisterRepository;
 use App\Contracts\Repositories\ResellerRepository;
+use App\Contracts\Repositories\SiteSettingRepository;
+use App\Helpers\SiteSettingHelper;
+use App\Models\SiteSetting;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,7 +37,8 @@ class AppServiceProvider extends ServiceProvider
         ProductInterface::class => ProductRepository::class,
         ArchiveProductInterface::class => ArchiveProductRepository::class,
         LicenseInterface::class => LicenseRepository::class,
-        RegisterInterface::class => RegisterRepository::class
+        RegisterInterface::class => RegisterRepository::class,
+        SiteSettingInterface::class => SiteSettingRepository::class
     ];
 
     /**
@@ -53,6 +58,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        view()->composer('*', function ($view) {
+            $view->with('site', SiteSetting::query()->first());
+        });
     }
 }

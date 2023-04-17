@@ -9,33 +9,8 @@
                         </a>
                     </div>
 
-                    <div class="footer-logo-contain">
-                        <p>We are a friendly bar serving a variety of cocktails, wines and beers. Our bar is a
-                            perfect place for a couple.</p>
-
-                        <ul class="address">
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                     viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-home">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                </svg>
-                                <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
-                            </li>
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                     viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-mail">
-                                    <path
-                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                                <a href="javascript:void(0)">support@fastkart.com</a>
-                            </li>
-                        </ul>
+                    <div class="footer-logo-contain mt-5">
+                        <p>{{ $site->description }}</p>
                     </div>
                 </div>
             </div>
@@ -71,25 +46,25 @@
 
             <div class="col-xl col-lg-2 col-sm-3">
                 <div class="footer-title">
-                    <h4>Useful Links</h4>
+                    <h4>Menu Website</h4>
                 </div>
 
                 <div class="footer-contain">
                     <ul>
                         <li>
-                            <a href="index.html" class="text-content">Home</a>
+                            <a href="{{ route('home.index') }}" class="text-content">Beranda</a>
                         </li>
                         <li>
-                            <a href="shop-left-sidebar.html" class="text-content">Shop</a>
+                            <a href="{{ route('home.products.index') }}" class="text-content">Produk</a>
                         </li>
                         <li>
-                            <a href="about-us.html" class="text-content">About Us</a>
+                            <a href="{{ route('home.about') }}" class="text-content">Tentang Kami</a>
                         </li>
                         <li>
-                            <a href="blog-list.html" class="text-content">Blog</a>
+                            <a href="{{ route('home.articles.index') }}" class="text-content">Artikel</a>
                         </li>
                         <li>
-                            <a href="contact-us.html" class="text-content">Contact Us</a>
+                            <a href="{{ route('home.contact') }}" class="text-content">Hubungi Kami</a>
                         </li>
                     </ul>
                 </div>
@@ -97,28 +72,19 @@
 
             <div class="col-xl-2 col-sm-3">
                 <div class="footer-title">
-                    <h4>Help Center</h4>
+                    <h4>Pusat Bantuan</h4>
                 </div>
 
                 <div class="footer-contain">
                     <ul>
                         <li>
-                            <a href="order-success.html" class="text-content">Your Order</a>
+                            <a href="{{ route('home.faq') }}" class="text-content">FAQ</a>
                         </li>
                         <li>
-                            <a href="user-dashboard.html" class="text-content">Your Account</a>
+                            <a href="{{ route('home.term') }}" class="text-content">Syarat dan Ketentuan</a>
                         </li>
                         <li>
-                            <a href="order-tracking.html" class="text-content">Track Order</a>
-                        </li>
-                        <li>
-                            <a href="wishlist.html" class="text-content">Your Wishlist</a>
-                        </li>
-                        <li>
-                            <a href="search.html" class="text-content">Search</a>
-                        </li>
-                        <li>
-                            <a href="faq.html" class="text-content">FAQ</a>
+                            <a href="{{ route('home.privacy') }}" class="text-content">Kebijakan Penggunaan</a>
                         </li>
                     </ul>
                 </div>
@@ -126,7 +92,7 @@
 
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="footer-title">
-                    <h4>Contact Us</h4>
+                    <h4>Hubungi Kami</h4>
                 </div>
 
                 <div class="footer-contact">
@@ -142,7 +108,7 @@
                                 </svg>
                                 <div class="contact-number">
                                     <h6 class="text-content">Hotline 24/7 :</h6>
-                                    <h5>+91 888 104 2340</h5>
+                                    <h5>{{ $site->phone_number }}</h5>
                                 </div>
                             </div>
                         </li>
@@ -159,29 +125,9 @@
                                 </svg>
                                 <div class="contact-number">
                                     <h6 class="text-content">Email Address :</h6>
-                                    <h5>fastkart@hotmail.com</h5>
+                                    <h5>{{ $site->email }}</h5>
                                 </div>
                             </div>
-                        </li>
-
-                        <li class="social-app">
-                            <h5 class="mb-2 text-content">Download App :</h5>
-                            <ul>
-                                <li class="mb-0">
-                                    <a href="https://play.google.com/store/apps" target="_blank">
-                                        <img
-                                            src="https://themes.pixelstrap.com/fastkart/assets/images/playstore.svg"
-                                            class="blur-up lazyloaded" alt="">
-                                    </a>
-                                </li>
-                                <li class="mb-0">
-                                    <a href="https://www.apple.com/in/app-store/" target="_blank">
-                                        <img
-                                            src="https://themes.pixelstrap.com/fastkart/assets/images/appstore.svg"
-                                            class="blur-up lazyloaded" alt="">
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -191,34 +137,30 @@
 
     <div class="sub-footer section-small-space">
         <div class="reserve">
-            <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
-        </div>
-
-        <div class="payment">
-            <img src="../assets/images/payment/1.png" class="blur-up lazyloaded" alt="">
+            <h6 class="text-content">{{ date('Y') }} {{ config('app.name') }} All rights reserved</h6>
         </div>
 
         <div class="social-link">
-            <h6 class="text-content">Stay connected :</h6>
+            <h6 class="text-content">Sosial Media Kami :</h6>
             <ul>
                 <li>
-                    <a href="https://www.facebook.com/" target="_blank">
+                    <a href="{{ $site->facebook }}" target="_blank">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://twitter.com/" target="_blank">
+                    <a href="{{ $site->twitter }}" target="_blank">
                         <i class="fa-brands fa-twitter"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.instagram.com/" target="_blank">
+                    <a href="{{ $site->instagram }}" target="_blank">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://in.pinterest.com/" target="_blank">
-                        <i class="fa-brands fa-pinterest-p"></i>
+                    <a href="{{ $site->youtube }}" target="_blank">
+                        <i class="fa-brands fa-youtube"></i>
                     </a>
                 </li>
             </ul>

@@ -129,20 +129,6 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                             </div>
                         @endif
 
-                        <div class="mb-4 row align-items-center">
-                            <label class="form-label-title col-lg-2 col-md-3 mb-0">Tipe</label>
-                            <div class="col-md-9 col-lg-10">
-                                <h5>{{ $product->type }}</h5>
-                            </div>
-                        </div>
-
-                        <div class="mb-4 row align-items-center">
-                            <label class="form-label-title col-lg-2 col-md-3 mb-0">Jenis</label>
-                            <div class="col-md-9 col-lg-10">
-                                <h5>{{ $product->status }}</h5>
-                            </div>
-                        </div>
-
                         <div class="col-12 col-md-12 mb-3">
                             <button id="btnUpdateData" class="btn btn-sm btn-danger">Update Data</button>
                         </div>

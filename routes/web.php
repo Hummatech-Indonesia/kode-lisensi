@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
+use App\Http\Controllers\Dashboard\ConfigurationController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LicenseController;
@@ -11,7 +15,11 @@ use App\Http\Controllers\Dashboard\Products\PreorderProductController;
 use App\Http\Controllers\Dashboard\Products\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
+use App\Http\Controllers\Dashboard\SiteSettingController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TermController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,23 +48,26 @@ Auth::routes([
 
 Route::name('home.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
-//    Route::get('faq', [HelpController::class, 'index'])->name('faq');
-//    Route::name('pricing.')->prefix('pricing')->group(function () {
-//        Route::get('school', [PricingController::class, 'school'])->name('school');
-//        Route::get('teacher', [PricingController::class, 'teacher'])->name('teacher');
-//    });
-//    Route::get('contact', [ContactController::class, 'index'])->name('contact');
-//    Route::get('terms', [TermController::class, 'index'])->name('term');
-//    Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
-//    Route::prefix('news')->group(function () {
-//        Route::get('/', [NewsController::class, 'index'])->name('news');
-//    });
+    Route::get('about', [AboutController::class, 'index'])->name('about');
+    Route::get('faq', [HelpController::class, 'index'])->name('faq');
+    Route::get('contact', [ContactController::class, 'index'])->name('contact');
+    Route::get('terms', [TermController::class, 'index'])->name('term');
+    Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
+    Route::resources([
+        'products' => ProductController::class,
+        'articles' => ArticleController::class
+    ]);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::name('dashboard.')->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
+        });
+
+        Route::prefix('configuration')->group(function () {
+
+            Route::resource('site-setting', SiteSettingController::class)->only('index', 'update');
         });
 
         Route::resource('categories', CategoryController::class)->except('show');

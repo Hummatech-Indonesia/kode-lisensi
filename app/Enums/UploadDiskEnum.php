@@ -8,4 +8,5 @@ enum UploadDiskEnum: string
     case CATEGORIES = 'categories';
     case PROFILES = 'profiles';
     case PRODUCT_ATTACHMENTS = 'product_attachments';
+    case SITE_SETTING = 'site_setting';
 }

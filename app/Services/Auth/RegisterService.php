@@ -8,9 +8,6 @@ use Illuminate\Auth\Events\Registered;
 
 class RegisterService
 {
-    public function __construct()
-    {
-    }
 
     /**
      * Handle school registration form

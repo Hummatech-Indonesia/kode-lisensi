@@ -136,7 +136,7 @@
                                                    id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Saya Menyetujui
-                                                <a href="{{ route('terms') }}">
+                                                <a href="{{ route('home.term') }}">
                                                     <span>Syarat Dan Ketentuan</span>
                                                 </a>
                                             </label>
