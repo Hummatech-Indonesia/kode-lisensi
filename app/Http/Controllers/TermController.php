@@ -6,7 +6,6 @@ use App\Contracts\Interfaces\TermInterface;
 use App\Http\Requests\Dashboard\TermRequest;
 use App\Models\TermPrivacy;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class TermController extends Controller
@@ -34,14 +33,24 @@ class TermController extends Controller
      *
      * @param TermRequest $request
      * @param TermPrivacy $term
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(TermRequest $request, TermPrivacy $term): RedirectResponse
     {
         $this->term->update($term->id, $request->validated());
-
         return back()->with('success', trans('alert.update_success'));
+    }
 
+    /**
+     * Render term in Homepage
+     *
+     * @return View
+     */
+
+    public function homepage(): View
+    {
+        $term = $this->term->get();
+        return view('pages.term', compact('term'));
     }
 
 }

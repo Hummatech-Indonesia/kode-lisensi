@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="breadscrumb-contain">
                         <h2>Frequently Asked Question</h2>
-                        <p>Beberapa pertanyaan umum penggunaan aplikasi {{ config('app.name') }}.</p>
+                        <p>Beberapa pertanyaan umum penggunaan website {{ config('app.name') }}.</p>
                     </div>
                 </div>
             </div>
@@ -39,8 +39,6 @@
                                     </div>
                                 </div>
                             @endforeach
-
-
                         </div>
                     </div>
                 </div>
