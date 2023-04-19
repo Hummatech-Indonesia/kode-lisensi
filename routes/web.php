@@ -96,7 +96,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('preorder-products', PreorderProductController::class)->only('index');
 
-        Route::resource('licenses', LicenseController::class)->except('create');
+        Route::post('licenses-update', [LicenseController::class, 'licensesUpdate'])->name('licenses.update');
+        Route::resource('licenses', LicenseController::class)->only('index', 'store', 'destroy');
 
         Route::name('product.')->prefix('product')->group(function () {
             Route::delete('destroy/{product}', [DestroyProductController::class, 'destroy'])->name('destroy');

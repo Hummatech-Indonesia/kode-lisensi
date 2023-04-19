@@ -38,7 +38,12 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
-                            type="button">Review
+                            type="button">Ulasan
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
+                            type="button">Pertanyaan
                     </button>
                 </li>
             </ul>
@@ -119,38 +124,43 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                     <div class="row">
                         @if(ProductStatusEnum::AVAILABLE->value == $product->status)
                             <div class="mb-4 row d-flex flex-row justify-content-end">
-                                <a data-bs-toggle="modal" data-bs-target="#addLicensesModal" style="width: 20%"
+                                <a id="btnAddLicense" data-bs-toggle="modal" data-bs-target="#addLicensesModal"
+                                   style="width: 20%"
                                    class="btn btn-primary">Tambah Lisensi</a>
                             </div>
                         @else
-                            <div class="mb-4 row d-flex flex-row justify-content-end">
+                            <div class="mb-4 row d-flex flex-row justify-content-start">
                                 <a style="width: 40%" class="btn btn-primary">Fitur Lisensi hanya tersedia pada jenis
                                     produk stocking</a>
                             </div>
                         @endif
 
-                        <div class="col-12 col-md-12 mb-3">
-                            <button id="btnUpdateData" class="btn btn-sm btn-danger">Update Data</button>
-                        </div>
-                        <div class="table-responsive table-product">
-                            <table class="table theme-table" id="table_id" style="width: 100%">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    @if($product->type == ProductTypeEnum::CREDENTIAL->value)
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                    @else
-                                        <th>Serial Key</th>
-                                    @endif
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
+                        @if(ProductStatusEnum::AVAILABLE->value == $product->status)
+                            <div class="d-flex flex-row">
+                                <button id="btnLoadData" class="btn btn-sm btn-danger m-2">Load Data</button>
+                                <button id="btnUpdateData" class="btn btn-sm btn-primary m-2">Update Data</button>
+                            </div>
+
+                            <div class="table-responsive table-product mt-3">
+                                <table class="table theme-table" id="table_id" style="width: 100%">
+                                    <thead>
+                                    <tr>
+                                        @if($product->type == ProductTypeEnum::CREDENTIAL->value)
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                        @else
+                                            <th>Serial Key</th>
+                                        @endif
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        @endif
 
                     </div>
                 </div>
@@ -207,6 +217,8 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
             const type = `{{ $product->type }}`
             const status = `{{ $product->status }}`
 
+            $('#btnUpdateData').addClass('disabled')
+
             let username = null
             let password = null
             let serialKey = null
@@ -218,11 +230,6 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 $('#divPassword').css('display', 'none');
 
                 columns = [
-                    {
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
                     {
                         data: 'serial_key',
                         name: 'serial_key'
@@ -241,11 +248,6 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
             } else {
                 $('#divSerial').css('display', 'none');
                 columns = [
-                    {
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
                     {
                         data: 'username',
                         name: 'username'
@@ -268,28 +270,38 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
             }
 
             if (status === 'stocking') {
-                table = $("#table_id").DataTable({
-                    scrollX: false,
-                    scrollY: '500px',
-                    paging: true,
-                    ordering: true,
-                    responsive: true,
-                    pageLength: 25,
-                    processing: true,
-                    serverSide: true,
-                    searching: true,
-                    ajax: "{{ route('licenses.index') }}",
-                    columns: columns
-                });
+                $('#btnLoadData').on('click', () => {
+                    table = $("#table_id").DataTable({
+                        scrollX: false,
+                        scrollY: '500px',
+                        paging: true,
+                        ordering: true,
+                        responsive: true,
+                        pageLength: 25,
+                        processing: true,
+                        serverSide: true,
+                        searching: true,
+                        ajax: "{{ route('licenses.index') }}",
+                        columns: columns
+                    });
+
+                    $('#btnLoadData').addClass('disabled')
+                    $('#btnUpdateData').removeClass('disabled')
+                })
+
             }
+
+            $('#btnAddLicense').on('click', () => {
+                password = $('#addPassword').val('')
+                serialKey = $('#addSerial_key').val('')
+                username = $('#addUsername').val('')
+            })
 
             $('#addLicenses').on('submit', function (e) {
                 e.preventDefault();
                 password = $('#addPassword').val()
                 serialKey = $('#addSerial_key').val()
                 username = $('#addUsername').val()
-
-                console.log(password, serialKey, username)
 
                 $.ajax({
                     url: "{{ route('licenses.store') }}",
@@ -316,8 +328,45 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 })
             });
 
+
             $('#btnUpdateData').on('click', () => {
-                alert('test')
+                let array = {}
+
+                let table = document.getElementById('table_id')
+                let tbody = table.childNodes[3]
+                let tr = tbody.children
+
+                for (let i = 0; i < tr.length; i++) {
+                    array[tr[i].getAttribute('id')] = {}
+                    let td = tr[i].getElementsByTagName('td')
+                    for (let j = 0; j < td.length; j++) {
+                        if (td[j].hasChildNodes() && td[j].childNodes[0].name !== undefined) {
+                            array[tr[i].getAttribute('id')][td[j].childNodes[0].name] = td[j].childNodes[0].value
+                        }
+
+
+                    }
+                }
+
+                $.ajax({
+                    url: `{{ route('licenses.update') }}`,
+                    method: 'post',
+                    data: {
+                        _token: CSRF_TOKEN,
+                        licenses: array
+                    },
+                    success: (data) => {
+                        swal({
+                            title: "Berhasil",
+                            text: data.meta.message,
+                            icon: data.meta.status,
+                        })
+                        table.ajax.reload();
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
             })
 
         });

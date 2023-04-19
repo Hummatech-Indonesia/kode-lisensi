@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\LicenseInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\LicenseRequest;
+use App\Services\LicenseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,10 +14,12 @@ use Illuminate\Http\Response;
 class LicenseController extends Controller
 {
     private LicenseInterface $license;
+    private LicenseService $service;
 
-    public function __construct(LicenseInterface $license)
+    public function __construct(LicenseInterface $license, LicenseService $service)
     {
         $this->license = $license;
+        $this->service = $service;
     }
 
     /**
@@ -34,6 +37,20 @@ class LicenseController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function licensesUpdate(Request $request): JsonResponse
+    {
+        $this->service->handleUpdateLicenses($request);
+
+        return ResponseHelper::success(null, trans('alert.update_success'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param LicenseRequest $request
@@ -41,50 +58,9 @@ class LicenseController extends Controller
      */
     public function store(LicenseRequest $request): JsonResponse
     {
-        $validated = $request->validated();
+        $this->service->handleStoreLicense($request);
 
-        $store = $this->license->store([
-            'product_id' => $request->id,
-            'username' => $validated['username'] ?? null,
-            'password' => $validated['password'] ?? null,
-            'serial_key' => $validated['serial_key'] ?? null
-        ]);
-
-        return ResponseHelper::success($store, trans('alert.add_success'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return ResponseHelper::success(null, trans('alert.add_success'));
     }
 
     /**

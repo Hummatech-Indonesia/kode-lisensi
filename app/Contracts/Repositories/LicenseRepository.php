@@ -64,6 +64,8 @@ class LicenseRepository extends BaseRepository implements LicenseInterface
      */
     public function update(mixed $id, array $data): mixed
     {
-        // TODO: Implement update() method.
+        return $this->model->query()
+            ->findOrFail($id)
+            ->update($data);
     }
 }

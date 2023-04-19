@@ -22,6 +22,7 @@ trait LicenseDatatable
 
         return DataTables::of($collection)
             ->addIndexColumn()
+            ->setRowId('id')
             ->setFilteredRecords(250)
             ->editColumn('username', function ($data) {
                 return view('dashboard.pages.licenses.datatables.username', compact('data'));
