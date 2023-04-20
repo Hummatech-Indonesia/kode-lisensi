@@ -16,7 +16,7 @@
             @if($errors->any())
                 <x-validation-errors :errors="$errors"></x-validation-errors>
             @endif
-            <form class="theme-form theme-form-2 mega-form" method="POST"
+            <form enctype="multipart/form-data" class="theme-form theme-form-2 mega-form" method="POST"
                   action="{{ route('site-setting.update', $data) }}">
                 @csrf
                 @method("PATCH")
