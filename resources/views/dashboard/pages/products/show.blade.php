@@ -119,6 +119,29 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel">
                     <div class="card-header-1">
+                        @if(ProductStatusEnum::AVAILABLE->value == $product->status)
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="mb-4 row align-items-center">
+                                        <table class="table variation-table table-responsive-sm">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Stok Tersedia</th>
+                                                <td id="availableStock"></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Stok Terjual</th>
+                                                <td id="purchasedLicense"></td>
+                                                <td></td>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="row">
@@ -200,7 +223,6 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
             </div>
         </div>
         <x-add-licenses-modal></x-add-licenses-modal>
-        <x-delete-modal></x-delete-modal>
     </div>
 @endsection
 
@@ -269,6 +291,27 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 ]
             }
 
+            const updateStock = () => {
+
+                let url = `{{ route('product.count.stocks', ':id') }}`.replace(':id', id);
+
+                $.ajax({
+                    url: url,
+                    method: 'get',
+                    data: {
+                        _token: CSRF_TOKEN,
+                    },
+                    success: (data) => {
+                        console.log(data)
+                        $('#availableStock').text(data.data.available + " stok")
+                        $('#purchasedLicense').text(data.data.purchased + " stok")
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            }
+
             if (status === 'stocking') {
                 $('#btnLoadData').on('click', () => {
                     table = $("#table_id").DataTable({
@@ -289,6 +332,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                     $('#btnUpdateData').removeClass('disabled')
                 })
 
+                updateStock()
             }
 
             $('#btnAddLicense').on('click', () => {
@@ -296,6 +340,15 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 serialKey = $('#addSerial_key').val('')
                 username = $('#addUsername').val('')
             })
+
+            const showSweetAlert = (data) => {
+                swal({
+                    title: "Berhasil",
+                    text: data.meta.message,
+                    icon: data.meta.status,
+                })
+                table.ajax.reload();
+            }
 
             $('#addLicenses').on('submit', function (e) {
                 e.preventDefault();
@@ -314,13 +367,9 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                         serial_key: serialKey
                     },
                     success: (data) => {
-                        swal({
-                            title: "Berhasil",
-                            text: data.meta.message,
-                            icon: data.meta.status,
-                        })
-                        table.ajax.reload();
+                        showSweetAlert(data)
                         $('#addLicensesModal').modal('hide')
+                        updateStock()
                     },
                     error: (err) => {
                         console.log(err)
@@ -344,7 +393,6 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                             array[tr[i].getAttribute('id')][td[j].childNodes[0].name] = td[j].childNodes[0].value
                         }
 
-
                     }
                 }
 
@@ -356,18 +404,48 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                         licenses: array
                     },
                     success: (data) => {
-                        swal({
-                            title: "Berhasil",
-                            text: data.meta.message,
-                            icon: data.meta.status,
-                        })
-                        table.ajax.reload();
+                        showSweetAlert(data)
                     },
                     error: (err) => {
                         console.log(err)
                     }
                 })
             })
+
+            $(document).on('click', '.delete-alert', function (e) {
+                e.preventDefault();
+                const id = $(this).attr('data-id');
+                let url = `{{ route('licenses.destroy', ':id') }}`.replace(':id', id);
+
+                swal({
+                    title: "Apa Anda Yakin?",
+                    text: "Data yang dihapus tidak dapat dikembalikan",
+                    icon: "warning",
+                    buttons: {
+                        confirm: 'Hapus',
+                        cancel: 'Batal'
+                    },
+                    dangerMode: true,
+                })
+                    .then((act) => {
+                        if (act) {
+                            $.ajax({
+                                url: url,
+                                type: 'DELETE',
+                                data: {
+                                    _token: CSRF_TOKEN
+                                },
+                                success: (data) => {
+                                    showSweetAlert(data)
+                                    updateStock()
+                                },
+                                error: (err) => {
+                                    console.log(err)
+                                }
+                            })
+                        }
+                    });
+            });
 
         });
 

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Dashboard\Products;
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Enums\ProductStatusEnum;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
 use App\Http\Requests\Dashboard\Product\ProductUpdateRequest;
 use App\Models\Product;
 use App\Services\ProductService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -113,5 +115,20 @@ class ProductController extends Controller
         }
 
         return to_route('products.index')->with('success', trans('alert.add_success'));
+    }
+
+
+    /**
+     * Get stock license detail using ajax
+     *
+     * @param Product $product
+     * @return JsonResponse
+     */
+
+    public function getStockDetail(Product $product): JsonResponse
+    {
+        $data = $this->productService->countStocks($product);
+
+        return ResponseHelper::success($data, trans('alert.delete_success'));
     }
 }

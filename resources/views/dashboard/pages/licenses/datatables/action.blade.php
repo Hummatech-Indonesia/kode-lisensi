@@ -1,11 +1,9 @@
 @if($data->is_purchased == 0)
     <td>
-        <a
-            style="width: 30%"
-            data-toggle="modal"
-            data-target="#exampleModal"
-            data-id='{{ $data->id }}'
-            class="btn btn-danger delete">Hapus</a>
+        <a href="#"
+           id="btnDeleteLicense"
+           data-id='{{ $data->id }}'
+           class="btn text-danger delete-alert"><i class="ri-delete-bin-line"></i></a>
     </td>
 @endif
 

@@ -237,7 +237,7 @@
                         </div>
                         <div class="col-sm-3">
                             <a href="{{ asset('storage/' . $product->attachment_file) }}" class="btn btn-danger btn-sm"
-                               target="_blank"><i class="ri-file-line"></i> Lihat Berkas File</a>
+                               target="_blank"> Lihat Berkas File</a>
                         </div>
                     </div>
 

@@ -47,7 +47,7 @@ class ProductService implements ShouldHandleFileUpload
     /**
      * Handle store data event to models.
      *
-     * @param string $id
+     * @param Product $product
      * @param ProductUpdateRequest $request
      *
      * @return array|bool
@@ -87,5 +87,33 @@ class ProductService implements ShouldHandleFileUpload
             'installation' => $data['installation'],
             'attachment_file' => $old_attachment
         ];
+    }
+
+    /**
+     * Handle count license stock from models.
+     *
+     * @param Product $product
+     * @return array
+     */
+
+    public function countStocks(Product $product): array
+    {
+        return [
+            'available' => $this->handleLicenseStocks($product, 0),
+            'purchased' => $this->handleLicenseStocks($product, 1)
+        ];
+    }
+
+    /**
+     * Handle count license stock from models.
+     *
+     * @param Product $product
+     * @param int $status
+     * @return int
+     */
+
+    private function handleLicenseStocks(Product $product, int $status): int
+    {
+        return $product->licenses()->where('is_purchased', $status)->count();
     }
 }

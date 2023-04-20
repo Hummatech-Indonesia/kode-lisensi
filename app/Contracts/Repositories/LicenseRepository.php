@@ -25,7 +25,9 @@ class LicenseRepository extends BaseRepository implements LicenseInterface
      */
     public function delete(mixed $id): mixed
     {
-        return $id;
+        return $this->model->query()
+            ->findOrFail($id)
+            ->delete();
     }
 
     /**

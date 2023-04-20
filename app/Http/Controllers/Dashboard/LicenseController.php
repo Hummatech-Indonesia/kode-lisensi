@@ -6,10 +6,10 @@ use App\Contracts\Interfaces\LicenseInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\LicenseRequest;
+use App\Models\License;
 use App\Services\LicenseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class LicenseController extends Controller
 {
@@ -45,7 +45,7 @@ class LicenseController extends Controller
 
     public function licensesUpdate(Request $request): JsonResponse
     {
-        $this->service->handleUpdateLicenses($request);
+        if ($request->ajax()) $this->service->handleUpdateLicenses($request);
 
         return ResponseHelper::success(null, trans('alert.update_success'));
     }
@@ -58,7 +58,7 @@ class LicenseController extends Controller
      */
     public function store(LicenseRequest $request): JsonResponse
     {
-        $this->service->handleStoreLicense($request);
+        if ($request->ajax()) $this->service->handleStoreLicense($request);
 
         return ResponseHelper::success(null, trans('alert.add_success'));
     }
@@ -66,11 +66,14 @@ class LicenseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param License $license
+     * @return JsonResponse
      */
-    public function destroy($id)
+
+    public function destroy(License $license): JsonResponse
     {
-        //
+        $this->license->delete($license->id);
+
+        return ResponseHelper::success(null, trans('alert.delete_success'));
     }
 }

@@ -99,7 +99,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('licenses-update', [LicenseController::class, 'licensesUpdate'])->name('licenses.update');
         Route::resource('licenses', LicenseController::class)->only('index', 'store', 'destroy');
 
+
         Route::name('product.')->prefix('product')->group(function () {
+            Route::get('count-stock/{product}', [ProductController::class, 'getStockDetail'])->name('count.stocks');
             Route::delete('destroy/{product}', [DestroyProductController::class, 'destroy'])->name('destroy');
             Route::delete('soft-delete/{product}', [DestroyProductController::class, 'softDestroy'])->name('soft.delete');
         });
