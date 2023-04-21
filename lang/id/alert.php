@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
+    'fetch_success' => 'Berhasil fetch data',
     'add_success' => 'Berhasil menambahkan data',
     'add_failed' => 'Gagal menambahkan data',
     'update_success' => 'Berhasil memperbarui data',

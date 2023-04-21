@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseRequest extends FormRequest
 {
@@ -47,6 +48,6 @@ abstract class BaseRequest extends FormRequest
 
     protected function failedAuthorization(): void
     {
-        abort(403);
+        abort(Response::HTTP_FORBIDDEN);
     }
 }

@@ -39,4 +39,15 @@ class Product extends Model implements HasCategory, HasLicenses
     {
         return $this->hasMany(License::class);
     }
+
+    /**
+     * One-to-Many relationship with Product Questions Model
+     *
+     * @return HasMany
+     */
+
+    public function product_questions(): HasMany
+    {
+        return $this->hasMany(ProductQuestion::class);
+    }
 }

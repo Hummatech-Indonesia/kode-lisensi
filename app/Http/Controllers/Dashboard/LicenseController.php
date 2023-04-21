@@ -10,6 +10,7 @@ use App\Models\License;
 use App\Services\LicenseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class LicenseController extends Controller
 {
@@ -33,7 +34,7 @@ class LicenseController extends Controller
     {
         if ($request->ajax()) return $this->license->get();
 
-        abort(403);
+        abort(Response::HTTP_FORBIDDEN);
     }
 
     /**

@@ -129,6 +129,6 @@ class ProductController extends Controller
     {
         $data = $this->productService->countStocks($product);
 
-        return ResponseHelper::success($data, trans('alert.delete_success'));
+        return ResponseHelper::success($data, trans('alert.fetch_success'));
     }
 }

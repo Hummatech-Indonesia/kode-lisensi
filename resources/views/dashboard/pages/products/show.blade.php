@@ -42,7 +42,8 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
+                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-question"
                             type="button">Pertanyaan
                     </button>
                 </li>
@@ -220,9 +221,40 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                         </div>
                     </form>
                 </div>
+
+                <div class="tab-pane fade" id="pills-question" role="tabpanel">
+                    <div class="card-header-1"></div>
+                    <div class="row">
+                        <div class="mb-4 row d-flex flex-row justify-content-end">
+                            <a id="btnAddQuestion" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
+                               style="width: 20%"
+                               class="btn btn-primary">Tambah Pertanyaan</a>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <button id="btnLoadQuestion" class="btn btn-sm btn-danger m-2">Load Data</button>
+                        </div>
+                        <div class="table-responsive category-table mt-2">
+                            <div>
+                                <table class="table theme-table" id="product_question_id">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Pertanyaan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <x-add-licenses-modal></x-add-licenses-modal>
+        <x-add-product-questions-modal></x-add-product-questions-modal>
+        <x-edit-product-questions-modal></x-edit-product-questions-modal>
     </div>
 @endsection
 
@@ -245,6 +277,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
             let password = null
             let serialKey = null
             let table = null
+            let question_table = null
             let columns = null
 
             if (type === 'serial') {
@@ -302,7 +335,6 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                         _token: CSRF_TOKEN,
                     },
                     success: (data) => {
-                        console.log(data)
                         $('#availableStock').text(data.data.available + " stok")
                         $('#purchasedLicense').text(data.data.purchased + " stok")
                     },
@@ -335,19 +367,54 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 updateStock()
             }
 
+            $('#btnLoadQuestion').on('click', () => {
+                question_table = $("#product_question_id").DataTable({
+                    scrollX: false,
+                    scrollY: '300px',
+                    paging: true,
+                    ordering: true,
+                    responsive: true,
+                    pageLength: 25,
+                    processing: true,
+                    serverSide: true,
+                    searching: true,
+                    ajax: "{{ route('product-questions.index') }}",
+                    columns: [
+                        {
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
+                        },
+                        {
+                            data: 'question',
+                            name: 'question'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        }
+                    ]
+                });
+
+                $('#btnLoadQuestion').addClass('disabled')
+            })
+
             $('#btnAddLicense').on('click', () => {
                 password = $('#addPassword').val('')
                 serialKey = $('#addSerial_key').val('')
                 username = $('#addUsername').val('')
             })
 
-            const showSweetAlert = (data) => {
+            const showSweetAlert = (data, table) => {
                 swal({
                     title: "Berhasil",
                     text: data.meta.message,
                     icon: data.meta.status,
                 })
-                table.ajax.reload();
+                table.ajax.reload()
             }
 
             $('#addLicenses').on('submit', function (e) {
@@ -367,7 +434,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                         serial_key: serialKey
                     },
                     success: (data) => {
-                        showSweetAlert(data)
+                        showSweetAlert(data, table)
                         $('#addLicensesModal').modal('hide')
                         updateStock()
                     },
@@ -404,7 +471,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                         licenses: array
                     },
                     success: (data) => {
-                        showSweetAlert(data)
+                        showSweetAlert(data, table)
                     },
                     error: (err) => {
                         console.log(err)
@@ -412,11 +479,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 })
             })
 
-            $(document).on('click', '.delete-alert', function (e) {
-                e.preventDefault();
-                const id = $(this).attr('data-id');
-                let url = `{{ route('licenses.destroy', ':id') }}`.replace(':id', id);
-
+            const handleDelete = (url, table) => {
                 swal({
                     title: "Apa Anda Yakin?",
                     text: "Data yang dihapus tidak dapat dikembalikan",
@@ -436,7 +499,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                                     _token: CSRF_TOKEN
                                 },
                                 success: (data) => {
-                                    showSweetAlert(data)
+                                    showSweetAlert(data, table)
                                     updateStock()
                                 },
                                 error: (err) => {
@@ -445,9 +508,107 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                             })
                         }
                     });
+            }
+
+            $(document).on('click', '.delete-alert', function (e) {
+                e.preventDefault();
+                const id = $(this).attr('data-id');
+                let url = `{{ route('licenses.destroy', ':id') }}`.replace(':id', id);
+
+                handleDelete(url, table)
             });
 
-        });
+            $(document).on('click', '.delete-question', function (e) {
+                e.preventDefault();
+                const id = $(this).attr('data-id');
+                let url = `{{ route('product-questions.destroy', ':id') }}`.replace(':id', id);
+
+                handleDelete(url, question_table)
+            });
+
+            $('#btnAddQuestion').on('click', function () {
+                $('#addQuestion').val('')
+                $('#addAnswer').val('')
+            })
+
+            $('#addQuestions').on('submit', function (e) {
+                e.preventDefault();
+                const question = $('#addQuestion').val()
+                const answer = $('#addAnswer').val()
+
+                $.ajax({
+                    url: "{{ route('product-questions.store') }}",
+                    method: 'post',
+                    data: {
+                        _token: CSRF_TOKEN,
+                        product_id: id,
+                        question: question,
+                        answer: answer
+                    },
+                    success: (data) => {
+                        showSweetAlert(data, question_table)
+                        $('#addQuestionModal').modal('hide')
+
+                    },
+                    error: (err) => {
+                        let errors = err.responseJSON.errors
+                        console.log(errors)
+                        swal({
+                            icon: 'error',
+                            title: "Terjadi Kesalahan!",
+                            text: (errors.question) ? errors.question[0] : errors.answer[0],
+                        })
+                    }
+                })
+            });
+
+            $(document).on('click', '.edit-question', function () {
+                const question = $(this).attr('data-question')
+                const answer = $(this).attr('data-answer')
+                const question_id = $(this).attr('data-id')
+
+                $('#editQuestion').val(question)
+                $('#editAnswer').val(answer)
+                $('#editQuestionId').val(question_id)
+            })
+
+            $('#editQuestions').on('submit', function (e) {
+                e.preventDefault();
+                const question = $('#editQuestion').val()
+                const answer = $('#editAnswer').val()
+                const question_id = $('#editQuestionId').val()
+                let url = `{{ route('product-questions.update', ':id') }}`.replace(':id', question_id);
+
+                console.log(question, answer, question_id)
+
+                $.ajax({
+                    url: url,
+                    type: "PATCH",
+                    data: {
+                        _token: CSRF_TOKEN,
+                        product_id: id,
+                        question: question,
+                        answer: answer
+                    },
+                    success: (data) => {
+                        showSweetAlert(data, question_table)
+                        $('#editQuestionModal').modal('hide')
+
+                    },
+                    error: (err) => {
+                        let errors = err.responseJSON.errors
+                        console.log(errors)
+                        swal({
+                            icon: 'error',
+                            title: "Terjadi Kesalahan!",
+                            text: (errors.question) ? errors.question[0] : errors.answer[0],
+                        })
+                    }
+                })
+            })
+
+        })
+
 
     </script>
 @endsection

@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\Products\ArchiveProductController;
 use App\Http\Controllers\Dashboard\Products\DestroyProductController;
 use App\Http\Controllers\Dashboard\Products\PreorderProductController;
 use App\Http\Controllers\Dashboard\Products\ProductController;
+use App\Http\Controllers\Dashboard\Products\ProductQuestionController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
 use App\Http\Controllers\Dashboard\SiteSettingController;
@@ -57,14 +58,13 @@ Route::name('home.')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->group(function () {
+
         Route::name('dashboard.')->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
         });
 
         Route::prefix('configuration')->group(function () {
-
             Route::resource('faqs', HelpController::class);
-
             Route::resources([
                 'site-setting' => SiteSettingController::class,
                 'terms' => TermController::class
@@ -91,14 +91,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resources([
             'products' => ProductController::class,
-            'archive-products' => ArchiveProductController::class
+            'archive-products' => ArchiveProductController::class,
+            'product-questions' => ProductQuestionController::class
         ]);
 
         Route::resource('preorder-products', PreorderProductController::class)->only('index');
 
         Route::post('licenses-update', [LicenseController::class, 'licensesUpdate'])->name('licenses.update');
         Route::resource('licenses', LicenseController::class)->only('index', 'store', 'destroy');
-
 
         Route::name('product.')->prefix('product')->group(function () {
             Route::get('count-stock/{product}', [ProductController::class, 'getStockDetail'])->name('count.stocks');

@@ -13,7 +13,7 @@
         </div>
 
         <div class="col-12 col-sm-3 mb-3">
-            <a class="btn btn-primary" href="{{ route('faqs.create') }}">Tambah</a>
+            <a class="btn btn-primary" href="{{ route('faqs.create') }}">Tambah Bantuan</a>
         </div>
 
         @foreach($helps as $help)
@@ -36,7 +36,7 @@
                                 class="m-2 btn btn-outline-danger">Hapus
                         </button>
                     </form>
-                    
+
                     <div id="collapse{{$loop->iteration}}" class="accordion-collapse collapse"
                          aria-labelledby="headingOne"
                          data-bs-parent="#accordionExample">
