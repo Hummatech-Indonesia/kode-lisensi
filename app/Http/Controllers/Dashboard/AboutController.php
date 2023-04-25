@@ -38,8 +38,10 @@ class AboutController extends Controller
 
     public function homepage(): View
     {
-        $about = $this->about->get();
-        return view('pages.about', compact('about'));
+        return view('pages.about', [
+            'title' => trans('title.about'),
+            'about' => $this->about->get()
+        ]);
     }
 
     /**

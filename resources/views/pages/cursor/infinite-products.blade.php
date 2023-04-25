@@ -60,9 +60,7 @@
             <div class="product-footer">
                 <div class="product-detail">
                     <span class="span-name">{{ $product->category->name }}</span>
-                    <a href="product-left-thumbnail.html">
-                        <h5 class="name">{{ $product->name }}</h5>
-                    </a>
+                    <h5 class="name">{{ $product->name }}</h5>
                     <p class="text-content mt-1 mb-2 product-content">Cheesy feet cheesy grin
                         brie.
                         Mascarpone cheese and wine hard cheese the big cheese everyone loves
@@ -86,19 +84,21 @@
                     <h6 class="unit">
                         @if($product->status === ProductStatusEnum::AVAILABLE->value)
                             @if($product->licenses_count > 0)
-                                <button class="btn btn-sm btn-success">
-                                    Tersedia: {{ $product->licenses_count }} Stok
-                                </button>
+                                <h4>
+                                    <span class="badge rounded-pill text-bg-success"> Tersedia: {{ $product->licenses_count }} Stok</span>
+                                </h4>
                             @else
-                                <button class="btn btn-sm btn-danger">
-                                    Produk telah habis
-                                </button>
+                                <h4>
+                                    <span class="badge rounded-pill text-bg-danger">Produk telah habis</span>
+                                </h4>
                             @endif
                         @else
-                            <button class="btn btn-sm btn-danger">Preorder</button>
+                            <h4>
+                                <span class="badge rounded-pill text-bg-danger">Preorder</span>
+                            </h4>
                         @endif
                     </h6>
-                    <h5 class="price">
+                    <h5 class="price mt-3">
                         @guest
                             <span
                                 class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount,true) }}</span>

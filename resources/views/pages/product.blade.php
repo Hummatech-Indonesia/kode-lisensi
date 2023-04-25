@@ -188,9 +188,7 @@
                                     <div class="product-footer">
                                         <div class="product-detail">
                                             <span class="span-name">{{ $product->category->name }}</span>
-                                            <a href="product-left-thumbnail.html">
-                                                <h5 class="name">{{ $product->name }}</h5>
-                                            </a>
+                                            <h5 class="name">{{ $product->name }}</h5>
                                             <p class="text-content mt-1 mb-2 product-content">Cheesy feet cheesy grin
                                                 brie.
                                                 Mascarpone cheese and wine hard cheese the big cheese everyone loves
@@ -214,16 +212,18 @@
                                             <h6 class="unit">
                                                 @if($product->status === ProductStatusEnum::AVAILABLE->value)
                                                     @if($product->licenses_count > 0)
-                                                        <button class="btn btn-sm btn-success">
-                                                            Tersedia: {{ $product->licenses_count }} Stok
-                                                        </button>
+                                                        <h4>
+                                                            <span class="badge rounded-pill text-bg-success"> Tersedia: {{ $product->licenses_count }} Stok</span>
+                                                        </h4>
                                                     @else
-                                                        <button class="btn btn-sm btn-danger">
-                                                            Produk telah habis
-                                                        </button>
+                                                        <h4>
+                                                            <span class="badge rounded-pill text-bg-danger">Produk telah habis</span>
+                                                        </h4>
                                                     @endif
                                                 @else
-                                                    <button class="btn btn-sm btn-danger">Preorder</button>
+                                                    <h4>
+                                                        <span class="badge rounded-pill text-bg-danger">Preorder</span>
+                                                    </h4>
                                                 @endif
                                             </h6>
                                             <h5 class="price mt-3">
@@ -251,7 +251,14 @@
                         @endforeach
                         <div id="next-products"></div>
                         <div id="next-cursor" style="display: none">{{ $nextCursor }}</div>
-
+                        @if($nextCursor)
+                            <div class="row" id="loadMoreContainer">
+                                <button id="btnLoadMore"
+                                        class="text-center rounded-pill mt-3 btn theme-bg-color btn-sm text-white fw-bold mt-md-4 mt-2 mend-auto">
+                                    Load More Data..
+                                </button>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -279,6 +286,12 @@
                     success: (response) => {
                         document.getElementById('next-products').insertAdjacentHTML('beforebegin', response.data.html)
                         document.getElementById('next-cursor').innerHTML = response.data.nextCursor
+
+                        if (response.data.nextCursor == null || Object.keys(response.data.nextCursor).length === 0) {
+                            $('#loadMoreContainer').css('display', 'none')
+                        } else {
+                            $('#loadMoreContainer').css('display', 'block')
+                        }
                     },
                     error: (err) => {
                         console.log(err)
@@ -286,12 +299,12 @@
                 })
             }
 
-            $(window).scroll(function () {
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                    let nextCursor = document.getElementById('next-cursor').innerHTML || null
-                    if (nextCursor) infiniteLoadMore(nextCursor);
-                }
-            });
+            $('#btnLoadMore').on('click', function (e) {
+                e.preventDefault()
+                let nextCursor = document.getElementById('next-cursor').innerHTML || null
+                if (nextCursor) infiniteLoadMore(nextCursor);
+
+            })
 
             $('#setFilter').on('click', function (e) {
                 e.preventDefault()
@@ -327,6 +340,12 @@
                         $('.loopProducts').remove()
                         document.getElementById('next-products').insertAdjacentHTML('beforebegin', response.data.html)
                         document.getElementById('next-cursor').innerHTML = response.data.nextCursor
+
+                        if (response.data.nextCursor == null || Object.keys(response.data.nextCursor).length === 0) {
+                            $('#loadMoreContainer').css('display', 'none')
+                        } else {
+                            $('#loadMoreContainer').css('display', 'block')
+                        }
                     },
                     error: (err) => {
                         console.log(err)

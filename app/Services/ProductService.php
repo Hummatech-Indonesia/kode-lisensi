@@ -138,7 +138,7 @@ class ProductService implements ShouldHandleFileUpload
     {
         $nextCursor = $request->query('nextCursor') ? Cursor::fromEncoded($request->query('nextCursor')) : null;
 
-        $products = $this->product->cursorPaginate(6, ['*'], 'cursor', $nextCursor, $request);
+        $products = $this->product->cursorPaginate(15, ['*'], 'cursor', $nextCursor, $request);
 
         if ($products->hasMorePages()) $nextCursor = $products->nextCursor()->encode();
 

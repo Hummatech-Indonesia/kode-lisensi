@@ -165,16 +165,13 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->when($request->categories, function ($query) use ($request) {
                 return $query->whereIn('category_id', $request->categories);
             })
-            ->when(!$request->filter, function ($query) use ($request) {
-                return $query->orWhere('status', ProductStatusEnum::PREORDER->value);
-            })
             ->with('category')
             ->withCount([
                 'licenses as licenses_count' => function ($query) {
                     $query->where('is_purchased', 0);
                 }
             ])
-            ->latest()
+//            ->latest('id')
             ->cursorPaginate($perPage, $columns, $cursorName, $cursor);
     }
 }
