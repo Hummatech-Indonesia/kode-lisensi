@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Home;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -14,11 +16,12 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return View
      */
-    public function index()
+
+    public function index(): View
     {
-        return "Ini halaman home";
+        return view('pages.index');
     }
 
     /**

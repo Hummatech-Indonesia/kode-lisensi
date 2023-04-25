@@ -3,15 +3,25 @@
 namespace App\Services;
 
 use App\Base\Interfaces\uploads\ShouldHandleFileUpload;
+use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Enums\UploadDiskEnum;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
 use App\Http\Requests\Dashboard\Product\ProductUpdateRequest;
 use App\Models\Product;
 use App\Traits\UploadTrait;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\Cursor;
 
 class ProductService implements ShouldHandleFileUpload
 {
     use UploadTrait;
+
+    private ProductInterface $product;
+
+    public function __construct(ProductInterface $product)
+    {
+        $this->product = $product;
+    }
 
     /**
      * Handle store data event to models.
@@ -115,5 +125,26 @@ class ProductService implements ShouldHandleFileUpload
     private function handleLicenseStocks(Product $product, int $status): int
     {
         return $product->licenses()->where('is_purchased', $status)->count();
+    }
+
+    /**
+     * Handle count license stock from models.
+     *
+     * @param Request $request
+     * @return array
+     */
+
+    public function handleProductFilters(Request $request): array
+    {
+        $nextCursor = $request->query('nextCursor') ? Cursor::fromEncoded($request->query('nextCursor')) : null;
+
+        $products = $this->product->cursorPaginate(6, ['*'], 'cursor', $nextCursor, $request);
+
+        if ($products->hasMorePages()) $nextCursor = $products->nextCursor()->encode();
+
+        return [
+            'products' => $products,
+            'nextCursor' => $nextCursor
+        ];
     }
 }

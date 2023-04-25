@@ -15,7 +15,7 @@ class Product extends Model implements HasCategory, HasLicenses
     use HasFactory, SoftDeletes;
 
     public $incrementing = false;
-    public $fillable = ['id', 'category_id', 'status', 'type', 'name', 'photo', 'buy_price', 'sell_price', 'discount', 'reseller_discount', 'description', 'installation', 'attachment_file'];
+    public $fillable = ['id', 'category_id', 'status', 'type', 'name', 'photo', 'buy_price', 'sell_price', 'discount', 'reseller_discount', 'description', 'installation', 'attachment_file', 'slug'];
     public $keyType = 'char';
     protected $table = 'products';
     protected $primaryKey = 'id';

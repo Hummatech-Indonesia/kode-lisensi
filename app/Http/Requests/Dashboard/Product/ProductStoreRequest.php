@@ -14,7 +14,7 @@ class ProductStoreRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255|',
+            'name' => 'required|max:255|unique:products,name',
             'category_id' => 'required|exists:categories,id',
             'buy_price' => 'required|regex:/^[0-9]*$/|integer|min:0',
             'sell_price' => 'required|regex:/^[0-9]*$/|gt:buy_price|integer|min:0',
@@ -40,6 +40,7 @@ class ProductStoreRequest extends BaseRequest
         return [
             'name.required' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama maksimal 255 karakter',
+            'name.unique' => 'Nama produk sudah ada',
             'category_id.required' => 'Kategori tidak boleh kosong',
             'category_id.exists' => 'Kategori tidak terdaftar',
             'buy_price.required' => 'Harga beli tidak boleh kosong',

@@ -17,5 +17,13 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bulk-style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/animate.css') }}">
 
+<!-- slick css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/slick/slick.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/slick/slick-theme.css') }}">
+
+<!-- animation css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-style.css') }}">
+
+
 <!-- Template css -->
 <link id="color-link" rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">

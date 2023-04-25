@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Traits\Datatables\ProductDatatable;
 use Exception;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\CursorPaginator;
 
 class ProductRepository extends BaseRepository implements ProductInterface
 {
@@ -141,5 +143,38 @@ class ProductRepository extends BaseRepository implements ProductInterface
         return $this->model->query()
             ->onlyTrashed()
             ->find($id);
+    }
+
+    /**
+     * Handle paginate data event from models.
+     *
+     * @param int $perPage
+     * @param array $columns
+     * @param string $cursorName
+     * @param null $cursor
+     * @param Request $request
+     * @return CursorPaginator
+     */
+
+    public function cursorPaginate(int $perPage = 10, array $columns = ['*'], string $cursorName = 'cursor', $cursor = null, Request $request): CursorPaginator
+    {
+        return $this->model->query()
+            ->when($request->filter, function ($query) use ($request) {
+                return $query->whereIn('status', $request->filter);
+            })
+            ->when($request->categories, function ($query) use ($request) {
+                return $query->whereIn('category_id', $request->categories);
+            })
+            ->when(!$request->filter, function ($query) use ($request) {
+                return $query->orWhere('status', ProductStatusEnum::PREORDER->value);
+            })
+            ->with('category')
+            ->withCount([
+                'licenses as licenses_count' => function ($query) {
+                    $query->where('is_purchased', 0);
+                }
+            ])
+            ->latest()
+            ->cursorPaginate($perPage, $columns, $cursorName, $cursor);
     }
 }

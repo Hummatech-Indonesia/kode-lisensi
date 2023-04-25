@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dashboard\Product;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
 class ProductUpdateRequest extends BaseRequest
 {
@@ -15,7 +16,7 @@ class ProductUpdateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255|',
+            'name' => ['required', 'max:255', Rule::unique('products', 'name')->ignore($this->product->id)],
             'category_id' => 'required|exists:categories,id',
             'buy_price' => 'required|regex:/^[0-9]*$/|integer|min:0',
             'sell_price' => 'required|regex:/^[0-9]*$/|gt:buy_price|integer|min:0',

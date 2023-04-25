@@ -42,6 +42,28 @@
     </li>
 
     <li class="sidebar-list">
+        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+            <i class="ri-archive-line"></i>
+            <span>Pesanan</span>
+        </a>
+        <ul class="sidebar-submenu">
+            <li>
+                <a href="order-list.html">Preorder</a>
+            </li>
+            <li>
+                <a href="order-detail.html">Riwayat Pembelian</a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="sidebar-list">
+        <a class="sidebar-link sidebar-title link-nav" href="">
+            <i class="ri-article-line"></i>
+            <span>Artikel</span>
+        </a>
+    </li>
+
+    <li class="sidebar-list">
         <a class="sidebar-link sidebar-title {{ request()->routeIs('customer.index') || request()->routeIs('reseller.index') ? 'active' : '' }}"
            href="javascript:void(0)">
             <i class="ri-user-3-line"></i>
@@ -58,31 +80,6 @@
     </li>
 
     <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-            <i class="ri-archive-line"></i>
-            <span>Orders</span>
-        </a>
-        <ul class="sidebar-submenu">
-            <li>
-                <a href="order-list.html">Order List</a>
-            </li>
-            <li>
-                <a href="order-detail.html">Order Detail</a>
-            </li>
-            <li>
-                <a href="order-tracking.html">Order Tracking</a>
-            </li>
-        </ul>
-    </li>
-
-    <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title link-nav" href="product-review.html">
-            <i class="ri-star-line"></i>
-            <span>Product Review</span>
-        </a>
-    </li>
-
-    <li class="sidebar-list">
         <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
             <i class="ri-settings-line"></i>
             <span>Konfigurasi</span>
@@ -90,6 +87,8 @@
         <ul class="sidebar-submenu">
             <li>
                 <a href="{{ route('site-setting.index') }}">Pengaturan Website</a>
+                <a href="{{ route('about-us.index') }}">Tentang Kami</a>
+                <a href="{{ route('contact-us.index') }}">Kontak Kami</a>
                 <a href="{{ route('faqs.index') }}">FAQ</a>
                 <a href="{{ route('terms.index') }}">Terms and Policy</a>
             </li>

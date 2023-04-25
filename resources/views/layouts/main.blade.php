@@ -15,7 +15,7 @@
     @yield('asset')
 </head>
 
-<body>
+<body class="theme-color-3 dark">
 <!-- Loader Start -->
 <div class="fullpage-loader">
     <span></span>
@@ -28,7 +28,7 @@
 <!-- Loader End -->
 
 <!-- Header Start -->
-<header class="pb-md-4 pb-0">
+<header class="pb-md-4 pb-0 header-2">
     @include('layouts.navbar')
 </header>
 <!-- Header End -->
@@ -75,7 +75,7 @@
 
 @yield('content')
 
-<footer class="section-t-space">
+<footer class="section-t-space mt-5">
     @include('layouts.footer')
 </footer>
 

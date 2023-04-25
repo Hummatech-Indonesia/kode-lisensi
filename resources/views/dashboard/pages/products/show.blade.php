@@ -356,7 +356,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                         processing: true,
                         serverSide: true,
                         searching: true,
-                        ajax: "{{ route('licenses.index') }}",
+                        ajax: `{{ route('licenses.show', ':id') }}`.replace(':id', id),
                         columns: columns
                     });
 

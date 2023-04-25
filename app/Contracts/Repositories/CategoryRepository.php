@@ -52,6 +52,7 @@ class CategoryRepository extends BaseRepository implements CategoryInterface
     public function get(): mixed
     {
         return $this->model->query()
+            ->withCount('products')
             ->get();
     }
 

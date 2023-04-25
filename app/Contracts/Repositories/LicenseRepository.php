@@ -31,19 +31,6 @@ class LicenseRepository extends BaseRepository implements LicenseInterface
     }
 
     /**
-     * Handle the Get all data event from models.
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    public function get(): mixed
-    {
-        return $this->LicenseMockup($this->model->query()
-            ->orderBy('is_purchased')
-            ->latest());
-    }
-
-    /**
      * Handle store data event to models.
      *
      * @param array $data
@@ -69,5 +56,22 @@ class LicenseRepository extends BaseRepository implements LicenseInterface
         return $this->model->query()
             ->findOrFail($id)
             ->update($data);
+    }
+
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     * @throws Exception
+     */
+
+    public function show(mixed $id): mixed
+    {
+        return $this->LicenseMockup($this->model->query()
+            ->where('product_id', $id)
+            ->orderBy('is_purchased')
+            ->latest());
     }
 }

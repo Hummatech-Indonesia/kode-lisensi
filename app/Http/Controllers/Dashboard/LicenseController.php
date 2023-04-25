@@ -27,12 +27,13 @@ class LicenseController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     * @param string $id
      * @return JsonResponse
      */
 
-    public function index(Request $request): JsonResponse
+    public function show(Request $request, string $id): JsonResponse
     {
-        if ($request->ajax()) return $this->license->get();
+        if ($request->ajax()) return $this->license->show($id);
 
         abort(Response::HTTP_FORBIDDEN);
     }

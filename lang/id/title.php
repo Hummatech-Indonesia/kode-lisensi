@@ -15,4 +15,5 @@ return [
 
     'login' => 'Masuk untuk mengakses akun anda. ',
     'register' => 'Bergabung dengan kami dan daftarkan akun anda.',
+    'product' => 'Produk Unggulan kami'
 ];

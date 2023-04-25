@@ -4,43 +4,14 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="footer-logo">
                     <div class="theme-logo">
-                        <a href="index.html">
-                            <img src="../assets/images/logo/1.png" class="blur-up lazyloaded" alt="">
+                        <a href="{{ route('home.index') }}" class="text-dark">
+                            <h2>{{ $site->name }}</h2>
                         </a>
                     </div>
 
                     <div class="footer-logo-contain mt-5">
                         <p>{{ $site->description }}</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                <div class="footer-title">
-                    <h4>Categories</h4>
-                </div>
-
-                <div class="footer-contain">
-                    <ul>
-                        <li>
-                            <a href="shop-left-sidebar.html" class="text-content">Vegetables &amp; Fruit</a>
-                        </li>
-                        <li>
-                            <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
-                        </li>
-                        <li>
-                            <a href="shop-left-sidebar.html" class="text-content">Meats &amp; Seafood</a>
-                        </li>
-                        <li>
-                            <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
-                        </li>
-                        <li>
-                            <a href="shop-left-sidebar.html" class="text-content">Biscuits &amp; Snacks</a>
-                        </li>
-                        <li>
-                            <a href="shop-left-sidebar.html" class="text-content">Grocery &amp; Staples</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
 
@@ -65,6 +36,29 @@
                         </li>
                         <li>
                             <a href="{{ route('home.contact') }}" class="text-content">Hubungi Kami</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                <div class="footer-title">
+                    <h4>Menu Lainnya</h4>
+                </div>
+
+                <div class="footer-contain">
+                    <ul>
+                        <li>
+                            <a href="{{ route('login') }}" class="text-content">Masuk</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('register') }}" class="text-content">Daftar</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('home.my-cart') }}" class="text-content">Keranjang Saya</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('users.account.my-favorites') }}" class="text-content">Favorit</a>
                         </li>
                     </ul>
                 </div>
@@ -137,7 +131,7 @@
 
     <div class="sub-footer section-small-space">
         <div class="reserve">
-            <h6 class="text-content">{{ date('Y') }} {{ config('app.name') }} All rights reserved</h6>
+            <h6 class="text-content">{{ date('Y') }} {{ $site->name }} All rights reserved</h6>
         </div>
 
         <div class="social-link">
