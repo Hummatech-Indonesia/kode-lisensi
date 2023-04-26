@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Contracts\Interfaces\AboutInterface;
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\ChangePasswordInterface;
+use App\Contracts\Interfaces\ContactInterface;
 use App\Contracts\Interfaces\CustomerInterface;
 use App\Contracts\Interfaces\HelpInterface;
 use App\Contracts\Interfaces\LicenseInterface;
@@ -19,6 +20,7 @@ use App\Contracts\Interfaces\TermInterface;
 use App\Contracts\Repositories\AboutRepository;
 use App\Contracts\Repositories\CategoryRepository;
 use App\Contracts\Repositories\ChangePasswordRepository;
+use App\Contracts\Repositories\ContactRepository;
 use App\Contracts\Repositories\CustomerRepository;
 use App\Contracts\Repositories\HelpRepository;
 use App\Contracts\Repositories\LicenseRepository;
@@ -50,7 +52,8 @@ class AppServiceProvider extends ServiceProvider
         HelpInterface::class => HelpRepository::class,
         TermInterface::class => TermRepository::class,
         ProductQuestionInterface::class => ProductQuestionRepository::class,
-        AboutInterface::class => AboutRepository::class
+        AboutInterface::class => AboutRepository::class,
+        ContactInterface::class => ContactRepository::class
     ];
 
     /**

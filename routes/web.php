@@ -51,7 +51,10 @@ Route::name('home.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('about-us', [AboutController::class, 'homepage'])->name('about');
     Route::get('frequently-asked-question', [HelpController::class, 'homepage'])->name('faq');
-    Route::get('contact-us', [ContactController::class, 'index'])->name('contact');
+    Route::name('contact.')->prefix('contact-us')->group(function () {
+        Route::get('contact-us', [ContactController::class, 'homepage'])->name('index');
+        Route::post('contact-us', [ContactController::class, 'store'])->name('store');
+    });
     Route::get('term-and-condition', [TermController::class, 'homepage'])->name('term');
     Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
     Route::get('my-cart', [CartController::class, 'index'])->name('my-cart');
@@ -59,6 +62,7 @@ Route::name('home.')->group(function () {
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
     ]);
+
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -119,11 +123,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::prefix('configuration')->group(function () {
                 Route::resource('faqs', HelpController::class);
+                Route::name('contact-us.')->prefix('contact-us')->group(function () {
+                    Route::get('/', [ContactController::class, 'index'])->name('index');
+                    Route::delete('/', [ContactController::class, 'forceDelete'])->name('forceDelete');
+                });
                 Route::resources([
                     'site-setting' => SiteSettingController::class,
                     'terms' => TermController::class,
-                    'about-us' => AboutController::class,
-                    'contact-us' => ContactController::class
+                    'about-us' => AboutController::class
                 ], ['only' => ['index', 'update']]);
 
             });

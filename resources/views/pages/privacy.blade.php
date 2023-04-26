@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="breadscrumb-contain">
                         <h2>Kebijakan Penggunaan</h2>
-                        <p>Beberapa kebijakan penggunaan website {{ config('app.name') }}.</p>
+                        <p>Beberapa kebijakan penggunaan website {{ $site->name }}.</p>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 @php use App\Enums\ProductStatusEnum;use App\Enums\UserRoleEnum;use App\Helpers\CurrencyHelper;use App\Helpers\UserHelper; @endphp
-@foreach($products as $product)
+@forelse($products as $product)
     <div class="loopProducts">
         <div class="product-box-3 h-100 wow fadeInUp"
              style="visibility: visible; animation-name: fadeInUp;">
@@ -120,4 +120,6 @@
             </div>
         </div>
     </div>
-@endforeach
+@empty
+    <p class="loopProducts">Data dengan filter yang dipilih tidak ditemukan</p>
+@endforelse

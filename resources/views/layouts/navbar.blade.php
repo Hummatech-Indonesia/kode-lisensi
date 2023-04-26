@@ -17,11 +17,16 @@
                     <div class="middle-box">
                         <div class="center-box">
                             <div class="searchbar-box order-xl-1 d-none d-xl-block">
-                                <input type="search" class="form-control" id="exampleFormControlInput1"
-                                       placeholder="Cari lisensi software..">
-                                <button class="btn search-button">
-                                    <i class="iconly-Search icli"></i>
-                                </button>
+                                <form method="GET" action="{{ route('home.products.index') }}">
+                                    @csrf
+                                    <input value="{{ request()->input('search') ?? old('search') }}" name="search"
+                                           type="search" class="form-control"
+                                           id="inputSearch"
+                                           placeholder="Cari lisensi software.." autocomplete="off">
+                                    <button class="btn search-button">
+                                        <i class="iconly-Search icli"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -227,8 +232,8 @@
                                        href="{{ route('home.articles.index') }}">Artikel</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('home.contact') ? 'active' : '' }}"
-                                       href="{{ route('home.contact') }}">Hubungi Kami</a>
+                                    <a class="nav-link {{ request()->routeIs('home.contact.index') ? 'active' : '' }}"
+                                       href="{{ route('home.contact.index') }}">Hubungi Kami</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.faq') ? 'active' : '' }}"

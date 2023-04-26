@@ -1,4 +1,3 @@
-@php use Biscolab\ReCaptcha\Facades\ReCaptcha; @endphp
 @extends('layouts.main')
 @section('captcha')
     {!! ReCaptcha::htmlScriptTagJsApi() !!}

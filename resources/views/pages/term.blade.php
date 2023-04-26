@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="breadscrumb-contain">
                         <h2>Syarat dan Ketentuan</h2>
-                        <p>Beberapa syarat dan ketentuan penggunaan website {{ config('app.name') }}.</p>
+                        <p>Beberapa syarat dan ketentuan penggunaan website {{ $site->name }}.</p>
                     </div>
                 </div>
             </div>

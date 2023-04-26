@@ -165,6 +165,9 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->when($request->categories, function ($query) use ($request) {
                 return $query->whereIn('category_id', $request->categories);
             })
+            ->when($request->search, function ($query) use ($request) {
+                return $query->orWhereLike('name', $request->search);
+            })
             ->with('category')
             ->withCount([
                 'licenses as licenses_count' => function ($query) {

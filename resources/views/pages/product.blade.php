@@ -125,9 +125,13 @@
                         </div>
                     </div>
 
+                    <div class="col-12 mb-5" id="searchLabelContainer" style="display: none">
+                        <h4 id="searchLabel">Menggunakan Kata Kunci Pencarian : </h4>
+                    </div>
+
                     <div id="productContainer"
-                         class="row g-sm-4 g-3 product-list-section row-cols-xxl-3 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2">
-                        @foreach($products as $product)
+                         class="row g-sm-4 g-3 product-list-section row-cols-xxl-3 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 mt-3">
+                        @forelse($products as $product)
                             <div class="loopProducts">
                                 <div class="product-box-3 h-100 wow fadeInUp"
                                      style="visibility: visible; animation-name: fadeInUp;">
@@ -248,7 +252,9 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <p class="loopProducts">Data dengan filter yang dipilih tidak ditemukan</p>
+                        @endforelse
                         <div id="next-products"></div>
                         <div id="next-cursor" style="display: none">{{ $nextCursor }}</div>
                         @if($nextCursor)
@@ -272,8 +278,26 @@
             let url = window.location.href
             let filter = []
             let categories = []
+            let search = $('#inputSearch').val() || null
+
+            const displaySearchLabel = (search) => {
+                $('#searchLabelContainer').css('display', 'block')
+                $('#searchLabel').text('Kata Kunci Pencarian: ' + search)
+            }
+
+            if (search) {
+                displaySearchLabel(search)
+            }
 
             const infiniteLoadMore = (nextCursor) => {
+                search = $('#inputSearch').val() || null
+
+                if (search) {
+                    displaySearchLabel(search)
+                } else {
+                    $('#searchLabelContainer').css('display', 'none')
+                }
+
                 $.ajax({
                     url: url + "?cursor=" + nextCursor,
                     responseType: "json",
@@ -281,7 +305,8 @@
                     data: {
                         nextCursor: nextCursor,
                         filter: filter,
-                        categories: categories
+                        categories: categories,
+                        search: search
                     },
                     success: (response) => {
                         document.getElementById('next-products').insertAdjacentHTML('beforebegin', response.data.html)
@@ -311,6 +336,13 @@
 
                 filter = []
                 categories = []
+                search = $('#inputSearch').val() || null
+
+                if (search) {
+                    displaySearchLabel(search)
+                } else {
+                    $('#searchLabelContainer').css('display', 'none')
+                }
 
                 let filterCheck = document.querySelectorAll('input[name=productStatusFilter]:checked')
 
@@ -334,7 +366,8 @@
                     method: 'get',
                     data: {
                         filter: filter,
-                        categories: categories
+                        categories: categories,
+                        search: search
                     },
                     success: (response) => {
                         $('.loopProducts').remove()

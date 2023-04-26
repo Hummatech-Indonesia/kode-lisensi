@@ -4,13 +4,15 @@ namespace App\Models;
 
 use App\Base\Interfaces\HasCategory;
 use App\Base\Interfaces\HasLicenses;
+use App\Base\Interfaces\HasProductQuestions;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions
 {
     use HasFactory, SoftDeletes;
 
@@ -50,4 +52,20 @@ class Product extends Model implements HasCategory, HasLicenses
     {
         return $this->hasMany(ProductQuestion::class);
     }
+
+    /**
+     * Scope a query to search with where
+     *
+     * @param mixed $query
+     * @param mixed $column
+     * @param mixed $value
+     *
+     * @return Builder
+     */
+
+    public function scopeOrWhereLike(mixed $query, mixed $column, mixed $value): Builder
+    {
+        return $query->orWhere($column, 'like', '%' . $value . '%');
+    }
+
 }

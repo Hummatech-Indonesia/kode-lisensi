@@ -35,7 +35,7 @@
                             <a href="{{ route('home.articles.index') }}" class="text-content">Artikel</a>
                         </li>
                         <li>
-                            <a href="{{ route('home.contact') }}" class="text-content">Hubungi Kami</a>
+                            <a href="{{ route('home.contact.index') }}" class="text-content">Hubungi Kami</a>
                         </li>
                     </ul>
                 </div>
