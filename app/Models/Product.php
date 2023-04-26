@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Base\Interfaces\HasCategory;
 use App\Base\Interfaces\HasLicenses;
 use App\Base\Interfaces\HasProductQuestions;
+use App\Base\Interfaces\HasRatings;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,12 +13,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings
 {
     use HasFactory, SoftDeletes;
 
     public $incrementing = false;
-    public $fillable = ['id', 'category_id', 'status', 'type', 'name', 'photo', 'buy_price', 'sell_price', 'discount', 'reseller_discount', 'description', 'installation', 'attachment_file', 'slug'];
+    public $fillable = ['id', 'category_id', 'status', 'type', 'name', 'photo', 'buy_price', 'sell_price', 'discount', 'reseller_discount', 'description', 'short_description', 'features', 'installation', 'attachment_file', 'slug'];
     public $keyType = 'char';
     protected $table = 'products';
     protected $primaryKey = 'id';
@@ -68,4 +69,13 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
         return $query->orWhere($column, 'like', '%' . $value . '%');
     }
 
+    /**
+     * One-to-Many relationship with Product Testimonials Model
+     *
+     * @return HasMany
+     */
+    public function product_ratings(): HasMany
+    {
+        return $this->hasMany(ProductTestimonial::class);
+    }
 }

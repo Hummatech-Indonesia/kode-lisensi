@@ -49,8 +49,10 @@ class TermController extends Controller
 
     public function homepage(): View
     {
-        $term = $this->term->get();
-        return view('pages.term', compact('term'));
+        return view('pages.term', [
+            'term' => $this->term->get(),
+            'title' => trans('title.term')
+        ]);
     }
 
 }

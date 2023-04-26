@@ -40,7 +40,7 @@ class AboutController extends Controller
     {
         return view('pages.about', [
             'title' => trans('title.about'),
-            'about' => $this->about->get()
+            'about' => $this->about->get(),
         ]);
     }
 

@@ -16,6 +16,7 @@ class ProductStoreRequest extends BaseRequest
         return [
             'name' => 'required|max:255|unique:products,name',
             'category_id' => 'required|exists:categories,id',
+            'short_description' => 'required|max:150',
             'buy_price' => 'required|regex:/^[0-9]*$/|integer|min:0',
             'sell_price' => 'required|regex:/^[0-9]*$/|gt:buy_price|integer|min:0',
             'discount' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
@@ -23,6 +24,7 @@ class ProductStoreRequest extends BaseRequest
             'type' => 'required',
             'status' => 'required',
             'description' => 'required',
+            'features' => 'required',
             'installation' => 'required',
             'photo' => 'required|max:5000|mimes:jpg,png,jpeg',
             'attachment_file' => 'required|max:20000|mimes:pdf'
@@ -43,6 +45,8 @@ class ProductStoreRequest extends BaseRequest
             'name.unique' => 'Nama produk sudah ada',
             'category_id.required' => 'Kategori tidak boleh kosong',
             'category_id.exists' => 'Kategori tidak terdaftar',
+            'short_description.required' => 'Deskripsi singkat tidak boleh kosong',
+            'short_description.max' => 'Deskripsi singkat maksimal 150 karakter',
             'buy_price.required' => 'Harga beli tidak boleh kosong',
             'buy_price.regex' => 'Harga beli harus berupa angka',
             'buy_price.min' => 'Harga tidak valid',
@@ -58,6 +62,7 @@ class ProductStoreRequest extends BaseRequest
             'reseller_discount.between' => 'Reseller Diskon harus rentang 1-100 %',
             'type.required' => 'Tipe lisensi tidak boleh kosong',
             'description.required' => 'Deskripsi tidak boleh kosong',
+            'features.required' => 'Fitur tidak boleh kosong',
             'installation.required' => 'Panduan penggunaan tidak boleh kosong',
             'photo.required' => 'Foto tidak boleh kosong',
             'photo.max' => 'Foto maksimal 5Mb',

@@ -16,6 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignUuid('user_id')->constrained();
             $table->foreignUuid('product_id')->constrained();
+            $table->integer('rating');
+            $table->text('review');
+            $table->enum('status', ['APPROVED', 'DECLINED'])->default('APPROVED');
             $table->unique(['user_id', 'product_id']);
             $table->timestamps();
         });

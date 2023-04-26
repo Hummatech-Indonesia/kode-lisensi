@@ -70,17 +70,26 @@
                             @endguest
                         </div>
 
+
                         <div class="option-list">
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0)" class="header-icon user-icon search-icon">
+                                    <a href="{{ route('dashboard.index') }}"
+                                       class="header-icon user-icon search-icon">
                                         <i class="iconly-Profile icli"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('home.products.index') }}"
+                                       class="header-icon search-box search-icon">
+                                        <i class="iconly-Search icli"></i>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="javascript:void(0)" class="header-icon search-box search-icon">
-                                        <i class="iconly-Search icli"></i>
+                                    <a href="compare.html" class="header-icon">
+                                        <small class="badge-number">2</small>
+                                        <i class="iconly-Swap icli"></i>
                                     </a>
                                 </li>
 
@@ -89,67 +98,6 @@
                                         <i class="iconly-Heart icli"></i>
                                     </a>
 
-                                </li>
-
-                                <li class="onhover-dropdown">
-                                    <a href="cart.html" class="header-icon bag-icon">
-                                        <small class="badge-number">2</small>
-                                        <i class="iconly-Bag-2 icli"></i>
-                                    </a>
-                                    <div class="onhover-div">
-                                        <ul class="cart-list">
-                                            <li>
-                                                <div class="drop-cart">
-                                                    <a href="product-left-thumbnail.html" class="drop-image">
-                                                        <img src="../assets/images/vegetable/product/1.png"
-                                                             class="blur-up lazyloaded" alt="">
-                                                    </a>
-
-                                                    <div class="drop-contain">
-                                                        <a href="product-left-thumbnail.html">
-                                                            <h5>Fantasy Crunchy Choco Chip Cookies</h5>
-                                                        </a>
-                                                        <h6><span>1 x</span> $80.58</h6>
-                                                        <button class="close-button">
-                                                            <i class="fa-solid fa-xmark"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="drop-cart">
-                                                    <a href="product-left-thumbnail.html" class="drop-image">
-                                                        <img src="../assets/images/vegetable/product/2.png"
-                                                             class="blur-up lazyloaded" alt="">
-                                                    </a>
-
-                                                    <div class="drop-contain">
-                                                        <a href="product-left-thumbnail.html">
-                                                            <h5>Peanut Butter Bite Premium Butter Cookies 600 g
-                                                            </h5>
-                                                        </a>
-                                                        <h6><span>1 x</span> $25.68</h6>
-                                                        <button class="close-button">
-                                                            <i class="fa-solid fa-xmark"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-
-                                        <div class="price-box">
-                                            <h5>Price :</h5>
-                                            <h4 class="theme-color fw-bold">$106.58</h4>
-                                        </div>
-
-                                        <div class="button-group">
-                                            <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                            <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
-                                                    text-white">Checkout</a>
-                                        </div>
-                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -220,7 +168,7 @@
                                        href="{{ route('home.index') }}">Beranda</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('home.products.index') ? 'active' : '' }}"
+                                    <a class="nav-link {{ request()->routeIs('home.products.*') ? 'active' : '' }}"
                                        href="{{ route('home.products.index') }}">Produk</a>
                                 </li>
                                 <li class="nav-item">

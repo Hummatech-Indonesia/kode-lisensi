@@ -34,7 +34,7 @@ class ProductFactory extends Factory
             'installation' => fake()->realText(),
             'description' => fake()->realText(),
             'slug' => str_slug(fake()->jobTitle()),
-            'created_at' => now()
+            'created_at' => fake()->dateTimeBetween('-3 years')
         ];
     }
 }

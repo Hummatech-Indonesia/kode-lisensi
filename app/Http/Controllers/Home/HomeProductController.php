@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class HomeProductController extends Controller
@@ -55,11 +54,14 @@ class HomeProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param string $slug
+     * @return View
      */
-    public function show(string $slug)
+
+    public function show(string $slug): View
     {
-        dd($slug);
+        $product = $this->product->showWithSlug($slug);
+
+        return view('pages.product-detail', compact('product'));
     }
 }

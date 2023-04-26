@@ -10,9 +10,7 @@
                     <ul class="product-option">
                         <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
                             data-bs-original-title="Lihat Produk">
-                            <a href="{{ route('home.products.show', $product->slug) }}"
-                               data-bs-toggle="modal"
-                               data-bs-target="#view">
+                            <a href="{{ route('home.products.show', $product->slug) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                      stroke-width="2" stroke-linecap="round"

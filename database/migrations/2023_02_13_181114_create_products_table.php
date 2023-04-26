@@ -24,6 +24,8 @@ return new class extends Migration {
             $table->integer('discount')->default(0);
             $table->integer('reseller_discount')->default(0);
             $table->text('description');
+            $table->string('short_description', 150)->nullable();
+            $table->text('features')->nullable();
             $table->text('installation');
             $table->text('attachment_file')->nullable();
             $table->text('slug');

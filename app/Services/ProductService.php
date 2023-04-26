@@ -40,6 +40,7 @@ class ProductService implements ShouldHandleFileUpload
 
         return [
             'category_id' => $data['category_id'],
+            'short_description' => $data['short_description'],
             'status' => $data['status'],
             'type' => $data['type'],
             'name' => $data['name'],
@@ -49,6 +50,7 @@ class ProductService implements ShouldHandleFileUpload
             'discount' => $data['discount'],
             'reseller_discount' => $data['reseller_discount'],
             'description' => $data['description'],
+            'features' => $data['features'],
             'installation' => $data['installation'],
             'attachment_file' => $this->upload(UploadDiskEnum::PRODUCT_ATTACHMENTS->value, $attachment, true)
         ];
@@ -85,6 +87,7 @@ class ProductService implements ShouldHandleFileUpload
 
         return [
             'category_id' => $data['category_id'],
+            'short_description' => $data['short_description'],
             'status' => $data['status'],
             'type' => $data['type'],
             'name' => $data['name'],
@@ -94,6 +97,7 @@ class ProductService implements ShouldHandleFileUpload
             'discount' => $data['discount'],
             'reseller_discount' => $data['reseller_discount'],
             'description' => $data['description'],
+            'features' => $data['features'],
             'installation' => $data['installation'],
             'attachment_file' => $old_attachment
         ];

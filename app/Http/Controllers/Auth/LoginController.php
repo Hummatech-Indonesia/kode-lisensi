@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRoleEnum;
+use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -70,6 +72,10 @@ class LoginController extends Controller
     {
         $this->loginService->handleLoginUser($request);
 
-        return to_route('dashboard.index');
+        if (UserHelper::getUserRole() === UserRoleEnum::ADMIN->value) {
+            return to_route('dashboard.index');
+        }
+
+        return to_route('home.index');
     }
 }

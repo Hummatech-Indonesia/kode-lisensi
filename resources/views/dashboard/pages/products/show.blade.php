@@ -33,7 +33,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
-                            type="button">Panduan
+                            type="button">Fitur dan Panduan
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -71,6 +71,11 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                                         <tr>
                                             <th scope="col">Kategori</th>
                                             <td>{{ $product->category->name }}</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Deskripsi singkat</th>
+                                            <td>{{ $product->short_description }}</td>
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -203,6 +208,14 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                             </div>
 
                             <div class="mb-4 row align-items-center">
+                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Fitur</label>
+                                <div class="col-md-9 col-lg-10">
+                                    <textarea readonly id="features" cols="30"
+                                              rows="10">{!! $product->features !!}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-lg-2 col-md-3 mb-0">Instalasi</label>
                                 <div class="col-md-9 col-lg-10">
                                    <textarea readonly id="installation" cols="30"
@@ -266,6 +279,7 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             CKEDITOR.replace('description');
             CKEDITOR.replace('installation');
+            CKEDITOR.replace('features');
 
             const id = `{{ $product->id }}`
             const type = `{{ $product->type }}`

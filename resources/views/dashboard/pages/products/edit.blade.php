@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="mb-4 row align-items-center">
-                        <label class="form-label-title col-sm-3 mb-0">Nama Produk <span
+                        <label class="form-label-title col-sm-3 mb-0">Nama <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <input value="{{ $product->name }}" autocomplete="off" name="name" class="form-control"
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="mb-4 row align-items-center">
-                        <label class="col-sm-3 col-form-label form-label-title">Kategori Produk <span
+                        <label class="col-sm-3 col-form-label form-label-title">Kategori <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="js-example-basic-single w-100" name="category_id">
@@ -47,6 +47,16 @@
                         </div>
                     </div>
 
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">Deskripsi singkat <span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input value="{{ $product->short_description }}" autocomplete="off" name="short_description"
+                                   class="form-control"
+                                   type="text"
+                                   placeholder="Lisensi ori windows 10 professional untuk perorangan">
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -165,17 +175,27 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-header-2">
-                        <h5>Deskripsi</h5>
+                        <h5>Detail</h5>
                     </div>
 
                     <div class="row">
                         <div class="col-12 mb-5">
                             <div class="row">
-                                <label class="form-label-title col-sm-3 mb-0">Produk <span
+                                <label class="form-label-title col-sm-3 mb-0">Deskripsi <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" id="editor"
                                               name="description">{{ $product->description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-5">
+                            <div class="row">
+                                <label class="form-label-title col-sm-3 mb-0">Fitur <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="features"
+                                              name="features">{{ $product->features }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +242,7 @@
 
                     <div class="mb-4 row align-items-center">
                         <label
-                            class="col-sm-3 col-form-label form-label-title">Foto Produk <span
+                            class="col-sm-3 col-form-label form-label-title">Foto <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <input name="photo" class="form-control form-choose" type="file">
@@ -272,6 +292,7 @@
 
             CKEDITOR.replace('editor');
             CKEDITOR.replace('installation');
+            CKEDITOR.replace('features');
 
             const calculateDiscount = (price, discount) => {
                 const total = price * (discount / 100)

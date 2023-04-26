@@ -19,10 +19,13 @@ class PrivacyController extends Controller
      *
      * @return View
      */
-    
+
     public function index(): View
     {
         $privacy = $this->term->get();
-        return view('pages.privacy', compact('privacy'));
+        return view('pages.privacy', [
+            'privacy' => $privacy,
+            'title' => trans('title.privacy')
+        ]);
     }
 }

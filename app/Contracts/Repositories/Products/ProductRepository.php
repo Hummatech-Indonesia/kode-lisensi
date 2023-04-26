@@ -174,7 +174,26 @@ class ProductRepository extends BaseRepository implements ProductInterface
                     $query->where('is_purchased', 0);
                 }
             ])
-//            ->latest('id')
+            ->latest()
             ->cursorPaginate($perPage, $columns, $cursorName, $cursor);
+    }
+
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param string $slug
+     * @return mixed
+     */
+    public function showWithSlug(string $slug): mixed
+    {
+        return $this->model->query()
+            ->where('slug', $slug)
+            ->with(['category', 'product_questions'])
+            ->withCount([
+                'licenses as licenses_count' => function ($query) {
+                    $query->where('is_purchased', 0);
+                }
+            ])
+            ->firstOrFail();
     }
 }

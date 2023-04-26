@@ -16,5 +16,8 @@ return [
     'login' => 'Masuk untuk mengakses akun anda. ',
     'register' => 'Bergabung dengan kami dan daftarkan akun anda.',
     'product' => 'Produk Unggulan kami',
-    'about' => 'Tentang ' . config('app.name')
+    'about' => 'Tentang ' . config('app.name'),
+    'term' => 'Syarat Dan Ketentuan ' . config('app.name'),
+    'privacy' => 'Kebijakan Penggunaan ' . config('app.name'),
+    'faq' => 'Bantuan Penggunaan ' . config('app.name')
 ];

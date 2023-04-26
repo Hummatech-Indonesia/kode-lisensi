@@ -100,6 +100,9 @@ class HelpController extends Controller
     public function homepage(): View
     {
         $helps = $this->help->get();
-        return view('pages.faq', compact('helps'));
+        return view('pages.faq', [
+            'helps' => $helps,
+            'title' => trans('title.faq')
+        ]);
     }
 }

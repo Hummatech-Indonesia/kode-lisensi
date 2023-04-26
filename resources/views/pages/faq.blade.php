@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Frequently Asked Question</h2>
+                        <h2>Bantuan Penggunaan</h2>
                         <p>Beberapa pertanyaan umum penggunaan website {{ config('app.name') }}.</p>
                     </div>
                 </div>
