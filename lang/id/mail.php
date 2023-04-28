@@ -19,4 +19,5 @@ return [
     'invoice_created.subject' => 'Selesaikan pembayaran anda di ' . config('app.name'),
     'invoice_paid.subject' => 'Pembayaran anda di ' . config('app.name') . ' telah berhasil',
     'invoice_expired.subject' => 'Tagihan anda di ' . config('app.name') . ' telah expired',
+    'invoice_preorder.subject' => 'Pelanggan telah membeli produk Preorder!'
 ];

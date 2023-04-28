@@ -166,7 +166,7 @@ class ProductRepository extends BaseRepository implements ProductInterface
                 return $query->whereIn('category_id', $request->categories);
             })
             ->when($request->search, function ($query) use ($request) {
-                return $query->orWhereLike('name', $request->search);
+                return $query->whereLike('name', $request->search);
             })
             ->with('category')
             ->withCount([

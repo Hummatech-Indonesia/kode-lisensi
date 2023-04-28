@@ -64,9 +64,9 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
      * @return Builder
      */
 
-    public function scopeOrWhereLike(mixed $query, mixed $column, mixed $value): Builder
+    public function scopewhereLike(mixed $query, mixed $column, mixed $value): Builder
     {
-        return $query->orWhere($column, 'like', '%' . $value . '%');
+        return $query->where($column, 'like', '%' . $value . '%');
     }
 
     /**

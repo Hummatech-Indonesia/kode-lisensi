@@ -1,3 +1,4 @@
+@php use App\Helpers\CurrencyHelper;use Carbon\Carbon; @endphp
 <div
     style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;color:#718096;height:100%;line-height:1.4;margin:0;padding:0;width:100%!important">
 
@@ -28,53 +29,39 @@
                                 <tr>
                                     <td style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';max-width:100vw;padding:32px">
                                         <h1 style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
-                                            Halo {{ $user['name'] }}</h1>
+                                            Halo {{ $data['name'] }}</h1>
                                         <p style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                            Terima kasih telah
-                                            mendaftar di website
-                                            <b>{{ config('app.site') }}</b>
-                                            <br><br> Silahkan klik tautan di bawah ini untuk aktivasi akun anda.
+                                            Tagihan pembelian anda pada tanggal
+                                            <b>{{ Carbon::parse($data['created_at'])->format('d M Y H:i') }}</b> di
+                                            website <b>{{ config('app.site') }}</b> telah dibatalkan.
+                                            <br><br> berikut adalah informasi mengenai pembelian anda:
                                             <br><br>
-                                        <table align="center" width="100%" cellpadding="0" cellspacing="0"
-                                               role="presentation"
-                                               style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';margin:30px auto;padding:0;text-align:center;width:100%">
-                                            <tbody>
+                                        </p>
+                                        <table
+                                            style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;">
                                             <tr>
-                                                <td align="center"
-                                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                    <table width="100%" border="0" cellpadding="0" cellspacing="0"
-                                                           role="presentation"
-                                                           style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td align="center"
-                                                                style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                <table border="0" cellpadding="0" cellspacing="0"
-                                                                       role="presentation"
-                                                                       style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                            <a href="{{ $url }}"
-                                                                               class="m_-1691184708288144981button"
-                                                                               rel="noopener"
-                                                                               style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748"
-                                                                               target="_blank">Verifikasi
-                                                                                Akun</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
+                                                <td>Kode Tagihan</td>
+                                                <td>:</td>
+                                                <td>{{ $data['invoice_id'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nama Paket</td>
+                                                <td>:</td>
+                                                <td>{{ $data['pack_name'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Harga Paket</td>
+                                                <td>:</td>
+                                                <td>{{ CurrencyHelper::rupiahCurrency($data['pack_price']) }}
                                                 </td>
                                             </tr>
-                                            </tbody>
+                                            <tr>
+                                                <td>Jumlah Pembelian</td>
+                                                <td>:</td>
+                                                <td>{{ $data['quantity'] }}</td>
+                                            </tr>
                                         </table>
-                                        <p style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                            Terimakasih telah bergabung bersama kami!</p>
+                                        <br><br>
                                         <p style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                             Regards,<br>
                                             {{ config('app.name') }}</p>
@@ -114,7 +101,7 @@
                                     <td align="center"
                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';max-width:100vw;padding:32px">
                                         <p style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';line-height:1.5em;margin-top:0;color:#b0adc5;font-size:12px;text-align:center">
-                                            © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+                                            © 2022 {{ config('app.name') }}. All rights reserved.</p>
 
                                     </td>
                                 </tr>

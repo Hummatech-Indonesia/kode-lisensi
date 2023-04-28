@@ -17,6 +17,7 @@ use App\Contracts\Interfaces\RegisterInterface;
 use App\Contracts\Interfaces\ResellerInterface;
 use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Interfaces\TermInterface;
+use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Repositories\AboutRepository;
 use App\Contracts\Repositories\CategoryRepository;
 use App\Contracts\Repositories\ChangePasswordRepository;
@@ -32,6 +33,7 @@ use App\Contracts\Repositories\RegisterRepository;
 use App\Contracts\Repositories\ResellerRepository;
 use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\TermRepository;
+use App\Contracts\Repositories\TransactionRepository;
 use App\Models\Category;
 use App\Models\SiteSetting;
 use Illuminate\Support\ServiceProvider;
@@ -53,7 +55,8 @@ class AppServiceProvider extends ServiceProvider
         TermInterface::class => TermRepository::class,
         ProductQuestionInterface::class => ProductQuestionRepository::class,
         AboutInterface::class => AboutRepository::class,
-        ContactInterface::class => ContactRepository::class
+        ContactInterface::class => ContactRepository::class,
+        TransactionInterface::class => TransactionRepository::class
     ];
 
     /**

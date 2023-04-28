@@ -48,10 +48,10 @@
         </a>
         <ul class="sidebar-submenu">
             <li>
-                <a href="order-list.html">Preorder</a>
+                <a href="{{ route('orders.index') }}">Preorder</a>
             </li>
             <li>
-                <a href="order-detail.html">Riwayat Pembelian</a>
+                <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
             </li>
         </ul>
     </li>

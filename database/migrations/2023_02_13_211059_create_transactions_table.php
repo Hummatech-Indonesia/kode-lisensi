@@ -24,7 +24,9 @@ return new class extends Migration {
             $table->timestamp('paid_at')->nullable();
             $table->string('payment_channel')->nullable();
             $table->string('payment_method')->nullable();
-            $table->enum('invoice_status', ['PAID', 'PENDING', 'SETTLED', 'EXPIRED', 'FAILED']);
+            $table->enum('license_status', ['PENDING', 'PROCESSED', 'COMPLETED', 'CANCELED'])->default('PENDING');
+            $table->enum('invoice_status', ['PAID', 'PENDING', 'SETTLED', 'EXPIRED', 'FAILED'])->default('PENDING');
+            $table->foreignUuid('license_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

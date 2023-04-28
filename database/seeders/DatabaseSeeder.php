@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             ResellerSeeder::class,
             SiteSettingSeeder::class,
-            AboutSeeder::class
+            AboutSeeder::class,
+            ProductSeeder::class
         ]);
     }
 }

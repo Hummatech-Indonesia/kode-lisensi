@@ -25,5 +25,10 @@ return [
     'profile_updated' => 'Berhasil memperbarui profil',
     'password_updated' => 'Berhasil memperbarui password',
     'file_exist' => 'File berkas panduan telah tersedia di server. Silahkan ubah nama file',
-    'contact_us_feedback' => 'Terimakasih atas masukan anda!'
+    'contact_us_feedback' => 'Terimakasih atas masukan anda!',
+    'checkout_success' => 'Invoice berhasil dibuat. Silahkan cek email anda',
+    'fees_notification' => 'Setiap transaksi akan dikenakan pajak (PPN) sebesar 10%',
+    'empty_stock' => 'Stok produk telah habis',
+    'callback_blocked' => 'Invalid token! request blocked.',
+    'callback_success' => 'Callback berhasil'
 ];

@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AboutController;
 use App\Http\Controllers\Dashboard\ArticleController;
@@ -10,6 +9,7 @@ use App\Http\Controllers\Dashboard\ChangePasswordController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LicenseController;
+use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\Products\ArchiveProductController;
 use App\Http\Controllers\Dashboard\Products\DestroyProductController;
 use App\Http\Controllers\Dashboard\Products\PreorderProductController;
@@ -24,8 +24,10 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\HomeProductController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\User\MyAccountController;
 use App\Http\Controllers\User\MyFavoriteController;
+use App\Http\Controllers\User\MyHistoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +41,54 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('preorder', function () {
+    $data = [
+        'name' => "Yudas Malabi",
+        'email' => "yudasmalabi@gmail.com",
+        'invoice_id' => "invoice-5e5cd271-3a8d-3ca6-9fe8-27d101b467f5",
+        'pack_name' => "Windows 10 Professional test",
+        'pack_price' => 16000,
+        'quantity' => 1,
+        'total_amount' => 17600,
+        'payment_channel' => "OVO",
+        'payment_method' => "E-Wallet",
+        'paid_at' => "2021-12-26 07:10:07",
+        'product_status' => "preorder",
+        'product_type' => "serial",
+        'attachment_file' => "product_attachments/kalender.pdf",
+        'licenses' => [
+            'username' => "yudas1337",
+            'password' => "massiihgh",
+            'serial_key' => "NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP"
+        ]
+    ];
+    return view('emails.NotifyPreorderMail', compact('data'));
+
+});
+Route::get('preview', function () {
+    $data = [
+        'name' => "Yudas Malabi",
+        'email' => "yudasmalabi@gmail.com",
+        'invoice_id' => "invoice-5e5cd271-3a8d-3ca6-9fe8-27d101b467f5",
+        'pack_name' => "Windows 10 Professional test",
+        'pack_price' => 16000,
+        'quantity' => 1,
+        'total_amount' => 17600,
+        'payment_channel' => "OVO",
+        'payment_method' => "E-Wallet",
+        'paid_at' => "2021-12-26 07:10:07",
+        'product_status' => "preorder",
+        'product_type' => "serial",
+        'attachment_file' => "product_attachments/kalender.pdf",
+        'licenses' => [
+            'username' => "yudas1337",
+            'password' => "massiihgh",
+            'serial_key' => "NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP"
+        ]
+    ];
+
+    return view('emails.invoicePaidMail', compact('data'));
+});
 
 Route::fallback(function () {
     return view('errors.404');
@@ -58,22 +108,29 @@ Route::name('home.')->group(function () {
     });
     Route::get('term-and-condition', [TermController::class, 'homepage'])->name('term');
     Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
-    Route::get('my-cart', [CartController::class, 'index'])->name('my-cart');
     Route::resources([
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
     ]);
 
+    Route::prefix('checkout')->group(function () {
+        Route::get('{invoice_id}/success', [CallbackController::class, 'showSuccessPage']);
+        Route::get('{invoice_id}/failed', [CallbackController::class, 'showFailedPage']);
+    });
+
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('checkout/{slug}', [CheckoutController::class, 'index'])->name('checkout');
 
     Route::middleware('role:reseller|customer')->group(function () {
         Route::name('users.account.')->prefix('my-account')->group(function () {
             Route::get('/', [MyAccountController::class, 'index'])->name('index');
             Route::get('favorites', [MyFavoriteController::class, 'index'])->name('my-favorites');
+            Route::resource('histories', MyHistoryController::class)->only('index', 'show');
+        });
+        Route::prefix('checkout')->group(function () {
+            Route::get('{slug}', [TransactionController::class, 'index'])->name('checkout');
+            Route::post('{slug}', [TransactionController::class, 'store'])->name('doCheckout');
         });
     });
 
@@ -104,6 +161,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             // order
+            Route::name('orders.')->prefix('orders')->group(function () {
+                Route::get('/', [OrderController::class, 'index'])->name('index');
+                Route::get('{slug}', [OrderController::class, 'show'])->name('detail');
+                Route::get('history', [OrderController::class, 'history'])->name('history');
+            });
 
             // articles
             Route::resource('articles', ArticleController::class)->except('show');

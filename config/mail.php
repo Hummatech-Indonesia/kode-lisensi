@@ -2,6 +2,9 @@
 
 return [
 
+
+    'notify_preorder' => env('NOTIFY_PREORDER_EMAIL', 'yudasmalabi@gmail.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Default Mailer

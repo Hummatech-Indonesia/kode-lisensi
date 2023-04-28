@@ -1,4 +1,3 @@
-@php use Carbon\Carbon; @endphp
 <div
     style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;color:#718096;height:100%;line-height:1.4;margin:0;padding:0;width:100%!important">
 
@@ -13,7 +12,7 @@
                     <tbody>
                     <tr>
                         <td style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';padding:25px 0;text-align:center">
-                            <img width="20%" src="{{ config('app.url') . 'logo.png' }}" alt="Logo">
+                            <img width="20%" src="{{ config('app.url') . 'storage/' . $site->logo }}" alt="Logo">
                         </td>
                     </tr>
 

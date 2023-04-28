@@ -33,6 +33,8 @@ class ProductFactory extends Factory
             'reseller_discount' => fake()->numberBetween(0, 100),
             'installation' => fake()->realText(),
             'description' => fake()->realText(),
+            'short_description' => fake()->realText(),
+            'features' => fake()->realText(),
             'slug' => str_slug(fake()->jobTitle()),
             'created_at' => fake()->dateTimeBetween('-3 years')
         ];

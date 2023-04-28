@@ -37,4 +37,38 @@ class CurrencyHelper
     {
         return "Rp " . number_format($number, 2, ',', '.');
     }
+
+    /**
+     * Count Price After Tax
+     *
+     * @param float $price
+     * @param float $tax
+     * @param bool $formatted
+     *
+     * @return float|string
+     */
+
+    public static function countPriceAfterTax(float $price, float $tax, bool $formatted = false): float|string
+    {
+        $total = $price + self::countProductTax($price, $tax);
+
+        if ($formatted) {
+            return self::rupiahCurrency($total);
+        }
+
+        return $total;
+    }
+
+    /**
+     * Count product tax
+     *
+     * @param float $price
+     * @param float $tax
+     * @return float|string
+     */
+
+    public static function countProductTax(float $price, float $tax): float|string
+    {
+        return ($price * ($tax / 100));
+    }
 }

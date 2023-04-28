@@ -55,9 +55,6 @@
                             <a href="{{ route('register') }}" class="text-content">Daftar</a>
                         </li>
                         <li>
-                            <a href="{{ route('home.my-cart') }}" class="text-content">Keranjang Saya</a>
-                        </li>
-                        <li>
                             <a href="{{ route('users.account.my-favorites') }}" class="text-content">Favorit</a>
                         </li>
                     </ul>

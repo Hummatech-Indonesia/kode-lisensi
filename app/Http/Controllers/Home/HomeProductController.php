@@ -61,7 +61,9 @@ class HomeProductController extends Controller
     public function show(string $slug): View
     {
         $product = $this->product->showWithSlug($slug);
-
-        return view('pages.product-detail', compact('product'));
+        return view('pages.product-detail', [
+            'title' => trans('title.product_detail', ['product' => $product->name]),
+            'product' => $product
+        ]);
     }
 }
