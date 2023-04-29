@@ -46,7 +46,7 @@
                         <ul class="notification-dropdown onhover-show-div">
                             <li>
                                 <i class="ri-notification-line"></i>
-                                <h6 class="f-18 mb-0">Notitications</h6>
+                                <h6 class="f-18 mb-0">Notifikasi</h6>
                             </li>
                             <li>
                                 <p>
@@ -73,7 +73,7 @@
                                 </p>
                             </li>
                             <li>
-                                <a class="btn btn-primary" href="javascript:void(0)">Check all notification</a>
+                                <a class="btn btn-primary" href="javascript:void(0)">Tandai semua telah dibaca</a>
                             </li>
                         </ul>
                     </li>

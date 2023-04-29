@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasDetailTransaction;
+use App\Base\Interfaces\HasLineChart;
 use App\Base\Interfaces\HasOneLicense;
+use App\Base\Interfaces\HasUser;
+use App\Enums\InvoiceStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\DB;
 
-class Transaction extends Model implements HasOneLicense, HasDetailTransaction
+class Transaction extends Model implements HasOneLicense, HasDetailTransaction, HasUser, HasLineChart
 {
     use HasFactory;
 
@@ -37,5 +41,34 @@ class Transaction extends Model implements HasOneLicense, HasDetailTransaction
     public function license(): BelongsTo
     {
         return $this->belongsTo(License::class);
+    }
+
+    /**
+     * Determine if the models has line chart implementation
+     *
+     * @param string $start_date
+     * @param string $end_date
+     * @return object
+     */
+
+    public function hasLineChart(string $start_date, string $end_date): object
+    {
+        return self::query()
+            ->select(DB::raw('SUM(paid_amount) as total_amount, created_at'))
+            ->whereBetween('created_at', [$start_date, $end_date])
+            ->whereIn('invoice_status', [InvoiceStatusEnum::PAID->value, InvoiceStatusEnum::SETTLED->value])
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy('created_at')
+            ->get();
+    }
+
+    /**
+     * One-to-Many relationship with User Model
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

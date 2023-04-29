@@ -6,6 +6,7 @@ use App\Base\Interfaces\HasCategory;
 use App\Base\Interfaces\HasLicenses;
 use App\Base\Interfaces\HasProductQuestions;
 use App\Base\Interfaces\HasRatings;
+use App\Base\Interfaces\HasTransactions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions
 {
     use HasFactory, SoftDeletes;
 
@@ -77,5 +78,15 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     public function product_ratings(): HasMany
     {
         return $this->hasMany(ProductTestimonial::class);
+    }
+
+    /**
+     * One-to-Many relationship with Transaction Model
+     *
+     * @return HasMany
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(DetailTransaction::class);
     }
 }

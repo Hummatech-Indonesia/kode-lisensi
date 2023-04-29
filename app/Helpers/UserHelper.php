@@ -65,4 +65,30 @@ class UserHelper
     {
         return User::query()->findOrFail($id);
     }
+
+    /**
+     * Handle count resellers
+     *
+     * @return int
+     */
+
+    public static function countResellers(): int
+    {
+        return User::query()
+            ->role(UserRoleEnum::RESELLER->value)
+            ->count();
+    }
+
+    /**
+     * Handle count customers
+     *
+     * @return int
+     */
+
+    public static function countCustomers(): int
+    {
+        return User::query()
+            ->role(UserRoleEnum::CUSTOMER->value)
+            ->count();
+    }
 }

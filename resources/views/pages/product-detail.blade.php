@@ -231,7 +231,12 @@
                                      aria-labelledby="description-tab">
                                     <div class="product-description">
                                         <div class="nav-desh">
-                                            <p>{!! $product->description !!}</p>
+                                            @if($product->description)
+                                                <p>{!! $product->description !!}</p>
+                                            @else
+                                                <p>Belum ada deskripsi.</p>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
@@ -240,7 +245,11 @@
                                      aria-labelledby="info-tab">
                                     <div class="product-description">
                                         <div class="nav-desh">
-                                            <p>{!! $product->features !!}</p>
+                                            @if($product->features)
+                                                <p>{!! $product->features !!}</p>
+                                            @else
+                                                <p>Belum ada fitur.</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

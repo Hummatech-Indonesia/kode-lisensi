@@ -1,33 +1,31 @@
+@php use App\Enums\InvoiceStatusEnum;use App\Enums\ProductStatusEnum;use App\Helpers\CurrencyHelper; @endphp
 @extends('dashboard.layouts.app')
 @section('content')
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
         <div class="main-tiles border-5 border-0  card-hover card o-hidden">
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
-                        <span class="m-0">Total Revenue</span>
-                        <h4 class="mb-0 counter">$6659
-                            <span class="badge badge-light-primary grow">
-                                                    <i data-feather="trending-up"></i>8.5%</span>
+                        <span class="m-0">Saldo Xendit</span>
+                        <h4 class="mb-0 counter">{{ CurrencyHelper::rupiahCurrency($balance) }}
                         </h4>
                     </div>
                     <div class="align-self-center text-center">
-                        <i class="ri-database-2-line"></i>
+                        <i class="ri-exchange-dollar-fill"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0 card o-hidden">
             <div class="custome-2-bg b-r-4 card-body">
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
-                        <span class="m-0">Total Orders</span>
-                        <h4 class="mb-0 counter">9856
-                            <span class="badge badge-light-danger grow">
-                                                    <i data-feather="trending-down"></i>8.5%</span>
+                        <span class="m-0">Total produk terjual</span>
+                        <h4 class="mb-0 counter">
+                            {{ $order }}
                         </h4>
                     </div>
                     <div class="align-self-center text-center">
@@ -38,35 +36,13 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0  card o-hidden">
             <div class="custome-3-bg b-r-4 card-body">
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
-                        <span class="m-0">Total Products</span>
-                        <h4 class="mb-0 counter">893
-                            <a href="add-new-product.html" class="badge badge-light-secondary grow">
-                                ADD NEW</a>
-                        </h4>
-                    </div>
-
-                    <div class="align-self-center text-center">
-                        <i class="ri-chat-3-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
-        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
-            <div class="custome-4-bg b-r-4 card-body">
-                <div class="media static-top-widget">
-                    <div class="media-body p-0">
-                        <span class="m-0">Total Customers</span>
-                        <h4 class="mb-0 counter">4.6k
-                            <span class="badge badge-light-success grow">
-                                                    <i data-feather="trending-down"></i>8.5%</span>
+                        <span class="m-0">Total Pengguna</span>
+                        <h4 class="mb-0 counter">{{ $customer }}
                         </h4>
                     </div>
 
@@ -78,184 +54,60 @@
         </div>
     </div>
 
-    <!-- chart card section End -->
-
-
-    <!-- Earning chart star-->
-    <div class="col-xl-6">
-        <div class="card o-hidden card-hover">
-            <div class="card-header border-0 pb-1">
-                <div class="card-header-title">
-                    <h4>Revenue Report</h4>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                <div id="report-chart"></div>
-            </div>
-        </div>
-    </div>
-    <!-- Earning chart  end-->
-
-
     <!-- Best Selling Product Start -->
-    <div class="col-xl-6 col-md-12">
+    <div class="col-xl-12 col-md-12">
         <div class="card o-hidden card-hover">
             <div class="card-header card-header-top card-header--2 px-0 pt-0">
                 <div class="card-header-title">
-                    <h4>Best Selling Product</h4>
-                </div>
-
-                <div class="best-selling-box d-sm-flex d-none">
-                    <span>Short By:</span>
-                    <div class="dropdown">
-                        <button class="btn p-0 dropdown-toggle" type="button"
-                                id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                data-bs-auto-close="true">Today
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
+                    <h4>10 Produk Terlaris</h4>
                 </div>
             </div>
 
             <div class="card-body p-0">
                 <div>
                     <div class="table-responsive">
-                        <table class="best-selling-table w-image
-                                            w-image
-                                            w-image table border-0">
+                        <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
+                               id="table_id" style="display: block; overflow-y: scroll; max-height: 300px">
+                            <thead>
+                            <tr>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">#
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Nama
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Kategori
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Jenis
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Terjual
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Total
+                                    Pendapatan
+                                </th>
+                            </tr>
+                            </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <div class="best-product-box">
-                                        <div class="product-image">
-                                            <img src="assets/images/product/1.png"
-                                                 class="img-fluid" alt="Product">
-                                        </div>
-                                        <div class="product-name">
-                                            <h5>Aata Buscuit</h5>
-                                            <h6>26-08-2022</h6>
-                                        </div>
-                                    </div>
-                                </td>
+                            @forelse($bestSeller as $seller)
+                                <tr>
+                                    <td>
+                                        <img width="150px" src="{{ asset('storage/' . $seller->photo) }}"
+                                             alt="{{ $seller->name }}">
+                                    </td>
+                                    <td>{{ $seller->name }}</td>
+                                    <td>{{ $seller->category->name }}</td>
+                                    <td>
+                                        @if($seller->status === ProductStatusEnum::PREORDER->value)
+                                            <span class="badge badge-danger">Preorder</span>
+                                        @else
+                                            <span class="badge badge-success">Stocking</span>
 
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Price</h6>
-                                        <h5>$29.00</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Orders</h6>
-                                        <h5>62</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Stock</h6>
-                                        <h5>510</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Amount</h6>
-                                        <h5>$1,798</h5>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="best-product-box">
-                                        <div class="product-image">
-                                            <img src="assets/images/product/2.png"
-                                                 class="img-fluid" alt="Product">
-                                        </div>
-                                        <div class="product-name">
-                                            <h5>Aata Buscuit</h5>
-                                            <h6>26-08-2022</h6>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Price</h6>
-                                        <h5>$29.00</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Orders</h6>
-                                        <h5>62</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Stock</h6>
-                                        <h5>510</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Amount</h6>
-                                        <h5>$1,798</h5>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="best-product-box">
-                                        <div class="product-image">
-                                            <img src="assets/images/product/3.png"
-                                                 class="img-fluid" alt="Product">
-                                        </div>
-                                        <div class="product-name">
-                                            <h5>Aata Buscuit</h5>
-                                            <h6>26-08-2022</h6>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Price</h6>
-                                        <h5>$29.00</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Orders</h6>
-                                        <h5>62</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Stock</h6>
-                                        <h5>510</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Amount</h6>
-                                        <h5>$1,798</h5>
-                                    </div>
-                                </td>
-                            </tr>
+                                        @endif
+                                    </td>
+                                    <td>{{ $seller->transactions_count }}</td>
+                                    <td>{{ CurrencyHelper::rupiahCurrency($seller->total) }}</td>
+                                </tr>
+                            @empty
+                                <p>Belum ada Produk.</p>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -265,306 +117,64 @@
     </div>
     <!-- Best Selling Product End -->
 
-
-    <!-- Recent orders start-->
-    <div class="col-xl-6">
+    <!-- Best Selling Product Start -->
+    <div class="col-xl-8 col-md-12">
         <div class="card o-hidden card-hover">
             <div class="card-header card-header-top card-header--2 px-0 pt-0">
                 <div class="card-header-title">
-                    <h4>Recent Orders</h4>
-                </div>
-
-                <div class="best-selling-box d-sm-flex d-none">
-                    <span>Short By:</span>
-                    <div class="dropdown">
-                        <button class="btn p-0 dropdown-toggle" type="button"
-                                id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                data-bs-auto-close="true">Today
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
+                    <h4>Produk dengan stok akan habis</h4>
                 </div>
             </div>
 
             <div class="card-body p-0">
                 <div>
                     <div class="table-responsive">
-                        <table class="best-selling-table table border-0">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="best-product-box">
-                                        <div class="product-name">
-                                            <h5>Aata Buscuit</h5>
-                                            <h6>#64548</h6>
-                                        </div>
-                                    </div>
-                                </td>
+                        <div id="table_id_wrapper" class="dataTables_wrapper no-footer">
+                            <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
+                                   id="table_id" style="display: block; overflow-y: scroll; max-height: 300px">
+                                <thead>
+                                <tr>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Nama
+                                        Produk
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Sisa Stok
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Tambah
+                                        Stok
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse($lowStockProduct as $products)
+                                    <tr>
+                                        <td>{{ $products->name }}</td>
+                                        <td>
+                                            @if($products->licenses_count > 0)
+                                                <span
+                                                    class="badge badge-success">Tersisa {{ $products->licenses_count }}</span>
+                                            @else
 
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Date Placed</h6>
-                                        <h5>5/1/22</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Price</h6>
-                                        <h5>$250.00</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Order Status</h6>
-                                        <h5>Completed</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Payment</h6>
-                                        <h5 class="text-danger">Unpaid</h5>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="best-product-box">
-                                        <div class="product-name">
-                                            <h5>Aata Buscuit</h5>
-                                            <h6>26-08-2022</h6>
-                                        </div>
-                                    </div>
-                                </td>
-
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Date Placed</h6>
-                                        <h5>5/1/22</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Price</h6>
-                                        <h5>$250.00</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Order Status</h6>
-                                        <h5>Completed</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Payment</h6>
-                                        <h5 class="theme-color">Paid</h5>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="best-product-box">
-                                        <div class="product-name">
-                                            <h5>Aata Buscuit</h5>
-                                            <h6>26-08-2022</h6>
-                                        </div>
-                                    </div>
-                                </td>
-
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Date Placed</h6>
-                                        <h5>5/1/22</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Price</h6>
-                                        <h5>$250.00</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Order Status</h6>
-                                        <h5>Completed</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Payment</h6>
-                                        <h5 class="theme-color">Paid</h5>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="best-product-box">
-                                        <div class="product-name">
-                                            <h5>Aata Buscuit</h5>
-                                            <h6>26-08-2022</h6>
-                                        </div>
-                                    </div>
-                                </td>
-
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Date Placed</h6>
-                                        <h5>5/1/22</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Price</h6>
-                                        <h5>$250.00</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Order Status</h6>
-                                        <h5>Completed</h5>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="product-detail-box">
-                                        <h6>Payment</h6>
-                                        <h5 class="theme-color">Paid</h5>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                                <span class="badge badge-danger">Habis</span>
+                                            @endif
+                                        </td>
+                                        <td width="10%">
+                                            <a class="text-primary"
+                                               href="{{ route('products.show', $products->id) }}"><i
+                                                    class="ri-add-line"></i></a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <p>Belum ada Produk.</p>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Recent orders end-->
-
-    <!-- Earning chart star-->
-    <div class="col-xl-6">
-        <div class="card o-hidden card-hover">
-            <div class="card-header border-0 mb-0">
-                <div class="card-header-title">
-                    <h4>Earning</h4>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                <div id="bar-chart-earning"></div>
-            </div>
-        </div>
-    </div>
-    <!-- Earning chart end-->
-
-
-    <!-- Transactions start-->
-    <div class="col-xxl-4 col-md-6">
-        <div class="card o-hidden card-hover">
-            <div class="card-header border-0">
-                <div class="card-header-title">
-                    <h4>Transactions</h4>
-                </div>
-            </div>
-
-            <div class="card-body pt-0">
-                <div>
-                    <div class="table-responsive">
-                        <table class="user-table transactions-table table border-0">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="transactions-icon">
-                                        <i class="ri-shield-line"></i>
-                                    </div>
-                                    <div class="transactions-name">
-                                        <h6>Wallets</h6>
-                                        <p>Starbucks</p>
-                                    </div>
-                                </td>
-
-                                <td class="lost">-$74</td>
-                            </tr>
-                            <tr>
-                                <td class="td-color-1">
-                                    <div class="transactions-icon">
-                                        <i class="ri-check-line"></i>
-                                    </div>
-                                    <div class="transactions-name">
-                                        <h6>Bank Transfer</h6>
-                                        <p>Add Money</p>
-                                    </div>
-                                </td>
-
-                                <td class="success">+$125</td>
-                            </tr>
-                            <tr>
-                                <td class="td-color-2">
-                                    <div class="transactions-icon">
-                                        <i class="ri-exchange-dollar-line"></i>
-                                    </div>
-                                    <div class="transactions-name">
-                                        <h6>Paypal</h6>
-                                        <p>Add Money</p>
-                                    </div>
-                                </td>
-
-                                <td class="lost">-$50</td>
-                            </tr>
-                            <tr>
-                                <td class="td-color-3">
-                                    <div class="transactions-icon">
-                                        <i class="ri-bank-card-line"></i>
-                                    </div>
-                                    <div class="transactions-name">
-                                        <h6>Mastercard</h6>
-                                        <p>Ordered Food</p>
-                                    </div>
-                                </td>
-
-                                <td class="lost">-$40</td>
-                            </tr>
-                            <tr>
-                                <td class="td-color-4 pb-0">
-                                    <div class="transactions-icon">
-                                        <i class="ri-bar-chart-grouped-line"></i>
-                                    </div>
-                                    <div class="transactions-name">
-                                        <h6>Transfer</h6>
-                                        <p>Refund</p>
-                                    </div>
-                                </td>
-
-                                <td class="success pb-0">+$90</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Transactions end-->
+    <!-- Best Selling Product End -->
 
     <!-- visitors chart start-->
     <div class="col-xxl-4 col-md-6">
@@ -573,7 +183,7 @@
                 <div class="card-header border-0">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="card-header-title">
-                            <h4>Visitors</h4>
+                            <h4>Produk Terdaftar : {{ $product }}</h4>
                         </div>
                     </div>
                 </div>
@@ -587,74 +197,261 @@
     </div>
     <!-- visitors chart end-->
 
-
-    <!-- To Do List start-->
-    <div class="col-xxl-4 col-md-6">
+    <!-- Earning chart star-->
+    <div class="col-xl-12">
         <div class="card o-hidden card-hover">
-            <div class="card-header border-0">
+            <div class="card-header border-0 pb-1">
                 <div class="card-header-title">
-                    <h4>To Do List</h4>
+                    <h4>Statistik Laporan pendapatan per bulan</h4>
                 </div>
             </div>
-
-            <div class="card-body pt-0">
-                <ul class="to-do-list">
-                    <li class="to-do-item">
-                        <div class="form-check user-checkbox">
-                            <input class="checkbox_animated check-it" type="checkbox" value=""
-                                   id="flexCheckDefault">
-                        </div>
-                        <div class="to-do-list-name">
-                            <strong>Pick up kids from school</strong>
-                            <p>8 Hours</p>
-                        </div>
-                    </li>
-                    <li class="to-do-item">
-                        <div class="form-check user-checkbox">
-                            <input class="checkbox_animated check-it" type="checkbox" value=""
-                                   id="flexCheckDefault1">
-                        </div>
-                        <div class="to-do-list-name">
-                            <strong>Prepare or presentation.</strong>
-                            <p>8 Hours</p>
-                        </div>
-                    </li>
-                    <li class="to-do-item">
-                        <div class="form-check user-checkbox">
-                            <input class="checkbox_animated check-it" type="checkbox" value=""
-                                   id="flexCheckDefault2">
-                        </div>
-                        <div class="to-do-list-name">
-                            <strong>Create invoice</strong>
-                            <p>8 Hours</p>
-                        </div>
-                    </li>
-                    <li class="to-do-item">
-                        <div class="form-check user-checkbox">
-                            <input class="checkbox_animated check-it" type="checkbox" value=""
-                                   id="flexCheckDefault3">
-                        </div>
-                        <div class="to-do-list-name">
-                            <strong>Meeting with Alisa</strong>
-                            <p>8 Hours</p>
-                        </div>
-                    </li>
-
-                    <li class="to-do-item">
-                        <form class="row g-2">
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="name"
-                                       placeholder="Enter Task Name">
-                            </div>
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary w-100 h-100">Add
-                                    task
-                                </button>
-                            </div>
-                        </form>
-                    </li>
-                </ul>
+            <div class="card-body p-0">
+                <div id="report-chart"></div>
             </div>
         </div>
     </div>
+    <!-- Earning chart  end-->
+
+    <!-- Recent orders start-->
+    <div class="col-xl-12 col-md-12">
+        <div class="card o-hidden card-hover">
+            <div class="card-header card-header-top card-header--2 px-0 pt-0">
+                <div class="card-header-title">
+                    <h4>Transaksi Terbaru</h4>
+                </div>
+
+            </div>
+
+            <div class="card-body p-0">
+                <div>
+                    <div class="table-responsive">
+                        <div id="table_id_wrapper" class="dataTables_wrapper no-footer">
+                            <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
+                                   id="table_id" style="display: block; overflow-y: scroll; max-height: 300px">
+                                <thead>
+                                <tr>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">ID
+                                        Invoice
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Pelanggan
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Produk
+                                        dibeli
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Total
+                                        Tagihan
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Status
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse($latestTransaction as $transaction)
+                                    <tr>
+                                        <td>{{ $transaction->invoice_id }}</td>
+                                        <td>{{ $transaction->user->name }}</td>
+                                        <td>{{ $transaction->detail_transaction->product->name }}</td>
+                                        <td>{{ CurrencyHelper::rupiahCurrency($transaction->amount)  }}</td>
+                                        <td>
+                                            @if(InvoiceStatusEnum::PAID->value === $transaction->invoice_status || InvoiceStatusEnum::SETTLED->value === $transaction->invoice_status)
+                                                <span
+                                                    class="badge badge-success">LUNAS</span>
+                                            @elseif(InvoiceStatusEnum::EXPIRED->value === $transaction->invoice_status || InvoiceStatusEnum::FAILED->value === $transaction->invoice_status)
+                                                <span
+                                                    class="badge badge-danger">EXPIRED</span>
+                                            @else
+                                                <span
+                                                    class="badge badge-warning">PENDING</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <p>Belum ada Produk.</p>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Recent orders end-->
+@endsection
+@section('script')
+    <script src="{{ asset('dashboard_assets/js/chart/apex-chart/apex-chart1.js') }}"></script>
+    <script>
+        $(document).ready(() => {
+
+            //pie chart
+            const PieChart = () => {
+                let options = {
+                    chart: {
+                        height: 350,
+                        type: "pie",
+                    },
+                    dataLabels: {
+                        enabled: true
+                    },
+                    labels: {!! json_encode($pieChart['labels']) !!},
+                    series: {!! json_encode($pieChart['series']) !!}
+                };
+
+                let chart = new ApexCharts(document.querySelector("#pie-chart-visitors"), options);
+                chart.render();
+            }
+
+            const lineChart = () => {
+                let options = {
+                    series: [{
+                        name: 'Total Pendapatan',
+                        data: {!! json_encode($lineChart['series']) !!}
+                    }],
+                    chart: {
+                        height: 320,
+                        type: 'area',
+                        dropShadow: {
+                            enabled: true,
+                            top: 10,
+                            left: 0,
+                            blur: 3,
+                            color: '#720f1e',
+                            opacity: 0.15
+                        },
+                        toolbar: {
+                            show: false
+                        },
+                        zoom: {
+                            enabled: false
+                        },
+                    },
+                    markers: {
+                        strokeWidth: 4,
+                        strokeColors: "#ffffff",
+                        hover: {
+                            size: 9,
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                        lineCap: 'butt',
+                        width: 4,
+                    },
+                    legend: {
+                        show: false
+                    },
+                    colors: ["#0da487"],
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.7,
+                            opacityTo: 0.6,
+                            stops: [0, 90, 100]
+                        }
+                    },
+                    grid: {
+                        xaxis: {
+                            lines: {
+                                borderColor: 'transparent',
+                                show: true
+                            }
+                        },
+                        yaxis: {
+                            lines: {
+                                borderColor: 'transparent',
+                                show: false,
+                            }
+
+                        },
+                        padding: {
+                            right: -112,
+                            bottom: 0,
+                            left: 15
+                        }
+                    },
+                    responsive: [{
+                        breakpoint: 1200,
+                        options: {
+                            grid: {
+                                padding: {
+                                    right: -95,
+                                }
+                            },
+                        },
+                    },
+                        {
+                            breakpoint: 992,
+                            options: {
+                                grid: {
+                                    padding: {
+                                        right: -69,
+                                    }
+                                },
+                            },
+                        },
+                        {
+                            breakpoint: 767,
+                            options: {
+                                chart: {
+                                    height: 200,
+                                }
+                            },
+                        },
+                        {
+                            breakpoint: 576,
+                            options: {
+                                yaxis: {
+                                    labels: {
+                                        show: false,
+                                    },
+                                },
+                            },
+                        }
+                    ],
+                    yaxis: {
+                        labels: {
+                            formatter: function (value) {
+                                return "Rp " + value;
+                            }
+                        },
+                        crosshairs: {
+                            show: true,
+                            position: 'back',
+                            stroke: {
+                                color: '#b6b6b6',
+                                width: 1,
+                                dashArray: 5,
+                            },
+                        },
+                        tooltip: {
+                            enabled: true,
+                        },
+                    },
+                    xaxis: {
+                        categories: {!! json_encode($lineChart['labels']) !!},
+                        range: undefined,
+                        axisBorder: {
+                            low: 0,
+                            offsetX: 0,
+                            show: false,
+                        },
+                        axisTicks: {
+                            show: false,
+                        },
+                    },
+                };
+
+                let chart = new ApexCharts(document.querySelector("#report-chart"), options);
+                chart.render();
+            }
+
+            PieChart()
+            lineChart()
+
+        })
+    </script>
 @endsection
