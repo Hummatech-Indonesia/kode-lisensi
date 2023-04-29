@@ -1,4 +1,9 @@
-@php use App\Helpers\UserHelper; @endphp
+@php use App\Helpers\UserHelper;
+    use App\Helpers\NotificationHelper;use Carbon\Carbon;
+
+    $notifications = NotificationHelper::take();
+    $totalNotifications = NotificationHelper::count();
+@endphp
     <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -20,14 +25,14 @@
         <div class="header-wrapper m-0">
             <div class="header-logo-wrapper p-0">
                 <div class="logo-wrapper">
-                    <a href="index.html">
+                    <a href="{{ route('home.index') }}">
                         <img class="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo">
                         <img class="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo">
                     </a>
                 </div>
                 <div class="toggle-sidebar">
                     <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
-                    <a href="index.html">
+                    <a href="{{ route('home.index') }}">
                         <img src="assets/images/logo/1.png" class="img-fluid" alt="">
                     </a>
                 </div>
@@ -41,40 +46,36 @@
                     <li class="onhover-dropdown">
                         <div class="notification-box">
                             <i class="ri-notification-line"></i>
-                            <span class="badge rounded-pill badge-theme">4</span>
+                            <span class="badge rounded-pill badge-theme">{{ $totalNotifications }}</span>
                         </div>
-                        <ul class="notification-dropdown onhover-show-div">
+                        <ul class="notification-dropdown onhover-show-div"
+                            style="display: block; overflow-y: scroll; max-height: 300px">
                             <li>
                                 <i class="ri-notification-line"></i>
                                 <h6 class="f-18 mb-0">Notifikasi</h6>
                             </li>
-                            <li>
-                                <p>
-                                    <i class="fa fa-circle me-2 font-primary"></i>Delivery processing <span
-                                        class="pull-right">10 min.</span>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <i class="fa fa-circle me-2 font-success"></i>Order Complete<span
-                                        class="pull-right">1 hr</span>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <i class="fa fa-circle me-2 font-info"></i>Tickets Generated<span
-                                        class="pull-right">3 hr</span>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <i class="fa fa-circle me-2 font-danger"></i>Delivery Complete<span
-                                        class="pull-right">6 hr</span>
-                                </p>
-                            </li>
-                            <li>
-                                <a class="btn btn-primary" href="javascript:void(0)">Tandai semua telah dibaca</a>
-                            </li>
+                            @forelse($notifications as $notify)
+                                <li>
+                                    <p>
+                                        <i class="fa fa-circle me-2 font-primary"></i>{{ $notify->data['name'] }} <span
+                                            class="pull-right">{{ Carbon::parse($notify->created_at)->diffForHumans() }}</span>
+                                    </p>
+                                </li>
+                            @empty
+                                <li>
+                                    <p>
+                                        <i class="fa fa-circle me-2 font-primary"></i>Belum ada notifikasi.
+                                    </p>
+                                </li>
+                            @endforelse
+                            @if($totalNotifications > 0)
+                                <li>
+                                    <a class="btn btn-primary" href="javascript:void(0)" data-bs-original-title=""
+                                       title="">Tandai
+                                        semua telah dibaca</a>
+                                </li>
+                            @endif
+
                         </ul>
                     </li>
                     <li class="profile-nav onhover-dropdown pe-0 me-0">
