@@ -22,6 +22,7 @@ use App\Http\Controllers\HelpController;
 use App\Http\Controllers\Home\HomeArticleController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\HomeProductController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionController;
@@ -136,6 +137,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::prefix('dashboard')->group(function () {
+
+            Route::name('notification.')->prefix('notification')->group(function () {
+                Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
+            });
 
             Route::name('dashboard.')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');

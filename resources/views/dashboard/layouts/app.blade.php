@@ -1,7 +1,7 @@
 @php use App\Helpers\UserHelper;
     use App\Helpers\NotificationHelper;use Carbon\Carbon;
-
-    $notifications = NotificationHelper::take();
+    $take = 5;
+    $notifications = NotificationHelper::take($take);
     $totalNotifications = NotificationHelper::count();
 @endphp
     <!DOCTYPE html>
@@ -70,9 +70,13 @@
                             @endforelse
                             @if($totalNotifications > 0)
                                 <li>
-                                    <a class="btn btn-primary" href="javascript:void(0)" data-bs-original-title=""
-                                       title="">Tandai
-                                        semua telah dibaca</a>
+                                    <form method="POST" action="{{ route('notification.markAsRead', $take) }}">
+                                        @csrf
+                                        <button class="btn btn-primary"
+                                                onclick="return confirm('Yakin ingin tandai telah dibaca?')">Tandai
+                                            semua telah dibaca
+                                        </button>
+                                    </form>
                                 </li>
                             @endif
 
