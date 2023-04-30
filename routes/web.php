@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\Products\DestroyProductController;
 use App\Http\Controllers\Dashboard\Products\PreorderProductController;
 use App\Http\Controllers\Dashboard\Products\ProductController;
 use App\Http\Controllers\Dashboard\Products\ProductQuestionController;
+use App\Http\Controllers\Dashboard\ProductTestimonialController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
 use App\Http\Controllers\Dashboard\SiteSettingController;
@@ -141,6 +142,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::name('notification.')->prefix('notification')->group(function () {
                 Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
             });
+
+            Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
 
             Route::name('dashboard.')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');

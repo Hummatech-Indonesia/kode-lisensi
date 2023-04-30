@@ -13,6 +13,7 @@ use App\Contracts\Interfaces\Products\ArchiveProductInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\Products\ProductQuestionInterface;
 use App\Contracts\Interfaces\ProfileInterface;
+use App\Contracts\Interfaces\RatingInterface;
 use App\Contracts\Interfaces\RegisterInterface;
 use App\Contracts\Interfaces\ResellerInterface;
 use App\Contracts\Interfaces\SiteSettingInterface;
@@ -29,6 +30,7 @@ use App\Contracts\Repositories\Products\ArchiveProductRepository;
 use App\Contracts\Repositories\Products\ProductQuestionRepository;
 use App\Contracts\Repositories\Products\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
+use App\Contracts\Repositories\RatingRepository;
 use App\Contracts\Repositories\RegisterRepository;
 use App\Contracts\Repositories\ResellerRepository;
 use App\Contracts\Repositories\SiteSettingRepository;
@@ -56,7 +58,8 @@ class AppServiceProvider extends ServiceProvider
         ProductQuestionInterface::class => ProductQuestionRepository::class,
         AboutInterface::class => AboutRepository::class,
         ContactInterface::class => ContactRepository::class,
-        TransactionInterface::class => TransactionRepository::class
+        TransactionInterface::class => TransactionRepository::class,
+        RatingInterface::class => RatingRepository::class
     ];
 
     /**

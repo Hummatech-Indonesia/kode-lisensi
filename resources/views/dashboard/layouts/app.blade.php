@@ -46,7 +46,10 @@
                     <li class="onhover-dropdown">
                         <div class="notification-box">
                             <i class="ri-notification-line"></i>
-                            <span class="badge rounded-pill badge-theme">{{ $totalNotifications }}</span>
+                            @if($totalNotifications > 0)
+                                <span class="badge rounded-pill badge-theme">{{ $totalNotifications }}</span>
+                            @endif
+
                         </div>
                         <ul class="notification-dropdown onhover-show-div"
                             style="display: block; overflow-y: scroll; max-height: 300px">

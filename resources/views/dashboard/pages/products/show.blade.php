@@ -1,5 +1,7 @@
 @php use App\Enums\ProductStatusEnum;
-use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
+use App\Enums\ProductTypeEnum;use App\Enums\RatingStatusEnum;use App\Helpers\CurrencyHelper;use App\Helpers\RatingHelper;
+$productRatings = RatingHelper::sumProductRatings($product->id);
+@endphp
 @extends('dashboard.layouts.app')
 @section('css')
     <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
@@ -37,7 +39,8 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
+                    <button class="nav-link" id="pills-ratings-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-ratings"
                             type="button">Ulasan
                     </button>
                 </li>
@@ -230,6 +233,115 @@ use App\Enums\ProductTypeEnum;use App\Helpers\CurrencyHelper; @endphp
                                        href="{{ asset('storage/' . $product->attachment_file) }}"
                                        class="btn btn-danger">Lihat File</a>
                                 </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="pills-ratings" role="tabpanel">
+                    <form class="theme-form theme-form-2 mega-form">
+                        <div class="card-header-1"></div>
+
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <div class="alert alert-warning">
+                                    Catatan: <br>
+                                    <ul>
+                                        <li>Ulasan dan Rating yang ditampilkan di halaman depan hanya yang telah
+                                            disetujui saja.
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="mb-4 row align-items-center">
+                                    <table class="table variation-table table-responsive-sm">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Rating</th>
+                                            <td>:</td>
+                                            <td>
+                                                <ul class="rating">
+                                                    <li class="mr-3">{{ $productRatings['sumRating'] }}</li>
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <li>
+                                                            <i class="fas fa-star {{ $i <= $productRatings['stars'] ? 'theme-color' : '' }}"></i>
+                                                        </li>
+                                                    @endfor
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Jumlah</th>
+                                            <td>:</td>
+                                            <td>{{ RatingHelper::countProductRatings($product->id) . " Ulasan" }}</td>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="table-responsive table-product mt-3">
+                                <h3 class="mb-3">Rating Terbaru</h3>
+                                <table class="table theme-table" id="table_id" style="width: 100%">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Rating</th>
+                                        <th>Ulasan</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse(RatingHelper::getProductRatings($product->id) as $rating)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $rating->user->name }}</td>
+                                            <td>
+                                                <ul class="rating">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <li>
+                                                            <i class="fas fa-star {{ $i <= $rating->rating ? 'theme-color' : '' }}"></i>
+                                                        </li>
+                                                    @endfor
+                                                </ul>
+                                            </td>
+                                            <td>{{ $rating->review }}</td>
+                                            @if(RatingStatusEnum::APPROVED->value === $rating->status)
+                                                <td class="td-check">
+                                                    <i class="ri-checkbox-circle-line"></i>
+                                                </td>
+                                            @else
+                                                <td class="td-cross">
+                                                    <i class="ri-close-circle-line"></i>
+                                                </td>
+                                            @endif
+                                            <td>
+                                                @if(RatingStatusEnum::APPROVED->value === $rating->status)
+                                                    <a
+                                                        onclick="return confirm('Anda yakin ingin menolak ulasan?')"
+                                                        class="btn text-danger"
+                                                        href="{{ route('modify.rating', $rating->id) }}">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </a>
+                                                @else
+                                                    <a
+                                                        onclick="return confirm('Anda yakin ingin menampilkan ulasan?')"
+                                                        class="btn text-success"
+                                                        href="{{ route('modify.rating', $rating->id) }}">
+                                                        <i class="ri-restart-line"></i>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <p>Belum ada Rating</p>
+                                    @endforelse
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </form>

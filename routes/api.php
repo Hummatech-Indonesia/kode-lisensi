@@ -15,10 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
-    Route::prefix('payment-callback')->group(function () {
-        Route::post('invoice-paid', [CallbackController::class, 'invoiceCallback']);
-    });
     Route::middleware('payment.callback')->group(function () {
-
+        Route::prefix('payment-callback')->group(function () {
+            Route::post('invoice-paid', [CallbackController::class, 'invoiceCallback']);
+        });
     });
 });

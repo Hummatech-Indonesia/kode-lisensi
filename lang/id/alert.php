@@ -30,5 +30,6 @@ return [
     'fees_notification' => 'Setiap transaksi akan dikenakan pajak (PPN) sebesar 10%',
     'empty_stock' => 'Stok produk telah habis',
     'callback_blocked' => 'Invalid token! request blocked.',
-    'callback_success' => 'Callback berhasil'
+    'callback_success' => 'Callback berhasil',
+    'modify_rating' => 'Berhasil modifikasi rating'
 ];
