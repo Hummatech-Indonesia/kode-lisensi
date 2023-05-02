@@ -114,7 +114,7 @@ class CallbackService
                     'payment_channel' => $find['payment_channel'],
                     'payment_method' => $find['payment_method'],
                     'paid_at' => $paid_at,
-                    'url' => route('orders.detail', $product_relation->slug),
+                    'url' => route('orders.detail', $find['external_id']),
                 ]));
             }
 

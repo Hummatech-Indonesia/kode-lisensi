@@ -31,5 +31,6 @@ return [
     'empty_stock' => 'Stok produk telah habis',
     'callback_blocked' => 'Invalid token! request blocked.',
     'callback_success' => 'Callback berhasil',
-    'modify_rating' => 'Berhasil modifikasi rating'
+    'modify_rating' => 'Berhasil modifikasi rating',
+    'send_license_success' => 'Berhasil mengirim lisensi'
 ];

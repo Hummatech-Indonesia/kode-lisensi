@@ -4,14 +4,18 @@ namespace App\Services;
 
 use App\Contracts\Interfaces\LicenseInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Enums\LicenseStatusEnum;
 use App\Enums\ProductStatusEnum;
 use App\Enums\UserRoleEnum;
 use App\Helpers\CurrencyHelper;
 use App\Helpers\UserHelper;
 use App\Http\Requests\TransactionRequest;
 use App\Jobs\TransactionJob;
+use App\Mail\SendLicenseMail;
 use App\Models\Product;
 use Faker\Provider\Uuid;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Xendit\Invoice;
 use Xendit\Xendit;
 
@@ -116,5 +120,42 @@ class TransactionService
             'expired_date' => $createInvoice['expiry_date']
         ]));
 
+    }
+
+    /**
+     * Handle send preorder licenses.
+     *
+     * @param TransactionRequest $request
+     * @param string $invoice_id
+     * @return void
+     */
+
+    public function handleSendLicense(Request $request, string $invoice_id): void
+    {
+        $transaction = $this->transaction->show($invoice_id);
+        $product = $transaction->license->product;
+
+        Mail::to($transaction->detail_transaction->email)->send(new SendLicenseMail(
+            [
+                'name' => $transaction->detail_transaction->name,
+                'email' => $transaction->detail_transaction->email,
+                'invoice_id' => $transaction->invoice_id,
+                'pack_name' => $product->name,
+                'pack_price' => $product->sell_price,
+                'total_amount' => $transaction->paid_amount,
+                'payment_channel' => $transaction->payment_channel,
+                'paid_at' => $transaction->paid_at,
+                'product_type' => $product->type,
+                'attachment_file' => $product->attachment_file,
+                'created_at' => $transaction->created_at,
+                'licenses' => [
+                    'username' => $request->username ?? null,
+                    'password' => $request->password ?? null,
+                    'serial_key' => $request->serial_key ?? null
+                ]
+            ]
+        ));
+
+        $transaction->update(['license_status' => LicenseStatusEnum::COMPLETED->value]);
     }
 }

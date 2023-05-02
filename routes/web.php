@@ -171,7 +171,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // order
             Route::name('orders.')->prefix('orders')->group(function () {
                 Route::get('/', [OrderController::class, 'index'])->name('index');
-                Route::get('{slug}', [OrderController::class, 'show'])->name('detail');
+                Route::get('{invoice_id}', [OrderController::class, 'show'])->name('detail');
+                Route::post('{invoice_id}', [OrderController::class, 'update'])->name('update');
                 Route::get('history', [OrderController::class, 'history'])->name('history');
             });
 

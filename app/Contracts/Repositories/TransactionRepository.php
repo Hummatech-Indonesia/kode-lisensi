@@ -3,10 +3,15 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Enums\LicenseStatusEnum;
 use App\Models\Transaction;
+use App\Traits\Datatables\TransactionDatatable;
+use Exception;
 
 class TransactionRepository extends BaseRepository implements TransactionInterface
 {
+    use TransactionDatatable;
+
     public function __construct(Transaction $transaction)
     {
         $this->model = $transaction;
@@ -16,10 +21,14 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
      * Handle the Get all data event from models.
      *
      * @return mixed
+     * @throws Exception
      */
     public function get(): mixed
     {
-        // TODO: Implement get() method.
+        return $this->TransactionMockup($this->model->query()
+            ->where('license_status', LicenseStatusEnum::PROCESSED->value)
+            ->with(['user', 'detail_transaction.product'])
+            ->oldest());
     }
 
     /**
@@ -33,7 +42,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     {
         return $this->model->query()
             ->where('invoice_id', $id)
-            ->with('license.product')
+            ->with(['license.product', 'detail_transaction'])
             ->firstOrFail();
     }
 
