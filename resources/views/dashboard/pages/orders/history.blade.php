@@ -40,7 +40,7 @@
                         <table id="datatables-responsive" class="table table-striped" style="width:100%">
                             <thead>
                             <tr>
-                                <th>Kode Transaksi</th>
+                                <th>ID Invoice</th>
                                 <th>Nama pengguna</th>
                                 <th>Paket dibeli</th>
                                 <th>Bayar</th>
@@ -97,8 +97,8 @@
                 ajax: "{{ route('orders.index') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}",
                 columns: [
                     {
-                        data: 'id',
-                        name: 'id',
+                        data: 'invoice_id',
+                        name: 'invoice_id',
                     },
                     {
                         data: 'user.name',

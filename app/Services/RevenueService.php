@@ -32,7 +32,7 @@ class RevenueService
     public function handleGetAll(Request $request): object
     {
         return $this->RevenueMockup($this->transaction->query()
-            ->select('id', 'created_at', 'invoice_status', 'paid_amount', 'payment_channel', 'user_id')
+            ->select('id', 'invoice_id', 'created_at', 'invoice_status', 'paid_amount', 'payment_channel', 'user_id')
             ->with(['user' => function ($query) {
                 return $query->select('id', 'name');
             }, 'detail_transaction.product'])
