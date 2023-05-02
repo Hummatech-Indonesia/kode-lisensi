@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\Products\ProductQuestionController;
 use App\Http\Controllers\Dashboard\ProductTestimonialController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
+use App\Http\Controllers\Dashboard\RevenueController;
 use App\Http\Controllers\Dashboard\SiteSettingController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\Home\HomeArticleController;
@@ -43,54 +44,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('preorder', function () {
-    $data = [
-        'name' => "Yudas Malabi",
-        'email' => "yudasmalabi@gmail.com",
-        'invoice_id' => "invoice-5e5cd271-3a8d-3ca6-9fe8-27d101b467f5",
-        'pack_name' => "Windows 10 Professional test",
-        'pack_price' => 16000,
-        'quantity' => 1,
-        'total_amount' => 17600,
-        'payment_channel' => "OVO",
-        'payment_method' => "E-Wallet",
-        'paid_at' => "2021-12-26 07:10:07",
-        'product_status' => "preorder",
-        'product_type' => "serial",
-        'attachment_file' => "product_attachments/kalender.pdf",
-        'licenses' => [
-            'username' => "yudas1337",
-            'password' => "massiihgh",
-            'serial_key' => "NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP"
-        ]
-    ];
-    return view('emails.NotifyPreorderMail', compact('data'));
-
-});
-Route::get('preview', function () {
-    $data = [
-        'name' => "Yudas Malabi",
-        'email' => "yudasmalabi@gmail.com",
-        'invoice_id' => "invoice-5e5cd271-3a8d-3ca6-9fe8-27d101b467f5",
-        'pack_name' => "Windows 10 Professional test",
-        'pack_price' => 16000,
-        'quantity' => 1,
-        'total_amount' => 17600,
-        'payment_channel' => "OVO",
-        'payment_method' => "E-Wallet",
-        'paid_at' => "2021-12-26 07:10:07",
-        'product_status' => "preorder",
-        'product_type' => "serial",
-        'attachment_file' => "product_attachments/kalender.pdf",
-        'licenses' => [
-            'username' => "yudas1337",
-            'password' => "massiihgh",
-            'serial_key' => "NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP"
-        ]
-    ];
-
-    return view('emails.invoicePaidMail', compact('data'));
-});
 
 Route::fallback(function () {
     return view('errors.404');
@@ -168,12 +121,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::delete('soft-delete/{product}', [DestroyProductController::class, 'softDestroy'])->name('soft.delete');
             });
 
+            Route::name('revenues.')->prefix('revenues')->group(function () {
+                Route::get('totalAmount', [RevenueController::class, 'totalAmount'])->name('totalAmount');
+                Route::get('/', [RevenueController::class, 'index'])->name('index');
+                Route::get('print', [RevenueController::class, 'printRevenue'])->name('print');
+            });
+
             // order
-            Route::name('orders.')->prefix('orders')->group(function () {
-                Route::get('/', [OrderController::class, 'index'])->name('index');
-                Route::get('{invoice_id}', [OrderController::class, 'show'])->name('detail');
-                Route::post('{invoice_id}', [OrderController::class, 'update'])->name('update');
-                Route::get('history', [OrderController::class, 'history'])->name('history');
+            Route::name('orders.')->group(function () {
+                Route::prefix('orders')->group(function () {
+                    Route::get('/', [OrderController::class, 'index'])->name('index');
+                    Route::get('{invoice_id}', [OrderController::class, 'show'])->name('detail');
+                    Route::post('{invoice_id}', [OrderController::class, 'update'])->name('update');
+                });
+                Route::get('order-histories', [OrderController::class, 'history'])->name('history');
             });
 
             // articles

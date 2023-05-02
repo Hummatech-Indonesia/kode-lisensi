@@ -68,8 +68,8 @@ class OrderController extends Controller
      * @param int $id
      * @return Response
      */
-    public function history($id)
+    public function history(Request $request): View
     {
-        //
+        return view('dashboard.pages.orders.history');
     }
 }
