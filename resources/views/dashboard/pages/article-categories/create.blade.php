@@ -6,14 +6,14 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-header-2">
-                            <h5>Tambah Kategori</h5>
+                            <h5>Tambah Kategori Artikel</h5>
                         </div>
 
                         @if ($errors->any())
                             <x-validation-errors :errors="$errors"></x-validation-errors>
                         @endif
 
-                        <form enctype="multipart/form-data" action="{{ route('categories.store') }}"
+                        <form enctype="multipart/form-data" action="{{ route('article-categories.store') }}"
                               class="theme-form theme-form-2 mega-form" method="POST">
                             @csrf
                             <div class="mb-4 row align-items-center">
@@ -22,13 +22,6 @@
                                 <div class="col-sm-9">
                                     <input name="name" autocomplete="off" class="form-control" type="text"
                                            placeholder="Nama Kategori">
-                                </div>
-                            </div>
-
-                            <div class="mb-4 row align-items-center">
-                                <div class="col-sm-3 form-label-title">Icon Kategori</div>
-                                <div class="col-sm-9">
-                                    <input name="icon" class="form-control" type="file">
                                 </div>
                             </div>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AboutController;
+use App\Http\Controllers\Dashboard\ArticleCategoryController;
 use App\Http\Controllers\Dashboard\ArticleController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
@@ -138,7 +139,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             // articles
-            Route::resource('articles', ArticleController::class)->except('show');
+            Route::resource('article-categories', ArticleCategoryController::class)->except('show');
+            Route::resource('articles', ArticleController::class);
 
             // users
             Route::name('user.')->group(function () {
