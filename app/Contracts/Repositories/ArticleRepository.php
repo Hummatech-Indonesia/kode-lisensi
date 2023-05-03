@@ -4,9 +4,13 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ArticleInterface;
 use App\Models\Article;
+use App\Traits\Datatables\ArticleDatatable;
+use Exception;
 
 class ArticleRepository extends BaseRepository implements ArticleInterface
 {
+    use ArticleDatatable;
+
     public function __construct(Article $article)
     {
         $this->model = $article;
@@ -21,17 +25,7 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
      */
     public function delete(mixed $id): mixed
     {
-        // TODO: Implement delete() method.
-    }
-
-    /**
-     * Handle the Get all data event from models.
-     *
-     * @return mixed
-     */
-    public function get(): mixed
-    {
-        // TODO: Implement get() method.
+        return $this->show($id)->delete($id);
     }
 
     /**
@@ -43,7 +37,20 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
      */
     public function show(mixed $id): mixed
     {
-        // TODO: Implement show() method.
+        return $this->model->query()
+            ->findOrFail($id);
+    }
+
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function get(): mixed
+    {
+        return $this->ArticleMockup($this->model->query()
+            ->with(['category', 'user']));
     }
 
     /**
@@ -55,7 +62,8 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
      */
     public function store(array $data): mixed
     {
-        // TODO: Implement store() method.
+        return $this->model->query()
+            ->create($data);
     }
 
     /**
@@ -68,6 +76,6 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
      */
     public function update(mixed $id, array $data): mixed
     {
-        // TODO: Implement update() method.
+        return $this->show($id)->update($data);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Dashboard;
+
+use App\Http\Requests\BaseRequest;
 
 class ArticleCategoryRequest extends BaseRequest
 {

@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
 use App\Models\License;
 use App\Models\Product;
 use App\Models\User;
+use App\Observers\ArticleObserver;
 use App\Observers\LicenseObserver;
 use App\Observers\ProductObserver;
 use App\Observers\UserObserver;
@@ -35,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
         Product::observe(ProductObserver::class);
         License::observe(LicenseObserver::class);
         User::observe(UserObserver::class);
+        Article::observe(ArticleObserver::class);
 
     }
 

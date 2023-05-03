@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\ArticleCategoryInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleCategoryRequest;
+use App\Http\Requests\Dashboard\ArticleCategoryRequest;
 use App\Models\ArticleCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;

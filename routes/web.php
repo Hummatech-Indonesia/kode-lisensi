@@ -139,8 +139,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             // articles
-            Route::resource('article-categories', ArticleCategoryController::class)->except('show');
-            Route::resource('articles', ArticleController::class);
+            Route::resources([
+                'article-categories' => ArticleCategoryController::class,
+                'articles' => ArticleController::class
+            ], ['except' => ['show']]);
 
             // users
             Route::name('user.')->group(function () {

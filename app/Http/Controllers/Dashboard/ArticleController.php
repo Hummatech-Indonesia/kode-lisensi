@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Contracts\Interfaces\ArticleCategoryInterface;
 use App\Contracts\Interfaces\ArticleInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Article\StoreRequest;
+use App\Http\Requests\Dashboard\Article\UpdateRequest;
+use App\Models\Article;
+use App\Services\ArticleService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
     private ArticleInterface $article;
+    private ArticleCategoryInterface $category;
+    private ArticleService $service;
 
-    public function __construct(ArticleInterface $article)
+    public function __construct(ArticleInterface $article, ArticleCategoryInterface $category, ArticleService $service)
     {
         $this->article = $article;
+        $this->category = $category;
+        $this->service = $service;
     }
 
     /**
@@ -35,66 +44,70 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
-    }
+        $categories = $this->category->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
+        return view('dashboard.pages.articles.create', compact('categories'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param Article $article
+     * @return View
      */
-    public function edit($id)
+    public function edit(Article $article): View
     {
-        //
+        $categories = $this->category->get();
+
+        return view('dashboard.pages.articles.edit', compact('categories', 'article'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param UpdateRequest $request
+     * @param Article $article
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Article $article): RedirectResponse
     {
-        //
+        $store = $this->service->update($request, $article);
+
+        $this->article->update($article->id, $store);
+
+        return to_route('articles.index')->with('success', trans('alert.update_success'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreRequest $request
+     * @return RedirectResponse
+     */
+    public function store(StoreRequest $request): RedirectResponse
+    {
+        $store = $this->service->store($request);
+
+        $this->article->store($store);
+
+        return to_route('articles.index')->with('success', trans('alert.add_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param Article $article
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Article $article): RedirectResponse
     {
-        //
+        $this->article->delete($article->id);
+        $this->service->remove($article->photo);
+
+        return back()->with('success', trans('alert.delete_success'));
     }
 }
