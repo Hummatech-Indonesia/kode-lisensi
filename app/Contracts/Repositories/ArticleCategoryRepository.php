@@ -52,6 +52,7 @@ class ArticleCategoryRepository extends BaseRepository implements ArticleCategor
     public function get(): mixed
     {
         return $this->model->query()
+            ->withCount('articles')
             ->get();
     }
 

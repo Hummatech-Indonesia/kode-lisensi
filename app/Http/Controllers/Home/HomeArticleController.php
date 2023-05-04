@@ -2,85 +2,55 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Contracts\Interfaces\ArticleCategoryInterface;
+use App\Contracts\Interfaces\ArticleInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class HomeArticleController extends Controller
 {
+    private ArticleInterface $article;
+    private ArticleCategoryInterface $category;
+
+    public function __construct(ArticleInterface $article, ArticleCategoryInterface $category)
+    {
+        $this->article = $article;
+        $this->category = $category;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
      * @param Request $request
-     * @return Response
+     * @return View
      */
-    public function store(Request $request)
+    public function index(Request $request): View
     {
-        //
+        return view('pages.article', [
+            'title' => trans('title.articles'),
+            'articles' => $this->article->customPaginate($request),
+            'categories' => $this->category->get()
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param string $slug
+     * @return View
      */
-    public function show($id)
+    public function show(string $slug): View
     {
-        //
-    }
+        $article = $this->article->showWithSlug($slug);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('pages.article-detail', [
+            'title' => $article->title,
+            'description' => $article->description,
+            'keywords' => $article->tags,
+            'author' => $article->user->name,
+            'article' => $article,
+            'categories' => $this->category->get()
+        ]);
     }
 }

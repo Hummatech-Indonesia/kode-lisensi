@@ -74,18 +74,18 @@
                                 <div class="col-12 mb-3">
                                     @if ($product->status === ProductStatusEnum::AVAILABLE->value)
                                         @if ($product->licenses_count > 0)
-                                            <h4>
+                                            <h4 class="mt-3">
                                                 <span class="badge rounded-pill text-bg-success"> Tersedia:
                                                     {{ $product->licenses_count }} Stok</span>
                                             </h4>
                                         @else
-                                            <h4>
+                                            <h4 class="mt-3">
                                                 <span
                                                     class="badge rounded-pill text-bg-danger">Produk telah habis</span>
                                             </h4>
                                         @endif
                                     @else
-                                        <h4>
+                                        <h4 class="mt-3">
                                             <span class="badge rounded-pill text-bg-danger">Preorder Produk</span>
                                         </h4>
                                     @endif

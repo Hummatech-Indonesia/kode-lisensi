@@ -92,9 +92,9 @@
                         <label class="form-label-title col-sm-3 mb-0">Tags <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input value="{{ $article->tags }}" autocomplete="off" name="tags" class="form-control"
-                                   type="text"
-                                   placeholder="Software,Web,Artikel">
+                            <textarea autocomplete="off" name="tags" class="form-control"
+                                      type="text"
+                                      placeholder="Software,Web,Artikel">{{ $article->tags }}</textarea>
                         </div>
                     </div>
 

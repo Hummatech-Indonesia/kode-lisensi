@@ -3,9 +3,12 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ArticleInterface;
+use App\Enums\ArticleStatusEnum;
 use App\Models\Article;
 use App\Traits\Datatables\ArticleDatatable;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ArticleRepository extends BaseRepository implements ArticleInterface
 {
@@ -77,5 +80,43 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
     public function update(mixed $id, array $data): mixed
     {
         return $this->show($id)->update($data);
+    }
+
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param string $slug
+     * @return mixed
+     */
+    public function showWithSlug(string $slug): mixed
+    {
+        return $this->model->query()
+            ->where(['slug' => $slug, 'status' => ArticleStatusEnum::PUBLISHED->value])
+            ->with(['category', 'user'])
+            ->firstOrFail();
+    }
+
+    /**
+     * Handle paginate data event from models.
+     *
+     * @param Request $request
+     * @param int $pagination
+     *
+     * @return LengthAwarePaginator
+     */
+    public function customPaginate(Request $request, int $pagination = 10): LengthAwarePaginator
+    {
+        return $this->model->query()
+            ->where('status', ArticleStatusEnum::PUBLISHED->value)
+            ->when($request->category, function ($query) use ($request) {
+                return $query->whereRelation('category', 'name', '=', $request->category);
+            })
+            ->when($request->searchArticle, function ($query) use ($request) {
+                return $query->whereLike('title', $request->searchArticle);
+            })
+            ->with(['category', 'user'])
+            ->latest()
+            ->paginate(1);
+
     }
 }

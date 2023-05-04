@@ -21,5 +21,6 @@ return [
     'term' => 'Syarat Dan Ketentuan ' . config('app.name'),
     'privacy' => 'Kebijakan Penggunaan ' . config('app.name'),
     'faq' => 'Bantuan Penggunaan ' . config('app.name'),
-    'checkout' => 'Pesan produk :product'
+    'checkout' => 'Pesan produk :product',
+    'articles' => 'Artikel Terbaik dari kami'
 ];

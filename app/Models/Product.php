@@ -7,7 +7,7 @@ use App\Base\Interfaces\HasLicenses;
 use App\Base\Interfaces\HasProductQuestions;
 use App\Base\Interfaces\HasRatings;
 use App\Base\Interfaces\HasTransactions;
-use Illuminate\Database\Eloquent\Builder;
+use App\Traits\ScopeSearchTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, ScopeSearchTrait;
 
     public $incrementing = false;
     public $fillable = ['id', 'category_id', 'status', 'type', 'name', 'photo', 'buy_price', 'sell_price', 'discount', 'reseller_discount', 'description', 'short_description', 'features', 'installation', 'attachment_file', 'slug'];
@@ -53,21 +53,6 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     public function product_questions(): HasMany
     {
         return $this->hasMany(ProductQuestion::class);
-    }
-
-    /**
-     * Scope a query to search with where
-     *
-     * @param mixed $query
-     * @param mixed $column
-     * @param mixed $value
-     *
-     * @return Builder
-     */
-
-    public function scopewhereLike(mixed $query, mixed $column, mixed $value): Builder
-    {
-        return $query->where($column, 'like', '%' . $value . '%');
     }
 
     /**

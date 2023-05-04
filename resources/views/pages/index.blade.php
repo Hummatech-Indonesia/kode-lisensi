@@ -1,3 +1,4 @@
+@php use App\Helpers\ArticleHelper;use App\Helpers\CategoryHelper;use App\Helpers\HomeHelper;use Carbon\Carbon; @endphp
 @extends('layouts.main')
 @section('content')
 
@@ -148,7 +149,7 @@
                 <div>
                     <div class="service-contain-2">
                         <svg class="icon-width">
-                            <use xlink:href="../assets/svg/svg/service-icon-4.svg#service"></use>
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#service') }}"></use>
                         </svg>
                         <div class="service-detail">
                             <h3>24 x 7 Service</h3>
@@ -159,7 +160,7 @@
                 <div>
                     <div class="service-contain-2">
                         <svg class="icon-width">
-                            <use xlink:href="../assets/svg/svg/service-icon-4.svg#pay"></use>
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#pay') }}"></use>
                         </svg>
                         <div class="service-detail">
                             <h3>Online Pay</h3>
@@ -170,7 +171,7 @@
                 <div>
                     <div class="service-contain-2">
                         <svg class="icon-width">
-                            <use xlink:href="../assets/svg/svg/service-icon-4.svg#offer"></use>
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#offer') }}"></use>
                         </svg>
                         <div class="service-detail">
                             <h3>Festival Offer</h3>
@@ -181,7 +182,7 @@
                 <div>
                     <div class="service-contain-2">
                         <svg class="icon-width">
-                            <use xlink:href="../assets/svg/svg/service-icon-4.svg#return"></use>
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#return') }}"></use>
                         </svg>
                         <div class="service-detail">
                             <h3>100% Original</h3>
@@ -1057,7 +1058,7 @@
                     </div>
 
                     <div class="title">
-                        <h2>Bowse by Categories</h2>
+                        <h2>Produk Rating Tertinggi</h2>
                         <span class="title-leaf">
                             <svg class="icon-width">
                                 <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
@@ -1329,45 +1330,6 @@
                         </ul>
                     </div>
 
-                    <div class="section-t-space section-b-space">
-                        <div class="row g-md-4 g-3">
-                            <div class="col-md-6">
-                                <div class="banner-contain hover-effect bg-size blur-up lazyloaded"
-                                     style="background-image: url(&quot;../assets/images/furniture/banner/4.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                    <img src="../assets/images/furniture/banner/4.jpg" class="bg-img blur-up lazyload"
-                                         alt="" style="display: none;">
-                                    <div class="banner-details p-center-left p-4">
-                                        <div>
-                                            <h3 class="text-kaushan text-yellow">50% offer</h3>
-                                            <h4 class="theme-color mb-2 fw-normal"><span class="theme-color fw-bold">Restyling</span>
-                                                your Home</h4>
-                                            <button onclick="location.href = 'shop-left-sidebar.html';"
-                                                    class="btn btn-furniture btn-sm mend-auto">Shop Now <i
-                                                    class="fa-solid fa-arrow-right icon"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="banner-contain hover-effect bg-size blur-up lazyloaded"
-                                     style="background-image: url(&quot;../assets/images/furniture/banner/5.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                    <img src="../assets/images/furniture/banner/5.jpg" class="bg-img blur-up lazyload"
-                                         alt="" style="display: none;">
-                                    <div class="banner-details p-center-left p-4">
-                                        <div>
-                                            <h3 class="text-kaushan text-yellow">50% offer</h3>
-                                            <h4 class="theme-color mb-2 fw-normal"><span class="theme-color fw-bold">New
-                                                    Elite</span> Collections</h4>
-                                            <button onclick="location.href = 'shop-left-sidebar.html';"
-                                                    class="btn btn-furniture btn-sm mend-auto">Shop Now <i
-                                                    class="fa-solid fa-arrow-right icon"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <div class="col-xxl-3 col-xl-4 d-none d-xl-block">
@@ -1375,96 +1337,17 @@
                         <div class="category-menu">
                             <h3>Kategori Terpopuler</h3>
                             <ul class="border-bottom-0">
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/decorations.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Decorations</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/pillows.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Bed Linen</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/cushions.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Cushions</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/blankets.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Blankets</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/gift.svg" class="blur-up lazyloaded"
-                                             alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Giftwraps</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/sleepware.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Sleepwear</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/bakeware.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Cookware &amp; Bakeware</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/room-fragrance.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Room Fragrance</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/tableware.svg"
-                                             class="blur-up lazyloaded" alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Servingware &amp; Tableware</a>
-                                        </h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="category-list">
-                                        <img src="../assets/images/furniture/icon/shower.svg" class="blur-up lazyloaded"
-                                             alt="">
-                                        <h5>
-                                            <a href="shop-left-sidebar.html">Bath &amp; Shower</a>
-                                        </h5>
-                                    </div>
-                                </li>
+                                @foreach(CategoryHelper::topCategory() as $categories)
+                                    <li>
+                                        <div class="category-list">
+                                            <img src="{{ asset('storage/' . $categories->icon) }}"
+                                                 class="blur-up lazyloaded" alt="">
+                                            <h5>
+                                                <a href="{{ route('home.products.index') }}">{{ $categories->name }}</a>
+                                            </h5>
+                                        </div>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -3971,295 +3854,34 @@
                 <h2>Artikel Terbaru</h2>
             </div>
 
-            <div class="slider-3 arrow-slider slick-initialized slick-slider">
-                <div class="slick-list draggable">
-                    <div class="slick-track"
-                         style="opacity: 1; width: 4741px; transform: translate3d(-1293px, 0px, 0px);">
-                        <div class="slick-slide slick-cloned" data-slick-index="-3" id="" aria-hidden="true"
-                             tabindex="-1" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/2.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/2.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Email Marketing</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
+            <div class="row">
+                @foreach(ArticleHelper::topArticles(10) as $article)
+                    <div class="col-12 col-md-4">
+                        <div class="blog-box ratio_50">
+                            <div class="blog-box-image">
+                                <a href="{{ route('home.articles.show', $article->slug) }}" tabindex="-1"
+                                   class="bg-size"
+                                   style="background-image: url(&quot;../assets/images/veg-3/blog/2.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
+                                    <img src="{{ asset('storage/' . $article->photo) }}" class="img-fluid bg-img"
+                                         alt="{{ $article->title }}"
+                                         style="display: none;">
+                                </a>
                             </div>
-                        </div>
-                        <div class="slick-slide slick-cloned" data-slick-index="-2" id="" aria-hidden="true"
-                             tabindex="-1" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/3.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/3.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
 
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true"
-                             tabindex="-1" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/1.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/1.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false"
-                             tabindex="0" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="0" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/1.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/1.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="0">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0"
-                             style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="0" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/2.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/2.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Email Marketing</label>
-                                    <a href="blog-detail.html" tabindex="0">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-active" data-slick-index="2" aria-hidden="false" tabindex="0"
-                             style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="0" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/3.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/3.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="0">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1"
-                             style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/1.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/1.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-cloned" data-slick-index="4" id="" aria-hidden="true"
-                             tabindex="-1" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/1.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/1.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-cloned" data-slick-index="5" id="" aria-hidden="true"
-                             tabindex="-1" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/2.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/2.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Email Marketing</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-cloned" data-slick-index="6" id="" aria-hidden="true"
-                             tabindex="-1" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/3.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/3.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slick-slide slick-cloned" data-slick-index="7" id="" aria-hidden="true"
-                             tabindex="-1" style="width: 431px;">
-                            <div class="blog-box ratio_50">
-                                <div class="blog-box-image">
-                                    <a href="blog-detail.html" tabindex="-1" class="bg-size"
-                                       style="background-image: url(&quot;../assets/images/veg-3/blog/1.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                                        <img src="../assets/images/veg-3/blog/1.jpg" class="img-fluid bg-img" alt=""
-                                             style="display: none;">
-                                    </a>
-                                </div>
-
-                                <div class="blog-detail">
-                                    <label>Conversion rate optimization</label>
-                                    <a href="blog-detail.html" tabindex="-1">
-                                        <h2>A Fresh Vegetable online market place a fresh...</h2>
-                                    </a>
-                                    <div class="blog-list">
-                                        <span>March 9, 2021</span>
-                                        <span>By Emil Kristensen</span>
-                                    </div>
+                            <div class="blog-detail">
+                                <label>{{ $article->category->name }}</label>
+                                <a href="{{ route('home.articles.show', $article->slug) }}" tabindex="-1">
+                                    <h2>{{ (strlen($article->title) > 25) ? substr($article->title, 0, 30) . "..." : $article->title }}</h2>
+                                </a>
+                                <div class="blog-list">
+                                    <span>{{ Carbon::parse($article->created_at)->translatedFormat('d F Y') }}</span>
+                                    <span>Oleh : {{ $article->user->name }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
 
-
-            </div>
-        </div>
-    </section>
-
-    <section class="newsletter-section section-b-space">
-        <div class="container-fluid-lg">
-            <div class="newsletter-box newsletter-box-2">
-                <div class="newsletter-contain py-5">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xxl-4 col-lg-5 col-md-7 col-sm-9 offset-xxl-2 offset-md-1">
-                                <div class="newsletter-detail">
-                                    <h2>Join our newsletter and get...</h2>
-                                    <h5>$20 discount for your first order</h5>
-                                    <div class="input-box">
-                                        <input type="email" class="form-control" id="exampleFormControlInput1"
-                                               placeholder="Enter Your Email">
-                                        <i class="fa-solid fa-envelope arrow"></i>
-                                        <button class="sub-btn  btn-animation">
-                                            <span class="d-sm-block d-none">Subscribe</span>
-                                            <i class="fa-solid fa-arrow-right icon"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
