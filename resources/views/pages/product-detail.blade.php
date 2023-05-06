@@ -942,7 +942,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="slider-6_1 product-wrapper slick-slider slick-dotted">
-
                         <div class="product-box-3 wow fadeInUp" data-wow-delay="0.25s"
                              style="visibility: visible; animation-delay: 0.25s; animation-name: fadeInUp;">
                             <div class="product-header">

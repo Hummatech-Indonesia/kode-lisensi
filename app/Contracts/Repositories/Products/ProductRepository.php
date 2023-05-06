@@ -5,6 +5,7 @@ namespace App\Contracts\Repositories\Products;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Repositories\BaseRepository;
 use App\Enums\ProductStatusEnum;
+use App\Enums\RatingStatusEnum;
 use App\Models\Product;
 use App\Traits\Datatables\ProductDatatable;
 use Exception;
@@ -34,25 +35,6 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->with('category')
             ->oldest()
             ->where('status', ProductStatusEnum::PREORDER->value));
-    }
-
-    /**
-     * Handle the Get all data event from models.
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    public function get(): mixed
-    {
-        return $this->ProductMockup($this->model->query()
-            ->with('category')
-            ->withCount([
-                'licenses as licenses_count' => function ($query) {
-                    $query->where('is_purchased', 0);
-                }
-            ])
-            ->oldest('licenses_count')
-            ->where('status', ProductStatusEnum::AVAILABLE->value));
     }
 
     /**
@@ -174,8 +156,31 @@ class ProductRepository extends BaseRepository implements ProductInterface
                     $query->where('is_purchased', 0);
                 }
             ])
+            ->withCount('product_ratings')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
             ->latest()
             ->cursorPaginate($perPage, $columns, $cursorName, $cursor);
+    }
+
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function get(): mixed
+    {
+        return $this->ProductMockup($this->model->query()
+            ->with('category')
+            ->withCount([
+                'licenses as licenses_count' => function ($query) {
+                    $query->where('is_purchased', 0);
+                }
+            ])
+            ->oldest('licenses_count')
+            ->where('status', ProductStatusEnum::AVAILABLE->value));
     }
 
     /**

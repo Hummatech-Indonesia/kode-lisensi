@@ -50,6 +50,13 @@ class RatingHelper
             })
             ->sum('rating');
 
+        if ($sum == 0) {
+            return [
+                'sumRating' => 0,
+                'stars' => 0
+            ];
+        }
+
         $rating = $sum / self::countProductRatings($product_id, $status);
         $stars = number_format(floor($rating));
 

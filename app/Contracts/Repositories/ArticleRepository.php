@@ -116,7 +116,7 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
             })
             ->with(['category', 'user'])
             ->latest()
-            ->paginate(1);
+            ->paginate($pagination);
 
     }
 }

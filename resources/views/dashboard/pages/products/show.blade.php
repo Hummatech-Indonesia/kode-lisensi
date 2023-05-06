@@ -263,7 +263,9 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                                             <td>:</td>
                                             <td>
                                                 <ul class="rating">
-                                                    <li class="mr-3">{{ $productRatings['sumRating'] }}</li>
+                                                    @if($productRatings['sumRating'] != 0)
+                                                        <li class="mr-3">{{ $productRatings['sumRating'] }}</li>
+                                                    @endif
                                                     @for($i = 1; $i <= 5; $i++)
                                                         <li>
                                                             <i class="fas fa-star {{ $i <= $productRatings['stars'] ? 'theme-color' : '' }}"></i>
@@ -275,7 +277,13 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                                         <tr>
                                             <th scope="col">Jumlah</th>
                                             <td>:</td>
-                                            <td>{{ RatingHelper::countProductRatings($product->id) . " Ulasan" }}</td>
+                                            <td>
+                                                @if(RatingHelper::countProductRatings($product->id) == 0)
+                                                    Belum ada ulasan
+                                                @else
+                                                    {{ RatingHelper::countProductRatings($product->id) . " Ulasan" }}
+                                                @endif
+                                            </td>
                                         </tr>
                                         </thead>
                                     </table>

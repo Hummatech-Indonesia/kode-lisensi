@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\InvoiceStatusEnum;
 use App\Enums\ProductStatusEnum;
+use App\Enums\RatingStatusEnum;
 use App\Helpers\DateHelper;
 use App\Helpers\ProductHelper;
 use App\Helpers\UserHelper;
@@ -121,11 +122,11 @@ class SummaryService
     public function handleLineChart(): array
     {
         $result = [
-            'labels' => DateHelper::getAllMonths(5),
+            'labels' => DateHelper::getAllMonths(4),
             'series' => [0, 0, 0, 0, 0, 0]
         ];
 
-        $startDate = DateHelper::getSomeMonthsAgoFromNow(5)->format('Y-m-d H:i:s');
+        $startDate = DateHelper::getSomeMonthsAgoFromNow(4)->format('Y-m-d H:i:s');
         $endDate = DateHelper::getCurrentTimestamp('Y-m-d H:i:s');
 
         $datas = $this->transaction->hasLineChart($startDate, $endDate);
@@ -157,22 +158,72 @@ class SummaryService
     /**
      * Handle best seller products
      *
+     * @param int $take
      * @return object
      */
 
-    public function handleBestSeller(): object
+    public function handleBestSeller(int $take = 10): object
     {
         $data = $this->product->query()
-            ->selectRaw('products.name, products.id, products.photo, products.status, SUM(tc.paid_amount) AS total, COUNT(tc.id) AS transactions_count, products.category_id, dt.product_id, dt.transaction_id, tc.id')
+            ->selectRaw('products.name, products.slug, products.id AS product_id, products.photo, products.status, products.sell_price, products.discount, products.reseller_discount, SUM(tc.paid_amount) AS total, COUNT(tc.id) AS transactions_count, products.category_id, dt.product_id, dt.transaction_id, tc.id')
             ->leftJoin('detail_transactions as dt', 'dt.product_id', '=', 'products.id')
             ->leftJoin('transactions as tc', 'tc.id', '=', 'dt.transaction_id')
             ->whereIn('tc.invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value])
             ->with(['category'])
+            ->withCount('product_ratings')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
             ->groupBy('products.name')
-            ->take(10)
+            ->take($take)
             ->orderByDesc('transactions_count')
             ->get();
 
         return $data->filter(fn($item) => $item->transactions_count > 0);
+    }
+
+    /**
+     * Handle the highest ratings products
+     *
+     * @param int $take
+     * @return object
+     */
+
+    public function handleHighestRatings(int $take): object
+    {
+        $data = $this->product->query()
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug')
+            ->with('category')
+            ->withCount('product_ratings')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->take($take)
+            ->orderByDesc('product_ratings_sum_rating')
+            ->get();
+
+        return $data->filter(fn($item) => $item->product_ratings_sum_rating != null);
+
+    }
+
+    /**
+     * Handle latest's products
+     *
+     * @param int $take
+     * @return object
+     */
+
+    public function handleLatestProducts(int $take = 15): object
+    {
+        return $this->product->query()
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->with('category')
+            ->withCount(['product_ratings', 'licenses'])
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->take($take)
+            ->latest()
+            ->get();
     }
 }

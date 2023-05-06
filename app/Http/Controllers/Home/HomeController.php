@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Services\SummaryService;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function __construct()
+    private SummaryService $summaryService;
+
+    public function __construct(SummaryService $summaryService)
     {
+        $this->summaryService = $summaryService;
     }
 
     /**
@@ -21,72 +23,11 @@ class HomeController extends Controller
 
     public function index(): View
     {
-        return view('pages.index');
+        return view('pages.index', [
+            'bestSellerProducts' => $this->summaryService->handleBestSeller(8),
+            'highestRatingProducts' => $this->summaryService->handleHighestRatings(12),
+            'latestProducts' => $this->summaryService->handleLatestProducts()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
