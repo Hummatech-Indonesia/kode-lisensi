@@ -39,6 +39,13 @@
     <section class="product-section">
         <div class="container-fluid-lg">
             <div class="row">
+                <div class="col-xxl-12">
+                    @if (session('success'))
+                        <x-alert-success></x-alert-success>
+                    @elseif($errors->any())
+                        <x-validation-errors :errors="$errors"></x-validation-errors>
+                    @endif
+                </div>
                 <div class="col-xxl-9 col-xl-8 col-lg-7 wow fadeInUp"
                      style="visibility: visible; animation-name: fadeInUp;">
                     <div class="row g-4">
@@ -286,6 +293,104 @@
                                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                     <div class="review-box">
                                         <div class="row g-4">
+                                            <form method="POST"
+                                                  action="{{ route('user.addOrUpdateRating', $product->id) }}">
+                                                @csrf
+                                                @auth
+                                                    @if(RatingHelper::checkUserHasTransaction($product->id))
+                                                        <div class="col-xl-12">
+                                                            @if(RatingHelper::checkUserHasRating($product->id))
+                                                                <div class="review-title">
+                                                                    <h4 class="fw-500">Ubah Ulasan Anda: </h4>
+                                                                </div>
+
+                                                                <div class="row g-4 mt-5">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-floating theme-form-floating">
+                                                                            <input
+                                                                                value="{{ RatingHelper::getUserRating($product->id)->rating }}"
+                                                                                name="rating" type="number"
+                                                                                class="form-control"
+                                                                                id="rating" placeholder="1-5">
+                                                                            <label for="rating">Rating</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-12">
+                                                                        <div class="form-floating theme-form-floating">
+                                                                     <textarea name="review" class="form-control"
+                                                                               placeholder="Leave a comment here"
+                                                                               id="floatingTextarea2"
+                                                                               style="height: 150px">{{ RatingHelper::getUserRating($product->id)->review }}</textarea>
+                                                                            <label for="floatingTextarea2">Komentar
+                                                                                Anda</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if(RatingStatusEnum::APPROVED->value == RatingHelper::getUserRating($product->id)->status)
+                                                                        <div class="col-md-6">
+                                                                            <div
+                                                                                class="form-floating theme-form-floating">
+                                                                                <button type="submit" name="submit"
+                                                                                        class="btn btn-md bg-dark cart-button text-white w-50">
+                                                                                    Update Ulasan
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="col-md-12">
+                                                                            <div
+                                                                                class="form-floating theme-form-floating">
+                                                                                <button type="button"
+                                                                                        class="btn btn-md bg-danger cart-button text-white w-70">
+                                                                                    Fitur dimatikan karna anda
+                                                                                    melanggar syarat dan ketentuan.
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
+                                                            @else
+                                                                <div class="review-title">
+                                                                    <h4 class="fw-500">Tambah Ulasan: </h4>
+                                                                </div>
+                                                                <div class="row g-4 mt-3">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-floating theme-form-floating">
+                                                                            <input
+                                                                                value="{{ old('rating') }}"
+                                                                                name="rating" type="number"
+                                                                                class="form-control"
+                                                                                id="rating" placeholder="1-5">
+                                                                            <label for="rating">Rating</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-12">
+                                                                        <div class="form-floating theme-form-floating">
+                                                                     <textarea name="review" class="form-control"
+                                                                               placeholder="Leave a comment here"
+                                                                               id="floatingTextarea2"
+                                                                               style="height: 150px">{{ old('review') }}</textarea>
+                                                                            <label for="floatingTextarea2">Komentar
+                                                                                Anda</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div
+                                                                            class="form-floating theme-form-floating">
+                                                                            <button type="submit" name="submit"
+                                                                                    class="btn btn-md bg-dark cart-button text-white w-50">
+                                                                                Tambah ulasan baru
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                @endauth
+                                            </form>
+
                                             <div class="col-12">
                                                 <div class="review-title">
                                                     <h4 class="fw-500">Rating & Ulasan Pelanggan terbaru terkait
@@ -317,13 +422,16 @@
                                                                         <a class="name"
                                                                            href="#">{{  $rating->user->name }}</a>
                                                                         <div class="date-time">
-                                                                            <h6 class="text-content">{{ Carbon::parse($rating->created_at)->translatedFormat('d F Y H:i') }}</h6>
+                                                                            <h6 class="text-content">
+                                                                                Terakhir
+                                                                                dirubah: {{ Carbon::parse($rating->updated_at)->translatedFormat('d F Y H:i') }}</h6>
 
                                                                             <div class="product-rating">
                                                                                 <ul class="rating">
                                                                                     @for($i = 1; $i <= 5; $i++)
                                                                                         <li>
-                                                                                            @if($i <= RatingHelper::sumProductRatings($product->id)['stars'])
+
+                                                                                            @if($i <= $rating->rating)
                                                                                                 <i data-feather="star"
                                                                                                    class="fill"></i>
                                                                                             @else

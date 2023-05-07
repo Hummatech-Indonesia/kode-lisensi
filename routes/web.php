@@ -80,6 +80,19 @@ Route::name('home.')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::name('user.')->group(function () {
+        Route::resources([
+            'profile' => ProfileController::class,
+            'change-password' => ChangePasswordController::class
+        ], ['only' => ['index', 'update']]);
+
+        Route::post('add-update-rating/{product_id}', [ProductTestimonialController::class, 'addOrUpdateRating'])->name('addOrUpdateRating');
+    });
+
+    Route::name('notification.')->prefix('notification')->group(function () {
+        Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
+    });
+
     Route::middleware('role:reseller|customer')->group(function () {
         Route::name('users.account.')->prefix('my-account')->group(function () {
             Route::get('/', [MyAccountController::class, 'index'])->name('index');
@@ -94,10 +107,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::prefix('dashboard')->group(function () {
-
-            Route::name('notification.')->prefix('notification')->group(function () {
-                Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
-            });
 
             Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
 
@@ -145,14 +154,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'article-categories' => ArticleCategoryController::class,
                 'articles' => ArticleController::class
             ], ['except' => ['show']]);
-
-            // users
-            Route::name('user.')->group(function () {
-                Route::resources([
-                    'profile' => ProfileController::class,
-                    'change-password' => ChangePasswordController::class
-                ], ['only' => ['index', 'update']]);
-            });
 
             Route::name('customer.')->prefix('customer')->group(function () {
                 Route::get('/', [CustomerController::class, 'index'])->name('index');

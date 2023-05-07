@@ -94,7 +94,7 @@ class CallbackService
 
             Notification::send($buyer, new DashboardNotification([
                 'name' => trans('notification.user_pack_purchased_title', ['pack_name' => $find['items'][0]['name'], 'price' => $find['items'][0]['price']]),
-                'url' => route('users.account.histories.show', $product_relation->slug)
+                'url' => route('users.account.index')
             ]));
 
             Notification::send(UserHelper::getAllAdministrators(), new DashboardNotification([
@@ -117,7 +117,6 @@ class CallbackService
                     'url' => route('orders.detail', $find['external_id']),
                 ]));
             }
-
         }
     }
 
@@ -156,7 +155,6 @@ class CallbackService
                 'total_amount' => $find['paid_amount'],
                 'created_at' => $find['created']
             ]));
-
         }
     }
 }

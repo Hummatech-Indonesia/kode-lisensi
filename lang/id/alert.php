@@ -32,5 +32,7 @@ return [
     'callback_blocked' => 'Invalid token! request blocked.',
     'callback_success' => 'Callback berhasil',
     'modify_rating' => 'Berhasil modifikasi rating',
-    'send_license_success' => 'Berhasil mengirim lisensi'
+    'send_license_success' => 'Berhasil mengirim lisensi',
+    'user_add_rating' => 'Berhasil menambahkan ulasan',
+    'user_update_rating' => 'Berhasil mengubah ulasan'
 ];

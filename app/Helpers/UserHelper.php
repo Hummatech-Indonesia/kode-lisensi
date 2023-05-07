@@ -31,6 +31,28 @@ class UserHelper
     }
 
     /**
+     * Handle get email
+     *
+     * @return string
+     */
+
+    public static function getUserEmail(): string
+    {
+        return auth()->user()->email;
+    }
+
+    /**
+     * Handle get phone_number
+     *
+     * @return string
+     */
+
+    public static function getUserPhone(): string
+    {
+        return auth()->user()->phone_number;
+    }
+
+    /**
      * Handle get photo
      *
      * @return string|null

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\ProductTestimonial;
+use App\Models\Transaction;
 
 class RatingHelper
 {
@@ -28,7 +29,7 @@ class RatingHelper
             ->when($take, function ($query) use ($take) {
                 return $query->take($take);
             })
-            ->latest()
+            ->latest('updated_at')
             ->get();
     }
 
@@ -82,5 +83,52 @@ class RatingHelper
                 return $query->where('status', $status);
             })
             ->count();
+    }
+
+    /**
+     * Check user has rating the products
+     *
+     * @param string $product_id
+     * @return bool
+     */
+
+    public static function checkUserHasRating(string $product_id): bool
+    {
+        $count = ProductTestimonial::query()
+            ->where(['user_id' => auth()->id(), 'product_id' => $product_id])
+            ->count();
+
+        return $count > 0;
+    }
+
+    /**
+     * Check user has transaction with the products
+     *
+     * @param string $product_id
+     * @return bool
+     */
+
+    public static function checkUserHasTransaction(string $product_id): bool
+    {
+        $count = Transaction::query()
+            ->where('user_id', auth()->id())
+            ->whereRelation('detail_transaction', 'product_id', '=', $product_id)
+            ->count();
+
+        return $count > 0;
+    }
+
+    /**
+     * Get user rating the products
+     *
+     * @param string $product_id
+     * @return object
+     */
+
+    public static function getUserRating(string $product_id): object
+    {
+        return ProductTestimonial::query()
+            ->where(['user_id' => auth()->id(), 'product_id' => $product_id])
+            ->firstOrFail();
     }
 }

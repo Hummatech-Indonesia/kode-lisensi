@@ -152,6 +152,7 @@ class SummaryService
         return $this->transaction->query()
             ->with(['user', 'detail_transaction.product'])
             ->take(10)
+            ->latest()
             ->get();
     }
 
