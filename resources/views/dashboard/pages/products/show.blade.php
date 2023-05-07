@@ -346,7 +346,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                                             </td>
                                         </tr>
                                     @empty
-                                        <p>Belum ada Rating</p>
+                                        <p>Belum ada Ulasan & Rating.</p>
                                     @endforelse
                                     </tbody>
                                 </table>

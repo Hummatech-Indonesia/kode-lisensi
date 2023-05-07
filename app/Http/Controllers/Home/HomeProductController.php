@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Services\ProductService;
+use App\Services\SummaryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,12 +17,14 @@ class HomeProductController extends Controller
     private ProductInterface $product;
     private CategoryInterface $category;
     private ProductService $productService;
+    private SummaryService $summaryService;
 
-    public function __construct(ProductInterface $product, CategoryInterface $category, ProductService $productService)
+    public function __construct(ProductInterface $product, CategoryInterface $category, ProductService $productService, SummaryService $summaryService)
     {
         $this->product = $product;
         $this->category = $category;
         $this->productService = $productService;
+        $this->summaryService = $summaryService;
     }
 
     /**
@@ -61,9 +64,12 @@ class HomeProductController extends Controller
     public function show(string $slug): View
     {
         $product = $this->product->showWithSlug($slug);
+
         return view('pages.product-detail', [
             'title' => trans('title.product_detail', ['product' => $product->name]),
-            'product' => $product
+            'product' => $product,
+            'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+            'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
         ]);
     }
 }

@@ -180,6 +180,10 @@ class ProductRepository extends BaseRepository implements ProductInterface
                     $query->where('is_purchased', 0);
                 }
             ])
+            ->withCount('product_ratings')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
             ->firstOrFail();
     }
 

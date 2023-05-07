@@ -226,4 +226,49 @@ class SummaryService
             ->latest()
             ->get();
     }
+
+    /**
+     * Handle recommended products
+     *
+     * @param int $take
+     * @return object
+     */
+
+    public function handleRecommendProducts(int $take = 5): object
+    {
+        return $this->product->query()
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->with('category')
+            ->withCount(['product_ratings', 'licenses'])
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->take($take)
+            ->inRandomOrder()
+            ->get();
+    }
+
+    /**
+     * Handle same category products
+     *
+     * @param string $product_id
+     * @param int $category_id
+     * @param int $take
+     * @return object
+     */
+    public function handleSameCategoryProducts(string $product_id, int $category_id, int $take = 15): object
+    {
+        return $this->product->query()
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->where('category_id', $category_id)
+            ->whereNot('id', $product_id)
+            ->with('category')
+            ->withCount(['product_ratings', 'licenses'])
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->take($take)
+            ->latest()
+            ->get();
+    }
 }
