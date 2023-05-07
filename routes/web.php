@@ -21,6 +21,7 @@ use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
 use App\Http\Controllers\Dashboard\RevenueController;
 use App\Http\Controllers\Dashboard\SiteSettingController;
+use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\Home\HomeArticleController;
 use App\Http\Controllers\Home\HomeController;
@@ -67,7 +68,7 @@ Route::name('home.')->group(function () {
     Route::resources([
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
-    ]);
+    ], ['only' => ['index', 'show']]);
 
     Route::prefix('checkout')->group(function () {
         Route::get('{invoice_id}/success', [CallbackController::class, 'showSuccessPage']);
@@ -169,7 +170,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::resources([
                     'site-setting' => SiteSettingController::class,
                     'terms' => TermController::class,
-                    'about-us' => AboutController::class
+                    'about-us' => AboutController::class,
+                    'slider' => SliderController::class
                 ], ['only' => ['index', 'update']]);
 
             });

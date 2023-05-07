@@ -46,7 +46,8 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-2 mb-0">Deskripsi</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" name="description" value="{{ $data->description }}">
+                            <textarea class="form-control" type="text"
+                                      name="description">{{ $data->description }}</textarea>
                         </div>
                     </div>
 

@@ -1,5 +1,4 @@
 <ul class="sidebar-links" id="simple-bar">
-    @role('admin')
 
     <li class="back-btn"></li>
 
@@ -10,6 +9,8 @@
             <span>Dashboard</span>
         </a>
     </li>
+
+    @role('admin')
 
     <li class="sidebar-list">
         <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('categories.*') ? 'active' : '' }}"
@@ -94,7 +95,9 @@
         </a>
         <ul class="sidebar-submenu">
             <li>
-                <a href="{{ route('site-setting.index') }}">Pengaturan Website</a>
+                <a href="{{ route('site-setting.index') }}">Profil Website</a>
+                <a href="{{ route('slider.index') }}">Home Slider</a>
+                <a href="{{ route('site-setting.index') }}">Home Banners</a>
                 <a href="{{ route('about-us.index') }}">Tentang Kami</a>
                 <a href="{{ route('contact-us.index') }}">Kontak Kami</a>
                 <a href="{{ route('faqs.index') }}">FAQ</a>

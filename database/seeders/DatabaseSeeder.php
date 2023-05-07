@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Seed the application's database.
      *
@@ -20,7 +23,8 @@ class DatabaseSeeder extends Seeder
             ResellerSeeder::class,
             SiteSettingSeeder::class,
             AboutSeeder::class,
-            ProductSeeder::class
+            ProductSeeder::class,
+            SlideSeeder::class
         ]);
     }
 }

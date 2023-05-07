@@ -17,20 +17,21 @@
                     <div class="slider-animate">
                         <div>
                             <div class="home-contain rounded-0 p-0">
-                                <img src="../assets/images/grocery/banner/1.jpg"
-                                     class="img-fluid bg-img blur-up lazyload" alt="">
+                                <img src="{{ asset('storage/' . $slider->image) }}"
+                                     class="img-fluid bg-img blur-up lazyload" alt="{{ $slider->offer }}">
                                 <div class="home-detail home-big-space p-center-left home-overlay position-relative">
                                     <div class="container-fluid-lg">
                                         <div>
-                                            <h6 class="ls-expanded theme-color text-uppercase">Weekend Special offer
+                                            <h6 class="ls-expanded theme-color text-uppercase">{{ $slider->offer }}
                                             </h6>
-                                            <h1 class="heding-2">Premium Quality Dry Fruits</h1>
-                                            <h2 class="content-2">Dryfruits shopping made Easy</h2>
-                                            <h5 class="text-content">Fresh & Top Quality Dry Fruits are available here!
+                                            <h1 class="heding-2">{{ $slider->header }}</h1>
+                                            <h2 class="content-2">{{ $slider->sub_header }}</h2>
+                                            <h5 class="text-content">{{ $slider->description }}
                                             </h5>
                                             <button
                                                 class="btn theme-bg-color btn-md text-white fw-bold mt-md-4 mt-2 mend-auto"
-                                                onclick="location.href = 'shop-left-sidebar.html';">Shop Now <i
+                                                onclick="location.href = '{{ $slider->product_url }}';">Lihat Sekarang
+                                                <i
                                                     class="fa-solid fa-arrow-right icon"></i></button>
                                         </div>
                                     </div>
@@ -43,68 +44,6 @@
         </div>
     </section>
     <!-- Home Section End -->
-
-    <section class="service-section">
-        <div class="container-fluid-lg">
-            <div class="row g-3 row-cols-xxl-5 row-cols-lg-3 row-cols-md-2">
-                <div>
-                    <div class="service-contain-2">
-                        <svg class="icon-width">
-                            <use xlink:href="../assets/svg/svg/service-icon-4.svg#shipping"></use>
-                        </svg>
-                        <div class="service-detail">
-                            <h3>Free Shipping</h3>
-                            <h6 class="text-content">Free Shipping world wide</h6>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="service-contain-2">
-                        <svg class="icon-width">
-                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#service') }}"></use>
-                        </svg>
-                        <div class="service-detail">
-                            <h3>24 x 7 Service</h3>
-                            <h6 class="text-content">Online Service For 24 x 7</h6>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="service-contain-2">
-                        <svg class="icon-width">
-                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#pay') }}"></use>
-                        </svg>
-                        <div class="service-detail">
-                            <h3>Online Pay</h3>
-                            <h6 class="text-content">Online Payment Avaible</h6>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="service-contain-2">
-                        <svg class="icon-width">
-                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#offer') }}"></use>
-                        </svg>
-                        <div class="service-detail">
-                            <h3>Festival Offer</h3>
-                            <h6 class="text-content">Super Sale Upto 50% off</h6>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="service-contain-2">
-                        <svg class="icon-width">
-                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#return') }}"></use>
-                        </svg>
-                        <div class="service-detail">
-                            <h3>100% Original</h3>
-                            <h6 class="text-content">100% Money Back</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="product-section">
         <div class="container-fluid-lg">
@@ -219,6 +158,53 @@
         </div>
     </section>
 
+    <section class="banner-section">
+        <div class="container-fluid-lg">
+            <div class="row gy-lg-0 gy-3">
+                <div class="col-lg-6">
+                    <div class="banner-contain-3 hover-effect">
+                        <div class="bg-size blur-up lazyloaded"
+                             style="background-image: url(&quot;../assets/images/grocery/banner/6.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
+                            <img src="../assets/images/grocery/banner/6.jpg" class="bg-img blur-up lazyload" alt=""
+                                 style="display: none;">
+                            <div
+                                class="banner-detail banner-detail-2 text-dark p-center-left w-75 banner-p-sm position-relative mend-auto">
+                                <div>
+                                    <h2 class="text-great fw-normal text-danger">50% special offer</h2>
+                                    <h3 class="mb-1 fw-bold">Chocolate Shake Back in <br class="d-sm-block d-none">
+                                        Stock</h3>
+                                    <h4 class="text-content">Offer Of the Week!</h4>
+                                    <button class="btn btn-md theme-bg-color text-white mt-sm-3 mt-1 fw-bold mend-auto"
+                                            onclick="location.href = 'shop-left-sidebar.html';">Shop Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="banner-contain-3 hover-effect bg-size blur-up lazyloaded"
+                         style="background-image: url(&quot;../assets/images/grocery/banner/7.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
+                        <img src="../assets/images/grocery/banner/7.jpg" class="bg-img blur-up lazyload" alt=""
+                             style="display: none;">
+                        <div
+                            class="banner-detail banner-detail-2 text-dark p-center-left w-75 banner-p-sm position-relative mend-auto">
+                            <div>
+                                <h2 class="text-great fw-normal text-danger">Special hot sale</h2>
+                                <h3 class="mb-1 fw-bold">Healthy &amp; Fresh Cool <br> Breakfast</h3>
+                                <h4 class="text-content">Choose a Nutritious &amp; Healthy Breakfast.</h4>
+                                <button class="btn btn-md theme-bg-color text-white mt-sm-3 mt-1 fw-bold mend-auto"
+                                        onclick="location.href = 'shop-left-sidebar.html';">Shop Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="product-list-section section-b-space mt-3">
         <div class="container-fluid-lg">
             <div class="row g-sm-4 g-3">
@@ -235,9 +221,9 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="slider-6_1 product-wrapper slick-slider slick-dotted">
+                            <div class="slider-5_1 product-wrapper slick-slider slick-dotted">
                                 @forelse($highestRatingProducts as $product)
-                                    <div class="product-box-3 wow fadeInUp" data-wow-delay="0.25s"
+                                    <div class="product-box-3 wow fadeInUp m-2" data-wow-delay="0.25s"
                                          style="visibility: visible; animation-delay: 0.25s; animation-name: fadeInUp;">
                                         <div class="product-header">
                                             <div class="product-image">
@@ -355,8 +341,77 @@
                 </div>
             </div>
         </div>
+    </section>
 
-
+    <section class="service-section">
+        <div class="container-fluid-lg">
+            <div class="title">
+                <h2>Mengapa {{ config('app.name') }} ?</h2>
+                <span class="title-leaf">
+                            <svg class="icon-width">
+                                <use xlink:href="{{ asset('assets/svg/leaf.svg#leaf') }}"></use>
+                            </svg>
+                            </span>
+                <p>Beberapa alasan mengapa anda harus memilih kami..</p>
+            </div>
+            <div class="row g-3 row-cols-xxl-5 row-cols-lg-3 row-cols-md-2">
+                <div>
+                    <div class="service-contain-2">
+                        <svg class="icon-width">
+                            <use xlink:href="../assets/svg/svg/service-icon-4.svg#shipping"></use>
+                        </svg>
+                        <div class="service-detail">
+                            <h3>Free Shipping</h3>
+                            <h6 class="text-content">Free Shipping world wide</h6>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="service-contain-2">
+                        <svg class="icon-width">
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#service') }}"></use>
+                        </svg>
+                        <div class="service-detail">
+                            <h3>24 x 7 Service</h3>
+                            <h6 class="text-content">Online Service For 24 x 7</h6>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="service-contain-2">
+                        <svg class="icon-width">
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#pay') }}"></use>
+                        </svg>
+                        <div class="service-detail">
+                            <h3>Online Pay</h3>
+                            <h6 class="text-content">Online Payment Avaible</h6>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="service-contain-2">
+                        <svg class="icon-width">
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#offer') }}"></use>
+                        </svg>
+                        <div class="service-detail">
+                            <h3>Festival Offer</h3>
+                            <h6 class="text-content">Super Sale Upto 50% off</h6>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="service-contain-2">
+                        <svg class="icon-width">
+                            <use xlink:href="{{ asset('assets/svg/svg/service-icon-4.svg#return') }}"></use>
+                        </svg>
+                        <div class="service-detail">
+                            <h3>100% Original</h3>
+                            <h6 class="text-content">100% Money Back</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="product-section">
@@ -476,54 +531,6 @@
             </div>
         </div>
     </section>
-
-    <section class="banner-section">
-        <div class="container-fluid-lg">
-            <div class="row gy-lg-0 gy-3">
-                <div class="col-lg-6">
-                    <div class="banner-contain-3 hover-effect">
-                        <div class="bg-size blur-up lazyloaded"
-                             style="background-image: url(&quot;../assets/images/grocery/banner/6.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                            <img src="../assets/images/grocery/banner/6.jpg" class="bg-img blur-up lazyload" alt=""
-                                 style="display: none;">
-                            <div
-                                class="banner-detail banner-detail-2 text-dark p-center-left w-75 banner-p-sm position-relative mend-auto">
-                                <div>
-                                    <h2 class="text-great fw-normal text-danger">50% special offer</h2>
-                                    <h3 class="mb-1 fw-bold">Chocolate Shake Back in <br class="d-sm-block d-none">
-                                        Stock</h3>
-                                    <h4 class="text-content">Offer Of the Week!</h4>
-                                    <button class="btn btn-md theme-bg-color text-white mt-sm-3 mt-1 fw-bold mend-auto"
-                                            onclick="location.href = 'shop-left-sidebar.html';">Shop Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="banner-contain-3 hover-effect bg-size blur-up lazyloaded"
-                         style="background-image: url(&quot;../assets/images/grocery/banner/7.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                        <img src="../assets/images/grocery/banner/7.jpg" class="bg-img blur-up lazyload" alt=""
-                             style="display: none;">
-                        <div
-                            class="banner-detail banner-detail-2 text-dark p-center-left w-75 banner-p-sm position-relative mend-auto">
-                            <div>
-                                <h2 class="text-great fw-normal text-danger">Special hot sale</h2>
-                                <h3 class="mb-1 fw-bold">Healthy &amp; Fresh Cool <br> Breakfast</h3>
-                                <h4 class="text-content">Choose a Nutritious &amp; Healthy Breakfast.</h4>
-                                <button class="btn btn-md theme-bg-color text-white mt-sm-3 mt-1 fw-bold mend-auto"
-                                        onclick="location.href = 'shop-left-sidebar.html';">Shop Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
 
     <section class="blog-section">
         <div class="container-fluid-lg">

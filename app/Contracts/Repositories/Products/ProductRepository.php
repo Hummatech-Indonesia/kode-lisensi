@@ -165,25 +165,6 @@ class ProductRepository extends BaseRepository implements ProductInterface
     }
 
     /**
-     * Handle the Get all data event from models.
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    public function get(): mixed
-    {
-        return $this->ProductMockup($this->model->query()
-            ->with('category')
-            ->withCount([
-                'licenses as licenses_count' => function ($query) {
-                    $query->where('is_purchased', 0);
-                }
-            ])
-            ->oldest('licenses_count')
-            ->where('status', ProductStatusEnum::AVAILABLE->value));
-    }
-
-    /**
      * Handle get the specified data by id from models.
      *
      * @param string $slug
@@ -200,5 +181,35 @@ class ProductRepository extends BaseRepository implements ProductInterface
                 }
             ])
             ->firstOrFail();
+    }
+
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     */
+    public function getAll(): mixed
+    {
+        return $this->model->query()
+            ->get();
+    }
+
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function get(): mixed
+    {
+        return $this->ProductMockup($this->model->query()
+            ->with('category')
+            ->withCount([
+                'licenses as licenses_count' => function ($query) {
+                    $query->where('is_purchased', 0);
+                }
+            ])
+            ->oldest('licenses_count')
+            ->where('status', ProductStatusEnum::AVAILABLE->value));
     }
 }
