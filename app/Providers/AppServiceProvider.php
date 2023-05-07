@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Contracts\Interfaces\AboutInterface;
 use App\Contracts\Interfaces\ArticleCategoryInterface;
 use App\Contracts\Interfaces\ArticleInterface;
+use App\Contracts\Interfaces\BannerInterface;
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\ChangePasswordInterface;
 use App\Contracts\Interfaces\ContactInterface;
@@ -25,6 +26,7 @@ use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Repositories\AboutRepository;
 use App\Contracts\Repositories\ArticleCategoryRepository;
 use App\Contracts\Repositories\ArticleRepository;
+use App\Contracts\Repositories\BannerRepository;
 use App\Contracts\Repositories\CategoryRepository;
 use App\Contracts\Repositories\ChangePasswordRepository;
 use App\Contracts\Repositories\ContactRepository;
@@ -68,7 +70,8 @@ class AppServiceProvider extends ServiceProvider
         RatingInterface::class => RatingRepository::class,
         ArticleInterface::class => ArticleRepository::class,
         ArticleCategoryInterface::class => ArticleCategoryRepository::class,
-        SliderInterface::class => SliderRepository::class
+        SliderInterface::class => SliderRepository::class,
+        BannerInterface::class => BannerRepository::class
     ];
 
     /**

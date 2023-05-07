@@ -165,17 +165,18 @@
                     <div class="banner-contain-3 hover-effect">
                         <div class="bg-size blur-up lazyloaded"
                              style="background-image: url(&quot;../assets/images/grocery/banner/6.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                            <img src="../assets/images/grocery/banner/6.jpg" class="bg-img blur-up lazyload" alt=""
+                            <img src="{{ asset('storage/' . $banners->first_image) }}" class="bg-img blur-up lazyload"
+                                 alt="{{ $banners->first_title }}"
                                  style="display: none;">
                             <div
                                 class="banner-detail banner-detail-2 text-dark p-center-left w-75 banner-p-sm position-relative mend-auto">
                                 <div>
-                                    <h2 class="text-great fw-normal text-danger">50% special offer</h2>
-                                    <h3 class="mb-1 fw-bold">Chocolate Shake Back in <br class="d-sm-block d-none">
-                                        Stock</h3>
-                                    <h4 class="text-content">Offer Of the Week!</h4>
+                                    <h2 class="text-great fw-normal text-danger">{{ $banners->first_offer }}</h2>
+                                    <h3 class="mb-1 fw-bold">{{ $banners->first_title }}</h3>
+                                    <h4 class="text-content">{{ $banners->first_description }}</h4>
                                     <button class="btn btn-md theme-bg-color text-white mt-sm-3 mt-1 fw-bold mend-auto"
-                                            onclick="location.href = 'shop-left-sidebar.html';">Shop Now
+                                            onclick="location.href = '{{ $banners->first_product_url }}';">Lihat
+                                        Sekarang
                                     </button>
                                 </div>
                             </div>
@@ -186,16 +187,17 @@
                 <div class="col-lg-6">
                     <div class="banner-contain-3 hover-effect bg-size blur-up lazyloaded"
                          style="background-image: url(&quot;../assets/images/grocery/banner/7.jpg&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; display: block;">
-                        <img src="../assets/images/grocery/banner/7.jpg" class="bg-img blur-up lazyload" alt=""
+                        <img src="{{ asset('storage/' . $banners->second_image) }}" class="bg-img blur-up lazyload"
+                             alt="{{ $banners->second_title }}"
                              style="display: none;">
                         <div
                             class="banner-detail banner-detail-2 text-dark p-center-left w-75 banner-p-sm position-relative mend-auto">
                             <div>
-                                <h2 class="text-great fw-normal text-danger">Special hot sale</h2>
-                                <h3 class="mb-1 fw-bold">Healthy &amp; Fresh Cool <br> Breakfast</h3>
-                                <h4 class="text-content">Choose a Nutritious &amp; Healthy Breakfast.</h4>
+                                <h2 class="text-great fw-normal text-danger">{{ $banners->second_offer }}</h2>
+                                <h3 class="mb-1 fw-bold">{{ $banners->second_title }}</h3>
+                                <h4 class="text-content">{{ $banners->second_description }}</h4>
                                 <button class="btn btn-md theme-bg-color text-white mt-sm-3 mt-1 fw-bold mend-auto"
-                                        onclick="location.href = 'shop-left-sidebar.html';">Shop Now
+                                        onclick="location.href = '{{ $banners->second_product_url }}';">Lihat Sekarang
                                 </button>
                             </div>
                         </div>

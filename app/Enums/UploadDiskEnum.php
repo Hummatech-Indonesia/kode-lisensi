@@ -11,4 +11,5 @@ enum UploadDiskEnum: string
     case SITE_SETTING = 'site_setting';
     case ARTICLES = 'articles';
     case SLIDERS = 'sliders';
+    case BANNERS = 'banners';
 }

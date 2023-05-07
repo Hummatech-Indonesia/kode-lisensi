@@ -97,7 +97,7 @@
             <li>
                 <a href="{{ route('site-setting.index') }}">Profil Website</a>
                 <a href="{{ route('slider.index') }}">Home Slider</a>
-                <a href="{{ route('site-setting.index') }}">Home Banners</a>
+                <a href="{{ route('banners.index') }}">Home Banners</a>
                 <a href="{{ route('about-us.index') }}">Tentang Kami</a>
                 <a href="{{ route('contact-us.index') }}">Kontak Kami</a>
                 <a href="{{ route('faqs.index') }}">FAQ</a>

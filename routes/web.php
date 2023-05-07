@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AboutController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
 use App\Http\Controllers\Dashboard\ArticleController;
+use App\Http\Controllers\Dashboard\BannerController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
 use App\Http\Controllers\Dashboard\CustomerController;
@@ -171,7 +172,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'site-setting' => SiteSettingController::class,
                     'terms' => TermController::class,
                     'about-us' => AboutController::class,
-                    'slider' => SliderController::class
+                    'slider' => SliderController::class,
+                    'banners' => BannerController::class
                 ], ['only' => ['index', 'update']]);
 
             });
