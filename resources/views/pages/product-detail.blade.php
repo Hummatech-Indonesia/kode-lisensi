@@ -307,11 +307,28 @@
                                                                 <div class="row g-4 mt-5">
                                                                     <div class="col-md-6">
                                                                         <div class="form-floating theme-form-floating">
-                                                                            <input
-                                                                                value="{{ RatingHelper::getUserRating($product->id)->rating }}"
-                                                                                name="rating" type="number"
-                                                                                class="form-control"
-                                                                                id="rating" placeholder="1-5">
+                                                                            <select name="rating" class="form-control">
+                                                                                <option
+                                                                                    {{ RatingHelper::getUserRating($product->id)->rating == 1 ? 'selected' : '' }} value="1">
+                                                                                    1
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ RatingHelper::getUserRating($product->id)->rating == 2 ? 'selected' : '' }} value="2">
+                                                                                    2
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ RatingHelper::getUserRating($product->id)->rating == 3 ? 'selected' : '' }} value="3">
+                                                                                    3
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ RatingHelper::getUserRating($product->id)->rating == 4 ? 'selected' : '' }} value="4">
+                                                                                    4
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ RatingHelper::getUserRating($product->id)->rating == 5 ? 'selected' : '' }} value="5">
+                                                                                    5
+                                                                                </option>
+                                                                            </select>
                                                                             <label for="rating">Rating</label>
                                                                         </div>
                                                                     </div>
@@ -356,11 +373,28 @@
                                                                 <div class="row g-4 mt-3">
                                                                     <div class="col-md-6">
                                                                         <div class="form-floating theme-form-floating">
-                                                                            <input
-                                                                                value="{{ old('rating') }}"
-                                                                                name="rating" type="number"
-                                                                                class="form-control"
-                                                                                id="rating" placeholder="1-5">
+                                                                            <select name="rating" class="form-control">
+                                                                                <option
+                                                                                    {{ old('rating') == 1 ? 'selected' : '' }} value="1">
+                                                                                    1
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('rating') == 2 ? 'selected' : '' }} value="2">
+                                                                                    2
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('rating') == 3 ? 'selected' : '' }} value="3">
+                                                                                    3
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('rating') == 4 ? 'selected' : '' }} value="4">
+                                                                                    4
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('rating') == 5 ? 'selected' : '' }} value="5">
+                                                                                    5
+                                                                                </option>
+                                                                            </select>
                                                                             <label for="rating">Rating</label>
                                                                         </div>
                                                                     </div>
