@@ -85,6 +85,6 @@ class LicenseRepository extends BaseRepository implements LicenseInterface
         return $this->model->query()
             ->where('is_purchased', 0)
             ->oldest()
-            ->firstOrFail();
+            ->first();
     }
 }

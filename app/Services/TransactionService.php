@@ -56,7 +56,7 @@ class TransactionService
     {
         $data = $request->validated();
         $external_id = "invoice-" . Uuid::uuid();
-        $license = $this->license->get();
+        $license_id = null;
         $discount = (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) ? $product->reseller_discount : $product->discount;
         $price = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
         $fee = CurrencyHelper::countProductTax($price, 10);
@@ -93,7 +93,9 @@ class TransactionService
             ]
         ]);
 
-        $license_id = ($product->status === ProductStatusEnum::PREORDER->value) ? null : $license->id;
+        if ($license = $this->license->get()) {
+            $license_id = ($product->status === ProductStatusEnum::PREORDER->value) ? null : $license->id;
+        }
 
         $transaction = $this->transaction->store($createInvoice + ['license_id' => $license_id]);
 
