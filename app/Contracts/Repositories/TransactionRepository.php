@@ -42,7 +42,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     {
         return $this->model->query()
             ->where('invoice_id', $id)
-            ->with(['license.product', 'detail_transaction'])
+            ->with(['license.product', 'detail_transaction.product'])
             ->firstOrFail();
     }
 

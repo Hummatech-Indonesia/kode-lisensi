@@ -53,7 +53,7 @@ class CallbackService
         if (in_array($find['status'], [InvoiceStatusEnum::PAID->value, InvoiceStatusEnum::SETTLED->value])) {
 
             $license_relation = $data->license;
-            $product_relation = $data->license->product;
+            $product_relation = $data->detail_transaction->product;
             $product_status = $product_relation->status;
             $paid_at = Carbon::parse($find['paid_at'])->format('Y-m-d H:m:s');
             $buyer = UserHelper::instantGetUser($data->user_id);
@@ -85,9 +85,9 @@ class CallbackService
                     'product_type' => $product_relation->type,
                     'attachment_file' => $product_relation->attachment_file,
                     'licenses' => [
-                        'username' => $license_relation->username,
-                        'password' => $license_relation->password,
-                        'serial_key' => $license_relation->serial_key
+                        'username' => ($license_relation) ? $license_relation->username : null,
+                        'password' => ($license_relation) ? $license_relation->password : null,
+                        'serial_key' => ($license_relation) ? $license_relation->serial_key : null
                     ]
                 ]
             ));
@@ -138,7 +138,7 @@ class CallbackService
                 'license_id' => null
             ]);
 
-            $product_relation = $data->license->product;
+            $product_relation = $data->detail_transaction->product;
             $product_status = $product_relation->status;
 
             $license_id = ($product_status === ProductStatusEnum::PREORDER->value) ? null : $data->license_id;

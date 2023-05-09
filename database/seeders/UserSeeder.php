@@ -31,7 +31,8 @@ class UserSeeder extends Seeder
                     'id' => Uuid::uuid(),
                     'name' => $user,
                     'email' => $user . "@gmail.com",
-                    'password' => bcrypt('password')
+                    'password' => bcrypt('password'),
+                    'email_verified_at' => now()
                 ]);
 
             $profile->assignRole($role);
