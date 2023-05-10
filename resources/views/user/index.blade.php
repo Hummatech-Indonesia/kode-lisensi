@@ -240,6 +240,7 @@ use App\Helpers\NotificationHelper;
 
                                                     <div class="order-detail">
                                                         <h4>{{ $notify->data['name'] }} </h4>
+                                                        <h6 class="text-content">{{ Carbon::parse($notify->created_at)->translatedFormat('d F Y h:i') }}</h6>
                                                     </div>
                                                 </div>
                                             </div>
