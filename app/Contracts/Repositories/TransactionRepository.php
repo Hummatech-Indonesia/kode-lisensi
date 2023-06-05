@@ -27,6 +27,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     {
         return $this->TransactionMockup($this->model->query()
             ->where('license_status', LicenseStatusEnum::PROCESSED->value)
+            ->whereHas('detail_transaction.product')
             ->with(['user', 'detail_transaction.product'])
             ->oldest());
     }

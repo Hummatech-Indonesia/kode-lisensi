@@ -46,7 +46,7 @@
                                 </div>
                             @else
                                 <div class="dropdown">
-                                    <button class="dropdown-toggle m-0" type="button" id="dropdownMenuButton2"
+                                    <button class="dropdown-toggle m-0" type="button" id="dropdown  MenuButton2"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                         <span>Hi, {{ auth()->user()->name }}</span> <i
                                             class="fa-solid fa-angle-down"></i>
@@ -88,7 +88,6 @@
 
                                 <li>
                                     <a href="#" class="header-icon">
-                                        <small class="badge-number">2</small>
                                         <i class="iconly-Swap icli"></i>
                                     </a>
                                 </li>

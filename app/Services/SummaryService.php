@@ -151,6 +151,7 @@ class SummaryService
     {
         return $this->transaction->query()
             ->with(['user', 'detail_transaction.product'])
+            ->whereHas('detail_transaction.product')
             ->take(10)
             ->latest()
             ->get();
@@ -163,7 +164,7 @@ class SummaryService
      * @return object
      */
 
-    public function handleBestSeller(int $take = 10): object
+    public function handleBestSeller(int $take = 5): object
     {
         $data = $this->product->query()
             ->selectRaw('products.name, products.slug, products.id AS product_id, products.photo, products.status, products.sell_price, products.discount, products.reseller_discount, SUM(tc.paid_amount) AS total, COUNT(tc.id) AS transactions_count, products.category_id, dt.product_id, dt.transaction_id, tc.id')

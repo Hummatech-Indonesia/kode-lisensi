@@ -59,7 +59,7 @@
         <div class="card o-hidden card-hover">
             <div class="card-header card-header-top card-header--2 px-0 pt-0">
                 <div class="card-header-title">
-                    <h4>10 Produk Terlaris</h4>
+                    <h4>5 Produk Terlaris</h4>
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                 <div>
                     <div class="table-responsive">
                         <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
-                               id="table_id" style="display: block; overflow-y: scroll; max-height: 300px">
+                               id="table_id">
                             <thead>
                             <tr>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">#
@@ -227,7 +227,7 @@
                     <div class="table-responsive">
                         <div id="table_id_wrapper" class="dataTables_wrapper no-footer">
                             <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
-                                   id="table_id" style="display: block; overflow-y: scroll; max-height: 300px">
+                                   id="table_id">
                                 <thead>
                                 <tr>
                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">ID

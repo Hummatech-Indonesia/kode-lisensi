@@ -49,7 +49,7 @@ class UserHelper
 
     public static function getUserPhone(): string
     {
-        return auth()->user()->phone_number ?? '';
+        return auth()->user()->phone_number ?? 'Nomor belum terdaftar';
     }
 
     /**
