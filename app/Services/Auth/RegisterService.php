@@ -32,7 +32,6 @@ class RegisterService
 
         event(new Registered($user));
 
-        auth()->attempt(['email' => $user['email'], 'password' => $password]);
-
+        auth()->attempt(['email' => $user['email'], 'password' => $data['password']]);
     }
 }

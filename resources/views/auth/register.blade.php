@@ -33,12 +33,12 @@
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input value="{{ old('name') }}" autocomplete="off" type="text" name="name"
-                                               class="form-control @error('name') is-invalid @enderror" id="name"
-                                               placeholder="John Doe" autofocus>
+                                            class="form-control @error('name') is-invalid @enderror" id="name"
+                                            placeholder="John Doe" autofocus>
                                         @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                         <label for="email">Nama lengkap</label>
                                     </div>
@@ -47,12 +47,12 @@
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input value="{{ old('email') }}" autocomplete="off" type="email" name="email"
-                                               class="form-control @error('email') is-invalid @enderror" id="email"
-                                               placeholder="Email Address" autofocus>
+                                            class="form-control @error('email') is-invalid @enderror" id="email"
+                                            placeholder="Email Address" autofocus>
                                         @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                         <label for="email">Email Address</label>
                                     </div>
@@ -61,14 +61,13 @@
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input name="password" type="password"
-                                               class="form-control @error('password') is-invalid @enderror"
-                                               id="password"
-                                               placeholder="Password">
+                                            class="form-control @error('password') is-invalid @enderror" id="password"
+                                            placeholder="Password">
                                         <label for="password">Password</label>
                                         @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                        </span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -76,30 +75,29 @@
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input name="password_confirmation" type="password"
-                                               class="form-control @error('password') is-invalid @enderror"
-                                               id="password"
-                                               placeholder="Password">
+                                            class="form-control @error('password') is-invalid @enderror" id="password"
+                                            placeholder="Password">
                                         <label for="password">Ulangi Password</label>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <h5 class="mb-3">Daftar Sebagai</h5>
-                                    <div class="col-md-4 mb-3">
-                                        <input name="role"
-                                               value="reseller"
-                                               class="checkbox_animated check-box @error('role') is-invalid @enderror"
-                                               type="radio"
-                                               id="flexCheckDefault"
-                                            {{ old('role') == 'reseller' ? 'checked' : '' }}>
-                                        <label for="role">Reseller</label>
-                                    </div>
+                                    <!--<div class="col-md-4 mb-3">-->
+                                    <!--    <input name="role"-->
+                                    <!--           value="reseller"-->
+                                    <!--           class="checkbox_animated check-box @error('role')
+is-invalid
+@enderror"-->
+                                    <!--           type="radio"-->
+                                    <!--           id="flexCheckDefault"-->
+                                    <!--        {{ old('role') == 'reseller' ? 'checked' : '' }}>-->
+                                    <!--    <label for="role">Reseller</label>-->
+                                    <!--</div>-->
                                     <div class="col-md-4 mt-3">
-                                        <input name="role"
-                                               value="customer"
-                                               class="checkbox_animated check-box @error('role') is-invalid @enderror"
-                                               type="radio"
-                                               id="flexCheckDefault"
+                                        <input name="role" value="customer"
+                                            class="checkbox_animated check-box @error('role') is-invalid @enderror"
+                                            type="radio" id="flexCheckDefault"
                                             {{ old('role') == 'customer' ? 'checked' : '' }}>
                                         <label for="role">Pelanggan</label>
                                     </div>
@@ -107,9 +105,9 @@
 
                                 <div class="forgot-box mt-3">
                                     @error('role')
-                                    <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
@@ -120,9 +118,9 @@
 
                                 <div class="forgot-box mt-3">
                                     @error('g-recaptcha-response')
-                                    <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
@@ -130,9 +128,8 @@
                                     <div class="forgot-box">
                                         <div class="form-check ps-0 m-0 remember-box">
                                             <input name="checkbox-term"
-                                                   class="checkbox_animated check-box @error('checkbox-term') is-invalid @enderror"
-                                                   type="checkbox"
-                                                   id="flexCheckDefault">
+                                                class="checkbox_animated check-box @error('checkbox-term') is-invalid @enderror"
+                                                type="checkbox" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Saya Menyetujui
                                                 <a href="{{ route('home.term') }}">
@@ -144,7 +141,7 @@
 
                                     <div class="forgot-box mt-3">
                                         @error('checkbox-term')
-                                        <span class="text-danger" role="alert">
+                                            <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -171,7 +168,6 @@
             </div>
         </div>
     </section>
-
 @endsection
 
 <!-- mobile fix menu start -->
