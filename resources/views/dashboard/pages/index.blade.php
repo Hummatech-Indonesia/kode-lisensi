@@ -6,7 +6,7 @@
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
-                        <span class="m-0">Saldo Xendit</span>
+                        <span class="m-0">Total Pendapatan</span>
                         <h4 class="mb-0 counter">{{ CurrencyHelper::rupiahCurrency($balance) }}
                         </h4>
                     </div>

@@ -58,7 +58,7 @@ class CallbackController extends Controller
     }
 
     /**
-     * Display a failed page after callback paid from xendit.
+     * Display a failed page after callback paid from tripay.
      *
      * @param string $invoice_id
      *

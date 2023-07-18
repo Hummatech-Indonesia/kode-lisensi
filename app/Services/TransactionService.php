@@ -16,20 +16,18 @@ use App\Models\Product;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Xendit\Invoice;
-use Xendit\Xendit;
 
 class TransactionService
 {
     private TransactionInterface $transaction;
     private LicenseInterface $license;
+    private TripayService $service;
 
-    public function __construct(TransactionInterface $transaction, LicenseInterface $license)
+    public function __construct(TransactionInterface $transaction, LicenseInterface $license, TripayService $service)
     {
         $this->transaction = $transaction;
         $this->license = $license;
-
-        Xendit::setApiKey(config('xendit.secret_key'));
+        $this->service = $service;
     }
 
     /**
@@ -62,42 +60,46 @@ class TransactionService
         $fee = CurrencyHelper::countProductTax($price, 10);
         $amount = CurrencyHelper::countPriceAfterTax($price, 10);
 
-        $createInvoice = Invoice::create([
-            'external_id' => $external_id,
+        $signature = $this->service->handleGenerateSignature($external_id, $amount);
+
+        $pay = [
+            'method' => $data['payment_code'],
+            'merchant_ref' => $external_id,
             'amount' => $amount,
-            'payer_email' => $data['email'],
-            'fixed_va' => false,
-            'should_send_email' => false,
-            'invoice_duration' => 1800,
-            'success_redirect_url' => config('app.url') . "checkout/" . $external_id . "/success",
-            'failure_redirect_url' => config('app.url') . "checkout/" . $external_id . "/failed",
-            'description' => 'Pembelian ' . $product->name . ". " . trans('alert.fees_notification'),
-            'customer' => [
-                'given_names' => $data['name'],
-                'email' => $data['email']
-            ],
-            'items' => [
+            'customer_name' => $data['name'],
+            'customer_email' => $data['email'],
+            'customer_phone' => $data['phone_number'],
+            'order_items' => [
                 [
                     'name' => $product->name,
+                    'price' => $amount,
                     'quantity' => 1,
-                    'price' => $price,
-                    'category' => $product->category->name,
-                    'url' => config('app.url') . "products/" . $product->slug
+                    'product_url' => config('app.url') . "products/" . $product->slug,
+                    'image_url' => asset('storage/' . $product->photo),
                 ]
             ],
-            'fees' => [
-                [
-                    'type' => 'Pajak 10%',
-                    'value' => $fee
-                ]
-            ]
-        ]);
+            'return_url' => config('app.url') . "checkout/" . $external_id . "/success",
+            'expired_time' => (time() + (30 * 60)),
+            'signature' => $signature
+        ];
+
+        $createInvoice = $this->service->handleCreateTransaction($pay);
 
         if ($license = $this->license->get()) {
             $license_id = ($product->status === ProductStatusEnum::PREORDER->value) ? null : $license->id;
         }
 
-        $transaction = $this->transaction->store($createInvoice + ['license_id' => $license_id]);
+        $transaction = $this->transaction->store([
+            'id' => $createInvoice['data']['reference'],
+            'invoice_id' => $createInvoice['data']['merchant_ref'],
+            'fee_amount' => $createInvoice['data']['total_fee'],
+            'amount' => $createInvoice['data']['amount_received'],
+            'expiry_date' => $createInvoice['data']['expired_time'],
+            'payment_channel' => $createInvoice['data']['payment_name'],
+            'payment_method' => $createInvoice['data']['payment_method'],
+            'invoice_url' => $createInvoice['data']['checkout_url'],
+            'license_id' => $license_id
+        ]);
 
         $transaction->detail_transaction()->create([
             'id' => Uuid::uuid(),
@@ -113,13 +115,13 @@ class TransactionService
         dispatch(new TransactionJob([
             'name' => $data['name'],
             'email' => $data['email'],
-            'url' => $createInvoice['invoice_url'],
+            'url' => $createInvoice['data']['checkout_url'],
             'pack_name' => $product->name,
             'pack_price' => $price,
             'quantity' => 1,
             'fees' => $fee,
-            'total_amount' => $createInvoice['amount'],
-            'expired_date' => $createInvoice['expiry_date']
+            'total_amount' => $createInvoice['data']['amount'],
+            'expired_date' => $createInvoice['data']['expired_time']
         ]));
 
     }

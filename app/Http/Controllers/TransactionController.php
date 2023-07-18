@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Http\Requests\TransactionRequest;
 use App\Services\TransactionService;
+use App\Services\TripayService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -12,11 +13,13 @@ class TransactionController extends Controller
 {
     private ProductInterface $product;
     private TransactionService $service;
+    private TripayService $tripayService;
 
-    public function __construct(ProductInterface $product, TransactionService $service)
+    public function __construct(ProductInterface $product, TransactionService $service, TripayService $tripayService)
     {
         $this->product = $product;
         $this->service = $service;
+        $this->tripayService = $tripayService;
     }
 
     /**
@@ -32,7 +35,8 @@ class TransactionController extends Controller
 
         return view('pages.checkout', [
             'product' => $product,
-            'title' => trans('title.checkout', ['product' => $product->name])
+            'title' => trans('title.checkout', ['product' => $product->name]),
+            'payment_channels' => $this->tripayService->handlePaymentChannels()
         ]);
     }
 

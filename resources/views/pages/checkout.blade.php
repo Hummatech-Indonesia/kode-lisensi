@@ -48,6 +48,13 @@
                             <div class="checkout-detail-box">
                                 <ul>
                                     <li>
+                                        <div class="checkout-icon">
+                                            <lord-icon target=".nav-item" src="https://cdn.lordicon.com/ggihhudh.json"
+                                                       trigger="loop-on-hover"
+                                                       colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
+                                                       class="lord-icon">
+                                            </lord-icon>
+                                        </div>
                                         <div class="checkout-box">
                                             <div class="checkout-title">
                                                 <h4>Silahkan lengkapi form dibawah ini untuk
@@ -55,7 +62,6 @@
                                             </div>
 
                                             <div class="checkout-detail">
-
                                                 <div class="right-sidebar-box">
                                                     <div class="row">
                                                         @if(session('success'))
@@ -130,9 +136,191 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div class="checkout-icon">
+                                            <lord-icon target=".nav-item" src="https://cdn.lordicon.com/ggihhudh.json"
+                                                       trigger="loop-on-hover"
+                                                       colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
+                                                       class="lord-icon">
+                                            </lord-icon>
+                                        </div>
+                                        <div class="checkout-box">
+                                            <div class="checkout-title">
+                                                <h4>Pilih Jenis Pembayaran</h4>
+                                            </div>
+
+                                            <div class="checkout-detail">
+                                                <div class="accordion accordion-flush custom-accordion"
+                                                     id="accordionFlushExample">
+                                                    <div class="accordion-item">
+                                                        <div class="accordion-header" id="flush-headingFour">
+                                                            <div class="accordion-button" data-bs-toggle="collapse"
+                                                                 data-bs-target="#flush-collapseFour"
+                                                                 aria-expanded="true">
+                                                                <div class="custom-form-check form-check mb-0">
+                                                                    <label class="form-check-label" for="cash"><input
+                                                                            class="form-check-input mt-0" type="radio"
+                                                                            name="flexRadioDefault" id="cash"
+                                                                            checked=""> Virtual Account</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="flush-collapseFour"
+                                                             class="accordion-collapse collapse show"
+                                                             data-bs-parent="#accordionFlushExample" style="">
+                                                            <div class="accordion-body">
+                                                                <div class="checkout-detail">
+                                                                    <div class="row g-4">
+                                                                        @foreach($payment_channels['Virtual Account'] as $channels)
+                                                                            <div class="col-xxl-6">
+                                                                                <div class="delivery-option">
+                                                                                    <div class="delivery-category">
+                                                                                        <div
+                                                                                            class="shipment-detail text-center">
+                                                                                            <img
+                                                                                                class="img-fluid"
+                                                                                                width="120px"
+                                                                                                src="{{ $channels['icon_url'] }}"
+                                                                                                alt="{{ $channels['name'] }}">
+                                                                                            <div
+                                                                                                class="form-check custom-form-check hide-check-box mt-3">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    name="payment_code"
+                                                                                                    id="standard"
+                                                                                                    value="{{ $channels['code'] }}">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="standard">{{ $channels['name'] }}</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="accordion-item">
+                                                        <div class="accordion-header" id="flush-headingOne">
+                                                            <div class="accordion-button collapsed"
+                                                                 data-bs-toggle="collapse"
+                                                                 data-bs-target="#flush-collapseOne"
+                                                                 aria-expanded="false">
+                                                                <div class="custom-form-check form-check mb-0">
+                                                                    <label class="form-check-label" for="credit"><input
+                                                                            class="form-check-input mt-0" type="radio"
+                                                                            name="flexRadioDefault" id="credit">
+                                                                        E-wallet</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                                             data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">
+                                                                <div class="checkout-detail">
+                                                                    <div class="row g-4">
+                                                                        @foreach($payment_channels['E-Wallet'] as $channels)
+                                                                            <div class="col-xxl-6">
+                                                                                <div class="delivery-option">
+                                                                                    <div class="delivery-category">
+                                                                                        <div
+                                                                                            class="shipment-detail text-center">
+                                                                                            <img
+                                                                                                class="img-fluid"
+                                                                                                width="120px"
+                                                                                                src="{{ $channels['icon_url'] }}"
+                                                                                                alt="{{ $channels['name'] }}">
+                                                                                            <div
+                                                                                                class="form-check custom-form-check hide-check-box mt-3">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    name="payment_code"
+                                                                                                    id="standard"
+                                                                                                    value="{{ $channels['code'] }}">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="standard">{{ $channels['name'] }}</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="accordion-item">
+                                                        <div class="accordion-header" id="flush-headingTwo">
+                                                            <div class="accordion-button collapsed"
+                                                                 data-bs-toggle="collapse"
+                                                                 data-bs-target="#flush-collapseTwo"
+                                                                 aria-expanded="false">
+                                                                <div class="custom-form-check form-check mb-0">
+                                                                    <label class="form-check-label" for="banking"><input
+                                                                            class="form-check-input mt-0" type="radio"
+                                                                            name="flexRadioDefault" id="banking">Retail
+                                                                        Outlet</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                                             data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">
+                                                                <div class="checkout-detail">
+                                                                    <div class="row g-4">
+                                                                        @foreach($payment_channels['Convenience Store'] as $channels)
+                                                                            <div class="col-xxl-6">
+                                                                                <div class="delivery-option">
+                                                                                    <div class="delivery-category">
+                                                                                        <div
+                                                                                            class="shipment-detail text-center">
+                                                                                            <img
+                                                                                                class="img-fluid"
+                                                                                                width="120px"
+                                                                                                src="{{ $channels['icon_url'] }}"
+                                                                                                alt="{{ $channels['name'] }}">
+                                                                                            <div
+                                                                                                class="form-check custom-form-check hide-check-box mt-3">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    name="payment_code"
+                                                                                                    id="standard"
+                                                                                                    value="{{ $channels['code'] }}">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="standard">{{ $channels['name'] }}</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="col-lg-4">

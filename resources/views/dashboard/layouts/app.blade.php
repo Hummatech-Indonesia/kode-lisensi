@@ -75,7 +75,7 @@
                                 <li>
                                     <form method="POST" action="{{ route('notification.markAsRead', $take) }}">
                                         @csrf
-                                        <button class="btn btn-primary"
+                                        <button class="btn btn-primary mt-4"
                                                 onclick="return confirm('Yakin ingin tandai telah dibaca?')">Tandai
                                             semua telah dibaca
                                         </button>

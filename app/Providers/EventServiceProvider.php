@@ -23,7 +23,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            SendEmailVerificationNotification::class,
+            SendEmailVerificationNotification::class
         ],
     ];
 
@@ -38,7 +38,6 @@ class EventServiceProvider extends ServiceProvider
         License::observe(LicenseObserver::class);
         User::observe(UserObserver::class);
         Article::observe(ArticleObserver::class);
-
     }
 
     /**

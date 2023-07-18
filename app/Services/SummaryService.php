@@ -26,18 +26,18 @@ class SummaryService
         $this->product = $product;
         $this->transaction = $transaction;
         $this->user = $user;
-        Xendit::setApiKey(config('xendit.secret_key'));
     }
 
     /**
-     * Handle get balance from xendit
+     * Handle get balance from transaction
      *
      * @return int
-     * @throws ApiException
      */
     public function handleBalance(): int
     {
-        return Balance::getBalance('CASH')['balance'];
+        return $this->transaction->query()
+            ->whereNotNull('paid_at')
+            ->sum('paid_amount');
     }
 
     /**

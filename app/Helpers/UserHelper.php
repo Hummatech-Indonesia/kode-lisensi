@@ -80,6 +80,7 @@ class UserHelper
      * Handle instantly get user
      *
      * @param string $id
+     *
      * @return Model
      */
 

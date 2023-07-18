@@ -44,6 +44,7 @@ class ArticleCategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param ArticleCategory $article_category
+     *
      * @return View
      */
 
@@ -57,6 +58,7 @@ class ArticleCategoryController extends Controller
      *
      * @param ArticleCategoryRequest $request
      * @param ArticleCategory $article_category
+     *
      * @return RedirectResponse
      */
     public function update(ArticleCategoryRequest $request, ArticleCategory $article_category): RedirectResponse
@@ -70,6 +72,7 @@ class ArticleCategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ArticleCategoryRequest $request
+     *
      * @return RedirectResponse
      */
     public function store(ArticleCategoryRequest $request): RedirectResponse
@@ -83,6 +86,7 @@ class ArticleCategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param ArticleCategory $article_category
+     *
      * @return RedirectResponse
      */
     public function destroy(ArticleCategory $article_category): RedirectResponse

@@ -59,12 +59,14 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
         return $this->model->query()
             ->create([
                 'id' => $data['id'],
-                'invoice_id' => $data['external_id'],
+                'invoice_id' => $data['invoice_id'],
                 'user_id' => auth()->id(),
-                'fee_amount' => $data['fees'][0]['value'],
+                'fee_amount' => $data['fee_amount'],
                 'amount' => $data['amount'],
-                'invoice_url' => $data['invoice_url'],
                 'expiry_date' => now()->addMinutes(30),
+                'payment_channel' => $data['payment_channel'],
+                'payment_method' => $data['payment_method'],
+                'invoice_url' => $data['invoice_url'],
                 'license_id' => $data['license_id'] ?? null
             ]);
     }

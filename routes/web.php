@@ -49,7 +49,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::fallback(function () {
-    return view('errors.404');
+    return view('found');
+
 });
 
 Auth::routes([
@@ -149,7 +150,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('order-histories', [OrderController::class, 'history'])->name('history');
             });
 
-            // articles
+            // article
             Route::resources([
                 'article-categories' => ArticleCategoryController::class,
                 'articles' => ArticleController::class

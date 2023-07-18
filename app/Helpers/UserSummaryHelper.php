@@ -17,6 +17,7 @@ class UserSummaryHelper
     public static function sumAmountOrder(): int
     {
         return Transaction::query()
+            ->whereHas('detail_transaction.product')
             ->where('user_id', auth()->id())
             ->whereIn('invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value])
             ->sum('paid_amount');
@@ -32,6 +33,7 @@ class UserSummaryHelper
     public static function countUserOrders(string $condition): int
     {
         return Transaction::query()
+            ->whereHas('detail_transaction.product')
             ->where('user_id', auth()->id())
             ->when($condition == 'success', function ($query) {
                 return $query->whereIn('invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value]);
@@ -51,6 +53,7 @@ class UserSummaryHelper
     public static function latestUserTransaction(): object
     {
         return Transaction::query()
+            ->whereHas('detail_transaction.product')
             ->where('user_id', auth()->id())
             ->with('detail_transaction.product', function ($query) {
                 return $query->withCount('product_ratings')

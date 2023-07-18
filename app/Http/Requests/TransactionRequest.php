@@ -15,7 +15,8 @@ class TransactionRequest extends BaseRequest
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|max:50',
-            'g-recaptcha-response' => 'required'
+            'g-recaptcha-response' => 'required',
+            'payment_code' => 'required'
         ];
     }
 
@@ -36,7 +37,8 @@ class TransactionRequest extends BaseRequest
             'phone_number.required' => 'Nomor telepon tidak boleh kosong',
             'phone_number.max' => 'Nomor telepon maksimal 50 karakter',
             'password.required' => 'Password tidak boleh kosong',
-            'g-recaptcha-response.required' => 'Captcha tidak boleh kosong'
+            'g-recaptcha-response.required' => 'Captcha tidak boleh kosong',
+            'payment_code.required' => 'Jenis Pembayaran harus diisi'
         ];
     }
 }
