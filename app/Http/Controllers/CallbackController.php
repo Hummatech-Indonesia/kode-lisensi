@@ -30,13 +30,12 @@ class CallbackController extends Controller
 
     public function invoiceCallback(Request $request): JsonResponse
     {
-        $find = $this->service->handleRetrieveInvoiceFromXendit($request->id);
-        $data = $this->transaction->show($request->external_id);
+        $data = $this->transaction->show($request->reference);
 
-        if ($request->amount == $request->paid_amount) {
-            $this->service->handlePaidInvoice($find, $data);
+        if ($request->amount_received == $data->amount) {
+            $this->service->handlePaidInvoice($request, $data);
         } else {
-            $this->service->handleExpiredInvoice($find, $data);
+            $this->service->handleExpiredInvoice($request, $data);
         }
 
         return ResponseHelper::success(null, trans('alert.callback_success'));

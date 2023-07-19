@@ -2,11 +2,26 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class TripayService
 {
+
+    /**
+     * Handle generate callback signature from tripay
+     *
+     * @param Request $request
+     * @return string
+     */
+
+    public static function handleGenerateCallbackSignature(Request $request): string
+    {
+        $privateKey = config('tripay.private_key');
+
+        return hash_hmac('sha256', $request->getContent(), $privateKey);
+    }
 
     /**
      * Handle generate signature from tripay
@@ -22,7 +37,6 @@ class TripayService
         $merchantCode = config('tripay.merchant_code');
 
         return hash_hmac('sha256', $merchantCode . $invoice_id . $amount, $privateKey);
-
     }
 
     /**
@@ -47,7 +61,6 @@ class TripayService
      *
      * @return array
      */
-
 
     public function handleCreateTransaction(array $data): array
     {

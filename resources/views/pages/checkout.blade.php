@@ -146,7 +146,7 @@
                                         </div>
                                         <div class="checkout-box">
                                             <div class="checkout-title">
-                                                <h4>Pilih Jenis Pembayaran</h4>
+                                                <h4>Pilih Metode Pembayaran</h4>
                                             </div>
 
                                             <div class="checkout-detail">

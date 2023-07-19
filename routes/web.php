@@ -48,11 +48,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::fallback(function () {
-    return view('found');
-
-});
-
 Auth::routes([
     'verify' => true
 ]);
@@ -184,3 +179,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     });
 });
+
+//Route::fallback(function () {
+//    return view('errors.404');
+//});

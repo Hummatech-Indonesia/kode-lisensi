@@ -29,10 +29,12 @@ return [
     'checkout_success' => 'Invoice berhasil dibuat. Silahkan cek email anda',
     'fees_notification' => 'Setiap transaksi akan dikenakan pajak (PPN) sebesar 10%',
     'empty_stock' => 'Stok produk telah habis',
-    'callback_blocked' => 'Invalid token! request blocked.',
-    'callback_success' => 'Callback berhasil',
     'modify_rating' => 'Berhasil modifikasi rating',
     'send_license_success' => 'Berhasil mengirim lisensi',
     'user_add_rating' => 'Berhasil menambahkan ulasan',
-    'user_update_rating' => 'Berhasil mengubah ulasan'
+    'user_update_rating' => 'Berhasil mengubah ulasan',
+
+    'invalid_callback_signature' => 'Invalid Callback Signature! request blocked.',
+    'invalid_callback_event' => 'Unrecognized Callback Event! request blocked.',
+    'callback_success' => 'Callback berhasil',
 ];
