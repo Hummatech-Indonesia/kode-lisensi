@@ -136,7 +136,7 @@ class TransactionService
     public function handleSendLicense(Request $request, string $invoice_id): void
     {
         $transaction = $this->transaction->show($invoice_id);
-        $product = $transaction->license->product;
+        $product = $transaction->detail_transaction->product;
 
         Mail::to($transaction->detail_transaction->email)->send(new SendLicenseMail(
             [
@@ -146,7 +146,7 @@ class TransactionService
                 'pack_name' => $product->name,
                 'pack_price' => $product->sell_price,
                 'total_amount' => $transaction->paid_amount,
-                'payment_channel' => $transaction->payment_channel,
+                'payment_method' => $transaction->payment_method,
                 'paid_at' => $transaction->paid_at,
                 'product_type' => $product->type,
                 'attachment_file' => $product->attachment_file,

@@ -69,8 +69,11 @@
                                      style="visibility: visible; animation-name: fadeInUp;">
                                     <div class="product-header">
                                         <div class="product-image">
-                                            <img src="{{ asset('storage/'. $product->photo) }}"
-                                                 class="img-fluid blur-up lazyloaded" alt="">
+                                            <a href="{{ route('home.products.show', $product->slug) }}">
+                                                <img src="{{ asset('storage/'. $product->photo) }}"
+                                                     class="img-fluid blur-up lazyloaded" alt="">
+                                            </a>
+
                                             <ul class="product-option">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
                                                     data-bs-original-title="Lihat Produk">
@@ -99,7 +102,9 @@
                                     <div class="product-footer">
                                         <div class="product-detail">
                                             <span class="span-name">{{ $product->category->name }}</span>
-                                            <h5 class="name">{{ $product->name }}</h5>
+                                            <a href="{{ route('home.products.show', $product->slug) }}">
+                                                <h5 class="name">{{ $product->name }}</h5>
+                                            </a>
                                             <div class="product-rating mt-2">
                                                 <ul class="rating">
                                                     @for($i = 1; $i <= 5; $i++)
@@ -229,8 +234,7 @@
                                          style="visibility: visible; animation-delay: 0.25s; animation-name: fadeInUp;">
                                         <div class="product-header">
                                             <div class="product-image">
-                                                <a href="{{ route('home.products.show', $product->slug) }}"
-                                                   tabindex="-1">
+                                                <a href="{{ route('home.products.show', $product->slug) }}">
                                                     <img src="{{ asset('storage/' . $product->photo) }}"
                                                          class="img-fluid blur-up lazyloaded"
                                                          alt="{{ $product->name }}">
@@ -265,8 +269,10 @@
                                         <div class="product-footer">
                                             <div class="product-detail">
                                                 <span class="span-name">{{ $product->category->name }}</span>
-                                                <h5 class="name">
-                                                    {{ (strlen($product->name) > 15) ? substr($product->name, 0, 18) . "..." : $product->name }}</h5>
+                                                <a href="{{ route('home.products.show', $product->slug) }}">
+                                                    <h5 class="name">
+                                                        {{ (strlen($product->name) > 15) ? substr($product->name, 0, 18) . "..." : $product->name }}</h5>
+                                                </a>
                                                 <div class="product-rating mt-2">
                                                     <ul class="rating">
                                                         @for($i = 1; $i <= 5; $i++)
@@ -435,8 +441,10 @@
                              style="visibility: visible; animation-name: fadeInUp;">
                             <div class="product-header">
                                 <div class="product-image">
-                                    <img src="{{ asset('storage/'. $product->photo) }}"
-                                         class="img-fluid blur-up lazyloaded" alt="">
+                                    <a href="{{ route('home.products.show', $product->slug) }}">
+                                        <img src="{{ asset('storage/'. $product->photo) }}"
+                                             class="img-fluid blur-up lazyloaded" alt="">
+                                    </a>
                                     <ul class="product-option">
                                         <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
                                             data-bs-original-title="Lihat Produk">
@@ -465,7 +473,9 @@
                             <div class="product-footer">
                                 <div class="product-detail">
                                     <span class="span-name">{{ $product->category->name }}</span>
-                                    <h5 class="name">{{ $product->name }}</h5>
+                                    <a href="{{ route('home.products.show', $product->slug) }}">
+                                        <h5 class="name">{{ $product->name }}</h5>
+                                    </a>
                                     <div class="product-rating mt-2">
                                         <ul class="rating">
                                             @for($i = 1; $i <= 5; $i++)

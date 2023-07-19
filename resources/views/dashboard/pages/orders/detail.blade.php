@@ -40,7 +40,7 @@
                                     <div class="col-sm-3 form-label-title">Produk dibeli</div>
                                     <div class="col-sm-9">
                                         <input name="icon" class="form-control" type="text" readonly
-                                               value="{{ $transaction->license->product->name }}">
+                                               value="{{ $transaction->detail_transaction->product->name }}">
                                     </div>
                                 </div>
 
@@ -94,7 +94,7 @@
     <script>
         $(document).ready(() => {
 
-            const type = `{{ $transaction->license->product->type }}`
+            const type = `{{ $transaction->detail_transaction->product->name }}`
 
             if (type === 'serial') {
                 $('#divUsername').css('display', 'none');

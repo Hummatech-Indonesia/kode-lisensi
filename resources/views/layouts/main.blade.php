@@ -11,6 +11,18 @@
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <title>{{ $title ?? config('app.name') }}</title>
 
+    <style>
+        .right-side-menu {
+            display: none;
+        }
+
+        @media (max-width: 575px) {
+            .right-side-menu {
+                display: block;
+            }
+        }
+    </style>
+
     @include('layouts.header')
     @yield('captcha')
     @yield('asset')

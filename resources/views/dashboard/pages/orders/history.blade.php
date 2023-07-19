@@ -113,8 +113,8 @@
                         name: 'paid_amount'
                     },
                     {
-                        data: 'payment_channel',
-                        name: 'payment_channel'
+                        data: 'payment_method',
+                        name: 'payment_method'
                     },
 
                     {

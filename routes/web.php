@@ -71,7 +71,6 @@ Route::name('home.')->group(function () {
         Route::get('{invoice_id}/success', [CallbackController::class, 'showSuccessPage']);
         Route::get('{invoice_id}/failed', [CallbackController::class, 'showFailedPage']);
     });
-
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -172,11 +171,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'slider' => SliderController::class,
                     'banners' => BannerController::class
                 ], ['only' => ['index', 'update']]);
-
             });
-
         });
-
     });
 });
 

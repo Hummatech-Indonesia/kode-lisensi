@@ -82,7 +82,7 @@ class CallbackService
             ));
 
             Notification::send($buyer, new DashboardNotification([
-                'name' => trans('notification.user_pack_purchased_title', ['pack_name' => $product_relation->name, 'price' => $request->amount_received]),
+                'name' => trans('notification.user_pack_purchased_title', ['pack_name' => $product_relation->name, 'price' => CurrencyHelper::rupiahCurrency($request->amount_received)]),
                 'url' => route('users.account.index')
             ]));
 
