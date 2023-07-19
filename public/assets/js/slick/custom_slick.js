@@ -1,17 +1,17 @@
 /**=====================
-    Custom Slick js
-==========================**/
+ Custom Slick js
+ ==========================**/
 $('.category-slider').slick({
     arrows: true,
     infinite: true,
     slidesToShow: 8,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1745,
-            settings: {
-                slidesToShow: 7,
-            }
-        },
+        breakpoint: 1745,
+        settings: {
+            slidesToShow: 7,
+        }
+    },
         {
             breakpoint: 1399,
             settings: {
@@ -50,14 +50,14 @@ $('.category-slider-2').slick({
     slidesToShow: 7,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1745,
-            settings: {
-                slidesToShow: 6,
-                dots: true,
-                autoplay: true,
-                autoplaySpeed: 2500,
-            }
-        },
+        breakpoint: 1745,
+        settings: {
+            slidesToShow: 6,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 2500,
+        }
+    },
         {
             breakpoint: 1540,
             settings: {
@@ -132,14 +132,14 @@ $('.slider-2-landing').slick({
     centerMode: true,
     centerPadding: '300px',
     responsive: [{
-            breakpoint: 1586,
-            settings: {
-                slidesToShow: 2,
-                dots: true,
-                centerMode: true,
-                centerPadding: '300px',
-            }
-        },
+        breakpoint: 1586,
+        settings: {
+            slidesToShow: 2,
+            dots: true,
+            centerMode: true,
+            centerPadding: '300px',
+        }
+    },
         {
             breakpoint: 1420,
             settings: {
@@ -185,11 +185,11 @@ $('.slider-3').slick({
     slidesToShow: 3,
     arrows: false,
     responsive: [{
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 2,
-            }
-        },
+        breakpoint: 992,
+        settings: {
+            slidesToShow: 2,
+        }
+    },
         {
             breakpoint: 768,
             settings: {
@@ -205,11 +205,11 @@ $('.slider-bank-3').slick({
     slidesToShow: 3,
     arrows: true,
     responsive: [{
-            breakpoint: 1652,
-            settings: {
-                slidesToShow: 2,
-            }
-        },
+        breakpoint: 1652,
+        settings: {
+            slidesToShow: 2,
+        }
+    },
         {
             breakpoint: 914,
             settings: {
@@ -231,13 +231,13 @@ $('.slider-3-product').slick({
     autoplay: true,
     autoplaySpeed: 2500,
     responsive: [{
-            breakpoint: 1560,
-            settings: {
-                slidesToShow: 2,
-                autoplay: true,
-                autoplaySpeed: 3500,
-            }
-        },
+        breakpoint: 1560,
+        settings: {
+            slidesToShow: 2,
+            autoplay: true,
+            autoplaySpeed: 3500,
+        }
+    },
         {
             breakpoint: 992,
             settings: {
@@ -273,16 +273,16 @@ $('.slider-3_1').slick({
     slidesToShow: 3,
     arrows: false,
     responsive: [{
-            breakpoint: 1262,
-            settings: {
-                slidesToShow: 2,
-                autoplay: true,
-                autoplaySpeed: 3500,
-                dots: true,
-                autoplay: true,
-                autoplaySpeed: 2800,
-            }
-        },
+        breakpoint: 1262,
+        settings: {
+            slidesToShow: 2,
+            autoplay: true,
+            autoplaySpeed: 3500,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 2800,
+        }
+    },
         {
             breakpoint: 650,
             settings: {
@@ -301,16 +301,16 @@ $('.slider-3_2').slick({
     slidesToShow: 3,
     arrows: false,
     responsive: [{
-            breakpoint: 1535,
-            settings: {
-                slidesToShow: 2,
-                autoplay: true,
-                autoplaySpeed: 3500,
-                dots: true,
-                autoplay: true,
-                autoplaySpeed: 2800,
-            }
-        },
+        breakpoint: 1535,
+        settings: {
+            slidesToShow: 2,
+            autoplay: true,
+            autoplaySpeed: 3500,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 2800,
+        }
+    },
         {
             breakpoint: 1200,
             settings: {
@@ -345,16 +345,16 @@ $('.slider-3_3').slick({
     slidesToShow: 3,
     arrows: false,
     responsive: [{
-            breakpoint: 1400,
-            settings: {
-                slidesToShow: 2,
-                autoplay: true,
-                autoplaySpeed: 3500,
-                dots: true,
-                autoplay: true,
-                autoplaySpeed: 2800,
-            }
-        },
+        breakpoint: 1400,
+        settings: {
+            slidesToShow: 2,
+            autoplay: true,
+            autoplaySpeed: 3500,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 2800,
+        }
+    },
         {
             breakpoint: 650,
             settings: {
@@ -375,11 +375,11 @@ $('.slider-3-blog').slick({
     autoplay: false,
     autoplaySpeed: 2500,
     responsive: [{
-            breakpoint: 1550,
-            settings: {
-                slidesToShow: 2,
-            }
-        },
+        breakpoint: 1550,
+        settings: {
+            slidesToShow: 2,
+        }
+    },
         {
             breakpoint: 1200,
             settings: {
@@ -410,12 +410,12 @@ $('.slider-4-blog').slick({
     autoplay: true,
     autoplaySpeed: 2000,
     responsive: [{
-            breakpoint: 1586,
-            settings: {
-                slidesToShow: 3,
-                dots: true,
-            }
-        },
+        breakpoint: 1586,
+        settings: {
+            slidesToShow: 3,
+            dots: true,
+        }
+    },
         {
             breakpoint: 1140,
             settings: {
@@ -442,12 +442,12 @@ $('.slider-4').slick({
     autoplay: true,
     autoplaySpeed: 2000,
     responsive: [{
-            breakpoint: 1690,
-            settings: {
-                slidesToShow: 3,
-                dots: true,
-            }
-        },
+        breakpoint: 1690,
+        settings: {
+            slidesToShow: 3,
+            dots: true,
+        }
+    },
         {
             breakpoint: 960,
             settings: {
@@ -470,13 +470,13 @@ $('.slider-4-1').slick({
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1510,
-            settings: {
-                slidesToShow: 3,
-                autoplay: true,
-                autoplaySpeed: 3500,
-            }
-        },
+        breakpoint: 1510,
+        settings: {
+            slidesToShow: 3,
+            autoplay: true,
+            autoplaySpeed: 3500,
+        }
+    },
         {
             breakpoint: 1092,
             settings: {
@@ -499,14 +499,14 @@ $('.slider-4-2').slick({
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 3,
-                autoplay: true,
-                autoplaySpeed: 2000,
-                dots: true,
-            }
-        },
+        breakpoint: 992,
+        settings: {
+            slidesToShow: 3,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            dots: true,
+        }
+    },
         {
             breakpoint: 768,
             settings: {
@@ -537,11 +537,11 @@ $('.slider-4-half').slick({
     centerPadding: '200px',
     dots: true,
     responsive: [{
-            breakpoint: 1524,
-            settings: {
-                centerPadding: '150px',
-            }
-        },
+        breakpoint: 1524,
+        settings: {
+            centerPadding: '150px',
+        }
+    },
         {
             breakpoint: 1291,
             settings: {
@@ -589,11 +589,11 @@ $('.slider-4-banner').slick({
     autoplay: true,
     autoplaySpeed: 2000,
     responsive: [{
-            breakpoint: 1410,
-            settings: {
-                slidesToShow: 3,
-            }
-        },
+        breakpoint: 1410,
+        settings: {
+            slidesToShow: 3,
+        }
+    },
         {
             breakpoint: 980,
             settings: {
@@ -616,11 +616,11 @@ $('.slider-5').slick({
     slidesToShow: 5,
     arrows: false,
     responsive: [{
-            breakpoint: 1500,
-            settings: {
-                slidesToShow: 4,
-            }
-        },
+        breakpoint: 1500,
+        settings: {
+            slidesToShow: 4,
+        }
+    },
         {
             breakpoint: 1215,
             settings: {
@@ -646,19 +646,19 @@ $('.slider-5_1').slick({
     infinite: true,
     slidesToScroll: 1,
     slidesToShow: 5,
-    centerMode: true,
+    centerMode: false,
     dots: true,
     arrows: false,
     autoplay: true,
     autoplaySpeed: 2500,
     responsive: [{
-            breakpoint: 1400,
-            settings: {
-                slidesToShow: 4,
-                autoplay: true,
-                autoplaySpeed: 3500,
-            }
-        },
+        breakpoint: 1400,
+        settings: {
+            slidesToShow: 4,
+            autoplay: true,
+            autoplaySpeed: 3500,
+        }
+    },
         {
             breakpoint: 1200,
             settings: {
@@ -682,11 +682,11 @@ $('.slider-5_2').slick({
     slidesToShow: 5,
     arrows: false,
     responsive: [{
-            breakpoint: 1776,
-            settings: {
-                slidesToShow: 4,
-            }
-        },
+        breakpoint: 1776,
+        settings: {
+            slidesToShow: 4,
+        }
+    },
         {
             breakpoint: 1400,
             settings: {
@@ -720,13 +720,13 @@ $('.slider-6').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1560,
-            settings: {
-                slidesToShow: 5,
-                autoplay: true,
-                autoplaySpeed: 3500,
-            }
-        },
+        breakpoint: 1560,
+        settings: {
+            slidesToShow: 5,
+            autoplay: true,
+            autoplaySpeed: 3500,
+        }
+    },
         {
             breakpoint: 1270,
             settings: {
@@ -755,13 +755,13 @@ $('.slider-6_1').slick({
     slidesToScroll: 1,
     dots: true,
     responsive: [{
-            breakpoint: 1430,
-            settings: {
-                slidesToShow: 5,
-                autoplay: true,
-                autoplaySpeed: 3500,
-            }
-        },
+        breakpoint: 1430,
+        settings: {
+            slidesToShow: 5,
+            autoplay: true,
+            autoplaySpeed: 3500,
+        }
+    },
         {
             breakpoint: 1199,
             settings: {
@@ -792,11 +792,11 @@ $('.slider-6_2').slick({
     mobile: true,
     autoplaySpeed: 3500,
     responsive: [{
-            breakpoint: 1648,
-            settings: {
-                slidesToShow: 5,
-            }
-        },
+        breakpoint: 1648,
+        settings: {
+            slidesToShow: 5,
+        }
+    },
         {
             breakpoint: 1300,
             settings: {
@@ -824,13 +824,13 @@ $('.slider-9').slick({
     slidesToShow: 9,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1630,
-            settings: {
-                slidesToShow: 8,
-                autoplay: true,
-                autoplaySpeed: 3500,
-            }
-        },
+        breakpoint: 1630,
+        settings: {
+            slidesToShow: 8,
+            autoplay: true,
+            autoplaySpeed: 3500,
+        }
+    },
         {
             breakpoint: 1470,
             settings: {
@@ -886,12 +886,12 @@ $('.left-slider-modal').slick({
     dots: false,
     focusOnSelect: true,
     responsive: [{
-            breakpoint: 1200,
-            settings: {
-                slidesToShow: 3,
-                vertical: false,
-            }
-        },
+        breakpoint: 1200,
+        settings: {
+            slidesToShow: 3,
+            vertical: false,
+        }
+    },
         {
             breakpoint: 400,
             settings: {
@@ -918,11 +918,11 @@ $('.left-slider-image').slick({
     focusOnSelect: true,
     // vertical: false,
     responsive: [{
-            breakpoint: 1400,
-            settings: {
-                vertical: false,
-            }
-        },
+        breakpoint: 1400,
+        settings: {
+            vertical: false,
+        }
+    },
         {
             breakpoint: 992,
             settings: {
@@ -960,11 +960,11 @@ $('.left-slider-image-2').slick({
     focusOnSelect: true,
     vertical: true,
     responsive: [{
-            breakpoint: 1400,
-            settings: {
-                vertical: false,
-            }
-        },
+        breakpoint: 1400,
+        settings: {
+            vertical: false,
+        }
+    },
         {
             breakpoint: 992,
             settings: {
@@ -1003,11 +1003,11 @@ $('.vertical-product').slick({
     vertical: true,
     focusOnSelect: true,
     responsive: [{
-            breakpoint: 1400,
-            settings: {
-                vertical: false,
-            }
-        },
+        breakpoint: 1400,
+        settings: {
+            vertical: false,
+        }
+    },
         {
             breakpoint: 992,
             settings: {
@@ -1030,7 +1030,6 @@ $('.vertical-product').slick({
 });
 
 
-
 $('.bottom-slider-image').slick({
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -1038,11 +1037,11 @@ $('.bottom-slider-image').slick({
     dots: false,
     focusOnSelect: true,
     responsive: [{
-            breakpoint: 1400,
-            settings: {
-                vertical: false,
-            }
-        },
+        breakpoint: 1400,
+        settings: {
+            vertical: false,
+        }
+    },
         {
             breakpoint: 992,
             settings: {
@@ -1071,13 +1070,13 @@ $('.slider-user').slick({
     slidesToScroll: 1,
     dots: true,
     responsive: [{
-            breakpoint: 1690,
-            settings: {
-                slidesToShow: 3,
-                autoplay: true,
-                autoplaySpeed: 2000,
-            }
-        },
+        breakpoint: 1690,
+        settings: {
+            slidesToShow: 3,
+            autoplay: true,
+            autoplaySpeed: 2000,
+        }
+    },
         {
             breakpoint: 1190,
             settings: {
@@ -1101,13 +1100,13 @@ $('.search-product').slick({
     slidesToScroll: 1,
     dots: true,
     responsive: [{
-            breakpoint: 1408,
-            settings: {
-                slidesToShow: 5,
-                autoplay: true,
-                autoplaySpeed: 3500,
-            }
-        },
+        breakpoint: 1408,
+        settings: {
+            slidesToShow: 5,
+            autoplay: true,
+            autoplaySpeed: 3500,
+        }
+    },
         {
             breakpoint: 1215,
             settings: {
@@ -1135,11 +1134,11 @@ $('.three-slider-1').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1450,
-            settings: {
-                slidesToShow: 2,
-            }
-        },
+        breakpoint: 1450,
+        settings: {
+            slidesToShow: 2,
+        }
+    },
         {
             breakpoint: 992,
             settings: {
@@ -1156,11 +1155,11 @@ $('.three-slider').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1300,
-            settings: {
-                slidesToShow: 2,
-            }
-        },
+        breakpoint: 1300,
+        settings: {
+            slidesToShow: 2,
+        }
+    },
         {
             breakpoint: 757,
             settings: {
@@ -1177,11 +1176,11 @@ $('.category-slider-1').slick({
     slidesToShow: 8,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1661,
-            settings: {
-                slidesToShow: 7,
-            }
-        },
+        breakpoint: 1661,
+        settings: {
+            slidesToShow: 7,
+        }
+    },
         {
             breakpoint: 1461,
             settings: {
@@ -1221,11 +1220,11 @@ $('.slider-7_1').slick({
     slidesToShow: 7,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1660,
-            settings: {
-                slidesToShow: 6,
-            }
-        },
+        breakpoint: 1660,
+        settings: {
+            slidesToShow: 6,
+        }
+    },
         {
             breakpoint: 1501,
             settings: {
@@ -1269,11 +1268,11 @@ $('.product-box-slider-2').slick({
     slidesToScroll: 1,
     pauseOnHover: true,
     responsive: [{
-            breakpoint: 1630,
-            settings: {
-                slidesToShow: 4,
-            }
-        },
+        breakpoint: 1630,
+        settings: {
+            slidesToShow: 4,
+        }
+    },
         {
             breakpoint: 1400,
             settings: {
@@ -1308,11 +1307,11 @@ $('.product-box-slider').slick({
     slidesToScroll: 1,
     pauseOnHover: true,
     responsive: [{
-            breakpoint: 1680,
-            settings: {
-                slidesToShow: 4,
-            }
-        },
+        breakpoint: 1680,
+        settings: {
+            slidesToShow: 4,
+        }
+    },
         {
             breakpoint: 1400,
             settings: {
@@ -1345,14 +1344,14 @@ $('.best-selling-slider').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [{
-            breakpoint: 1495,
-            settings: {
-                slidesToShow: 2,
-                dots: true,
-                autoplay: true,
-                autoplaySpeed: 2500,
-            }
-        },
+        breakpoint: 1495,
+        settings: {
+            slidesToShow: 2,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 2500,
+        }
+    },
         {
             breakpoint: 1200,
             settings: {
@@ -1397,11 +1396,11 @@ $('.banner-slider').slick({
     autoplaySpeed: 2500,
     dots: false,
     responsive: [{
-            breakpoint: 1387,
-            settings: {
-                slidesToShow: 3,
-            }
-        },
+        breakpoint: 1387,
+        settings: {
+            slidesToShow: 3,
+        }
+    },
         {
             breakpoint: 966,
             settings: {
