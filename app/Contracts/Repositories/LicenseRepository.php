@@ -76,14 +76,15 @@ class LicenseRepository extends BaseRepository implements LicenseInterface
     }
 
     /**
-     * Handle the Get oldest license data event from models.
+     * Handle get the oldest data by id from models.
      *
+     * @param string $id
      * @return mixed
      */
-    public function get(): mixed
+    public function getOldest(string $id): mixed
     {
         return $this->model->query()
-            ->where('is_purchased', 0)
+            ->where(['is_purchased' => 0, 'product_id' => $id])
             ->oldest()
             ->first();
     }

@@ -85,7 +85,7 @@ class TransactionService
 
         $createInvoice = $this->service->handleCreateTransaction($pay);
 
-        if ($license = $this->license->get()) {
+        if ($license = $this->license->getOldest($product->id)) {
             $license_id = ($product->status === ProductStatusEnum::PREORDER->value) ? null : $license->id;
         }
 
@@ -123,7 +123,6 @@ class TransactionService
             'total_amount' => $createInvoice['data']['amount'],
             'expired_date' => $createInvoice['data']['expired_time']
         ]));
-
     }
 
     /**

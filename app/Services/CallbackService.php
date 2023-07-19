@@ -36,13 +36,15 @@ class CallbackService
 
     public function handlePaidInvoice(Request $request, object $data): void
     {
-        if (in_array($data->invoice_status, [InvoiceStatusEnum::PAID->value, InvoiceStatusEnum::SETTLED->value])) {
+        if (in_array($request->status, [InvoiceStatusEnum::PAID->value, InvoiceStatusEnum::SETTLED->value])) {
 
             $license_relation = $data->license;
+
             $detail = $data->detail_transaction;
             $product_relation = $detail->product;
             $product_status = $product_relation->status;
-            $paid_at = Carbon::parse($request->paid_at)->format('Y-m-d H:m:s');
+            $paid_at = Carbon::createFromTimestamp($request->paid_at)->format('Y-m-d H:m:s');
+
             $buyer = UserHelper::instantGetUser($data->user_id);
 
             $license_status = (ProductStatusEnum::AVAILABLE->value === $product_status) ? LicenseStatusEnum::COMPLETED->value : LicenseStatusEnum::PROCESSED->value;
@@ -62,7 +64,7 @@ class CallbackService
                     'email' => $detail->email,
                     'invoice_id' => $data->invoice_id,
                     'pack_name' => $product_relation->name,
-                    'pack_price' => $data->amount_received,
+                    'pack_price' => $request->amount_received,
                     'quantity' => 1,
                     'total_amount' => $request->total_amount,
                     'payment_channel' => $request->payment_method_code,
@@ -80,12 +82,12 @@ class CallbackService
             ));
 
             Notification::send($buyer, new DashboardNotification([
-                'name' => trans('notification.user_pack_purchased_title', ['pack_name' => $product_relation->name, 'price' => $data->amount_received]),
+                'name' => trans('notification.user_pack_purchased_title', ['pack_name' => $product_relation->name, 'price' => $request->amount_received]),
                 'url' => route('users.account.index')
             ]));
 
             Notification::send(UserHelper::getAllAdministrators(), new DashboardNotification([
-                'name' => trans('notification.admin_purchased_title', ['user_name' => $buyer->name, 'pack_name' => $product_relation->name, 'paid' => CurrencyHelper::rupiahCurrency($data->amount_received)]),
+                'name' => trans('notification.admin_purchased_title', ['user_name' => $buyer->name, 'pack_name' => $product_relation->name, 'paid' => CurrencyHelper::rupiahCurrency($request->amount_received)]),
                 'url' => null
             ]));
 
@@ -95,7 +97,7 @@ class CallbackService
                     'email' => config('mail.notify_preorder'),
                     'invoice_id' => $data->invoice_id,
                     'pack_name' => $product_relation->name,
-                    'pack_price' => $data->amount_received,
+                    'pack_price' => $request->amount_received,
                     'quantity' => 1,
                     'total_amount' => $request->total_amount,
                     'payment_channel' => $request->payment_method_code,
@@ -117,7 +119,7 @@ class CallbackService
 
     public function handleExpiredInvoice(Request $request, object $data): void
     {
-        if (in_array($data->invoice_status, [InvoiceStatusEnum::EXPIRED->value, InvoiceStatusEnum::FAILED->value])) {
+        if (in_array($request->status, [InvoiceStatusEnum::EXPIRED->value, InvoiceStatusEnum::FAILED->value])) {
 
             $data->update([
                 'license_status' => LicenseStatusEnum::CANCELED->value,
@@ -138,7 +140,7 @@ class CallbackService
                 'email' => $detail->email,
                 'invoice_id' => $data->invoice_id,
                 'pack_name' => $product_relation->name,
-                'pack_price' => $data->amount_received,
+                'pack_price' => $request->amount_received,
                 'quantity' => 1,
                 'total_amount' => $request->total_amount,
                 'created_at' => now()->format('Y-m-d H:m:s')

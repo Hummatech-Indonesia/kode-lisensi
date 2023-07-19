@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Enums\InvoiceStatusEnum;
 use App\Helpers\ResponseHelper;
 use App\Services\CallbackService;
 use Illuminate\Http\JsonResponse;
@@ -30,9 +31,9 @@ class CallbackController extends Controller
 
     public function invoiceCallback(Request $request): JsonResponse
     {
-        $data = $this->transaction->show($request->reference);
+        $data = $this->transaction->show($request->merchant_ref);
 
-        if ($request->amount_received == $data->amount) {
+        if ($request->status == InvoiceStatusEnum::PAID->value) {
             $this->service->handlePaidInvoice($request, $data);
         } else {
             $this->service->handleExpiredInvoice($request, $data);

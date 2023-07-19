@@ -23,6 +23,7 @@ class ResponseHelper
             'message' => null,
         ],
         'data' => null,
+        'success' => true
     ];
 
     /**
@@ -54,6 +55,7 @@ class ResponseHelper
         self::$response['meta']['code'] = $code;
         self::$response['meta']['message'] = $message;
         self::$response['data'] = $data;
+        self::$response['success'] = false;
 
         $response = response()->json(self::$response, self::$response['meta']['code']);
 

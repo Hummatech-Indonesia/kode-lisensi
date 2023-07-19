@@ -95,7 +95,7 @@
                                             <tr>
                                                 <td>Pembayaran Via</td>
                                                 <td>:</td>
-                                                <td>{{ $data['payment_channel'] }}</td>
+                                                <td>{{ $data['payment_method'] }}</td>
                                             </tr>
                                         </table>
                                         <br>
