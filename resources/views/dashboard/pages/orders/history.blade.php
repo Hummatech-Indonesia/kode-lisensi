@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('css')
-    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('dashboard_assets/css/daterangepicker.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard_assets/css/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <h1 class="h3 mb-3">Halaman Riwayat Transaksi</h1>
@@ -29,8 +29,7 @@
                     <div class="col-12">
                         <form id="search-form" class="row justify-content-end" action="" method="GET">
                             <div class="col-4"><input type="text" name="date"
-                                                      value="{{ date('Y-m-d') . ' - ' . date('Y-m-d') }}"
-                                                      class="form-control"></div>
+                                    value="{{ date('Y-m-d') . ' - ' . date('Y-m-d') }}" class="form-control"></div>
                             <div class="col-2 d-flex flex-row">
                                 <button class="btn btn-primary me-2" type="submit">Cari</button>
                             </div>
@@ -39,14 +38,14 @@
                     <div class="col-12 mt-3">
                         <table id="datatables-responsive" class="table table-striped" style="width:100%">
                             <thead>
-                            <tr>
-                                <th>ID Invoice</th>
-                                <th>Nama pengguna</th>
-                                <th>Paket dibeli</th>
-                                <th>Bayar</th>
-                                <th>Metode</th>
-                                <th>Tanggal Transaksi</th>
-                            </tr>
+                                <tr>
+                                    <th>ID Invoice</th>
+                                    <th>Nama pengguna</th>
+                                    <th>Paket dibeli</th>
+                                    <th>Bayar</th>
+                                    <th>Metode</th>
+                                    <th>Tanggal Transaksi</th>
+                                </tr>
                             </thead>
                             <tbody>
                             </tbody>
@@ -63,9 +62,10 @@
     <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
 
-            const firstUrl = `{{ route('revenues.totalAmount') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}`;
+            const firstUrl =
+                `{{ route('revenues.totalAmount') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}`;
 
             const fetchTotalAmount = (url) => {
                 $.ajax({
@@ -94,9 +94,8 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('orders.index') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}",
-                columns: [
-                    {
+                ajax: "{{ route('orders.fetch-histories') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}",
+                columns: [{
                         data: 'invoice_id',
                         name: 'invoice_id',
                     },
@@ -124,7 +123,7 @@
                 ]
             });
 
-            $('#search-form').submit(function (e) {
+            $('#search-form').submit(function(e) {
                 e.preventDefault()
                 const date = $('input[name="date"]').val()
                 table.ajax.url("{{ route('revenues.index') . '?date=:date' }}".replace(':date', date))
@@ -134,9 +133,10 @@
                 fetchTotalAmount(url)
             })
 
-            $('#btn-print').click(function () {
+            $('#btn-print').click(function() {
                 const date = $('input[name="date"]').val()
-                window.open("{{ route('revenues.print') . '?date=:date' }}".replace(':date', date), '_blank')
+                window.open("{{ route('revenues.print') . '?date=:date' }}".replace(':date', date),
+                    '_blank')
             })
 
             // Daterangepicker

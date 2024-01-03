@@ -26,7 +26,22 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     public function get(): mixed
     {
         return $this->TransactionMockup($this->model->query()
-            ->whereIn('license_status', [LicenseStatusEnum::PROCESSED->value, LicenseStatusEnum::COMPLETED->value])
+            ->whereIn('license_status', [LicenseStatusEnum::PROCESSED->value])
+            ->whereHas('detail_transaction.product')
+            ->with(['user', 'detail_transaction.product'])
+            ->oldest());
+    }
+
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     */
+
+    public function getAll(): mixed
+    {
+        return $this->TransactionMockup($this->model->query()
+            ->whereIn('license_status', [LicenseStatusEnum::COMPLETED->value])
             ->whereHas('detail_transaction.product')
             ->with(['user', 'detail_transaction.product'])
             ->oldest());

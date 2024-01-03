@@ -138,6 +138,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::name('orders.')->group(function () {
                 Route::prefix('orders')->group(function () {
                     Route::get('/', [OrderController::class, 'index'])->name('index');
+                    Route::get('/get-all-histories', [OrderController::class, 'fetchHistories'])->name('fetch-histories');
                     Route::get('{invoice_id}', [OrderController::class, 'show'])->name('detail');
                     Route::post('{invoice_id}', [OrderController::class, 'update'])->name('update');
                 });
@@ -176,6 +177,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-//Route::fallback(function () {
-//    return view('errors.404');
-//});
+Route::fallback(function () {
+    return view('errors.404');
+});
