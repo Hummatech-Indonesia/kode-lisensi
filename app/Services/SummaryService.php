@@ -181,7 +181,7 @@ class SummaryService
             ->orderByDesc('transactions_count')
             ->get();
 
-        return $data->filter(fn($item) => $item->transactions_count > 0);
+        return $data->filter(fn ($item) => $item->transactions_count > 0);
     }
 
     /**
@@ -204,8 +204,7 @@ class SummaryService
             ->orderByDesc('product_ratings_sum_rating')
             ->get();
 
-        return $data->filter(fn($item) => $item->product_ratings_sum_rating != null);
-
+        return $data->filter(fn ($item) => $item->product_ratings_sum_rating != null);
     }
 
     /**
@@ -220,7 +219,9 @@ class SummaryService
         return $this->product->query()
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
             ->with('category')
-            ->withCount(['product_ratings', 'licenses'])
+            ->withCount(['product_ratings', 'licenses' => function ($query) {
+                return $query->where('is_purchased', 0);
+            }])
             ->withSum(['product_ratings' => function ($query) {
                 $query->where('status', RatingStatusEnum::APPROVED->value);
             }], 'rating')
