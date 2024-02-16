@@ -11,6 +11,8 @@ use App\Services\SummaryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Jorenvh\Share\Share;
+use Illuminate\Support\Facades\URL;
 
 class HomeProductController extends Controller
 {
@@ -65,7 +67,15 @@ class HomeProductController extends Controller
     {
         $product = $this->product->showWithSlug($slug);
 
+        $share = new Share();
+        $shareButtons = $share->page(URL::to('/products/' . $slug)) // Gunakan URL::to() untuk mendapatkan URL lengkap
+            ->whatsapp()
+            ->facebook()
+            ->telegram()
+            ->getRawLinks();
+
         return view('pages.product-detail', [
+            'shareButtons' => $shareButtons,
             'title' => trans('title.product_detail', ['product' => $product->name]),
             'product' => $product,
             'recommendProducts' => $this->summaryService->handleRecommendProducts(),

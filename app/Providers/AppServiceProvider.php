@@ -12,6 +12,7 @@ use App\Contracts\Interfaces\ContactInterface;
 use App\Contracts\Interfaces\CustomerInterface;
 use App\Contracts\Interfaces\HelpInterface;
 use App\Contracts\Interfaces\LicenseInterface;
+use App\Contracts\Interfaces\ProductFavoriteInterface;
 use App\Contracts\Interfaces\Products\ArchiveProductInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\Products\ProductQuestionInterface;
@@ -33,6 +34,7 @@ use App\Contracts\Repositories\ContactRepository;
 use App\Contracts\Repositories\CustomerRepository;
 use App\Contracts\Repositories\HelpRepository;
 use App\Contracts\Repositories\LicenseRepository;
+use App\Contracts\Repositories\ProductFavoriteRepository;
 use App\Contracts\Repositories\Products\ArchiveProductRepository;
 use App\Contracts\Repositories\Products\ProductQuestionRepository;
 use App\Contracts\Repositories\Products\ProductRepository;
@@ -71,7 +73,8 @@ class AppServiceProvider extends ServiceProvider
         ArticleInterface::class => ArticleRepository::class,
         ArticleCategoryInterface::class => ArticleCategoryRepository::class,
         SliderInterface::class => SliderRepository::class,
-        BannerInterface::class => BannerRepository::class
+        BannerInterface::class => BannerRepository::class,
+        ProductFavoriteInterface::class => ProductFavoriteRepository::class
     ];
 
     /**

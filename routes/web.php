@@ -27,6 +27,7 @@ use App\Http\Controllers\HelpController;
 use App\Http\Controllers\Home\HomeArticleController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\HomeProductController;
+use App\Http\Controllers\Home\ProductFavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermController;
@@ -94,6 +95,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('favorites', [MyFavoriteController::class, 'index'])->name('my-favorites');
             Route::resource('histories', MyHistoryController::class)->only('index', 'show');
         });
+        Route::name('product.favorite.')->prefix('product-favorites')->group(function () {
+            Route::post('{product}', [ProductFavoriteController::class, 'store'])->name('create');
+            Route::delete('{product}', [ProductFavoriteController::class, 'index'])->name('delete');
+        });
+
         Route::prefix('checkout')->group(function () {
             Route::get('{slug}', [TransactionController::class, 'index'])->name('checkout');
             Route::post('{slug}', [TransactionController::class, 'store'])->name('doCheckout');

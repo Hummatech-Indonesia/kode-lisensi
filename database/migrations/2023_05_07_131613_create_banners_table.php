@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('first_description', 50);
             $table->text('first_product_url');
             $table->text('first_image');
-
             $table->string('second_offer', 50);
             $table->string('second_title', 50);
             $table->string('second_description', 50);

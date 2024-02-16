@@ -7,5 +7,4 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface AboutInterface extends GetInterface, UpdateInterface
 {
-
 }

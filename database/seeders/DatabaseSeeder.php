@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             ResellerSeeder::class,
             SiteSettingSeeder::class,
             AboutSeeder::class,
-            ProductSeeder::class,
+            // ProductSeeder::class,
             SlideSeeder::class,
             BannerSeeder::class
         ]);
