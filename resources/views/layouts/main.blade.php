@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <meta name="description" content="{{ $description ?? config('app.name') }}">
     <meta name="keywords" content="{{ $keywords ?? config('app.name') }}">
     <meta name="author" content="{{ $author ?? config('app.name') }}">
+    @yield('meta')
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <title>{{ $title ?? config('app.name') }}</title>
 
@@ -29,40 +31,39 @@
 </head>
 
 <body class="theme-color-3 dark">
-<!-- Loader Start -->
-<div class="fullpage-loader">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
-<!-- Loader End -->
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
 
-<!-- Header Start -->
-<header class="pb-md-4 pb-0 header-2">
-    @include('layouts.navbar')
-</header>
-<!-- Header End -->
+    <!-- Header Start -->
+    <header class="pb-md-4 pb-0 header-2">
+        @include('layouts.navbar')
+    </header>
+    <!-- Header End -->
 
-@yield('content')
+    @yield('content')
 
-<footer class="section-t-space mt-5">
-    @include('layouts.footer')
-</footer>
+    <footer class="section-t-space mt-5">
+        @include('layouts.footer')
+    </footer>
 
-<!-- log in section end -->
+    <!-- log in section end -->
 
-<!-- Bg overlay Start -->
-<div class="bg-overlay"></div>
-<!-- Bg overlay End -->
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
 
-@include('layouts.script')
+    @include('layouts.script')
 
-@yield('script')
+    @yield('script')
 
 </body>
 
 </html>
-

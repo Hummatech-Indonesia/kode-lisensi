@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Article;
 use App\Models\License;
 use App\Models\Product;
+use App\Models\ProductFavorite;
 use App\Models\User;
 use App\Observers\ArticleObserver;
 use App\Observers\LicenseObserver;
+use App\Observers\ProductFavoriteObserver;
 use App\Observers\ProductObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -38,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
         License::observe(LicenseObserver::class);
         User::observe(UserObserver::class);
         Article::observe(ArticleObserver::class);
+        ProductFavorite::observe(ProductFavoriteObserver::class);
     }
 
     /**

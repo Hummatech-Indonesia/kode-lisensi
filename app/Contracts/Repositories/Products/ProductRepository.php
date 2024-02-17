@@ -106,7 +106,6 @@ class ProductRepository extends BaseRepository implements ProductInterface
                 $query->find($id)
                     ->forceDelete();
             }
-
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1451) return false;
         }
@@ -149,6 +148,11 @@ class ProductRepository extends BaseRepository implements ProductInterface
             })
             ->when($request->search, function ($query) use ($request) {
                 return $query->whereLike('name', $request->search);
+            })
+            ->when($request->user_id, function ($query) use ($request) {
+                $query->whereHas('product_favorites', function ($query) use ($request) {
+                    $query->where('user_id', $request->user_id);
+                });
             })
             ->with('category')
             ->withCount([

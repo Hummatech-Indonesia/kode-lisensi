@@ -1,14 +1,17 @@
-@php use App\Enums\UserRoleEnum;use App\Helpers\UserHelper; @endphp
+@php
+    use App\Enums\UserRoleEnum;
+    use App\Helpers\UserHelper;
+@endphp
 <div class="top-nav top-header sticky-header sticky-header-3">
     <div class="container-fluid-lg">
         <div class="row">
             <div class="col-12">
                 <div class="navbar-top">
                     <button class="navbar-toggler d-xl-none d-block p-0 me-3" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#primaryMenu">
-                                <span class="navbar-toggler-icon">
-                                    <i class="iconly-Category icli theme-color"></i>
-                                </span>
+                        data-bs-target="#primaryMenu">
+                        <span class="navbar-toggler-icon">
+                            <i class="iconly-Category icli theme-color"></i>
+                        </span>
                     </button>
                     <a href="{{ route('home.index') }}" class="web-logo nav-logo">
                         <img src="{{ asset('storage/' . $site->logo) }}" alt="">
@@ -20,9 +23,8 @@
                                 <form method="GET" action="{{ route('home.products.index') }}">
                                     @csrf
                                     <input value="{{ request()->input('search') ?? old('search') }}" name="search"
-                                           type="search" class="form-control"
-                                           id="inputSearch"
-                                           placeholder="Cari lisensi software.." autocomplete="off">
+                                        type="search" class="form-control" id="inputSearch"
+                                        placeholder="Cari lisensi software.." autocomplete="off">
                                     <button class="btn search-button">
                                         <i class="iconly-Search icli"></i>
                                     </button>
@@ -47,22 +49,21 @@
                             @else
                                 <div class="dropdown">
                                     <button class="dropdown-toggle m-0" type="button" id="dropdown  MenuButton2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span>Hi, {{ auth()->user()->name }}</span> <i
-                                            class="fa-solid fa-angle-down"></i>
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span>Hi, {{ auth()->user()->name }}</span> <i class="fa-solid fa-angle-down"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li>
                                             <a id="usd" class="dropdown-item"
-                                               href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard</a>
+                                                href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard</a>
                                         </li>
                                         <li>
                                             <a id="inr" class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
+                                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                         </li>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                              class="d-none">
+                                            class="d-none">
                                             @csrf
                                         </form>
                                     </ul>
@@ -72,14 +73,13 @@
                         <div class="option-list">
                             <ul>
                                 <li>
-                                    <a href="{{ route('dashboard.index') }}"
-                                       class="header-icon user-icon search-icon">
+                                    <a href="{{ route('dashboard.index') }}" class="header-icon user-icon search-icon">
                                         <i class="iconly-Profile icli"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('home.products.index') }}"
-                                       class="header-icon search-box search-icon">
+                                        class="header-icon search-box search-icon">
                                         <i class="iconly-Search icli"></i>
                                     </a>
                                 </li>
@@ -91,7 +91,7 @@
                                 </li>
 
                                 <li class="onhover-dropdown">
-                                    <a href="#" class="header-icon swap-icon">
+                                    <a href="{{ route('users.account.my-favorites') }}" class="header-icon swap-icon">
                                         <i class="iconly-Heart icli"></i>
                                     </a>
 
@@ -103,9 +103,9 @@
                     <ul class="right-side-menu">
                         <li class="right-side onhover-dropdown">
                             <a href="#" class="btn p-0 position-relative header-wishlist">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-user">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
@@ -122,16 +122,17 @@
                                         </li>
                                     @else
                                         <li class="product-box-contain">
-                                            <a href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard</a>
+                                            <a
+                                                href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard</a>
                                         </li>
                                         <li class="product-box-contain">
                                             <a id="inr" class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
+                                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                 Logout</a>
                                         </li>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                              class="d-none">
+                                            class="d-none">
                                             @csrf
                                         </form>
                                     @endguest
@@ -166,7 +167,7 @@
                         </div>
 
                         <ul class="category-list">
-                            @foreach($nav_categories as $category)
+                            @foreach ($nav_categories as $category)
                                 <li class="onhover-category-list">
                                     <a href="javascript:void(0)" class="category-name">
                                         <h6>{{ $category->name }}</h6>
@@ -180,7 +181,8 @@
                                             <ul>
                                                 @forelse($category->products as $product)
                                                     <li>
-                                                        <a href="{{ route('home.products.show', $product->slug) }}">{{ $product->name }}</a>
+                                                        <a
+                                                            href="{{ route('home.products.show', $product->slug) }}">{{ $product->name }}</a>
                                                     </li>
                                                 @empty
                                                     Belum ada Produk
@@ -199,33 +201,33 @@
                         <div class="offcanvas-header navbar-shadow">
                             <h5>Menu</h5>
                             <button class="btn-close lead" type="button" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
+                                aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}"
-                                       href="{{ route('home.index') }}">Beranda</a>
+                                        href="{{ route('home.index') }}">Beranda</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.products.*') ? 'active' : '' }}"
-                                       href="{{ route('home.products.index') }}">Produk</a>
+                                        href="{{ route('home.products.index') }}">Produk</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.about') ? 'active' : '' }}"
-                                       href="{{ route('home.about') }}">Tentang Kami</a>
+                                        href="{{ route('home.about') }}">Tentang Kami</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.articles.index') ? 'active' : '' }}"
-                                       href="{{ route('home.articles.index') }}">Artikel</a>
+                                        href="{{ route('home.articles.index') }}">Artikel</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.contact.index') ? 'active' : '' }}"
-                                       href="{{ route('home.contact.index') }}">Hubungi Kami</a>
+                                        href="{{ route('home.contact.index') }}">Hubungi Kami</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.faq') ? 'active' : '' }}"
-                                       href="{{ route('home.faq') }}">Bantuan</a>
+                                        href="{{ route('home.faq') }}">Bantuan</a>
                                 </li>
 
                             </ul>

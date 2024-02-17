@@ -11,5 +11,4 @@ use App\Contracts\Interfaces\Eloquent\SoftDeleteInterface;
 
 interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderProductInterface, ShowSoftDeleteInterface, CursorPaginateInterface, ShowSlugInterface, GetAllnterface
 {
-
 }

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Enums\UserRoleEnum;
+use App\Helpers\ResponseHelper;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use App\Services\Auth\LoginService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -77,5 +80,16 @@ class LoginController extends Controller
         }
 
         return to_route('home.index');
+    }
+
+    /**
+     * apiLogin
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function apiLogin(Request $request): JsonResponse
+    {
+        return $this->loginService->handleLogin($request);
     }
 }

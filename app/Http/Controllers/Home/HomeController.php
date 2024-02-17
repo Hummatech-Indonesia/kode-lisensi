@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Home;
 
 use App\Contracts\Interfaces\BannerInterface;
+use App\Contracts\Interfaces\ProductFavoriteInterface;
 use App\Contracts\Interfaces\SliderInterface;
 use App\Http\Controllers\Controller;
 use App\Services\SummaryService;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -13,13 +15,14 @@ class HomeController extends Controller
     private SummaryService $summaryService;
     private SliderInterface $slider;
     private BannerInterface $banner;
+    private ProductFavoriteInterface $productFavorite;
 
-    public function __construct(SummaryService $summaryService, SliderInterface $slider, BannerInterface $banner)
+    public function __construct(SummaryService $summaryService, SliderInterface $slider, BannerInterface $banner, ProductFavoriteInterface $productFavorite)
     {
         $this->summaryService = $summaryService;
         $this->slider = $slider;
         $this->banner = $banner;
-
+        $this->productFavorite = $productFavorite;
     }
 
     /**
@@ -28,7 +31,7 @@ class HomeController extends Controller
      * @return View
      */
 
-    public function index(): View
+    public function index(Request $request): View
     {
         return view('pages.index', [
             'bestSellerProducts' => $this->summaryService->handleBestSeller(8),
@@ -38,5 +41,4 @@ class HomeController extends Controller
             'banners' => $this->banner->get()
         ]);
     }
-
 }

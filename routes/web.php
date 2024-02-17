@@ -92,12 +92,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:reseller|customer')->group(function () {
         Route::name('users.account.')->prefix('my-account')->group(function () {
             Route::get('/', [MyAccountController::class, 'index'])->name('index');
-            Route::get('favorites', [MyFavoriteController::class, 'index'])->name('my-favorites');
+            Route::get('favorites', [ProductFavoriteController::class, 'index'])->name('my-favorites');
             Route::resource('histories', MyHistoryController::class)->only('index', 'show');
         });
         Route::name('product.favorite.')->prefix('product-favorites')->group(function () {
+            Route::get('{product}', [ProductFavoriteController::class, 'show'])->name('create');
             Route::post('{product}', [ProductFavoriteController::class, 'store'])->name('create');
-            Route::delete('{product}', [ProductFavoriteController::class, 'index'])->name('delete');
+            Route::delete('{product}', [ProductFavoriteController::class, 'delete'])->name('delete');
         });
 
         Route::prefix('checkout')->group(function () {

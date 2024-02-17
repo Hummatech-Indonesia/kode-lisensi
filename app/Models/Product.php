@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Base\Interfaces\HasCategory;
 use App\Base\Interfaces\HasLicenses;
+use App\Base\Interfaces\HasProductFavorites;
 use App\Base\Interfaces\HasProductQuestions;
 use App\Base\Interfaces\HasRatings;
 use App\Base\Interfaces\HasTransactions;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites
 {
     use HasFactory, SoftDeletes, ScopeSearchTrait;
 
@@ -73,5 +74,14 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     public function transactions(): HasMany
     {
         return $this->hasMany(DetailTransaction::class);
+    }
+    /**
+     * product_favorites
+     *
+     * @return HasMany
+     */
+    public function product_favorites(): HasMany
+    {
+        return $this->hasMany(ProductFavorite::class);
     }
 }
