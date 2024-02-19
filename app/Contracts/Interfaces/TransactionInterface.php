@@ -9,4 +9,19 @@ use App\Contracts\Interfaces\Eloquent\GetAllnterface;
 
 interface TransactionInterface extends GetInterface, StoreInterface, ShowInterface, GetAllnterface
 {
+    /**
+     * Handle the apiGetHistory all data event from models.
+     *
+     * @return mixed
+     */
+
+    public function apiGetHistory(): mixed;
+
+    /**
+     * Handle the apiGet all data event from models.
+     *
+     * @return mixed
+     */
+
+    public function apiGetPreorder(): mixed;
 }

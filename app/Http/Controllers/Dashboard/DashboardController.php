@@ -46,9 +46,13 @@ class DashboardController extends Controller
     public function apiDashboard(): JsonResponse
     {
         $balance = $this->service->handleBalance();
+        $balance = strval($balance);
         $order = $this->service->handleCountOrders();
+        $order = strval($order);
         $product = $this->service->handleCountProducts();
+        $product = strval($product);
         $customer = $this->service->handleCountCustomers();
+        $customer = strval($customer);
         $pieChart = $this->service->handlePieChart();
         $lowStockProduct = $this->service->handleLowStockProducts();
         $lineChart = $this->service->handleLineChart();

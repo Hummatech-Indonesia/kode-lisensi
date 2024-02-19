@@ -484,19 +484,19 @@
                                             </a>
                                         </li>
                                         @auth
-                                            {{-- @if ($product->product_favorites->where('user_id', auth()->user()->id)->first()) --}}
-                                            <li data-bs-toggle="tooltip" class="favorite" data-bs-placement="top"
-                                                title="" data-bs-original-title="Favorit">
-                                                <a class="delete-favorite" data-id="{{ $product->id }}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        style="color: red" fill="currentColor" class="bi bi-suit-heart-fill"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            {{-- @else
+                                            @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
+                                                <li data-bs-toggle="tooltip" class="favorite" data-bs-placement="top"
+                                                    title="" data-bs-original-title="Favorit">
+                                                    <a class="delete-favorite" data-id="{{ $product->id }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            style="color: red" fill="currentColor"
+                                                            class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            @else
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
                                                     data-bs-original-title="Favorit">
                                                     <a class="add-favorite" data-id="{{ $product->id }}">
@@ -508,7 +508,7 @@
 
                                                     </a>
                                                 </li>
-                                            @endif --}}
+                                            @endif
                                         @endauth
                                         @guest
                                             <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
@@ -694,16 +694,17 @@
                 url: "/product-favorites/" + productId,
                 method: "GET",
                 success: function(data) {
-                    if (data.data) {
+                    if (data.data == null) {
                         $('.favorite').append(
-                            ` <a class="delete-favorite" data-id="{{ $product->id }}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                            style="color: red" fill="currentColor"
-                                                            class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                                        </svg>
-                                                    </a>`
+                            `<a class="add-favorite" data-id="{{ $product->id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="color: red" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" /></svg>
+                            </a>`
+                        )
+                    } else {
+                        $('.favorite').append(
+                            `<a class="delete-favorite" data-id="{{ $product->id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="color: red" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" /></svg>
+                            </a>`
                         )
                     }
                 },

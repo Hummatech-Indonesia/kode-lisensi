@@ -48,6 +48,35 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     }
 
     /**
+     * apiGet
+     *
+     * @return mixed
+     */
+    public function apiGetHistory(): mixed
+    {
+        return $this->model->query()
+            // ->whereIn('license_status', [LicenseStatusEnum::COMPLETED->value])
+            // ->whereHas('detail_transaction.product')
+            // ->with(['user', 'detail_transaction.product'])
+            ->oldest()
+            ->get();
+    }
+    /**
+     * apiGetPreorder
+     *
+     * @return mixed
+     */
+    public function apiGetPreorder(): mixed
+    {
+        return $this->model->query()
+            // ->whereIn('license_status', [LicenseStatusEnum::PROCESSED->value])
+            // ->whereHas('detail_transaction.product')
+            // ->with(['user', 'detail_transaction.product'])
+            ->oldest()
+            ->get();
+    }
+
+    /**
      * Handle get the specified data by id from models.
      *
      * @param mixed $id

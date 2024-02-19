@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\ChangePasswordInterface;
 use App\Contracts\Interfaces\ContactInterface;
 use App\Contracts\Interfaces\CustomerInterface;
+use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\HelpInterface;
 use App\Contracts\Interfaces\LicenseInterface;
 use App\Contracts\Interfaces\ProductFavoriteInterface;
@@ -32,6 +33,7 @@ use App\Contracts\Repositories\CategoryRepository;
 use App\Contracts\Repositories\ChangePasswordRepository;
 use App\Contracts\Repositories\ContactRepository;
 use App\Contracts\Repositories\CustomerRepository;
+use App\Contracts\Repositories\FcmTokenRepository;
 use App\Contracts\Repositories\HelpRepository;
 use App\Contracts\Repositories\LicenseRepository;
 use App\Contracts\Repositories\ProductFavoriteRepository;
@@ -46,6 +48,7 @@ use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\SliderRepository;
 use App\Contracts\Repositories\TermRepository;
 use App\Contracts\Repositories\TransactionRepository;
+use App\Http\Requests\FcmTokenRequest;
 use App\Models\Category;
 use App\Models\SiteSetting;
 use Illuminate\Support\ServiceProvider;
@@ -74,7 +77,8 @@ class AppServiceProvider extends ServiceProvider
         ArticleCategoryInterface::class => ArticleCategoryRepository::class,
         SliderInterface::class => SliderRepository::class,
         BannerInterface::class => BannerRepository::class,
-        ProductFavoriteInterface::class => ProductFavoriteRepository::class
+        ProductFavoriteInterface::class => ProductFavoriteRepository::class,
+        FcmTokenInterface::class => FcmTokenRepository::class
     ];
 
     /**

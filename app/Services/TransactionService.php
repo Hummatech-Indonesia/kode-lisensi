@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\LicenseInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Enums\LicenseStatusEnum;
@@ -13,6 +14,7 @@ use App\Http\Requests\TransactionRequest;
 use App\Jobs\TransactionJob;
 use App\Mail\SendLicenseMail;
 use App\Models\Product;
+use App\Notifications\OrderNotification;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -22,12 +24,14 @@ class TransactionService
     private TransactionInterface $transaction;
     private LicenseInterface $license;
     private TripayService $service;
+    private FcmTokenInterface $fcmToken;
 
-    public function __construct(TransactionInterface $transaction, LicenseInterface $license, TripayService $service)
+    public function __construct(TransactionInterface $transaction, LicenseInterface $license, TripayService $service, FcmTokenInterface $fcmToken)
     {
         $this->transaction = $transaction;
         $this->license = $license;
         $this->service = $service;
+        $this->fcmToken = $fcmToken;
     }
 
     /**
@@ -109,6 +113,9 @@ class TransactionService
             'phone_number' => $data['phone_number'],
             'email' => $data['email']
         ]);
+
+        $user = $this->fcmToken->get();
+        $user->notify(new OrderNotification($product, $transaction));
 
         if ($license_id) $this->license->update($license->id, ['is_purchased' => 1]);
 

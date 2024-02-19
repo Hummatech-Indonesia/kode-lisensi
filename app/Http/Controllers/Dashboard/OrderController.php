@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Services\TransactionService;
 use Illuminate\Http\JsonResponse;
@@ -30,7 +31,6 @@ class OrderController extends Controller
     public function index(Request $request): View|JsonResponse
     {
         if ($request->ajax()) return $this->transaction->get();
-
         return view('dashboard.pages.orders.index');
     }
 
@@ -48,6 +48,19 @@ class OrderController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return View|JsonResponse
+     */
+    public function fetchHistories(Request $request): View|JsonResponse
+    {
+        if ($request->ajax()) return $this->transaction->getAll();
+
+        return view('dashboard.pages.orders.index');
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -59,6 +72,20 @@ class OrderController extends Controller
         $this->service->handleSendLicense($request, $invoice_id);
 
         return to_route('orders.index')->with('success', trans('alert.send_license_success'));
+    }
+
+    /**
+     * apiUpdate
+     *
+     * @param  mixed $request
+     * @param  mixed $invoice_id
+     * @return JsonResponse
+     */
+public function apiUpdate(Request $request, string $invoice_id): JsonResponse
+    {
+        $this->service->handleSendLicense($request, $invoice_id);
+
+        return ResponseHelper::success(null, trans('alert.send_license_success'));
     }
 
     /**

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiLoginRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use App\Services\Auth\LoginService;
@@ -38,15 +40,17 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     private LoginService $loginService;
+    private FcmTokenInterface $fcmToken;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(LoginService $loginService)
+    public function __construct(LoginService $loginService, FcmTokenInterface $fcmToken)
     {
         $this->middleware('guest')->except('logout');
+        $this->fcmToken = $fcmToken;
         $this->loginService = $loginService;
     }
 
@@ -88,8 +92,19 @@ class LoginController extends Controller
      * @param  mixed $request
      * @return JsonResponse
      */
-    public function apiLogin(Request $request): JsonResponse
+    public function apiLogin(ApiLoginRequest $request): JsonResponse
     {
         return $this->loginService->handleLogin($request);
+    }
+    /**
+     * logout
+     *
+     * @return void
+     */
+    public function apiLogout()
+    {
+        $this->fcmToken->update(auth()->user()->id, ['fcm_token' => null]);
+        auth()->user()->currentAccessToken()->delete();
+        return ResponseHelper::success(auth()->user()->token, 'success logout');
     }
 }

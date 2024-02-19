@@ -1,88 +1,91 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\TransactionInterface;
-use App\Http\Controllers\Controller;
+use App\Helpers\ResponseHelper;
+use App\Http\Requests\TransactionRequest;
+use App\Http\Resources\HistoryTransactionResource;
+use App\Http\Resources\TransactionResource;
 use App\Services\TransactionService;
+use App\Services\TripayService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class OrderController extends Controller
+class TransactionController extends Controller
 {
+    private ProductInterface $product;
     private TransactionInterface $transaction;
     private TransactionService $service;
+    private TripayService $tripayService;
 
-    public function __construct(TransactionInterface $transaction, TransactionService $service)
+    public function __construct(ProductInterface $product, TransactionService $service, TripayService $tripayService, TransactionInterface $transaction)
     {
-        $this->transaction = $transaction;
+        $this->product = $product;
         $this->service = $service;
+        $this->tripayService = $tripayService;
+        $this->transaction = $transaction;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return View|JsonResponse
-     */
-    public function index(Request $request): View|JsonResponse
-    {
-        if ($request->ajax()) return $this->transaction->get();
-
-        return view('dashboard.pages.orders.index');
-    }
-
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return View|JsonResponse
-     */
-    public function fetchHistories(Request $request): View|JsonResponse
-    {
-        if ($request->ajax()) return $this->transaction->getAll();
-
-        return view('dashboard.pages.orders.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param string $invoice_id
+     * @param string $slug
      * @return View
      */
-    public function show(string $invoice_id): View
-    {
-        $transaction = $this->transaction->show($invoice_id);
 
-        return view('dashboard.pages.orders.detail', compact('transaction'));
+    public function index(string $slug): View
+    {
+        $product = $this->product->showWithSlug($slug);
+
+        return view('pages.checkout', [
+            'product' => $product,
+            'title' => trans('title.checkout', ['product' => $product->name]),
+            'payment_channels' => $this->tripayService->handlePaymentChannels()
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @param string $invoice_id
+     * @param TransactionRequest $request
+     * @param string $slug
      * @return RedirectResponse
      */
-    public function update(Request $request, string $invoice_id): RedirectResponse
+    public function store(TransactionRequest $request, string $slug): RedirectResponse
     {
-        $this->service->handleSendLicense($request, $invoice_id);
+        $product = $this->product->showWithSlug($slug);
 
-        return to_route('orders.index')->with('success', trans('alert.send_license_success'));
+        if (!$this->service->checkProductType($product)) {
+            return back()->with('error', trans('alert.empty_stock'));
+        }
+
+        $this->service->handleCheckout($request, $product);
+
+        return back()->with('success', trans('alert.checkout_success'));
     }
 
     /**
-     * Remove the specified resource from storage.
+     * apiHistory
      *
-     * @return View
+     * @return JsonResponse
      */
-    public function history(): View
+    public function apiHistory(): JsonResponse
     {
-        return view('dashboard.pages.orders.history');
+        $transactions = $this->transaction->apiGetHistory();
+        return ResponseHelper::success(TransactionResource::collection($transactions));
+    }
+
+    /**
+     * apiPreorder
+     *
+     * @return JsonResponse
+     */
+    public function apiPreorder(): JsonResponse
+    {
+        $transactions = $this->transaction->apiGetPreorder();
+        return ResponseHelper::success(TransactionResource::collection($transactions));
     }
 }
