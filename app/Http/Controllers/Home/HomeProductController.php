@@ -75,15 +75,23 @@ class HomeProductController extends Controller
     {
         $product = $this->product->showWithSlug($slug);
 
-        $roleReseller = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value;
+        if (auth()->user()) {
+            $roleReseller = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value;
+            $checkUser = $this->shareProductReseller->show($product->id);
+        }
         $share = new Share();
-        if ($roleReseller) {
-            $code = strtolower(str_random(7));
-            $shareButtons = $share->page(URL::to('/products/' . $slug . '/' . $code))
-                ->whatsapp()
-                ->facebook()
-                ->telegram()
-                ->getRawLinks();
+        if (auth()->user()) {
+            if ($roleReseller) {
+                $code = strtolower(str_random(7));
+                if ($checkUser) {
+                    $code = $checkUser->code;
+                }
+                $shareButtons = $share->page(URL::to('/products/' . $slug . '/' . $code))
+                    ->whatsapp()
+                    ->facebook()
+                    ->telegram()
+                    ->getRawLinks();
+            }
         } else {
             $shareButtons = $share->page(URL::to('/products/' . $slug))
                 ->whatsapp()
@@ -91,19 +99,21 @@ class HomeProductController extends Controller
                 ->telegram()
                 ->getRawLinks();
         }
-        if ($roleReseller) {
-            return view('pages.product-detail', [
-                'code' => $code,
-                'roleReseller' => $roleReseller,
-                'shareButtons' => $shareButtons,
-                'title' => trans('title.product_detail', ['product' => $product->name]),
-                'product' => $product,
-                'recommendProducts' => $this->summaryService->handleRecommendProducts(),
-                'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
-            ]);
+        if (auth()->user()) {
+            if ($roleReseller) {
+                return view('pages.product-detail', [
+                    'checkUser' => $checkUser,
+                    'code' => $code,
+                    'roleReseller' => $roleReseller,
+                    'shareButtons' => $shareButtons,
+                    'title' => trans('title.product_detail', ['product' => $product->name]),
+                    'product' => $product,
+                    'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+                    'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
+                ]);
+            }
         } else {
             return view('pages.product-detail', [
-                'roleReseller' => $roleReseller,
                 'shareButtons' => $shareButtons,
                 'title' => trans('title.product_detail', ['product' => $product->name]),
                 'product' => $product,

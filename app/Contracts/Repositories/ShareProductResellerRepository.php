@@ -24,4 +24,18 @@ class ShareProductResellerRepository extends BaseRepository implements ShareProd
         return $this->model->query()
             ->create($data);
     }
+
+    /**
+     * show
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('product_id', $id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+    }
 }
