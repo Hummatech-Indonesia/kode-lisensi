@@ -27,6 +27,7 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
         });
     });
 });
+
 Route::middleware('enable.cors')->group(function () {
     Route::post('login', [LoginController::class, 'apiLogin']);
     Route::middleware('auth:sanctum')->group(function () {
