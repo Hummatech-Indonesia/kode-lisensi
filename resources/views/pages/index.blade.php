@@ -459,7 +459,7 @@
             <div id="productContainer"
                 class="row g-sm-4 g-3 product-list-section row-cols-xxl-5 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 mt-3 mb-5">
                 @forelse($latestProducts as $product)
-                    <div class="loopProducts">
+                    <div class="loopProducts" id="latestProduct">
                         <div class="product-box-3 h-100 wow fadeInUp"
                             style="visibility: visible; animation-name: fadeInUp;">
                             <div class="product-header">
@@ -487,7 +487,7 @@
                                             @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
                                                 <li data-bs-toggle="tooltip" class="favorite" data-bs-placement="top"
                                                     title="" data-bs-original-title="Favorit">
-                                                    <a class="delete-favorite" data-id="{{ $product->id }}">
+                                                    <a href="" class="delete-favorite" data-id="{{ $product->id }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                             style="color: red" fill="currentColor"
                                                             class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
@@ -499,7 +499,7 @@
                                             @else
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
                                                     data-bs-original-title="Favorit">
-                                                    <a class="add-favorite" data-id="{{ $product->id }}">
+                                                    <a href="" class="add-favorite" data-id="{{ $product->id }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                             fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16">
                                                             <path
@@ -713,5 +713,23 @@
                 }
             });
         }
+
+        // $(document).ready(function() {
+        //     $.ajax({
+        //         url: "latest-product",
+        //         method: "GET",
+        //         success: function(data) {
+        //             console.log(data.data);
+        //             $.each('#latestProduct')
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error("Terjadi kesalahan: " + error);
+        //         }
+        //     });
+        // });
+
+        // function latestProduct() {
+        //     return
+        // }
     </script>
 @endsection

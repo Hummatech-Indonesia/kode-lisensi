@@ -81,7 +81,7 @@ class OrderController extends Controller
      * @param  mixed $invoice_id
      * @return JsonResponse
      */
-public function apiUpdate(Request $request, string $invoice_id): JsonResponse
+    public function apiUpdate(Request $request, string $invoice_id): JsonResponse
     {
         $this->service->handleSendLicense($request, $invoice_id);
 

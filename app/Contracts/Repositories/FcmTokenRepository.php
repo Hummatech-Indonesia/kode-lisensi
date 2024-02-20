@@ -22,7 +22,8 @@ class FcmTokenRepository extends BaseRepository implements FcmTokenInterface
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()
-            ->create($data);
+            ->findOrFail($id)
+            ->update($data);
     }
 
     /**

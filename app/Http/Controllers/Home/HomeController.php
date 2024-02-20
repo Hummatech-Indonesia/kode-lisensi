@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Home;
 use App\Contracts\Interfaces\BannerInterface;
 use App\Contracts\Interfaces\ProductFavoriteInterface;
 use App\Contracts\Interfaces\SliderInterface;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Services\SummaryService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -40,5 +42,16 @@ class HomeController extends Controller
             'slider' => $this->slider->get(),
             'banners' => $this->banner->get()
         ]);
+    }
+
+    /**
+     * latestProduct
+     *
+     * @return JsonResponse
+     */
+    public function latestProduct(): JsonResponse
+    {
+        $latestProducts = $this->summaryService->handleLatestProducts();
+        return ResponseHelper::success($latestProducts);
     }
 }

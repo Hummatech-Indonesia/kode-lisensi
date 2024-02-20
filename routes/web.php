@@ -54,7 +54,11 @@ Auth::routes([
 ]);
 
 Route::name('home.')->group(function () {
+    Route::get('send-email', function () {
+        return view('emails.SendLicenseMail');
+    });
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('latest-product', [HomeController::class, 'latestProduct']);
     Route::get('about-us', [AboutController::class, 'homepage'])->name('about');
     Route::get('frequently-asked-question', [HelpController::class, 'homepage'])->name('faq');
     Route::name('contact.')->prefix('contact-us')->group(function () {
@@ -96,7 +100,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('histories', MyHistoryController::class)->only('index', 'show');
         });
         Route::name('product.favorite.')->prefix('product-favorites')->group(function () {
-            Route::get('{product}', [ProductFavoriteController::class, 'show'])->name('create');
+            Route::get('{product}', [ProductFavoriteController::class, 'show'])->name('index');
             Route::post('{product}', [ProductFavoriteController::class, 'store'])->name('create');
             Route::delete('{product}', [ProductFavoriteController::class, 'delete'])->name('delete');
         });

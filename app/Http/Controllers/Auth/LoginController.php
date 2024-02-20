@@ -96,15 +96,5 @@ class LoginController extends Controller
     {
         return $this->loginService->handleLogin($request);
     }
-    /**
-     * logout
-     *
-     * @return void
-     */
-    public function apiLogout()
-    {
-        $this->fcmToken->update(auth()->user()->id, ['fcm_token' => null]);
-        auth()->user()->currentAccessToken()->delete();
-        return ResponseHelper::success(auth()->user()->token, 'success logout');
-    }
+
 }

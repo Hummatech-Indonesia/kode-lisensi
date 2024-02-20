@@ -44,7 +44,7 @@
                         @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
                                 data-bs-original-title="Favorit">
-                                <a class="delete-favorite" data-id="{{ $product->id }}">
+                                <a href="" class="delete-favorite" data-id="{{ $product->id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         style="color: red" fill="currentColor" class="bi bi-suit-heart-fill"
                                         viewBox="0 0 16 16">
