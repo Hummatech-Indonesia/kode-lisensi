@@ -6,11 +6,13 @@ use App\Models\Article;
 use App\Models\License;
 use App\Models\Product;
 use App\Models\ProductFavorite;
+use App\Models\ShareProductReseller;
 use App\Models\User;
 use App\Observers\ArticleObserver;
 use App\Observers\LicenseObserver;
 use App\Observers\ProductFavoriteObserver;
 use App\Observers\ProductObserver;
+use App\Observers\ShareProductReselllerObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -41,6 +43,7 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Article::observe(ArticleObserver::class);
         ProductFavorite::observe(ProductFavoriteObserver::class);
+        ShareProductReseller::observe(ShareProductReselllerObserver::class);
     }
 
     /**

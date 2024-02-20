@@ -21,6 +21,7 @@ use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RatingInterface;
 use App\Contracts\Interfaces\RegisterInterface;
 use App\Contracts\Interfaces\ResellerInterface;
+use App\Contracts\Interfaces\ShareProductResellerInterface;
 use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Interfaces\SliderInterface;
 use App\Contracts\Interfaces\TermInterface;
@@ -44,6 +45,7 @@ use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\RatingRepository;
 use App\Contracts\Repositories\RegisterRepository;
 use App\Contracts\Repositories\ResellerRepository;
+use App\Contracts\Repositories\ShareProductResellerRepository;
 use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\SliderRepository;
 use App\Contracts\Repositories\TermRepository;
@@ -78,7 +80,8 @@ class AppServiceProvider extends ServiceProvider
         SliderInterface::class => SliderRepository::class,
         BannerInterface::class => BannerRepository::class,
         ProductFavoriteInterface::class => ProductFavoriteRepository::class,
-        FcmTokenInterface::class => FcmTokenRepository::class
+        FcmTokenInterface::class => FcmTokenRepository::class,
+        ShareProductResellerInterface::class => ShareProductResellerRepository::class
     ];
 
     /**

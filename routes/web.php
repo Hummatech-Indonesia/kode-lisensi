@@ -59,6 +59,9 @@ Route::name('home.')->group(function () {
     });
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('latest-product', [HomeController::class, 'latestProduct']);
+
+    Route::post('share-product-reseller/{product}/{code}', [HomeProductController::class, 'shareProductReseller'])->name('share.product.reseller');
+
     Route::get('about-us', [AboutController::class, 'homepage'])->name('about');
     Route::get('frequently-asked-question', [HelpController::class, 'homepage'])->name('faq');
     Route::name('contact.')->prefix('contact-us')->group(function () {

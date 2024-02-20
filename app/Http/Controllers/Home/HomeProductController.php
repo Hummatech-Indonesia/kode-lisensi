@@ -4,11 +4,17 @@ namespace App\Http\Controllers\Home;
 
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
+use App\Contracts\Interfaces\ShareProductResellerInterface;
+use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
+use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UrlRequest;
+use App\Models\Product;
 use App\Services\ProductService;
 use App\Services\SummaryService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Jorenvh\Share\Share;
@@ -20,13 +26,15 @@ class HomeProductController extends Controller
     private CategoryInterface $category;
     private ProductService $productService;
     private SummaryService $summaryService;
+    private ShareProductResellerInterface $shareProductReseller;
 
-    public function __construct(ProductInterface $product, CategoryInterface $category, ProductService $productService, SummaryService $summaryService)
+    public function __construct(ProductInterface $product, CategoryInterface $category, ProductService $productService, SummaryService $summaryService, ShareProductResellerInterface $shareProductReseller)
     {
         $this->product = $product;
         $this->category = $category;
         $this->productService = $productService;
         $this->summaryService = $summaryService;
+        $this->shareProductReseller = $shareProductReseller;
     }
 
     /**
@@ -67,19 +75,56 @@ class HomeProductController extends Controller
     {
         $product = $this->product->showWithSlug($slug);
 
+        $roleReseller = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value;
         $share = new Share();
-        $shareButtons = $share->page(URL::to('/products/' . $slug)) // Gunakan URL::to() untuk mendapatkan URL lengkap
-            ->whatsapp()
-            ->facebook()
-            ->telegram()
-            ->getRawLinks();
+        if ($roleReseller) {
+            $code = strtolower(str_random(7));
+            $shareButtons = $share->page(URL::to('/products/' . $slug . '/' . $code))
+                ->whatsapp()
+                ->facebook()
+                ->telegram()
+                ->getRawLinks();
+        } else {
+            $shareButtons = $share->page(URL::to('/products/' . $slug))
+                ->whatsapp()
+                ->facebook()
+                ->telegram()
+                ->getRawLinks();
+        }
+        if ($roleReseller) {
+            return view('pages.product-detail', [
+                'code' => $code,
+                'roleReseller' => $roleReseller,
+                'shareButtons' => $shareButtons,
+                'title' => trans('title.product_detail', ['product' => $product->name]),
+                'product' => $product,
+                'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+                'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
+            ]);
+        } else {
+            return view('pages.product-detail', [
+                'roleReseller' => $roleReseller,
+                'shareButtons' => $shareButtons,
+                'title' => trans('title.product_detail', ['product' => $product->name]),
+                'product' => $product,
+                'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+                'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
+            ]);
+        }
+    }
 
-        return view('pages.product-detail', [
-            'shareButtons' => $shareButtons,
-            'title' => trans('title.product_detail', ['product' => $product->name]),
-            'product' => $product,
-            'recommendProducts' => $this->summaryService->handleRecommendProducts(),
-            'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
+    /**
+     * shareProductReseller
+     *
+     * @return RedirectResponse
+     */
+    public function shareProductReseller(Product $product, string $code, UrlRequest $request): RedirectResponse
+    {
+        $this->shareProductReseller->store([
+            'user_id' => auth()->user()->id,
+            'product_id' => $product->id,
+            'code' => $code
         ]);
+        return redirect()->away($request->url);
     }
 }
