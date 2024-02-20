@@ -7,6 +7,7 @@ use App\Http\Middleware\EnableCors;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\SancthumMiddleware;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TripayCallback;
 use App\Http\Middleware\TrustProxies;
@@ -95,5 +96,6 @@ class Kernel extends HttpKernel
         'role_or_permission' => RoleOrPermissionMiddleware::class,
         'payment.callback' => TripayCallback::class,
         'enable.cors' => EnableCors::class,
+        'sancthum' => SancthumMiddleware::class,
     ];
 }

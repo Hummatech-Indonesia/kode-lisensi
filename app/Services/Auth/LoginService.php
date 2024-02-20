@@ -49,11 +49,12 @@ class LoginService
         $fcmToken = $this->fcmToken->get();
         $fcmToken->update(['fcm_token' => $request->fcm_token]);
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-            if (auth()->user()->roles->pluck('name')[0] == 'head master' && !auth()->user()->school->is_verified) {
-                return ResponseHelper::error(null, trans('Akun belum terferifikasi'), Response::HTTP_FORBIDDEN);
-            }
             $data['token'] =  auth()->user()->createToken('auth_token')->plainTextToken;
             $data['user'] = UserResource::make(auth()->user());
+
+            auth()->user->update([
+                'api_token' => $data['token']
+            ]);
             return ResponseHelper::success($data, trans('Berhasil melakukan login'));
         }
 

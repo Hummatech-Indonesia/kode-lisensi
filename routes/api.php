@@ -30,7 +30,7 @@ Route::middleware(['enable.cors', 'throttle:api'])->group(function () {
 
 Route::middleware('enable.cors')->group(function () {
     Route::post('login', [LoginController::class, 'apiLogin']);
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('sanctum')->group(function () {
         Route::middleware('role:admin')->group(function () {
             Route::get('dashboard', [DashboardController::class, 'apiDashboard']);
             Route::post('logout', [LogoutController::class, 'logout']);
