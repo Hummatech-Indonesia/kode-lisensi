@@ -22,9 +22,10 @@ class SancthumMiddleware
     {
         $bearer = $request->bearerToken();
 
-        $user = User::where('api_token',$bearer)->first();
+        $user = User::where('api_token', $bearer)->first();
 
-        if ($user){
+        if ($user) {
+            Auth::login($user);
             return $next($request);
         }
 
