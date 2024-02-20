@@ -7,6 +7,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Requests\ApiLoginRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
@@ -52,9 +53,11 @@ class LoginService
             $data['token'] =  auth()->user()->createToken('auth_token')->plainTextToken;
             $data['user'] = UserResource::make(auth()->user());
 
-            auth()->user->update([
-                'api_token' => $data['token']
-            ]);
+            $id = auth()->user()->id;
+            User::query()->findOrFail($id)
+                ->update([
+                    'api_token' => $data['token']
+                ]);
             return ResponseHelper::success($data, trans('Berhasil melakukan login'));
         }
 
