@@ -111,6 +111,14 @@ class HomeProductController extends Controller
                     'recommendProducts' => $this->summaryService->handleRecommendProducts(),
                     'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
                 ]);
+            } else {
+                return view('pages.product-detail', [
+                    'shareButtons' => $shareButtons,
+                    'title' => trans('title.product_detail', ['product' => $product->name]),
+                    'product' => $product,
+                    'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+                    'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
+                ]);
             }
         } else {
             return view('pages.product-detail', [
