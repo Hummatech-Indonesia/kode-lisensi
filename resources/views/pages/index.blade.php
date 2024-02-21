@@ -61,7 +61,7 @@
                 <div class="col-xxl-12 col-xl-12">
                     <div class="title title-flex">
                         <div>
-                            <h2>Produk Terlaris 2</h2>
+                            <h2>Produk Terlaris</h2>
                             <span class="title-leaf">
                                 <svg class="icon-width">
                                     <use xlink:href="../assets/svg/leaf.svg#leaf"></use>

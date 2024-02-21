@@ -45,7 +45,6 @@ class DashboardController extends Controller
      */
     public function apiDashboard(): JsonResponse
     {
-        dd(auth()->user()->id);
         $balance = $this->service->handleBalance();
         $balance = strval($balance);
         $order = $this->service->handleCountOrders();
