@@ -35,6 +35,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\User\MyAccountController;
 use App\Http\Controllers\User\MyFavoriteController;
 use App\Http\Controllers\User\MyHistoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -113,15 +114,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('{slug}', [TransactionController::class, 'store'])->name('doCheckout');
         });
     });
-
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:admin|author')->group(function () {
         Route::prefix('dashboard')->group(function () {
-
-            Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
-
             Route::name('dashboard.')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
             });
+            // article
+            Route::resources([
+                'article-categories' => ArticleCategoryController::class,
+                'articles' => ArticleController::class
+            ], ['except' => ['show']]);
+        });
+    });
+
+    Route::middleware('role:admin')->group(function () {
+        Route::prefix('dashboard')->group(function () {
+            Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
+
 
             Route::resource('categories', CategoryController::class)->except('show');
 
@@ -159,18 +168,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('order-histories', [OrderController::class, 'history'])->name('history');
             });
 
-            // article
-            Route::resources([
-                'article-categories' => ArticleCategoryController::class,
-                'articles' => ArticleController::class
-            ], ['except' => ['show']]);
 
-            Route::name('customer.')->prefix('customer')->group(function () {
-                Route::get('/', [CustomerController::class, 'index'])->name('index');
-            });
-
-            Route::name('reseller.')->prefix('reseller')->group(function () {
-                Route::get('/', [ResellerController::class, 'index'])->name('index');
+            Route::name('users.')->prefix('users')->group(function () {
+                Route::get('/', [UserController::class, 'create'])->name('create');
+                Route::post('/', [UserController::class, 'store'])->name('store');
+                Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
+                Route::put('/update/{user}', [UserController::class, 'update'])->name('update');
+                Route::delete('/delete/{user}', [UserController::class, 'delete'])->name('destroy');
+                Route::name('customer.')->prefix('customer')->group(function () {
+                    Route::get('/', [CustomerController::class, 'index'])->name('index');
+                });
+                Route::name('reseller.')->prefix('reseller')->group(function () {
+                    Route::get('/', [ResellerController::class, 'index'])->name('index');
+                });
+                Route::name('admin.')->prefix('admin')->group(function () {
+                    Route::get('/', [UserController::class, 'admin'])->name('index');
+                });
+                Route::name('author.')->prefix('author')->group(function () {
+                    Route::get('/', [UserController::class, 'author'])->name('index');
+                });
             });
 
             Route::prefix('configuration')->group(function () {

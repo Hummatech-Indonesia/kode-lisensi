@@ -46,7 +46,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('reseller.index') }}",
+                ajax: "{{ route('users.reseller.index') }}",
                 columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,

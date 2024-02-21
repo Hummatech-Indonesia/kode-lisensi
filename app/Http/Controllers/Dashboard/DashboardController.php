@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
+use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Services\SummaryService;
 use Illuminate\Http\JsonResponse;
@@ -25,17 +27,20 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        return view('dashboard.pages.index', [
-            'balance' => $this->service->handleBalance(),
-            'order' => $this->service->handleCountOrders(),
-            'product' => $this->service->handleCountProducts(),
-            'customer' => $this->service->handleCountCustomers(),
-            'pieChart' => $this->service->handlePieChart(),
-            'lowStockProduct' => $this->service->handleLowStockProducts(),
-            'lineChart' => $this->service->handleLineChart(),
-            'latestTransaction' => $this->service->handleLatestTransaction(),
-            'bestSeller' => $this->service->handleBestSeller()
-        ]);
+        if (UserHelper::getUserRole() === UserRoleEnum::ADMIN->value) {
+            return view('dashboard.pages.index', [
+                'balance' => $this->service->handleBalance(),
+                'order' => $this->service->handleCountOrders(),
+                'product' => $this->service->handleCountProducts(),
+                'customer' => $this->service->handleCountCustomers(),
+                'pieChart' => $this->service->handlePieChart(),
+                'lowStockProduct' => $this->service->handleLowStockProducts(),
+                'lineChart' => $this->service->handleLineChart(),
+                'latestTransaction' => $this->service->handleLatestTransaction(),
+                'bestSeller' => $this->service->handleBestSeller()
+            ]);
+        }
+        return view('dashboard.pages.author.dashboard.index');
     }
 
     /**

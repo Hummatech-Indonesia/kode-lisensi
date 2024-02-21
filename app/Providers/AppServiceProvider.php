@@ -26,6 +26,7 @@ use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Interfaces\SliderInterface;
 use App\Contracts\Interfaces\TermInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Repositories\AboutRepository;
 use App\Contracts\Repositories\ArticleCategoryRepository;
 use App\Contracts\Repositories\ArticleRepository;
@@ -50,10 +51,12 @@ use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\SliderRepository;
 use App\Contracts\Repositories\TermRepository;
 use App\Contracts\Repositories\TransactionRepository;
+use App\Contracts\Repositories\UserRepository;
 use App\Http\Requests\FcmTokenRequest;
 use App\Models\Category;
 use App\Models\SiteSetting;
 use Illuminate\Support\ServiceProvider;
+use Kreait\Firebase\Auth\UserInfo;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -81,7 +84,8 @@ class AppServiceProvider extends ServiceProvider
         BannerInterface::class => BannerRepository::class,
         ProductFavoriteInterface::class => ProductFavoriteRepository::class,
         FcmTokenInterface::class => FcmTokenRepository::class,
-        ShareProductResellerInterface::class => ShareProductResellerRepository::class
+        ShareProductResellerInterface::class => ShareProductResellerRepository::class,
+        UserInterface::class => UserRepository::class
     ];
 
     /**
