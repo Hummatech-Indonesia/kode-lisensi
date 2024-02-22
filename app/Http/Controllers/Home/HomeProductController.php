@@ -91,6 +91,12 @@ class HomeProductController extends Controller
                     ->facebook()
                     ->telegram()
                     ->getRawLinks();
+            } else {
+                $shareButtons = $share->page(URL::to('/products/' . $slug))
+                    ->whatsapp()
+                    ->facebook()
+                    ->telegram()
+                    ->getRawLinks();
             }
         } else {
             $shareButtons = $share->page(URL::to('/products/' . $slug))
