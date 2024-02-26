@@ -45,7 +45,7 @@
                                 placeholder="Lisensi ori windows 10 professional untuk perorangan">
                         </div>
                     </div>
-                    <div class="mb-4 row align-items-center">
+                    <div class="mb-4 row align-items-center justify-content-end">
                         <div id="variant_product">
                             <button type="button" class="btn btn-sm btn-primary col-sm-3">Tambah Variasi
                                 Produk
@@ -56,7 +56,7 @@
                                 variannya</p>
                         </div>
                         <div id="cancel_variant_product" style="display: none;">
-                            <button type="button" class="btn btn-sm btn-primary col-sm-3">Batal Tambah Variasi
+                            <button type="button" class="btn btn-sm btn-primary col-sm-3"> Batal Tambah Variasi
                                 Produk
                             </button>
                             <p class="mt-2" style="color: #0DA487">Klik batal tambah variasi produk, jika produk yang
@@ -64,7 +64,6 @@
                                 tambahkan tidak terdapat
                                 variannya</p>
                         </div>
-
                     </div>
 
                 </div>
@@ -134,12 +133,12 @@
                             </div>
                         </div>
                     </table>
-                    <div class="d-flex justify-content-between">
-                        <button type="button" class="add_varian btn btn-sm btn-primary col-sm-3">Tambah Variasi
+                    <div class="d-flex gap-3 justify-content-end">
+                        <button type="button" class="add_varian btn btn-sm btn-primary col-sm-3"><i class="fa fa-plus"></i>Tambah Variasi
                             Produk
                         </button>
                         <button type="button" class="delete_varian btn btn-sm btn-danger col-sm-3"
-                            style="display: none;">Hapus Variasi Product
+                            style="display: none;"><i class="fa fa-trash"></i>Hapus Variasi Product
                         </button>
                     </div>
                 </div>
@@ -258,7 +257,7 @@
 
                     <div class="row">
                         <div class="col-12 mb-5">
-                            <div class="row">
+                            <div class="col">
                                 <label class="form-label-title col-sm-3 mb-0">Deskripsi<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
@@ -328,7 +327,7 @@
                 <div class="card-body">
                     <div class="ml-3 mb-4 row align-items-center">
                         <div class="col-sm-12">
-                            <button class="btn btn-primary" type="submit"><i class="ri-add-line ri-1x me-2"></i>Tambah
+                            <button class="btn btn-primary" type="submit"><i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m17.3 20.3l-2.6-2.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l.9.9v-3.175q0-.425.288-.712t.712-.288q.425 0 .713.288t.287.712V17.2l.9-.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-2.6 2.6q-.3.3-.7.3t-.7-.3M15 24q-.425 0-.712-.288T14 23q0-.425.288-.712T15 22h6q.425 0 .713.288T22 23q0 .425-.288.713T21 24zm-9-4q-.825 0-1.412-.587T4 18V4q0-.825.588-1.412T6 2h6.175q.4 0 .763.15t.637.425l4.85 4.85q.275.275.425.638t.15.762v1.2q0 .425-.288.712t-.712.288h-4q-.825 0-1.412.588T12 13.025V19q0 .425-.288.713T11 20zm7.5-11H17l-5-5l5 5l-5-5v3.5q0 .625.438 1.063T13.5 9"/></svg></i>Tambah
                                 Data
                             </button>
                         </div>

@@ -35,16 +35,6 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     {
         return $this->belongsTo(Category::class);
     }
-
-    /**
-     * varian_products
-     *
-     * @return HasMany
-     */
-    public function varian_products(): HasMany
-    {
-        return $this->hasMany(VarianProduct::class);
-    }
     /**
      * One-to-Many relationship with License Model
      *
@@ -54,7 +44,10 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     {
         return $this->hasMany(License::class);
     }
-
+    public function varianProducts():HasMany
+    {
+        return $this->hasMany(VarianProduct::class);
+    }
     /**
      * One-to-Many relationship with Product Questions Model
      *

@@ -52,7 +52,7 @@
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill" data-bs-target="#pills-question"
+                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill" data-bs-target="#pills-varian"
                         type="button">Variasi Produk
                     </button>
                 </li>
@@ -386,24 +386,26 @@
                 <div class="tab-pane fade" id="pills-varian" role="tabpanel">
                     <div class="card-header-1"></div>
                     <div class="row">
-                        <div class="mb-4 row d-flex flex-row justify-content-end">
-                            <a id="btnAddQuestion" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
-                                style="width: 20%" class="btn btn-primary">Tambah Pertanyaan</a>
-                        </div>
-                        <div class="d-flex flex-row">
-                            <button id="btnLoadQuestion" class="btn btn-sm btn-danger m-2">Load Data</button>
-                        </div>
                         <div class="table-responsive category-table mt-2">
                             <div>
-                                <table class="table theme-table" id="product_question_id">
-                                    <thead>
+                                <table class="table table-striped" id="product_question_id">
+                                    <thead class="thead-dark">
                                         <tr>
-                                            <th>#</th>
-                                            <th>Pertanyaan</th>
-                                            <th>Aksi</th>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">Nama Varian</th>
+                                            <th scope="col">Harga Beli</th>
+                                            <th scope="col">Harga Jual</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($product->varianProducts as $varianProduct)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$varianProduct->name}}</td>
+                                            <td>{{$varianProduct->buy_price}}</td>
+                                            <td>{{$varianProduct->sell_price}}</td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

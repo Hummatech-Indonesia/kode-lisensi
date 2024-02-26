@@ -13,5 +13,5 @@ interface HasVarianProducts
      * @return HasMany
      */
 
-    public function varian_products(): HasMany;
+    public function varianProducts(): HasMany;
 }
