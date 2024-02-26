@@ -1,10 +1,14 @@
-@php use App\Enums\ProductStatusEnum;
-use App\Enums\ProductTypeEnum;use App\Enums\RatingStatusEnum;use App\Helpers\CurrencyHelper;use App\Helpers\RatingHelper;
-$productRatings = RatingHelper::sumProductRatings($product->id);
+@php
+    use App\Enums\ProductStatusEnum;
+    use App\Enums\ProductTypeEnum;
+    use App\Enums\RatingStatusEnum;
+    use App\Helpers\CurrencyHelper;
+    use App\Helpers\RatingHelper;
+    $productRatings = RatingHelper::sumProductRatings($product->id);
 @endphp
 @extends('dashboard.layouts.app')
 @section('css')
-    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 
@@ -15,7 +19,6 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                     <x-alert-success></x-alert-success>
                 @elseif(session('error'))
                     <x-alert-failed></x-alert-failed>
-
                 @endif
             </div>
             <div class="title-header option-title">
@@ -24,30 +27,33 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
             </div>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-home" type="button">Detail
+                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+                        type="button">Detail
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-profile" type="button">Lisensi
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+                        type="button">Lisensi
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
-                            type="button">Fitur dan Panduan
+                        type="button">Fitur dan Panduan
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-ratings-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-ratings"
-                            type="button">Ulasan
+                    <button class="nav-link" id="pills-ratings-tab" data-bs-toggle="pill" data-bs-target="#pills-ratings"
+                        type="button">Ulasan
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-question"
-                            type="button">Pertanyaan
+                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill" data-bs-target="#pills-question"
+                        type="button">Pertanyaan
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill" data-bs-target="#pills-question"
+                        type="button">Variasi Produk
                     </button>
                 </li>
             </ul>
@@ -59,63 +65,63 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
 
                         <div class="row">
                             <div class="col-md-3">
-                                <img class="img img-fluid" src="{{ asset('storage/'. $product->photo) }}"
-                                     alt="{{ $product->name }}">
+                                <img class="img img-fluid" src="{{ asset('storage/' . $product->photo) }}"
+                                    alt="{{ $product->name }}">
                             </div>
                             <div class="col-md-9">
                                 <div class="mb-4 row align-items-center">
                                     <table class="table variation-table table-responsive-sm">
                                         <thead>
-                                        <tr>
-                                            <th scope="col">Nama</th>
-                                            <td>{{ $product->name }}</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Kategori</th>
-                                            <td>{{ $product->category->name }}</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Deskripsi singkat</th>
-                                            <td>{{ $product->short_description }}</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Harga Beli</th>
-                                            <td>{{ CurrencyHelper::rupiahCurrency($product->buy_price) }}</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Harga Jual</th>
-                                            <td>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Jenis Pengguna</th>
-                                            <th scope="col">Diskon</th>
-                                            <th scope="col">Total Harga</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Customer</th>
-                                            <td>
-                                                {{ $product->discount . "%" }}
-                                            </td>
-                                            <td>
-                                                {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Reseller</th>
-                                            <td>
-                                                {{ $product->reseller_discount . "%" }}
-                                            </td>
-                                            <td>
-                                                <span
-                                                    id="reseller_label">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <th scope="col">Nama</th>
+                                                <td>{{ $product->name }}</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Kategori</th>
+                                                <td>{{ $product->category->name }}</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Deskripsi singkat</th>
+                                                <td>{{ $product->short_description }}</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Harga Beli</th>
+                                                <td>{{ CurrencyHelper::rupiahCurrency($product->buy_price) }}</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Harga Jual</th>
+                                                <td>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Jenis Pengguna</th>
+                                                <th scope="col">Diskon</th>
+                                                <th scope="col">Total Harga</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Customer</th>
+                                                <td>
+                                                    {{ $product->discount . '%' }}
+                                                </td>
+                                                <td>
+                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Reseller</th>
+                                                <td>
+                                                    {{ $product->reseller_discount . '%' }}
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        id="reseller_label">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                </td>
+                                            </tr>
                                         </thead>
                                     </table>
                                 </div>
@@ -128,22 +134,22 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel">
                     <div class="card-header-1">
-                        @if(ProductStatusEnum::AVAILABLE->value == $product->status)
+                        @if (ProductStatusEnum::AVAILABLE->value == $product->status)
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="mb-4 row align-items-center">
                                         <table class="table variation-table table-responsive-sm">
                                             <thead>
-                                            <tr>
-                                                <th scope="col">Stok Tersedia</th>
-                                                <td id="availableStock"></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">Stok Terjual</th>
-                                                <td id="purchasedLicense"></td>
-                                                <td></td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="col">Stok Tersedia</th>
+                                                    <td id="availableStock"></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Stok Terjual</th>
+                                                    <td id="purchasedLicense"></td>
+                                                    <td></td>
+                                                </tr>
                                             </thead>
                                         </table>
                                     </div>
@@ -154,11 +160,10 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                     </div>
 
                     <div class="row">
-                        @if(ProductStatusEnum::AVAILABLE->value == $product->status)
+                        @if (ProductStatusEnum::AVAILABLE->value == $product->status)
                             <div class="mb-4 row d-flex flex-row justify-content-end">
                                 <a id="btnAddLicense" data-bs-toggle="modal" data-bs-target="#addLicensesModal"
-                                   style="width: 20%"
-                                   class="btn btn-primary">Tambah Lisensi</a>
+                                    style="width: 20%" class="btn btn-primary">Tambah Lisensi</a>
                             </div>
                         @else
                             <div class="mb-4 row d-flex flex-row justify-content-start">
@@ -167,7 +172,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                             </div>
                         @endif
 
-                        @if(ProductStatusEnum::AVAILABLE->value == $product->status)
+                        @if (ProductStatusEnum::AVAILABLE->value == $product->status)
                             <div class="d-flex flex-row">
                                 <button id="btnLoadData" class="btn btn-sm btn-danger m-2">Load Data</button>
                                 <button id="btnUpdateData" class="btn btn-sm btn-primary m-2">Update Data</button>
@@ -176,22 +181,21 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                             <div class="table-responsive table-product mt-3">
                                 <table class="table theme-table" id="table_id" style="width: 100%">
                                     <thead>
-                                    <tr>
-                                        @if($product->type == ProductTypeEnum::CREDENTIAL->value)
-                                            <th>Username</th>
-                                            <th>Password</th>
-                                        @else
-                                            <th>Serial Key</th>
-                                        @endif
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
+                                        <tr>
+                                            @if ($product->type == ProductTypeEnum::CREDENTIAL->value)
+                                                <th>Username</th>
+                                                <th>Password</th>
+                                            @else
+                                                <th>Serial Key</th>
+                                            @endif
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
                             </div>
-
                         @endif
 
                     </div>
@@ -205,24 +209,21 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-lg-2 col-md-3 mb-0">Deskripsi</label>
                                 <div class="col-md-9 col-lg-10">
-                                    <textarea readonly id="description" cols="30"
-                                              rows="10">{!! $product->description !!}</textarea>
+                                    <textarea readonly id="description" cols="30" rows="10">{!! $product->description !!}</textarea>
                                 </div>
                             </div>
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-lg-2 col-md-3 mb-0">Fitur</label>
                                 <div class="col-md-9 col-lg-10">
-                                    <textarea readonly id="features" cols="30"
-                                              rows="10">{!! $product->features !!}</textarea>
+                                    <textarea readonly id="features" cols="30" rows="10">{!! $product->features !!}</textarea>
                                 </div>
                             </div>
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-lg-2 col-md-3 mb-0">Instalasi</label>
                                 <div class="col-md-9 col-lg-10">
-                                   <textarea readonly id="installation" cols="30"
-                                             rows="10">{!! $product->installation !!}</textarea>
+                                    <textarea readonly id="installation" cols="30" rows="10">{!! $product->installation !!}</textarea>
                                 </div>
                             </div>
 
@@ -230,8 +231,8 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                                 <label class="form-label-title col-lg-2 col-md-3 mb-0">Buku Panduan</label>
                                 <div class="col-md-9 col-lg-10">
                                     <a style="width: 20%;" target="_blank"
-                                       href="{{ asset('storage/' . $product->attachment_file) }}"
-                                       class="btn btn-danger">Lihat File</a>
+                                        href="{{ asset('storage/' . $product->attachment_file) }}"
+                                        class="btn btn-danger">Lihat File</a>
                                 </div>
                             </div>
                         </div>
@@ -258,33 +259,34 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                                 <div class="mb-4 row align-items-center">
                                     <table class="table variation-table table-responsive-sm">
                                         <thead>
-                                        <tr>
-                                            <th scope="col">Rating</th>
-                                            <td>:</td>
-                                            <td>
-                                                <ul class="rating">
-                                                    @if($productRatings['sumRating'] != 0)
-                                                        <li class="mr-3">{{ $productRatings['sumRating'] }}</li>
+                                            <tr>
+                                                <th scope="col">Rating</th>
+                                                <td>:</td>
+                                                <td>
+                                                    <ul class="rating">
+                                                        @if ($productRatings['sumRating'] != 0)
+                                                            <li class="mr-3">{{ $productRatings['sumRating'] }}</li>
+                                                        @endif
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <li>
+                                                                <i
+                                                                    class="fas fa-star {{ $i <= $productRatings['stars'] ? 'theme-color' : '' }}"></i>
+                                                            </li>
+                                                        @endfor
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Jumlah</th>
+                                                <td>:</td>
+                                                <td>
+                                                    @if (RatingHelper::countProductRatings($product->id) == 0)
+                                                        Belum ada ulasan
+                                                    @else
+                                                        {{ RatingHelper::countProductRatings($product->id) . ' Ulasan' }}
                                                     @endif
-                                                    @for($i = 1; $i <= 5; $i++)
-                                                        <li>
-                                                            <i class="fas fa-star {{ $i <= $productRatings['stars'] ? 'theme-color' : '' }}"></i>
-                                                        </li>
-                                                    @endfor
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Jumlah</th>
-                                            <td>:</td>
-                                            <td>
-                                                @if(RatingHelper::countProductRatings($product->id) == 0)
-                                                    Belum ada ulasan
-                                                @else
-                                                    {{ RatingHelper::countProductRatings($product->id) . " Ulasan" }}
-                                                @endif
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
                                         </thead>
                                     </table>
                                 </div>
@@ -294,60 +296,59 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                                 <h3 class="mb-3">Rating Terbaru</h3>
                                 <table class="table theme-table" id="table_id" style="width: 100%">
                                     <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Rating</th>
-                                        <th>Ulasan</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Rating</th>
+                                            <th>Ulasan</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse(RatingHelper::getProductRatings($product->id) as $rating)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $rating->user->name }}</td>
-                                            <td>
-                                                <ul class="rating">
-                                                    @for($i = 1; $i <= 5; $i++)
-                                                        <li>
-                                                            <i class="fas fa-star {{ $i <= $rating->rating ? 'theme-color' : '' }}"></i>
-                                                        </li>
-                                                    @endfor
-                                                </ul>
-                                            </td>
-                                            <td>{{ $rating->review }}</td>
-                                            @if(RatingStatusEnum::APPROVED->value === $rating->status)
-                                                <td class="td-check">
-                                                    <i class="ri-checkbox-circle-line"></i>
+                                        @forelse(RatingHelper::getProductRatings($product->id) as $rating)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $rating->user->name }}</td>
+                                                <td>
+                                                    <ul class="rating">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <li>
+                                                                <i
+                                                                    class="fas fa-star {{ $i <= $rating->rating ? 'theme-color' : '' }}"></i>
+                                                            </li>
+                                                        @endfor
+                                                    </ul>
                                                 </td>
-                                            @else
-                                                <td class="td-cross">
-                                                    <i class="ri-close-circle-line"></i>
-                                                </td>
-                                            @endif
-                                            <td>
-                                                @if(RatingStatusEnum::APPROVED->value === $rating->status)
-                                                    <a
-                                                        onclick="return confirm('Anda yakin ingin menolak ulasan?')"
-                                                        class="btn text-danger"
-                                                        href="{{ route('modify.rating', $rating->id) }}">
-                                                        <i class="ri-delete-bin-line"></i>
-                                                    </a>
+                                                <td>{{ $rating->review }}</td>
+                                                @if (RatingStatusEnum::APPROVED->value === $rating->status)
+                                                    <td class="td-check">
+                                                        <i class="ri-checkbox-circle-line"></i>
+                                                    </td>
                                                 @else
-                                                    <a
-                                                        onclick="return confirm('Anda yakin ingin menampilkan ulasan?')"
-                                                        class="btn text-success"
-                                                        href="{{ route('modify.rating', $rating->id) }}">
-                                                        <i class="ri-restart-line"></i>
-                                                    </a>
+                                                    <td class="td-cross">
+                                                        <i class="ri-close-circle-line"></i>
+                                                    </td>
                                                 @endif
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <p>Belum ada Ulasan & Rating.</p>
-                                    @endforelse
+                                                <td>
+                                                    @if (RatingStatusEnum::APPROVED->value === $rating->status)
+                                                        <a onclick="return confirm('Anda yakin ingin menolak ulasan?')"
+                                                            class="btn text-danger"
+                                                            href="{{ route('modify.rating', $rating->id) }}">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </a>
+                                                    @else
+                                                        <a onclick="return confirm('Anda yakin ingin menampilkan ulasan?')"
+                                                            class="btn text-success"
+                                                            href="{{ route('modify.rating', $rating->id) }}">
+                                                            <i class="ri-restart-line"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <p>Belum ada Ulasan & Rating.</p>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -360,8 +361,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                     <div class="row">
                         <div class="mb-4 row d-flex flex-row justify-content-end">
                             <a id="btnAddQuestion" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
-                               style="width: 20%"
-                               class="btn btn-primary">Tambah Pertanyaan</a>
+                                style="width: 20%" class="btn btn-primary">Tambah Pertanyaan</a>
                         </div>
                         <div class="d-flex flex-row">
                             <button id="btnLoadQuestion" class="btn btn-sm btn-danger m-2">Load Data</button>
@@ -370,11 +370,38 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                             <div>
                                 <table class="table theme-table" id="product_question_id">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Pertanyaan</th>
-                                        <th>Aksi</th>
-                                    </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-varian" role="tabpanel">
+                    <div class="card-header-1"></div>
+                    <div class="row">
+                        <div class="mb-4 row d-flex flex-row justify-content-end">
+                            <a id="btnAddQuestion" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
+                                style="width: 20%" class="btn btn-primary">Tambah Pertanyaan</a>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <button id="btnLoadQuestion" class="btn btn-sm btn-danger m-2">Load Data</button>
+                        </div>
+                        <div class="table-responsive category-table mt-2">
+                            <div>
+                                <table class="table theme-table" id="product_question_id">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Aksi</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -392,7 +419,6 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
 @endsection
 
 @section('script')
-
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(() => {
@@ -418,8 +444,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                 $('#divUsername').css('display', 'none');
                 $('#divPassword').css('display', 'none');
 
-                columns = [
-                    {
+                columns = [{
                         data: 'serial_key',
                         name: 'serial_key'
                     },
@@ -436,8 +461,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                 ]
             } else {
                 $('#divSerial').css('display', 'none');
-                columns = [
-                    {
+                columns = [{
                         data: 'username',
                         name: 'username'
                     },
@@ -513,8 +537,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                     serverSide: true,
                     searching: true,
                     ajax: "{{ route('product-questions.index') }}",
-                    columns: [
-                        {
+                    columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex',
                             orderable: false,
@@ -551,7 +574,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                 table.ajax.reload()
             }
 
-            $('#addLicenses').on('submit', function (e) {
+            $('#addLicenses').on('submit', function(e) {
                 e.preventDefault();
                 password = $('#addPassword').val()
                 serialKey = $('#addSerial_key').val()
@@ -591,7 +614,8 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                     let td = tr[i].getElementsByTagName('td')
                     for (let j = 0; j < td.length; j++) {
                         if (td[j].hasChildNodes() && td[j].childNodes[0].name !== undefined) {
-                            array[tr[i].getAttribute('id')][td[j].childNodes[0].name] = td[j].childNodes[0].value
+                            array[tr[i].getAttribute('id')][td[j].childNodes[0].name] = td[j].childNodes[0]
+                                .value
                         }
 
                     }
@@ -615,15 +639,15 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
 
             const handleDelete = (url, table) => {
                 swal({
-                    title: "Apa Anda Yakin?",
-                    text: "Data yang dihapus tidak dapat dikembalikan",
-                    icon: "warning",
-                    buttons: {
-                        confirm: 'Hapus',
-                        cancel: 'Batal'
-                    },
-                    dangerMode: true,
-                })
+                        title: "Apa Anda Yakin?",
+                        text: "Data yang dihapus tidak dapat dikembalikan",
+                        icon: "warning",
+                        buttons: {
+                            confirm: 'Hapus',
+                            cancel: 'Batal'
+                        },
+                        dangerMode: true,
+                    })
                     .then((act) => {
                         if (act) {
                             $.ajax({
@@ -644,7 +668,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                     });
             }
 
-            $(document).on('click', '.delete-alert', function (e) {
+            $(document).on('click', '.delete-alert', function(e) {
                 e.preventDefault();
                 const id = $(this).attr('data-id');
                 let url = `{{ route('licenses.destroy', ':id') }}`.replace(':id', id);
@@ -652,7 +676,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                 handleDelete(url, table)
             });
 
-            $(document).on('click', '.delete-question', function (e) {
+            $(document).on('click', '.delete-question', function(e) {
                 e.preventDefault();
                 const id = $(this).attr('data-id');
                 let url = `{{ route('product-questions.destroy', ':id') }}`.replace(':id', id);
@@ -660,12 +684,12 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                 handleDelete(url, question_table)
             });
 
-            $('#btnAddQuestion').on('click', function () {
+            $('#btnAddQuestion').on('click', function() {
                 $('#addQuestion').val('')
                 $('#addAnswer').val('')
             })
 
-            $('#addQuestions').on('submit', function (e) {
+            $('#addQuestions').on('submit', function(e) {
                 e.preventDefault();
                 const question = $('#addQuestion').val()
                 const answer = $('#addAnswer').val()
@@ -690,13 +714,14 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                         swal({
                             icon: 'error',
                             title: "Terjadi Kesalahan!",
-                            text: (errors.question) ? errors.question[0] : errors.answer[0],
+                            text: (errors.question) ? errors.question[0] : errors
+                                .answer[0],
                         })
                     }
                 })
             });
 
-            $(document).on('click', '.edit-question', function () {
+            $(document).on('click', '.edit-question', function() {
                 const question = $(this).attr('data-question')
                 const answer = $(this).attr('data-answer')
                 const question_id = $(this).attr('data-id')
@@ -706,7 +731,7 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                 $('#editQuestionId').val(question_id)
             })
 
-            $('#editQuestions').on('submit', function (e) {
+            $('#editQuestions').on('submit', function(e) {
                 e.preventDefault();
                 const question = $('#editQuestion').val()
                 const answer = $('#editAnswer').val()
@@ -735,14 +760,13 @@ $productRatings = RatingHelper::sumProductRatings($product->id);
                         swal({
                             icon: 'error',
                             title: "Terjadi Kesalahan!",
-                            text: (errors.question) ? errors.question[0] : errors.answer[0],
+                            text: (errors.question) ? errors.question[0] : errors
+                                .answer[0],
                         })
                     }
                 })
             })
 
         })
-
-
     </script>
 @endsection

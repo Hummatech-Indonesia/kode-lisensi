@@ -8,6 +8,7 @@ use App\Base\Interfaces\HasProductFavorites;
 use App\Base\Interfaces\HasProductQuestions;
 use App\Base\Interfaces\HasRatings;
 use App\Base\Interfaces\HasTransactions;
+use App\Base\Interfaces\HasVarianProducts;
 use App\Traits\ScopeSearchTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts
 {
     use HasFactory, SoftDeletes, ScopeSearchTrait;
 
@@ -35,6 +36,15 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * varian_products
+     *
+     * @return HasMany
+     */
+    public function varian_products(): HasMany
+    {
+        return $this->hasMany(VarianProduct::class);
+    }
     /**
      * One-to-Many relationship with License Model
      *

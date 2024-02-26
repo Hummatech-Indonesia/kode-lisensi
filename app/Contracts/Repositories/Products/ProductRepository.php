@@ -46,8 +46,21 @@ class ProductRepository extends BaseRepository implements ProductInterface
      */
     public function store(array $data): mixed
     {
-        return $this->model->query()
-            ->create($data);
+        if (isset($data['name_varian'])) {
+            $product = $this->model->query()
+                ->create($data);
+            for ($i = 0; $i < count($data['name_varian']); $i++) {
+                $product->varian_products()->create([
+                    'name' => $data['name_varian'][$i],
+                    'sell_price' => $data['sell_price_varian'][$i],
+                    'buy_price' => $data['buy_price_varian'][$i],
+                ]);
+            }
+        } else {
+            $product = $this->model->query()
+                ->create($data);
+        }
+        return $product;
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('css')
-    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <div class="card card-table">
@@ -10,14 +10,15 @@
                     <x-alert-success></x-alert-success>
                 @elseif(session('error'))
                     <x-alert-failed></x-alert-failed>
-
                 @endif
             </div>
             <div class="col-sm-8 mt-3 mb-3">
                 <div class="alert alert-warning">
                     Catatan: <br>
                     <ul>
-                        <li>Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
+                        <li>- Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
+                        <li>- Ketika harga jual dan harga beli bertuliskan product bervariasi, anda dapat mengecek harga
+                            produk nya pada detail.</li>
                     </ul>
 
                 </div>
@@ -29,15 +30,15 @@
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Produk</th>
-                        <th>Kategori</th>
-                        <th>Stok</th>
-                        <th>Harga Beli</th>
-                        <th>Harga Jual</th>
-                        <th>Aksi</th>
-                    </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Produk</th>
+                            <th>Kategori</th>
+                            <th>Stok</th>
+                            <th>Harga Beli</th>
+                            <th>Harga Jual</th>
+                            <th>Aksi</th>
+                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
@@ -53,7 +54,7 @@
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Datatables Responsive
             $("#table_id").DataTable({
                 scrollX: false,
@@ -66,8 +67,7 @@
                 serverSide: true,
                 searching: true,
                 ajax: "{{ route('products.index') }}",
-                columns: [
-                    {
+                columns: [{
                         data: 'photo',
                         name: 'photo'
                     },
@@ -101,14 +101,14 @@
                 ]
             });
 
-            $(document).on('click', '.delete-alert', function () {
+            $(document).on('click', '.delete-alert', function() {
                 $('#exampleModal').modal('show')
                 const id = $(this).attr('data-id');
                 let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
                 $('#deleteForm').attr('action', url);
             });
 
-            $(document).on('click', '.delete-soft', function () {
+            $(document).on('click', '.delete-soft', function() {
                 $('#softModal').modal('show')
                 const id = $(this).attr('data-id');
                 let url = `{{ route('product.soft.delete', ':id') }}`.replace(':id', id);

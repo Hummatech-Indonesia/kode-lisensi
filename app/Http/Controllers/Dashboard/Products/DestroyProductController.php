@@ -36,7 +36,9 @@ class DestroyProductController extends Controller
         }
 
         $this->productService->remove($show->photo);
-        $this->productService->remove($show->attachment_file);
+        if ($show->attachment_file) {
+            $this->productService->remove($show->attachment_file);
+        }
 
         return back()->with('success', trans('alert.delete_success'));
     }

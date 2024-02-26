@@ -31,10 +31,10 @@ trait ProductDatatable
                 return view('dashboard.pages.products.datatables.stock', compact('data'));
             })
             ->editColumn('buy_price', function ($data) {
-                return CurrencyHelper::rupiahCurrency($data->buy_price);
+                return view('dashboard.pages.products.datatables.buy-price', compact('data'));
             })
             ->editColumn('sell_price', function ($data) {
-                return CurrencyHelper::rupiahCurrency($data->sell_price);
+                return view('dashboard.pages.products.datatables.sell-price', compact('data'));
             })
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.products.datatables.action', compact('data'));

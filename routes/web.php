@@ -139,6 +139,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'archive-products' => ArchiveProductController::class,
                 'product-questions' => ProductQuestionController::class
             ]);
+            Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');
 
             Route::resource('preorder-products', PreorderProductController::class)->only('index');
 
@@ -174,7 +175,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::post('/', [UserController::class, 'store'])->name('store');
                 Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
                 Route::put('/update/{user}', [UserController::class, 'update'])->name('update');
-                Route::delete('/delete/{user}', [UserController::class, 'delete'])->name('destroy');
+                Route::delete('/delete/{user}', [UserController::class, 'delete'])->name('delete');
                 Route::name('customer.')->prefix('customer')->group(function () {
                     Route::get('/', [CustomerController::class, 'index'])->name('index');
                 });

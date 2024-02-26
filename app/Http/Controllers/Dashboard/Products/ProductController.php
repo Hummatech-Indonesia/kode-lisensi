@@ -9,6 +9,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
 use App\Http\Requests\Dashboard\Product\ProductUpdateRequest;
+use App\Http\Requests\VarianProductStoreRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
@@ -93,7 +94,6 @@ class ProductController extends Controller
         $this->product->update($product->id, $data);
 
         return to_route('products.show', $product->id)->with('success', trans('alert.update_success'));
-
     }
 
     /**
@@ -108,6 +108,26 @@ class ProductController extends Controller
             return back()->with('error', trans('alert.file_exist'));
         }
 
+        $product = $this->product->store($data);
+
+        if ($product->status == ProductStatusEnum::PREORDER->value) {
+            return to_route('preorder-products.index')->with('success', trans('alert.add_success'));
+        }
+
+        return to_route('products.index')->with('success', trans('alert.add_success'));
+    }
+
+    /**
+     * store
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
+    public function varianProductStore(VarianProductStoreRequest $request): RedirectResponse
+    {
+        if (!$data = $this->productService->varianProductStore($request)) {
+            return back()->with('error', trans('alert.file_exist'));
+        }
         $product = $this->product->store($data);
 
         if ($product->status == ProductStatusEnum::PREORDER->value) {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Product;
+namespace App\Http\Requests;
 
-use App\Http\Requests\BaseRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class ProductStoreRequest extends BaseRequest
+class VarianProductStoreRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,10 +17,14 @@ class ProductStoreRequest extends BaseRequest
             'name' => 'required|max:255|unique:products,name',
             'category_id' => 'required|exists:categories,id',
             'short_description' => 'required|max:150',
-            'buy_price' => 'required|regex:/^[0-9]*$/|integer|min:0',
-            'sell_price' => 'required|regex:/^[0-9]*$/|gt:buy_price|integer|min:0',
-            'discount' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
-            'reseller_discount' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
+            'name_varian' => 'required|array',
+            'name_varian.*' => 'required|max:255',
+            'buy_price_varian' => 'required|array',
+            'buy_price_varian.*' => 'required|regex:/^[0-9]*$/|integer|min:0',
+            'sell_price_varian' => 'required|array',
+            'sell_price_varian.*' => 'required',
+            'discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
+            'reseller_discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
             'type' => 'required',
             'status' => 'required',
             'description' => 'required',
