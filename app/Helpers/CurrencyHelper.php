@@ -71,15 +71,4 @@ class CurrencyHelper
     {
         return ($price * ($tax / 100));
     }
-
-    public static function priceVarian(mixed $varianProducts)
-    {
-        $minSellPrice = PHP_INT_MAX;
-
-        foreach ($varianProducts as $varianProduct) {
-            $minSellPrice = min($minSellPrice, $varianProduct->sell_price);
-        }
-
-        return $minSellPrice;
-    }
 }

@@ -23,7 +23,7 @@
             </div>
             <div class="title-header option-title">
                 <h5>Produk: {{ $product->name }}</h5>
-                <a class="btn btn-warning items-align-center" href="{{ route('products.edit', $product) }}">Edit</a>
+                <a class="btn btn-warning items-align-center" href="{{ route('products.edit', $product) }}"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15q.4 0 .775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z"/></svg> Edit</a>
             </div>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -51,13 +51,11 @@
                         type="button">Pertanyaan
                     </button>
                 </li>
-                @if (!$product->varianProducts)
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-varian" type="button">Variasi Produk
-                        </button>
-                    </li>
-                @endif
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill" data-bs-target="#pills-varian"
+                        type="button">Variasi Produk
+                    </button>
+                </li>
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
@@ -105,9 +103,7 @@
                                             <tr>
                                                 <th scope="col">Jenis Pengguna</th>
                                                 <th scope="col">Diskon</th>
-                                                @if (!$product->varianProducts)
-                                                    <th scope="col">Total Harga</th>
-                                                @endif
+                                                <th scope="col">Total Harga</th>
                                                 <th scope="col"></th>
                                             </tr>
                                             <tr>
@@ -115,23 +111,19 @@
                                                 <td>
                                                     {{ $product->discount . '%' }}
                                                 </td>
-                                                @if (!$product->varianProducts)
-                                                    <td>
-                                                        {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
-                                                    </td>
-                                                @endif
+                                                <td>
+                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="col">Reseller</th>
                                                 <td>
                                                     {{ $product->reseller_discount . '%' }}
                                                 </td>
-                                                @if (!$product->varianProducts)
-                                                    <td>
-                                                        <span
-                                                            id="reseller_label">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
-                                                    </td>
-                                                @endif
+                                                <td>
+                                                    <span
+                                                        id="reseller_label">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                </td>
                                             </tr>
                                         </thead>
                                     </table>
@@ -397,41 +389,15 @@
                 <div class="tab-pane fade" id="pills-varian" role="tabpanel">
                     <div class="card-header-1"></div>
                     <div class="row">
-                        <div class="table-responsive category-table mb-1">
-
-                            <table class="table table-striped">
-                                <div class="">
-
-                                    <thead class="bg-primary">
-                                        <tr>
-                                            <th>Jenis pengguna</th>
-                                            <th>Diskon</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Customer</td>
-                                            <td>{{ $product->discount . '%' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Reseller</td>
-                                            <td>{{ $product->reseller_discount . '%' }}</td>
-                                        </tr>
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
-                        <div class="table-responsive category-table mt-3">
+                        <div class="table-responsive category-table mt-2">
                             <div>
                                 <table class="table table-striped" id="product_question_id">
-                                    <thead class="bg-primary">
+                                    <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">No.</th>
                                             <th scope="col">Nama Varian</th>
                                             <th scope="col">Harga Beli</th>
                                             <th scope="col">Harga Jual</th>
-                                            <th scope="col">Harga Customer</th>
-                                            <th scope="col">Harga Reseller</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -439,27 +405,21 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $varianProduct->name }}</td>
-                                                <td>{{ CurrencyHelper::rupiahCurrency($varianProduct->buy_price) }}</td>
-                                                <td>{{ CurrencyHelper::rupiahCurrency($varianProduct->sell_price) }}</td>
-                                                <td>
-                                                    {{ CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->discount, true) }}
-                                                </td>
-                                                <td>
-                                                    {{ CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->reseller_discount, true) }}
-                                                </td>
+                                                <td>{{ $varianProduct->buy_price }}</td>
+                                                <td>{{ $varianProduct->sell_price }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <x-add-licenses-modal></x-add-licenses-modal>
-    <x-add-product-questions-modal></x-add-product-questions-modal>
-    <x-edit-product-questions-modal></x-edit-product-questions-modal>
+        <x-add-licenses-modal></x-add-licenses-modal>
+        <x-add-product-questions-modal></x-add-product-questions-modal>
+        <x-edit-product-questions-modal></x-edit-product-questions-modal>
     </div>
 @endsection
 
