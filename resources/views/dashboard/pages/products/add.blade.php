@@ -96,7 +96,7 @@
                                 <td>Customer</td>
                                 <td>
                                     <input min="0" max="100" id="discount_variant" name="discount_varian"
-                                        value="{{ old('discount_varian') }}" class="form-control" type="number">
+                                        value="{{ old('discount_varian') }}" class="form-control" type="number" placeholder="0">
                                 </td>
                             </tr>
                             <tr>
@@ -169,7 +169,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input min="0" autocomplete="off" name="buy_price" class="form-control"
-                                    type="number" placeholder="100000">
+                                    type="number" placeholder="100000" value="{{old('buy_price')}}">
                             </div>
                         </div>
 
@@ -178,7 +178,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input id="sell_price" min="0" autocomplete="off" name="sell_price"
-                                    class="form-control" type="text" placeholder="250000">
+                                    class="form-control" type="text" placeholder="250000" value="{{old('sell_price')}}">
                             </div>
                         </div>
 
@@ -195,7 +195,7 @@
                                 <td>Customer</td>
                                 <td>
                                     <input min="0" max="100" id="discount" name="discount"
-                                        value="{{ old('discount') }}" class="form-control" type="number">
+                                        value="{{ old('discount') }}" class="form-control" type="number" placeholder="0">
                                 </td>
                                 <td>
                                     <span id="customer_label">Rp. 0</span>
@@ -254,7 +254,7 @@
                                 <option {{ old('type') == 'credential' ? 'selected' : '' }} value="credential">Username
                                     & Password
                                 </option>
-                                <option {{ old('credential') == 'serial' ? 'selected' : '' }} value="serial">Serial
+                                <option {{ old('type') == 'serial' ? 'selected' : '' }} value="serial">Serial
                                     Key
                                 </option>
                             </select>

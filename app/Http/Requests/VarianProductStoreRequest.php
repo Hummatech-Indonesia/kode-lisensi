@@ -43,6 +43,16 @@ class VarianProductStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
+            // start varian
+            'discount_varian.required'=>'Diskon varian tidak boleh kosong',
+            'reseller_discount_varian.required'=>'Diskon varian reseller tidak boleh kosong',
+            'name_varian.required'=>'Nama varian tidak boleh kosong',
+            'name_varian.*.required' => 'Nama varian pada index ke: :index tidak boleh kosong',
+            'buy_price_varian.required'=>'Harga beli varian tidak boleh kosong',
+            'buy_price_varian.*.required'=>'Harga beli varian pada index ke: :index tidak boleh kosong',
+            'sell_price_varian.required'=>'Harga jual varian tidak boleh kosong',
+            'sell_price_varian.*.required'=>'Harga jual varian pada index ke: :index tidak boleh kosong',
+            // end varian
             'name.required' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama maksimal 255 karakter',
             'name.unique' => 'Nama produk sudah ada',
