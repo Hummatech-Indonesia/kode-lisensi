@@ -272,6 +272,7 @@
                                                 @endif
                                             </h6>
                                             <h5 class="price mt-3">
+                                                @if ($product->varianProducts->isEmpty())
                                                 @guest
                                                     <span
                                                         class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
@@ -287,205 +288,212 @@
                                                         <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                     @endif
                                                 @endguest
-
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <p class="loopProducts">Data dengan filter yang dipilih tidak ditemukan</p>
-                        @endforelse
-                        <div id="next-products"></div>
-                        <div id="next-cursor" style="display: none">{{ $nextCursor }}</div>
-                        @if ($nextCursor)
-                            <div class="row" id="loadMoreContainer">
-                                <button id="btnLoadMore"
-                                    class="text-center rounded-pill mt-3 btn theme-bg-color btn-sm text-white fw-bold mt-md-4 mt-2 mend-auto">
-                                    Tampilkan Lebih Banyak..
-                                </button>
-                            </div>
+                                            @else
+                                                <span
+                                                    class="theme-color">{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount)) }}</span>
+                                                @if ($product->discount != 0)
+                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}</del>
+                                                @endif
                         @endif
+
+                        </h5>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-@endsection
-@section('script')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        @empty
+            <p class="loopProducts">Data dengan filter yang dipilih tidak ditemukan</p>
+            @endforelse
+            <div id="next-products"></div>
+            <div id="next-cursor" style="display: none">{{ $nextCursor }}</div>
+            @if ($nextCursor)
+                <div class="row" id="loadMoreContainer">
+                    <button id="btnLoadMore"
+                        class="text-center rounded-pill mt-3 btn theme-bg-color btn-sm text-white fw-bold mt-md-4 mt-2 mend-auto">
+                        Tampilkan Lebih Banyak..
+                    </button>
+                </div>
+            @endif
+            </div>
+            </div>
+            </div>
+            </div>
+        </section>
+    @endsection
+    @section('script')
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(document).ready(() => {
+        <script>
+            $(document).ready(() => {
 
-            let url = window.location.href
-            let filter = []
-            let categories = []
-            let search = $('#inputSearch').val() || null
+                let url = window.location.href
+                let filter = []
+                let categories = []
+                let search = $('#inputSearch').val() || null
 
-            const displaySearchLabel = (search) => {
-                $('#searchLabelContainer').css('display', 'block')
-                $('#searchLabel').text('Kata Kunci Pencarian: ' + search)
-            }
+                const displaySearchLabel = (search) => {
+                    $('#searchLabelContainer').css('display', 'block')
+                    $('#searchLabel').text('Kata Kunci Pencarian: ' + search)
+                }
 
-            if (search) {
-                displaySearchLabel(search)
-            }
+                if (search) {
+                    displaySearchLabel(search)
+                }
 
-            $(".filter-button").click(function() {
-                $(".bg-overlay, .left-box").addClass("show");
-            });
-            $(".back-button, .bg-overlay").click(function() {
-                $(".bg-overlay, .left-box").removeClass("show");
-            });
+                $(".filter-button").click(function() {
+                    $(".bg-overlay, .left-box").addClass("show");
+                });
+                $(".back-button, .bg-overlay").click(function() {
+                    $(".bg-overlay, .left-box").removeClass("show");
+                });
 
+                $(document).ready(function() {
+                    $(".sort-by-button").click(function() {
+                        $(".top-filter-menu").toggleClass("show");
+                    });
+                });
+
+                const infiniteLoadMore = (nextCursor) => {
+                    search = $('#inputSearch').val() || null
+
+                    if (search) {
+                        displaySearchLabel(search)
+                    } else {
+                        $('#searchLabelContainer').css('display', 'none')
+                    }
+
+                    $.ajax({
+                        url: url + "?cursor=" + nextCursor,
+                        responseType: "json",
+                        method: 'get',
+                        data: {
+                            nextCursor: nextCursor,
+                            filter: filter,
+                            categories: categories,
+                            search: search
+                        },
+                        success: (response) => {
+                            document.getElementById('next-products').insertAdjacentHTML('beforebegin',
+                                response.data.html)
+                            document.getElementById('next-cursor').innerHTML = response.data.nextCursor
+
+                            if (response.data.nextCursor == null || Object.keys(response.data
+                                    .nextCursor).length === 0) {
+                                $('#loadMoreContainer').css('display', 'none')
+                            } else {
+                                $('#loadMoreContainer').css('display', 'block')
+                            }
+                        },
+                        error: (err) => {
+                            console.log(err)
+                        }
+                    })
+                }
+
+                $('#btnLoadMore').on('click', function(e) {
+                    e.preventDefault()
+                    let nextCursor = document.getElementById('next-cursor').innerHTML || null
+                    if (nextCursor) infiniteLoadMore(nextCursor);
+
+                })
+
+                $('#setFilter').on('click', function(e) {
+                    e.preventDefault()
+
+                    filter = []
+                    categories = []
+                    search = $('#inputSearch').val() || null
+
+                    if (search) {
+                        displaySearchLabel(search)
+                    } else {
+                        $('#searchLabelContainer').css('display', 'none')
+                    }
+
+                    let filterCheck = document.querySelectorAll('input[name=productStatusFilter]:checked')
+
+                    for (let i = 0; i < filterCheck.length; i++) {
+                        if (filterCheck[i].value !== "on") {
+                            filter.push(filterCheck[i].value)
+                        }
+                    }
+
+                    let categoryCheck = document.querySelectorAll('input[name=categoryFilter]:checked')
+
+                    for (let i = 0; i < categoryCheck.length; i++) {
+                        if (categoryCheck[i].value !== "on") {
+                            categories.push(categoryCheck[i].value)
+                        }
+                    }
+
+                    $.ajax({
+                        url: url,
+                        responseType: "json",
+                        method: 'get',
+                        data: {
+                            filter: filter,
+                            categories: categories,
+                            search: search
+                        },
+                        success: (response) => {
+                            $('.loopProducts').remove()
+                            document.getElementById('next-products').insertAdjacentHTML(
+                                'beforebegin', response.data.html)
+                            document.getElementById('next-cursor').innerHTML = response.data
+                                .nextCursor
+
+                            if (response.data.nextCursor == null || Object.keys(response.data
+                                    .nextCursor).length === 0) {
+                                $('#loadMoreContainer').css('display', 'none')
+                            } else {
+                                $('#loadMoreContainer').css('display', 'block')
+                            }
+                        },
+                        error: (err) => {
+                            console.log(err)
+                        }
+                    })
+                })
+            })
+        </script>
+        <script>
             $(document).ready(function() {
-                $(".sort-by-button").click(function() {
-                    $(".top-filter-menu").toggleClass("show");
-                });
-            });
-
-            const infiniteLoadMore = (nextCursor) => {
-                search = $('#inputSearch').val() || null
-
-                if (search) {
-                    displaySearchLabel(search)
-                } else {
-                    $('#searchLabelContainer').css('display', 'none')
-                }
-
-                $.ajax({
-                    url: url + "?cursor=" + nextCursor,
-                    responseType: "json",
-                    method: 'get',
-                    data: {
-                        nextCursor: nextCursor,
-                        filter: filter,
-                        categories: categories,
-                        search: search
-                    },
-                    success: (response) => {
-                        document.getElementById('next-products').insertAdjacentHTML('beforebegin',
-                            response.data.html)
-                        document.getElementById('next-cursor').innerHTML = response.data.nextCursor
-
-                        if (response.data.nextCursor == null || Object.keys(response.data
-                                .nextCursor).length === 0) {
-                            $('#loadMoreContainer').css('display', 'none')
-                        } else {
-                            $('#loadMoreContainer').css('display', 'block')
+                $(".delete-favorite").click(function() {
+                    var productId = $(this).data("id");
+                    $.ajax({
+                        url: "/product-favorites/" + productId,
+                        method: "DELETE",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                'content')
+                        },
+                        success: function(response) {
+                            console.log(response.message);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Terjadi kesalahan: " + error);
                         }
-                    },
-                    error: (err) => {
-                        console.log(err)
-                    }
-                })
-            }
-
-            $('#btnLoadMore').on('click', function(e) {
-                e.preventDefault()
-                let nextCursor = document.getElementById('next-cursor').innerHTML || null
-                if (nextCursor) infiniteLoadMore(nextCursor);
-
-            })
-
-            $('#setFilter').on('click', function(e) {
-                e.preventDefault()
-
-                filter = []
-                categories = []
-                search = $('#inputSearch').val() || null
-
-                if (search) {
-                    displaySearchLabel(search)
-                } else {
-                    $('#searchLabelContainer').css('display', 'none')
-                }
-
-                let filterCheck = document.querySelectorAll('input[name=productStatusFilter]:checked')
-
-                for (let i = 0; i < filterCheck.length; i++) {
-                    if (filterCheck[i].value !== "on") {
-                        filter.push(filterCheck[i].value)
-                    }
-                }
-
-                let categoryCheck = document.querySelectorAll('input[name=categoryFilter]:checked')
-
-                for (let i = 0; i < categoryCheck.length; i++) {
-                    if (categoryCheck[i].value !== "on") {
-                        categories.push(categoryCheck[i].value)
-                    }
-                }
-
-                $.ajax({
-                    url: url,
-                    responseType: "json",
-                    method: 'get',
-                    data: {
-                        filter: filter,
-                        categories: categories,
-                        search: search
-                    },
-                    success: (response) => {
-                        $('.loopProducts').remove()
-                        document.getElementById('next-products').insertAdjacentHTML(
-                            'beforebegin', response.data.html)
-                        document.getElementById('next-cursor').innerHTML = response.data
-                            .nextCursor
-
-                        if (response.data.nextCursor == null || Object.keys(response.data
-                                .nextCursor).length === 0) {
-                            $('#loadMoreContainer').css('display', 'none')
-                        } else {
-                            $('#loadMoreContainer').css('display', 'block')
+                    });
+                });
+            });
+            $(document).ready(function() {
+                $(".add-favorite").click(function() {
+                    var productId = $(this).data("id");
+                    $.ajax({
+                        url: "/product-favorites/" + productId,
+                        method: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                'content')
+                        },
+                        success: function(response) {
+                            console.log(response.message);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Terjadi kesalahan: " + error);
                         }
-                    },
-                    error: (err) => {
-                        console.log(err)
-                    }
-                })
-            })
-        })
-    </script>
-    <script>
-        $(document).ready(function() {
-            $(".delete-favorite").click(function() {
-                var productId = $(this).data("id");
-                $.ajax({
-                    url: "/product-favorites/" + productId,
-                    method: "DELETE",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                            'content')
-                    },
-                    success: function(response) {
-                        console.log(response.message);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Terjadi kesalahan: " + error);
-                    }
+                    });
                 });
             });
-        });
-        $(document).ready(function() {
-            $(".add-favorite").click(function() {
-                var productId = $(this).data("id");
-                $.ajax({
-                    url: "/product-favorites/" + productId,
-                    method: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                            'content')
-                    },
-                    success: function(response) {
-                        console.log(response.message);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Terjadi kesalahan: " + error);
-                    }
-                });
-            });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection

@@ -574,28 +574,35 @@
                                         @endif
                                     </h6>
                                     <h5 class="price mt-3">
-                                        @guest
-                                            <span
-                                                class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
-                                            @if ($product->discount != 0)
-                                                <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                            @endif
-                                        @else
-                                            @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                <span
-                                                    class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
-                                                @if ($product->reseller_discount != 0)
-                                                    <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                                @endif
-                                            @else
+                                        @if ($product->varianProducts->isEmpty())
+                                            @guest
                                                 <span
                                                     class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
                                                 @if ($product->discount != 0)
                                                     <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                 @endif
+                                            @else
+                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                    <span
+                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                    @if ($product->reseller_discount != 0)
+                                                        <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
+                                                    @endif
+                                                @else
+                                                    <span
+                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
+                                                    @if ($product->discount != 0)
+                                                        <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
+                                                    @endif
+                                                @endif
+                                            @endguest
+                                        @else
+                                            <span
+                                                class="theme-color">{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount)) }}</span>
+                                            @if ($product->discount != 0)
+                                                <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}</del>
                                             @endif
-                                        @endguest
-
+                                        @endif
                                     </h5>
                                 </div>
                             </div>
