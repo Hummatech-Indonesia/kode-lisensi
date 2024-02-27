@@ -44,6 +44,11 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     {
         return $this->hasMany(License::class);
     }
+    /**
+     * varianProducts
+     *
+     * @return HasMany
+     */
     public function varianProducts():HasMany
     {
         return $this->hasMany(VarianProduct::class);
