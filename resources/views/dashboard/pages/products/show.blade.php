@@ -87,16 +87,19 @@
                                                 <td>{{ $product->short_description }}</td>
                                                 <td></td>
                                             </tr>
-                                            <tr>
-                                                <th scope="col">Harga Beli</th>
-                                                <td>{{ CurrencyHelper::rupiahCurrency($product->buy_price) }}</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">Harga Jual</th>
-                                                <td>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</td>
-                                                <td></td>
-                                            </tr>
+                                            @if ($product->buy_price != 0)
+                                                <tr>
+                                                    <th scope="col">Harga Beli</th>
+                                                    <td>{{ CurrencyHelper::rupiahCurrency($product->buy_price) }}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Harga Jual</th>
+                                                    <td>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</td>
+                                                    <td></td>
+                                                </tr>
+                                            @endif
+
                                             <tr>
                                                 <th scope="col">Jenis Pengguna</th>
                                                 <th scope="col">Diskon</th>
@@ -399,12 +402,12 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($product->varianProducts as $varianProduct)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{$varianProduct->name}}</td>
-                                            <td>{{$varianProduct->buy_price}}</td>
-                                            <td>{{$varianProduct->sell_price}}</td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $varianProduct->name }}</td>
+                                                <td>{{ $varianProduct->buy_price }}</td>
+                                                <td>{{ $varianProduct->sell_price }}</td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

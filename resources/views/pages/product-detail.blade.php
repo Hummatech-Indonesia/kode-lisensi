@@ -9,7 +9,7 @@
 @endphp
 @extends('layouts.main')
 @section('asset')
-<link rel="stylesheet" href="{{asset('assets/css/style-select-package.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style-select-package.css') }}">
     <style>
         .customDivStyle li {
             display: list-item !important;
@@ -103,25 +103,8 @@
                                 </div>
 
                                 <div class="price-rating">
-
-                                    @guest
-                                        <h3 class="theme-color price">
-                                            {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
-                                            @if ($product->discount > 0)
-                                                <del
-                                                    class="text-content">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                            @endif
-                                        </h3>
-                                    @else
-                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                            <h3 class="theme-color price">
-                                                {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}
-                                                @if ($product->reseller_discount > 0)
-                                                    <del
-                                                        class="text-content">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                                @endif
-                                            </h3>
-                                        @else
+                                    @if ($product->varianProducts->first() == null)
+                                        @guest
                                             <h3 class="theme-color price">
                                                 {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
                                                 @if ($product->discount > 0)
@@ -129,8 +112,35 @@
                                                         class="text-content">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                 @endif
                                             </h3>
-                                        @endif
-                                    @endguest
+                                        @else
+                                            @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                <h3 class="theme-color price">
+                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}
+                                                    @if ($product->reseller_discount > 0)
+                                                        <del
+                                                            class="text-content">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
+                                                    @endif
+                                                </h3>
+                                            @else
+                                                <h3 class="theme-color price">
+                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
+                                                    @if ($product->discount > 0)
+                                                        <del
+                                                            class="text-content">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
+                                                    @endif
+                                                </h3>
+                                            @endif
+                                        @endguest
+                                    @else
+                                        <div class="d-flex">
+                                            <h3 class="theme-color price" id="price-product">
+                                                {{ CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->discount, true) }}
+                                            </h3>
+                                            <span class="hidden-product review mx-2">||</span>
+                                            <span
+                                                class="hidden-product review">{{ $product->varianProducts[0]->name }}</span>
+                                        </div>
+                                    @endif
                                     <div class="product-rating custom-rate">
                                         <ul class="rating">
                                             @for ($i = 1; $i <= 5; $i++)
@@ -167,24 +177,17 @@
                                 </div>
                                 <div class="product-package">
                                     <div class="product-title">
-                                        <h4>Weight</h4>
+                                        <h4>Variasi Produk</h4>
                                     </div>
                                     <ul class="select-package">
-                                        <li>
-                                            <a href="javascript:void(0)" id="packageItem1">1/2 KG</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" id="packageItem2">1 KG</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" id="packageItem3">1.5 KG</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" id="packageItem4">Red Roses</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" id="packageItem5">With Pink Roses</a>
-                                        </li>
+                                        @foreach ($product->varianProducts as $varianProduct)
+                                            <li>
+                                                <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
+                                                    data-sell-price="{{ $varianProduct->sell_price }}"
+                                                    id="varian-product-{{ $varianProduct->id }}"
+                                                    class="varian-product">{{ $varianProduct->name }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="py-4">
@@ -923,5 +926,26 @@
             });
         });
     </script>
-<script src="{{asset('assets/js/script-select-package.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.varian-product').click(function() {
+                $('.hidden-product').attr('style', 'display: none');
+                $('.varian-product').removeClass('active');
+                $(this).addClass('active');
+                var sellPrice = parseFloat($(this).data(
+                    'sell-price'));
+
+                var formattedPrice = formatCurrency(sellPrice);
+
+                $('#price-product').text(formattedPrice);
+            });
+
+            function formatCurrency(price) {
+                return 'Rp ' + price.toLocaleString('id-ID', {
+                    minimumFractionDigits: 2
+                });
+            }
+        });
+    </script>
+    <script src="{{ asset('assets/js/script-select-package.js') }}"></script>
 @endsection

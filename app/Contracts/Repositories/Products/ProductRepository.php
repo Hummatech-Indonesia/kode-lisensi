@@ -50,7 +50,7 @@ class ProductRepository extends BaseRepository implements ProductInterface
             $product = $this->model->query()
                 ->create($data);
             for ($i = 0; $i < count($data['name_varian']); $i++) {
-                $product->varian_products()->create([
+                $product->varianProducts()->create([
                     'name' => $data['name_varian'][$i],
                     'sell_price' => $data['sell_price_varian'][$i],
                     'buy_price' => $data['buy_price_varian'][$i],
@@ -191,7 +191,7 @@ class ProductRepository extends BaseRepository implements ProductInterface
     {
         return $this->model->query()
             ->where('slug', $slug)
-            ->with(['category', 'product_questions'])
+            ->with(['category', 'product_questions', 'varianProducts'])
             ->withCount([
                 'licenses as licenses_count' => function ($query) {
                     $query->where('is_purchased', 0);
