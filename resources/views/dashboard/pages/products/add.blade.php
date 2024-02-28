@@ -96,7 +96,8 @@
                                 <td>Customer</td>
                                 <td>
                                     <input min="0" max="100" id="discount_variant" name="discount_varian"
-                                        value="{{ old('discount_varian') }}" class="form-control" type="number" placeholder="0">
+                                        value="{{ old('discount_varian') }}" class="form-control" type="number"
+                                        placeholder="0">
                                 </td>
                             </tr>
                             <tr>
@@ -115,7 +116,6 @@
                     <div class="card-header-2">
                         <h5>Tambahkan Variasi Produk</h5>
                     </div>
-
                     <table class="table variation-table table-responsive-sm">
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">Nama Varian <span
@@ -142,8 +142,40 @@
                             </div>
                         </div>
                     </table>
+                    <table class="table variation-table table-responsive-sm" style="width: 75%; margin-bottom:1rem;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Jenis Pengguna</th>
+                                <th scope="col">Total Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Customer</td>
+                                <td>
+                                    <span id="customer_label">Rp. 0</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Reseller</td>
+                                <td>
+                                    <span id="reseller_label">Rp. 0</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button id="convert_button_varian" type="button"
+                                        class="btn btn-sm btn-primary">Konversi
+                                        Harga
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     <div class="d-flex gap-3 justify-content-end align-items-center">
-                        <button type="button" class="add_varian btn btn-sm btn-primary col-sm-3"><i><svg
+                        <button type="button" class="add_varian_1 btn btn-sm btn-primary col-sm-3"><i><svg
                                     xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                     viewBox="0 0 24 24">
                                     <path fill="currentColor"
@@ -169,7 +201,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input min="0" autocomplete="off" name="buy_price" class="form-control"
-                                    type="number" placeholder="100000" value="{{old('buy_price')}}">
+                                    type="number" placeholder="100000" value="{{ old('buy_price') }}">
                             </div>
                         </div>
 
@@ -178,7 +210,8 @@
                                     class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input id="sell_price" min="0" autocomplete="off" name="sell_price"
-                                    class="form-control" type="text" placeholder="250000" value="{{old('sell_price')}}">
+                                    class="form-control" type="text" placeholder="250000"
+                                    value="{{ old('sell_price') }}">
                             </div>
                         </div>
 
@@ -195,7 +228,8 @@
                                 <td>Customer</td>
                                 <td>
                                     <input min="0" max="100" id="discount" name="discount"
-                                        value="{{ old('discount') }}" class="form-control" type="number" placeholder="0">
+                                        value="{{ old('discount') }}" class="form-control" type="number"
+                                        placeholder="0">
                                 </td>
                                 <td>
                                     <span id="customer_label">Rp. 0</span>
@@ -428,8 +462,8 @@
             });
         });
 
-        $(document).ready(function(id) {
-            $(document).on("click", ".add_varian", function() {
+        $(document).ready(function() {
+            $(document).on("click", ".add_varian_1", function() {
                 var duplicatedVarian = $(".varian_product").last().clone();
                 duplicatedVarian.insertAfter(".varian_product:last");
                 $(".delete_varian:last").removeAttr("style").css("display", "block");

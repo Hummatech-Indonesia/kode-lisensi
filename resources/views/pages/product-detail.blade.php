@@ -941,14 +941,12 @@
                 $(this).addClass('active');
                 var sellPrice = parseFloat($(this).data(
                     'sell-price'));
-                console.log(sellPrice);
 
                 var formattedPrice = formatCurrency(sellPrice);
 
                 var slug = $(this).data('slug');
                 $("#buy-product-varian").attr("href", "{{ route('checkout', [$product->slug, '']) }}/" +
                     slug);
-                console.log(slug);
 
                 $('#price-product').text(formattedPrice);
             });
