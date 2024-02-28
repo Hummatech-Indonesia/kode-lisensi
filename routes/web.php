@@ -36,6 +36,7 @@ use App\Http\Controllers\User\MyAccountController;
 use App\Http\Controllers\User\MyFavoriteController;
 use App\Http\Controllers\User\MyHistoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VarianProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -139,6 +140,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'archive-products' => ArchiveProductController::class,
                 'product-questions' => ProductQuestionController::class
             ]);
+            Route::patch('varian-products-update/{product}',[ProductController::class,'varianProductUpdate'])->name('varian.products.update');
             Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');
 
             Route::resource('preorder-products', PreorderProductController::class)->only('index');

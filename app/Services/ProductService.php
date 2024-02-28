@@ -8,6 +8,7 @@ use App\Enums\UploadDiskEnum;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
 use App\Http\Requests\Dashboard\Product\ProductUpdateRequest;
 use App\Http\Requests\VarianProductStoreRequest;
+use App\Http\Requests\VarianProductUpdateRequest;
 use App\Models\Product;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
@@ -113,7 +114,8 @@ class ProductService implements ShouldHandleFileUpload
         if ($request->hasFile('attachment_file')) {
             $attachment = $request->file('attachment_file');
             $exists = UploadDiskEnum::PRODUCT_ATTACHMENTS->value . "/" . $attachment->getClientOriginalName();
-            if ($this->exist($exists)) return false;
+            if ($this->exist($exists))
+                return false;
             $this->remove($old_attachment);
             $old_attachment = $this->upload(UploadDiskEnum::PRODUCT_ATTACHMENTS->value, $attachment, true);
         }
@@ -138,6 +140,34 @@ class ProductService implements ShouldHandleFileUpload
             'features' => $data['features'],
             'installation' => $data['installation'],
             'attachment_file' => $old_attachment
+        ];
+    }
+
+    public function varianProductUpdate(Product $product, VarianProductUpdateRequest $request)
+    {
+        $data = $request->validated();
+
+        $old_photo = $product->photo;
+
+        if ($request->hasFile('photo')) {
+            $this->remove($old_photo);
+            $old_photo = $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo'));
+        }
+
+        return [
+            'category_id' => $data['category_id'],
+            'short_description' => $data['short_description'],
+            'status' => $data['status'],
+            'type' => $data['type'],
+            'name' => $data['name'],
+            'photo' => $old_photo,
+            'buy_price_varian' => $data['buy_price_varian'],
+            'sell_price_varian' => $data['sell_price_varian'],
+            'discount_varian' => $data['discount_varian'],
+            'reseller_discount_varian' => $data['reseller_discount_varian'],
+            'description' => $data['description'],
+            'features' => $data['features'],
+            'installation' => $data['installation'],
         ];
     }
 
@@ -182,7 +212,8 @@ class ProductService implements ShouldHandleFileUpload
 
         $products = $this->product->cursorPaginate(15, ['*'], 'cursor', $nextCursor, $request);
 
-        if ($products->hasMorePages()) $nextCursor = $products->nextCursor()->encode();
+        if ($products->hasMorePages())
+            $nextCursor = $products->nextCursor()->encode();
 
         return [
             'products' => $products,

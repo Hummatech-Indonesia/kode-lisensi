@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
 use App\Http\Requests\Dashboard\Product\ProductUpdateRequest;
 use App\Http\Requests\VarianProductStoreRequest;
+use App\Http\Requests\VarianProductUpdateRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
@@ -75,7 +76,11 @@ class ProductController extends Controller
     public function edit(Product $product): View
     {
         $categories = $this->category->get();
-        return view('dashboard.pages.products.edit', compact('product', 'categories'));
+        if(!$product->varianProducts->isEmpty()){
+            return view('dashboard.pages.products.edit-varian',compact('product','categories'));
+        }else{
+            return view('dashboard.pages.products.edit', compact('product', 'categories'));
+        }
     }
 
     /**
@@ -92,9 +97,20 @@ class ProductController extends Controller
         }
 
         $this->product->update($product->id, $data);
-
         return to_route('products.show', $product->id)->with('success', trans('alert.update_success'));
     }
+    public function varianProductUpdate(VarianProductUpdateRequest $request, Product $product): RedirectResponse
+    {
+        if (!$data = $this->productService->varianProductUpdate($product, $request)) {
+            return back()->with('error', trans('alert.file_exist'));
+        }
+
+        $this->product->update($product->id, $data);
+        return to_route('products.show', $product->id)->with('success', trans('alert.update_success'));
+    }
+
+
+
 
     /**
      * Store a newly created resource in storage.
