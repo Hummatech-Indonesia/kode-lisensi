@@ -32,7 +32,7 @@
     </section>
 
     <section class="checkout-section-2 section-b-space">
-        <form method="POST" action="{{ route('doCheckout', $product->slug) }}">
+        <form method="POST" action="{{ route('doCheckout', [$product->slug, $varian]) }}">
             @csrf
             <div class="container-fluid-lg">
                 <div class="row g-sm-4 g-3">
