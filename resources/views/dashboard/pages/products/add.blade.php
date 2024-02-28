@@ -175,7 +175,7 @@
                     </table>
 
                     <div class="d-flex gap-3 justify-content-end align-items-center">
-                        <button type="button" class="add_varian_1 btn btn-sm btn-primary col-sm-3"><i><svg
+                        <button type="button" class="add_varian btn btn-sm btn-primary col-sm-3"><i><svg
                                     xmlns="http://www.w3.org/2000/svg" width="17" height="17"
                                     viewBox="0 0 24 24">
                                     <path fill="currentColor"
@@ -463,7 +463,7 @@
         });
 
         $(document).ready(function() {
-            $(document).on("click", ".add_varian_1", function() {
+            $(document).on("click", ".add_varian", function() {
                 var duplicatedVarian = $(".varian_product").last().clone();
                 duplicatedVarian.insertAfter(".varian_product:last");
                 $(".delete_varian:last").removeAttr("style").css("display", "block");

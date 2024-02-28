@@ -161,6 +161,7 @@ class ProductService implements ShouldHandleFileUpload
             'type' => $data['type'],
             'name' => $data['name'],
             'photo' => $old_photo,
+            'name_varian' => $data['name_varian'],
             'buy_price_varian' => $data['buy_price_varian'],
             'sell_price_varian' => $data['sell_price_varian'],
             'discount_varian' => $data['discount_varian'],
