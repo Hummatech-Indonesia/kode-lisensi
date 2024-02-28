@@ -338,7 +338,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-header-2">
-                        <h5>Foto Produk</h5>
+                        <h5>Foto Produk dan Panduan Penggunaan</h5>
                         <div class="col-sm-6 mt-3">
                             <div class="alert alert-warning">
                                 Catatan: <br>

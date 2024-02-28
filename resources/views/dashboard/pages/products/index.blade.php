@@ -35,7 +35,6 @@
                             <th>Produk</th>
                             <th>Kategori</th>
                             <th>Stok</th>
-                            <th>Status</th>
                             <th>Harga Beli</th>
                             <th>Harga Jual</th>
                             <th>Aksi</th>

@@ -49,7 +49,7 @@ class VarianProductUpdateRequest extends FormRequest
             'features' => 'required',
             'installation' => 'required',
             'photo' => 'nullable|max:5000|mimes:jpg,png,jpeg',
-            // 'attachment_file' => 'nullable|max:20000|mimes:pdf'
+            'attachment_file' => 'nullable|max:20000|mimes:pdf'
         ];
     }
 
@@ -91,8 +91,8 @@ class VarianProductUpdateRequest extends FormRequest
             'installation.required' => 'Panduan penggunaan tidak boleh kosong',
             'photo.max' => 'Foto maksimal 5Mb',
             'photo.mimes' => 'Ekstensi foto harus berupa jpg,png,jpeg',
-            // 'attachment_file.max' => 'Panduan maksimal 20Mb',
-            // 'attachment_file.mimes' => 'Ekstensi Panduan harus berupa pdf'
+            'attachment_file.max' => 'Panduan maksimal 20Mb',
+            'attachment_file.mimes' => 'Ekstensi Panduan harus berupa pdf'
         ];
     }
 }
