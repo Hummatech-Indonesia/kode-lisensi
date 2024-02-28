@@ -339,6 +339,15 @@
                     </div>
 
                     <div class="mb-4 row align-items-center">
+                        <label class="col-sm-3 col-form-label form-label-title"></label>
+                        <div class="col-sm-9">
+                            <img style="width: 200px;" class="img-fluid" src="{{ asset('storage/' . $product->photo) }}"
+                                alt="{{ $product->photo }}">
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row align-items-center">
                         <label class="col-sm-3 col-form-label form-label-title">Foto <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">

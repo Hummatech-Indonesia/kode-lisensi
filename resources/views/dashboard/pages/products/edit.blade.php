@@ -219,14 +219,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-header-2">
-                        <h5>Foto Produk dan Panduan Penggunaan</h5>
+                        <h5>Foto Produk</h5>
                         <div class="col-sm-6 mt-3">
                             <div class="alert alert-warning">
                                 Catatan: <br>
                                 <ul>
                                     <li>Foto Produk harus berupa jpg,png,jpeg dengan ukuran maksimal 5Mb</li>
-                                    <li>Berkas Panduan harus berupa pdf dengan ukuran maksimal 20Mb</li>
-                                    <li>Pastikan nama file berkas berbeda tiap produknya</li>
                                 </ul>
 
                             </div>
@@ -250,17 +248,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-4 row align-items-center">
-                        <label class="col-sm-3 col-form-label form-label-title">Berkas Panduan <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-6">
-                            <input name="attachment_file" class="form-control form-choose" type="file">
-                        </div>
-                        <div class="col-sm-3">
-                            <a href="{{ asset('storage/' . $product->attachment_file) }}" class="btn btn-danger btn-sm"
-                                target="_blank"> Lihat Berkas File</a>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>
