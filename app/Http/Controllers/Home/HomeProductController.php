@@ -114,7 +114,7 @@ class HomeProductController extends Controller
                     'shareButtons' => $shareButtons,
                     'title' => trans('title.product_detail', ['product' => $product->name]),
                     'product' => $product,
-                    'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+                    'recommendProducts' => $this->summaryService->handleRecommendProducts(5,$product),
                     'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
                 ]);
             } else {
@@ -122,7 +122,7 @@ class HomeProductController extends Controller
                     'shareButtons' => $shareButtons,
                     'title' => trans('title.product_detail', ['product' => $product->name]),
                     'product' => $product,
-                    'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+                    'recommendProducts' => $this->summaryService->handleRecommendProducts(5,$product),
                     'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
                 ]);
             }
@@ -131,7 +131,7 @@ class HomeProductController extends Controller
                 'shareButtons' => $shareButtons,
                 'title' => trans('title.product_detail', ['product' => $product->name]),
                 'product' => $product,
-                'recommendProducts' => $this->summaryService->handleRecommendProducts(),
+                'recommendProducts' => $this->summaryService->handleRecommendProducts(5,$product),
                 'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
             ]);
         }

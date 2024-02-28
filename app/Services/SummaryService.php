@@ -237,9 +237,10 @@ class SummaryService
      * @return object
      */
 
-    public function handleRecommendProducts(int $take = 5): object
+    public function handleRecommendProducts(int $take,mixed $product): object
     {
         return $this->product->query()
+        ->whereNot('slug',$product->slug)
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
             ->with('category')
             ->withCount(['product_ratings', 'licenses'])
