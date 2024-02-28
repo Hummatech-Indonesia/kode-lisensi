@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('varian_products', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('slug');
             $table->string('name');
             $table->integer('buy_price');
             $table->integer('sell_price');
+            $table->unique(['slug', 'product_id']);
             $table->timestamps();
         });
     }

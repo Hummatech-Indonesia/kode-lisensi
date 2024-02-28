@@ -184,6 +184,8 @@
                                             <li>
                                                 <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
                                                     data-sell-price="{{ $varianProduct->sell_price }}"
+                                                    data-slug="{{ $varianProduct->slug }}"
+                                                    data-name="{{ $varianProduct->name }}"
                                                     id="varian-product-{{ $varianProduct->id }}"
                                                     class="varian-product">{{ $varianProduct->name }}</a>
                                             </li>
@@ -394,9 +396,14 @@
                             <div class="note-box product-packege mt-5 justify-content-center">
                                 @if ($product->status === ProductStatusEnum::AVAILABLE->value)
                                     @if ($product->licenses_count > 0)
-                                        <a href="{{ route('checkout', $product->slug) }}"
-                                            class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk
-                                        </a>
+                                        @if ($product->varianProducts->first())
+                                            <a id="buy-product-varian"
+                                                href="{{ route('checkout', [$product->slug, $product->varianProducts[0]->slug]) }}"
+                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                        @else
+                                            <a href="{{ route('checkout', $product->slug) }}"
+                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                        @endif
                                     @else
                                         <button class="btn btn-md bg-danger cart-button text-white w-50">Stok produk
                                             telah habis
@@ -934,8 +941,14 @@
                 $(this).addClass('active');
                 var sellPrice = parseFloat($(this).data(
                     'sell-price'));
+                console.log(sellPrice);
 
                 var formattedPrice = formatCurrency(sellPrice);
+
+                var slug = $(this).data('slug');
+                $("#buy-product-varian").attr("href", "{{ route('checkout', [$product->slug, '']) }}/" +
+                    slug);
+                console.log(slug);
 
                 $('#price-product').text(formattedPrice);
             });

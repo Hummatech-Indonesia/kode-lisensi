@@ -1,4 +1,9 @@
-@php use App\Enums\ProductStatusEnum;use App\Enums\UserRoleEnum;use App\Helpers\CurrencyHelper;use App\Helpers\UserHelper; @endphp
+@php
+    use App\Enums\ProductStatusEnum;
+    use App\Enums\UserRoleEnum;
+    use App\Helpers\CurrencyHelper;
+    use App\Helpers\UserHelper;
+@endphp
 @extends('layouts.main')
 @section('captcha')
     {!! ReCaptcha::htmlScriptTagJsApi() !!}
@@ -32,10 +37,10 @@
             <div class="container-fluid-lg">
                 <div class="row g-sm-4 g-3">
                     <div class="col-lg-8">
-                        @if(ProductStatusEnum::PREORDER->value === $product->status && !session('success'))
+                        @if (ProductStatusEnum::PREORDER->value === $product->status && !session('success'))
                             <div class="alert alert-warning alert-dismissible" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
+                                    aria-label="Close"></button>
                                 <div class="alert-message">
                                     <strong>Perlu diingat!</strong><br> Produk preorder akan diproses secara manual
                                     oleh
@@ -50,9 +55,9 @@
                                     <li>
                                         <div class="checkout-icon">
                                             <lord-icon target=".nav-item" src="https://cdn.lordicon.com/ggihhudh.json"
-                                                       trigger="loop-on-hover"
-                                                       colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
-                                                       class="lord-icon">
+                                                trigger="loop-on-hover"
+                                                colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
+                                                class="lord-icon">
                                             </lord-icon>
                                         </div>
                                         <div class="checkout-box">
@@ -64,7 +69,7 @@
                                             <div class="checkout-detail">
                                                 <div class="right-sidebar-box">
                                                     <div class="row">
-                                                        @if(session('success'))
+                                                        @if (session('success'))
                                                             <x-alert-success></x-alert-success>
                                                         @elseif(session('error'))
                                                             <x-alert-failed></x-alert-failed>
@@ -76,14 +81,13 @@
                                                                     Lengkap</label>
                                                                 <div class="custom-input">
                                                                     <input autofocus value="{{ auth()->user()->name }}"
-                                                                           type="text" name="name"
-                                                                           class="form-control @error('name') is-invalid @enderror"
-                                                                           autocomplete="off"
-                                                                           placeholder="John Doe">
+                                                                        type="text" name="name"
+                                                                        class="form-control @error('name') is-invalid @enderror"
+                                                                        autocomplete="off" placeholder="John Doe">
                                                                     @error('name')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                    </span>
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -92,16 +96,15 @@
                                                         <div class="col-xxl-12 col-lg-12 col-sm-12">
                                                             <div class="mb-md-4 mb-3 custom-form">
                                                                 <label for="exampleFormControlInput2"
-                                                                       class="form-label">Email</label>
+                                                                    class="form-label">Email</label>
                                                                 <div class="custom-input">
                                                                     <input autocomplete="off" type="email"
-                                                                           class="form-control @error('email') is-invalid @enderror"
-                                                                           value="{{ auth()->user()->email }}"
-                                                                           name="email"
-                                                                           placeholder="johndoe@gmail.com">
+                                                                        class="form-control @error('email') is-invalid @enderror"
+                                                                        value="{{ auth()->user()->email }}" name="email"
+                                                                        placeholder="johndoe@gmail.com">
                                                                     @error('email')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
                                                                         </span>
                                                                     @enderror
                                                                 </div>
@@ -111,18 +114,17 @@
                                                         <div class="col-xxl-12 col-lg-12 col-sm-12">
                                                             <div class="mb-md-4 mb-3 custom-form">
                                                                 <label for="exampleFormControlInput3"
-                                                                       class="form-label">Nomor telepon</label>
+                                                                    class="form-label">Nomor telepon</label>
                                                                 <div class="custom-input">
                                                                     <input autocomplete="off"
-                                                                           value="{{ auth()->user()->phone_number }}"
-                                                                           name="phone_number"
-                                                                           type="number"
-                                                                           class="form-control @error('phone_number') is-invalid @enderror"
-                                                                           id="exampleFormControlInput3"
-                                                                           placeholder="0812648321">
+                                                                        value="{{ auth()->user()->phone_number }}"
+                                                                        name="phone_number" type="number"
+                                                                        class="form-control @error('phone_number') is-invalid @enderror"
+                                                                        id="exampleFormControlInput3"
+                                                                        placeholder="0812648321">
                                                                     @error('phone_number')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
                                                                         </span>
                                                                     @enderror
                                                                 </div>
@@ -139,9 +141,9 @@
                                     <li>
                                         <div class="checkout-icon">
                                             <lord-icon target=".nav-item" src="https://cdn.lordicon.com/ggihhudh.json"
-                                                       trigger="loop-on-hover"
-                                                       colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
-                                                       class="lord-icon">
+                                                trigger="loop-on-hover"
+                                                colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
+                                                class="lord-icon">
                                             </lord-icon>
                                         </div>
                                         <div class="checkout-box">
@@ -151,12 +153,11 @@
 
                                             <div class="checkout-detail">
                                                 <div class="accordion accordion-flush custom-accordion"
-                                                     id="accordionFlushExample">
+                                                    id="accordionFlushExample">
                                                     <div class="accordion-item">
                                                         <div class="accordion-header" id="flush-headingFour">
                                                             <div class="accordion-button" data-bs-toggle="collapse"
-                                                                 data-bs-target="#flush-collapseFour"
-                                                                 aria-expanded="true">
+                                                                data-bs-target="#flush-collapseFour" aria-expanded="true">
                                                                 <div class="custom-form-check form-check mb-0">
                                                                     <label class="form-check-label" for="cash"><input
                                                                             class="form-check-input mt-0" type="radio"
@@ -166,19 +167,18 @@
                                                             </div>
                                                         </div>
                                                         <div id="flush-collapseFour"
-                                                             class="accordion-collapse collapse show"
-                                                             data-bs-parent="#accordionFlushExample" style="">
+                                                            class="accordion-collapse collapse show"
+                                                            data-bs-parent="#accordionFlushExample" style="">
                                                             <div class="accordion-body">
                                                                 <div class="checkout-detail">
                                                                     <div class="row g-4">
-                                                                        @foreach($payment_channels['Virtual Account'] as $channels)
+                                                                        @foreach ($payment_channels['Virtual Account'] as $channels)
                                                                             <div class="col-xxl-6">
                                                                                 <div class="delivery-option">
                                                                                     <div class="delivery-category">
                                                                                         <div
                                                                                             class="shipment-detail text-center">
-                                                                                            <img
-                                                                                                class="img-fluid"
+                                                                                            <img class="img-fluid"
                                                                                                 width="120px"
                                                                                                 src="{{ $channels['icon_url'] }}"
                                                                                                 alt="{{ $channels['name'] }}">
@@ -209,9 +209,8 @@
                                                     <div class="accordion-item">
                                                         <div class="accordion-header" id="flush-headingOne">
                                                             <div class="accordion-button collapsed"
-                                                                 data-bs-toggle="collapse"
-                                                                 data-bs-target="#flush-collapseOne"
-                                                                 aria-expanded="false">
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#flush-collapseOne" aria-expanded="false">
                                                                 <div class="custom-form-check form-check mb-0">
                                                                     <label class="form-check-label" for="credit"><input
                                                                             class="form-check-input mt-0" type="radio"
@@ -221,18 +220,17 @@
                                                             </div>
                                                         </div>
                                                         <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                                             data-bs-parent="#accordionFlushExample">
+                                                            data-bs-parent="#accordionFlushExample">
                                                             <div class="accordion-body">
                                                                 <div class="checkout-detail">
                                                                     <div class="row g-4">
-                                                                        @foreach($payment_channels['E-Wallet'] as $channels)
+                                                                        @foreach ($payment_channels['E-Wallet'] as $channels)
                                                                             <div class="col-xxl-6">
                                                                                 <div class="delivery-option">
                                                                                     <div class="delivery-category">
                                                                                         <div
                                                                                             class="shipment-detail text-center">
-                                                                                            <img
-                                                                                                class="img-fluid"
+                                                                                            <img class="img-fluid"
                                                                                                 width="120px"
                                                                                                 src="{{ $channels['icon_url'] }}"
                                                                                                 alt="{{ $channels['name'] }}">
@@ -263,9 +261,8 @@
                                                     <div class="accordion-item">
                                                         <div class="accordion-header" id="flush-headingTwo">
                                                             <div class="accordion-button collapsed"
-                                                                 data-bs-toggle="collapse"
-                                                                 data-bs-target="#flush-collapseTwo"
-                                                                 aria-expanded="false">
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#flush-collapseTwo" aria-expanded="false">
                                                                 <div class="custom-form-check form-check mb-0">
                                                                     <label class="form-check-label" for="banking"><input
                                                                             class="form-check-input mt-0" type="radio"
@@ -275,18 +272,17 @@
                                                             </div>
                                                         </div>
                                                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                                             data-bs-parent="#accordionFlushExample">
+                                                            data-bs-parent="#accordionFlushExample">
                                                             <div class="accordion-body">
                                                                 <div class="checkout-detail">
                                                                     <div class="row g-4">
-                                                                        @foreach($payment_channels['Convenience Store'] as $channels)
+                                                                        @foreach ($payment_channels['Convenience Store'] as $channels)
                                                                             <div class="col-xxl-6">
                                                                                 <div class="delivery-option">
                                                                                     <div class="delivery-category">
                                                                                         <div
                                                                                             class="shipment-detail text-center">
-                                                                                            <img
-                                                                                                class="img-fluid"
+                                                                                            <img class="img-fluid"
                                                                                                 width="120px"
                                                                                                 src="{{ $channels['icon_url'] }}"
                                                                                                 alt="{{ $channels['name'] }}">
@@ -334,8 +330,7 @@
                                     <li>
                                         <div class="card">
                                             <img src="{{ asset('storage/' . $product->photo) }}"
-                                                 class="img-fluid blur-up lazyloaded"
-                                                 alt="...">
+                                                class="img-fluid blur-up lazyloaded" alt="...">
                                         </div>
                                     </li>
                                     <li class="mt-3">
@@ -343,56 +338,108 @@
                                     </li>
                                 </ul>
 
-                                <ul class="summery-total">
-                                    <li>
-                                        <h4>Status Produk</h4>
-                                        <h4 class="price">
-                                            @if(ProductStatusEnum::PREORDER->value == $product->status)
-                                                Preorder
+                                @if ($varian)
+                                    <ul class="summery-total">
+                                        <li>
+                                            <h4>Status Produk</h4>
+                                            <h4 class="price">
+                                                @if (ProductStatusEnum::PREORDER->value == $product->status)
+                                                    Preorder
+                                                @else
+                                                    Tersedia
+                                                @endif
+                                            </h4>
+                                        </li>
+                                        <li>
+                                            <h4>Harga</h4>
+                                            <h4 class="price">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}
+                                            </h4>
+                                        </li>
+                                        <li>
+                                            <h4>Discount</h4>
+                                            @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                <h4 class="price">{{ $product->reseller_discount . '%' }}</h4>
                                             @else
-                                                Tersedia
+                                                <h4 class="price">{{ $product->discount . '%' }}</h4>
                                             @endif
-                                        </h4>
-                                    </li>
-                                    <li>
-                                        <h4>Harga</h4>
-                                        <h4 class="price">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</h4>
-                                    </li>
-                                    <li>
-                                        <h4>Discount</h4>
-                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                            <h4 class="price">{{ $product->reseller_discount . "%" }}</h4>
-                                        @else
-                                            <h4 class="price">{{ $product->discount . "%" }}</h4>
-                                        @endif
-                                    </li>
+                                        </li>
+                                        <li>
+                                            <h4>Subtotal</h4>
+                                            @php
+                                                $discount = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount;
 
-                                    <li>
-                                        <h4>Subtotal</h4>
-                                        @php
-                                            $discount = (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount);
+                                                $subtotal = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
+                                            @endphp
+                                            <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
+                                        </li>
 
-                                            $subtotal = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
-                                        @endphp
-                                        <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
-                                    </li>
+                                        <li>
+                                            <h4>Pajak (PPN)</h4>
+                                            <h4 class="price">10%</h4>
+                                        </li>
 
-                                    <li>
-                                        <h4>Pajak (PPN)</h4>
-                                        <h4 class="price">10%</h4>
-                                    </li>
+                                        <li class="list-total">
+                                            <h4>Total</h4>
+                                            <h4 class="price">
+                                                {{ CurrencyHelper::countPriceAfterTax($subtotal, 10, true) }}
+                                            </h4>
+                                        </li>
+                                    </ul>
+                                @else
+                                    <ul class="summery-total">
+                                        <li>
+                                            <h4>Status Produk</h4>
+                                            <h4 class="price">
+                                                @if (ProductStatusEnum::PREORDER->value == $product->status)
+                                                    Preorder
+                                                @else
+                                                    Tersedia
+                                                @endif
+                                            </h4>
+                                        </li>
+                                        <li>
+                                            <h4>Harga</h4>
+                                            <h4 class="price">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}
+                                            </h4>
+                                        </li>
+                                        <li>
+                                            <h4>Discount</h4>
+                                            @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                <h4 class="price">{{ $product->reseller_discount . '%' }}</h4>
+                                            @else
+                                                <h4 class="price">{{ $product->discount . '%' }}</h4>
+                                            @endif
+                                        </li>
+                                        <li>
+                                            <h4>Subtotal</h4>
+                                            @php
+                                                $discount = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount;
 
-                                    <li class="list-total">
-                                        <h4>Total</h4>
-                                        <h4 class="price">{{ CurrencyHelper::countPriceAfterTax($subtotal, 10, true) }}</h4>
-                                    </li>
-                                </ul>
+                                                $subtotal = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
+                                            @endphp
+                                            <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
+                                        </li>
+
+                                        <li>
+                                            <h4>Pajak (PPN)</h4>
+                                            <h4 class="price">10%</h4>
+                                        </li>
+
+                                        <li class="list-total">
+                                            <h4>Total</h4>
+                                            <h4 class="price">
+                                                {{ CurrencyHelper::countPriceAfterTax($subtotal, 10, true) }}
+                                            </h4>
+                                        </li>
+                                    </ul>
+                                @endif
+
                             </div>
 
                             @if ($product->status === ProductStatusEnum::AVAILABLE->value)
                                 @if ($product->licenses_count > 0)
                                     <button type="submit"
-                                            class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Beli Produk
+                                        class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Beli Produk
                                     </button>
                                 @else
                                     <button class="btn btn-md bg-danger cart-button text-white w-100">Stok produk

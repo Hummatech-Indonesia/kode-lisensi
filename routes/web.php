@@ -110,7 +110,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         Route::prefix('checkout')->group(function () {
-            Route::get('{slug}', [TransactionController::class, 'index'])->name('checkout');
+            Route::get('{slug}/{varian?}', [TransactionController::class, 'index'])->name('checkout');
             Route::post('{slug}', [TransactionController::class, 'store'])->name('doCheckout');
         });
     });
