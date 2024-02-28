@@ -36,13 +36,13 @@ class TransactionController extends Controller
      * @return View
      */
 
-    public function index(string $slug, string $varian = null): View
+    public function index(string $slug, string $slug_varian = null): View
     {
-        $product = $this->product->showWithSlug($slug);
+        $product = $this->product->getWhere(['slug'=>$slug,'slug_varian'=>$slug_varian]);
 
         return view('pages.checkout', [
             'product' => $product,
-            'varian' => $varian,
+            'varian' => $slug_varian,
             'title' => trans('title.checkout', ['product' => $product->name]),
             'payment_channels' => $this->tripayService->handlePaymentChannels()
         ]);

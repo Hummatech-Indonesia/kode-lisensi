@@ -760,19 +760,26 @@
                                                         </a>
                                                         <span>{{ $product->category->name }}</span>
                                                         <h6 class="price theme-color">
+                                                            @if ($product->varianProducts->isEmpty())
+
                                                             @guest
                                                                 <span
                                                                     class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
-                                                            @else
-                                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                                    @else
+                                                                    @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                                     <span
-                                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
-                                                                @else
+                                                                    class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                                    @else
                                                                     <span
-                                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
-                                                                @endif
-                                                            @endguest
-                                                        </h6>
+                                                                    class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
+                                                                    @endif
+                                                                    @endguest
+                                                                    @else
+                                                                    <span
+                                                                    class="theme-color">{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount)) }}</span>
+
+                                                                    @endif
+                                                                </h6>
                                                     </div>
                                                 </div>
                                             </div>

@@ -114,4 +114,6 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
                 'license_id' => $data['license_id'] ?? null
             ]);
     }
+
+    
 }

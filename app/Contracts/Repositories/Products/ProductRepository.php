@@ -233,4 +233,13 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->oldest('licenses_count')
             ->where('status', ProductStatusEnum::AVAILABLE->value));
     }
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('slug', $data['slug'])
+            ->with('varianProducts',function ($query) use ($data) {
+                $query->where('slug',$data['slug_varian']);
+            })
+            ->first();
+    }
 }

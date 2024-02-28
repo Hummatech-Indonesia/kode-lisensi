@@ -352,8 +352,12 @@
                                         </li>
                                         <li>
                                             <h4>Harga</h4>
+                                            @if ($product->varianProducts->isEmpty())
                                             <h4 class="price">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}
                                             </h4>
+                                            @else
+                                            <h4 class="price">{{CurrencyHelper::rupiahCurrency($product->varianProducts[0]->sell_price)}}</h4>
+                                            @endif
                                         </li>
                                         <li>
                                             <h4>Discount</h4>
@@ -366,11 +370,21 @@
                                         <li>
                                             <h4>Subtotal</h4>
                                             @php
+                                            if ($product->varianProducts->isEmpty()) {
                                                 $discount = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount;
 
                                                 $subtotal = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
+                                            } else {
+                                                $discount = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount;
+
+                                                $subtotal = CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $discount);
+                                            }
                                             @endphp
+                                            {{-- @if ($product->varianProducts->isEmpty()) --}}
                                             <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
+                                            {{-- @else
+                                            <h4 class="price">{{CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price,$product->discount))}}</h4>
+                                            @endif --}}
                                         </li>
 
                                         <li>
@@ -380,9 +394,13 @@
 
                                         <li class="list-total">
                                             <h4>Total</h4>
+                                            {{-- @if ($product->varianProducts->isEmpty()) --}}
                                             <h4 class="price">
                                                 {{ CurrencyHelper::countPriceAfterTax($subtotal, 10, true) }}
                                             </h4>
+                                            {{-- @else
+                                            <h4 class="price">{{CurrencyHelper::countPriceAfterTax($subtotal,10,true)}}</h4>
+                                            @endif --}}
                                         </li>
                                     </ul>
                                 @else
