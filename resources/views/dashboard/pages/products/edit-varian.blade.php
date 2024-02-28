@@ -100,23 +100,24 @@
                                 <td>Customer</td>
                                 <td>
                                     <input min="0" max="100" id="discount_variant" name="discount_varian"
-                                        value="{{ old('discount_varian',$product->discount) }}" class="form-control" type="number"
-                                        placeholder="0">
+                                        value="{{ old('discount_varian', $product->discount) }}" class="form-control"
+                                        type="number" placeholder="0">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Reseller</td>
                                 <td>
-                                    <input value="{{ old('reseller_discount_varian',$product->reseller_discount) }}" id="reseller_discount_varian"
-                                        name="reseller_discount_varian" class="form-control" type="number" placeholder="0">
+                                    <input value="{{ old('reseller_discount_varian', $product->reseller_discount) }}"
+                                        id="reseller_discount_varian" name="reseller_discount_varian" class="form-control"
+                                        type="number" placeholder="0">
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            @foreach ($product->varianProducts as $varianProduct)
-                <div class="varian_product card">
+            @foreach ($product->varianProducts as $index => $varianProduct)
+                <div class="varian_product card" id="{{ $varianProduct->id }}">
                     <div class="card-body">
                         <div class="card-header-2">
                             <h5>Tambahkan Variasi Produk</h5>
@@ -151,17 +152,20 @@
                             </div>
                         </table>
                         <div class="d-flex gap-3 justify-content-end align-items-center">
-                            <button type="button" class="add_varian btn btn-sm btn-primary col-sm-3"><i><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="17" height="17"
-                                        viewBox="0 0 24 24">
+                            <button type="button" class="add_varian btn btn-sm btn-primary col-sm-3"
+                                data-id="{{ $varianProduct->id }}"><i><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="17" height="17" viewBox="0 0 24 24">
                                         <path fill="currentColor"
                                             d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15q0-1.25-.875-2.125T12 12q-1.25 0-2.125.875T9 15q0 1.25.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10" />
                                     </svg></i>Tambah Variasi
                                 Produk
                             </button>
-                            <button type="button" class="delete_varian btn btn-sm btn-danger col-sm-3"
-                                style="display: none;"><i class="fa fa-trash"></i>Hapus Variasi Product
-                            </button>
+                            @if ($index != 0)
+                                <button type="button" data-id="{{ $varianProduct->id }}"
+                                    class="delete_varian btn btn-sm btn-danger col-sm-3"><i class="fa fa-trash"></i>Hapus
+                                    Variasi Product
+                                </button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -426,6 +430,22 @@
             })
 
             initDiscount();
+        });
+
+        $(document).ready(function() {
+            $(document).on("click", ".add_varian", function() {
+                console.log($(this).data('id'));
+                var duplicatedVarian = $(".varian_product").last().clone();
+                duplicatedVarian.insertAfter(".varian_product:last");
+                $(".delete_varian:last").removeAttr("style").css("display", "block");
+            });
+        });
+
+        $(document).ready(function() {
+            $(document).on("click", ".delete_varian", function() {
+                let id = $(this).data('id');
+                $("#" + id + ":last").remove();
+            });
         });
     </script>
 @endsection

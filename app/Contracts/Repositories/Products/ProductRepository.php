@@ -73,7 +73,23 @@ class ProductRepository extends BaseRepository implements ProductInterface
      */
     public function update(mixed $id, array $data): mixed
     {
-        return $this->show($id)->update($data);
+        if (isset($data['name_varian'])) {
+            $product = $this->show($id);
+            $product->update($data);
+
+            $product->varianProducts()->delete();
+
+            for ($i = 0; $i < count($data['name_varian']); $i++) {
+                $product->varianProducts()->create([
+                    'name' => $data['name_varian'][$i],
+                    'sell_price' => $data['sell_price_varian'][$i],
+                    'buy_price' => $data['buy_price_varian'][$i],
+                ]);
+            }
+        } else {
+            $product = $this->show($id)->update($data);
+        }
+        return $product;
     }
 
     /**
