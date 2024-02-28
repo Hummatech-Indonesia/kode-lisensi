@@ -26,9 +26,10 @@ class VarianProduct extends Model implements HasProduct
         'buy_price',
         'sell_price',
         'discount',
+        'slug',
         'reseller_discount',
     ];
-    
+
     /**
      * product
      *

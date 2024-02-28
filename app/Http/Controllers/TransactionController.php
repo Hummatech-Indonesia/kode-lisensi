@@ -36,12 +36,13 @@ class TransactionController extends Controller
      * @return View
      */
 
-    public function index(string $slug): View
+    public function index(string $slug, string $varian = null): View
     {
         $product = $this->product->showWithSlug($slug);
 
         return view('pages.checkout', [
             'product' => $product,
+            'varian' => $varian,
             'title' => trans('title.checkout', ['product' => $product->name]),
             'payment_channels' => $this->tripayService->handlePaymentChannels()
         ]);
@@ -54,7 +55,7 @@ class TransactionController extends Controller
      * @param string $slug
      * @return RedirectResponse
      */
-    public function store(TransactionRequest $request, string $slug): RedirectResponse
+    public function store(TransactionRequest $request, string $slug, string $slug_varian = null): RedirectResponse
     {
         $product = $this->product->showWithSlug($slug);
 
@@ -62,7 +63,7 @@ class TransactionController extends Controller
             return back()->with('error', trans('alert.empty_stock'));
         }
 
-        $this->service->handleCheckout($request, $product);
+        $this->service->handleCheckout($request, $product, $slug_varian);
 
         return back()->with('success', trans('alert.checkout_success'));
     }

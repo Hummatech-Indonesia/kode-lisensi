@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\LicenseInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Contracts\Interfaces\VarianProductInterface;
 use App\Enums\LicenseStatusEnum;
 use App\Enums\ProductStatusEnum;
 use App\Enums\UserRoleEnum;
@@ -25,13 +26,15 @@ class TransactionService
     private LicenseInterface $license;
     private TripayService $service;
     private FcmTokenInterface $fcmToken;
+    private VarianProductInterface $varianProduct;
 
-    public function __construct(TransactionInterface $transaction, LicenseInterface $license, TripayService $service, FcmTokenInterface $fcmToken)
+    public function __construct(TransactionInterface $transaction, LicenseInterface $license, TripayService $service, FcmTokenInterface $fcmToken, VarianProductInterface $varianProduct)
     {
         $this->transaction = $transaction;
         $this->license = $license;
         $this->service = $service;
         $this->fcmToken = $fcmToken;
+        $this->varianProduct = $varianProduct;
     }
 
     /**
@@ -54,13 +57,20 @@ class TransactionService
      * @return void
      */
 
-    public function handleCheckout(TransactionRequest $request, Product $product): void
+    public function handleCheckout(TransactionRequest $request, Product $product, string $slug_varian = null): void
     {
         $data = $request->validated();
+
         $external_id = "invoice-" . Uuid::uuid();
         $license_id = null;
         $discount = (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) ? $product->reseller_discount : $product->discount;
-        $price = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
+        if ($slug_varian) {
+            $varianProduct = $this->varianProduct->getWhere(['product_id' => $product->id, 'slug_varian' => $slug_varian]);
+            $price = CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $discount);
+        } else {
+            $price = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
+        }
+        
         $fee = CurrencyHelper::countProductTax($price, 10);
         $amount = CurrencyHelper::countPriceAfterTax($price, 10);
 

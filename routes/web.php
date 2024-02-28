@@ -111,8 +111,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         Route::prefix('checkout')->group(function () {
-            Route::get('{slug}', [TransactionController::class, 'index'])->name('checkout');
-            Route::post('{slug}', [TransactionController::class, 'store'])->name('doCheckout');
+            Route::get('{slug}/{slug_varian?}', [TransactionController::class, 'index'])->name('checkout');
+            Route::post('{slug}/{slug_varian?}', [TransactionController::class, 'store'])->name('doCheckout');
         });
     });
     Route::middleware('role:admin|author')->group(function () {
