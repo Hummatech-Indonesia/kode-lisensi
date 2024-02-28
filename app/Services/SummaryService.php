@@ -135,7 +135,7 @@ class SummaryService
             $parse = Carbon::parse($data->created_at);
             $date = $parse->shortMonthName . ' ' . $parse->year;
             $index = array_search($date, array_values($result['labels']));
-            $result['series'][$index] = (int)$data->total_amount;
+            $result['series'][$index] = (int) $data->total_amount;
         }
 
         return $result;
@@ -173,15 +173,17 @@ class SummaryService
             ->whereIn('tc.invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value])
             ->with(['category'])
             ->withCount('product_ratings')
-            ->withSum(['product_ratings' => function ($query) {
-                $query->where('status', RatingStatusEnum::APPROVED->value);
-            }], 'rating')
+            ->withSum([
+                'product_ratings' => function ($query) {
+                    $query->where('status', RatingStatusEnum::APPROVED->value);
+                }
+            ], 'rating')
             ->groupBy('products.name')
             ->take($take)
             ->orderByDesc('transactions_count')
             ->get();
 
-        return $data->filter(fn ($item) => $item->transactions_count > 0);
+        return $data->filter(fn($item) => $item->transactions_count > 0);
     }
 
     /**
@@ -197,14 +199,16 @@ class SummaryService
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug')
             ->with('category')
             ->withCount('product_ratings')
-            ->withSum(['product_ratings' => function ($query) {
-                $query->where('status', RatingStatusEnum::APPROVED->value);
-            }], 'rating')
+            ->withSum([
+                'product_ratings' => function ($query) {
+                    $query->where('status', RatingStatusEnum::APPROVED->value);
+                }
+            ], 'rating')
             ->take($take)
             ->orderByDesc('product_ratings_sum_rating')
             ->get();
 
-        return $data->filter(fn ($item) => $item->product_ratings_sum_rating != null);
+        return $data->filter(fn($item) => $item->product_ratings_sum_rating != null);
     }
 
     /**
@@ -219,12 +223,17 @@ class SummaryService
         return $this->product->query()
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
             ->with('category')
-            ->withCount(['product_ratings', 'licenses' => function ($query) {
-                return $query->where('is_purchased', 0);
-            }])
-            ->withSum(['product_ratings' => function ($query) {
-                $query->where('status', RatingStatusEnum::APPROVED->value);
-            }], 'rating')
+            ->withCount([
+                'product_ratings',
+                'licenses' => function ($query) {
+                    return $query->where('is_purchased', 0);
+                }
+            ])
+            ->withSum([
+                'product_ratings' => function ($query) {
+                    $query->where('status', RatingStatusEnum::APPROVED->value);
+                }
+            ], 'rating')
             ->take($take)
             ->latest()
             ->get();
@@ -237,15 +246,18 @@ class SummaryService
      * @return object
      */
 
-    public function handleRecommendProducts(int $take = 5): object
+    public function handleRecommendProducts(int $take, mixed $product): object
     {
         return $this->product->query()
+            ->whereNot('slug',$product->slug)
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
             ->with('category')
             ->withCount(['product_ratings', 'licenses'])
-            ->withSum(['product_ratings' => function ($query) {
-                $query->where('status', RatingStatusEnum::APPROVED->value);
-            }], 'rating')
+            ->withSum([
+                'product_ratings' => function ($query) {
+                    $query->where('status', RatingStatusEnum::APPROVED->value);
+                }
+            ], 'rating')
             ->take($take)
             ->inRandomOrder()
             ->get();
@@ -267,9 +279,11 @@ class SummaryService
             ->whereNot('id', $product_id)
             ->with('category')
             ->withCount(['product_ratings', 'licenses'])
-            ->withSum(['product_ratings' => function ($query) {
-                $query->where('status', RatingStatusEnum::APPROVED->value);
-            }], 'rating')
+            ->withSum([
+                'product_ratings' => function ($query) {
+                    $query->where('status', RatingStatusEnum::APPROVED->value);
+                }
+            ], 'rating')
             ->take($take)
             ->latest()
             ->get();

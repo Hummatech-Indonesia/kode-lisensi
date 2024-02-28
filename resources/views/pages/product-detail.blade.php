@@ -761,7 +761,6 @@
                                                         <span>{{ $product->category->name }}</span>
                                                         <h6 class="price theme-color">
                                                             @if ($product->varianProducts->isEmpty())
-
                                                             @guest
                                                                 <span
                                                                     class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>

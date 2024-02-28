@@ -16,6 +16,7 @@ use Illuminate\Pagination\CursorPaginator;
 class ProductRepository extends BaseRepository implements ProductInterface
 {
     use ProductDatatable;
+    
 
     public function __construct(Product $product)
     {
@@ -240,7 +241,7 @@ class ProductRepository extends BaseRepository implements ProductInterface
     public function get(): mixed
     {
         return $this->ProductMockup($this->model->query()
-            ->with('category')
+            ->with(['category','varianProducts'])
             ->withCount([
                 'licenses as licenses_count' => function ($query) {
                     $query->where('is_purchased', 0);
