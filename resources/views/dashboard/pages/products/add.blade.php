@@ -137,8 +137,8 @@
                             <label class="form-label-title col-sm-3 mb-0">Harga Jual <span
                                     class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input id="sell_price_varian" min="0" autocomplete="off"
-                                    name="sell_price_varian[]" class="form-control" type="text" placeholder="250000">
+                                <input min="0" autocomplete="off" name="sell_price_varian[]"
+                                    class="sell_price_varian form-control" type="text" placeholder="250000">
                             </div>
                         </div>
                     </table>
@@ -153,20 +153,19 @@
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    <span id="customer_label">Rp. 0</span>
+                                    <span class="customer_label_varian">Rp. 0</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Reseller</td>
                                 <td>
-                                    <span id="reseller_label">Rp. 0</span>
+                                    <span class="reseller_label_varian">Rp. 0</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>
-                                    <button id="convert_button_varian" type="button"
-                                        class="btn btn-sm btn-primary">Konversi
+                                    <button class="convert_button_varian btn btn-sm btn-primary" type="button">Konversi
                                         Harga
                                     </button>
                                 </td>
@@ -474,6 +473,24 @@
             $(document).on("click", ".delete_varian", function() {
                 $(".varian_product:last").remove();
             });
+        });
+        $(document).on('click', '.convert_button_varian', function() {
+            const convertRupiah = (number) => {
+                return new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR"
+                }).format(number);
+            }
+            let row = $(this).closest('.varian_product');
+            let sellPrice = row.find('.sell_price_varian').val();
+
+            let reseller_discount = $('#reseller_discount_varian').val();
+            let discount = $('#discount_variant').val();
+
+            let result_discount = sellPrice - (discount / 100 * sellPrice);
+            let result_reseller_discount = sellPrice - (reseller_discount / 100 * sellPrice);
+            row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
+            row.find('.customer_label_varian').text(convertRupiah(result_discount));
         });
     </script>
 @endsection
