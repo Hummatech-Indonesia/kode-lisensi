@@ -133,9 +133,12 @@
                                         @endguest
                                     @else
                                         <div class="d-flex">
-                                            <h3 class="theme-color price" id="price-product">
+                                            <h3 class="theme-color price" id="discount-price">
                                                 {{ CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->discount, true) }}
                                             </h3>
+                                            @if ($product->discount != 0)
+                                                <del class="text-discount" id="price-product">{{CurrencyHelper::rupiahCurrency($product->varianProducts[0]->sell_price)}}</del>
+                                            @endif
                                             <span class="hidden-product review mx-2">||</span>
                                             <span
                                                 class="hidden-product review">{{ $product->varianProducts[0]->name }}</span>
@@ -181,14 +184,40 @@
                                     </div>
                                     <ul class="select-package">
                                         @foreach ($product->varianProducts as $varianProduct)
-                                            <li>
-                                                <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
-                                                    data-sell-price="{{ $varianProduct->sell_price }}"
-                                                    data-slug="{{ $varianProduct->slug }}"
-                                                    data-name="{{ $varianProduct->name }}"
-                                                    id="varian-product-{{ $varianProduct->id }}"
-                                                    class="varian-product">{{ $varianProduct->name }}</a>
-                                            </li>
+                                            @auth
+                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                    <li>
+                                                        <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
+                                                            data-sell-price="{{ $varianProduct->sell_price }}"
+                                                            data-slug="{{ $varianProduct->slug }}"
+                                                            data-name="{{ $varianProduct->name }}"
+                                                            data-discount="{{ $product->reseller_discount }}"
+                                                            id="varian-product-{{ $varianProduct->id }}"
+                                                            class="varian-product">{{ $varianProduct->name }}</a>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
+                                                            data-sell-price="{{ $varianProduct->sell_price }}"
+                                                            data-slug="{{ $varianProduct->slug }}"
+                                                            data-name="{{ $varianProduct->name }}"
+                                                            data-discount="{{ $product->discount }}"
+                                                            id="varian-product-{{ $varianProduct->id }}"
+                                                            class="varian-product">{{ $varianProduct->name }}</a>
+                                                    </li>
+                                                @endif
+                                            @endauth
+                                            @guest
+                                                <li>
+                                                    <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
+                                                        data-sell-price="{{ $varianProduct->sell_price }}"
+                                                        data-slug="{{ $varianProduct->slug }}"
+                                                        data-name="{{ $varianProduct->name }}"
+                                                        data-discount="{{ $product->discount }}"
+                                                        id="varian-product-{{ $varianProduct->id }}"
+                                                        class="varian-product">{{ $varianProduct->name }}</a>
+                                                </li>
+                                            @endguest
                                         @endforeach
                                     </ul>
                                 </div>
@@ -761,25 +790,23 @@
                                                         <span>{{ $product->category->name }}</span>
                                                         <h6 class="price theme-color">
                                                             @if ($product->varianProducts->isEmpty())
-
-                                                            @guest
-                                                                <span
-                                                                    class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
-                                                                    @else
+                                                                @guest
+                                                                    <span
+                                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
+                                                                @else
                                                                     @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    <span
-                                                                    class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                                        <span
+                                                                            class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
                                                                     @else
-                                                                    <span
-                                                                    class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
+                                                                        <span
+                                                                            class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
                                                                     @endif
-                                                                    @endguest
-                                                                    @else
-                                                                    <span
+                                                                @endguest
+                                                            @else
+                                                                <span
                                                                     class="theme-color">{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount)) }}</span>
-
-                                                                    @endif
-                                                                </h6>
+                                                            @endif
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -948,13 +975,13 @@
                 $(this).addClass('active');
                 var sellPrice = parseFloat($(this).data(
                     'sell-price'));
-
+                var discount = parseFloat($(this).data('discount'));
                 var formattedPrice = formatCurrency(sellPrice);
-
+                var discountPrice = discountCurrency(sellPrice,discount);
                 var slug = $(this).data('slug');
                 $("#buy-product-varian").attr("href", "{{ route('checkout', [$product->slug, '']) }}/" +
                     slug);
-
+                $('#discount-price').text(formatCurrency(discountPrice));
                 $('#price-product').text(formattedPrice);
             });
 
@@ -962,6 +989,10 @@
                 return 'Rp ' + price.toLocaleString('id-ID', {
                     minimumFractionDigits: 2
                 });
+            }
+            function discountCurrency(price,discount){
+                let total =price - (price*(discount/100));
+                return total;
             }
         });
     </script>
