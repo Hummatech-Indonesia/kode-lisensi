@@ -982,24 +982,45 @@
                                             @endif
                                         </h6>
                                         <h5 class="price mt-3">
-                                            @guest
-                                                <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                                <br>
-                                                <span
-                                                    class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
-                                            @else
-                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                    <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                                    <br>
-                                                    <span
-                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
-                                                @else
+                                            @if ($product->varianProducts->isEmpty())
+                                                @guest
                                                     <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                     <br>
                                                     <span
                                                         class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
-                                                @endif
-                                            @endguest
+                                                @else
+                                                    @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                        <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
+                                                        <br>
+                                                        <span
+                                                            class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                    @else
+                                                        <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
+                                                        <br>
+                                                        <span
+                                                            class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
+                                                    @endif
+                                                @endguest
+                                            @else
+                                                @auth
+                                                    @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}</del>
+                                                        <br>
+                                                        <span
+                                                            class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->reseller_discount, true) }}</span>
+                                                    @else
+                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}</del>
+                                                        <br>
+                                                        <span
+                                                            class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, true) }}</span>
+                                                    @endif
+                                                @else
+                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}</del>
+                                                    <br>
+                                                    <span
+                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, true) }}</span>
+                                                @endauth
+                                            @endif
 
                                         </h5>
                                     </div>
