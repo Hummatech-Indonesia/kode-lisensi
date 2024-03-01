@@ -17,8 +17,6 @@
                     Catatan: <br>
                     <ul>
                         <li>- Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
-                        <li>- Ketika harga jual dan harga beli bertuliskan product bervariasi, anda dapat mengecek harga
-                            produk nya pada detail.</li>
                     </ul>
 
                 </div>
