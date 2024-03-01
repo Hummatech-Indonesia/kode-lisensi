@@ -71,9 +71,21 @@
                             style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                             <div class="right-box-contain">
                                 <h6 class="offer-top">{{ $product->category->name }}</h6>
-                                @if ($product->discount > 0)
-                                    <h6 class="offer-top">Diskon : {{ $product->discount . '%' }}</h6>
-                                @endif
+                                @auth
+                                    @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                        @if ($product->discount > 0)
+                                            <h6 class="offer-top">Diskon : {{ $product->reseller_discount . '%' }}</h6>
+                                        @endif
+                                    @else
+                                        @if ($product->discount > 0)
+                                            <h6 class="offer-top">Diskon : {{ $product->discount . '%' }}</h6>
+                                        @endif
+                                    @endif
+                                @else
+                                    @if ($product->discount > 0)
+                                        <h6 class="offer-top">Diskon : {{ $product->discount . '%' }}</h6>
+                                    @endif
+                                @endauth
 
 
                                 <h2 class="name">{{ $product->name }}</h2>

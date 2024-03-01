@@ -337,7 +337,6 @@
                                         <h3>{{ $product->name }} </h3>
                                     </li>
                                 </ul>
-
                                 @if ($varian)
                                     <ul class="summery-total">
                                         <li>
@@ -353,10 +352,13 @@
                                         <li>
                                             <h4>Harga</h4>
                                             @if ($product->varianProducts->isEmpty())
-                                            <h4 class="price">{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}
-                                            </h4>
+                                                <h4 class="price">
+                                                    {{ CurrencyHelper::rupiahCurrency($product->sell_price) }}
+                                                </h4>
                                             @else
-                                            <h4 class="price">{{CurrencyHelper::rupiahCurrency($product->varianProducts[0]->sell_price)}}</h4>
+                                                <h4 class="price">
+                                                    {{ CurrencyHelper::rupiahCurrency($product->varianProducts[0]->sell_price) }}
+                                                </h4>
                                             @endif
                                         </li>
                                         <li>
@@ -370,15 +372,27 @@
                                         <li>
                                             <h4>Subtotal</h4>
                                             @php
-                                            if ($product->varianProducts->isEmpty()) {
-                                                $discount = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount;
+                                                if ($product->varianProducts->isEmpty()) {
+                                                    $discount =
+                                                        UserHelper::getUserRole() == UserRoleEnum::RESELLER->value
+                                                            ? $product->reseller_discount
+                                                            : $product->discount;
 
-                                                $subtotal = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
-                                            } else {
-                                                $discount = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount;
+                                                    $subtotal = CurrencyHelper::countPriceAfterDiscount(
+                                                        $product->sell_price,
+                                                        $discount,
+                                                    );
+                                                } else {
+                                                    $discount =
+                                                        UserHelper::getUserRole() == UserRoleEnum::RESELLER->value
+                                                            ? $product->reseller_discount
+                                                            : $product->discount;
 
-                                                $subtotal = CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $discount);
-                                            }
+                                                    $subtotal = CurrencyHelper::countPriceAfterDiscount(
+                                                        $product->varianProducts[0]->sell_price,
+                                                        $discount,
+                                                    );
+                                                }
                                             @endphp
                                             {{-- @if ($product->varianProducts->isEmpty()) --}}
                                             <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
@@ -431,9 +445,15 @@
                                         <li>
                                             <h4>Subtotal</h4>
                                             @php
-                                                $discount = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value ? $product->reseller_discount : $product->discount;
+                                                $discount =
+                                                    UserHelper::getUserRole() == UserRoleEnum::RESELLER->value
+                                                        ? $product->reseller_discount
+                                                        : $product->discount;
 
-                                                $subtotal = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
+                                                $subtotal = CurrencyHelper::countPriceAfterDiscount(
+                                                    $product->sell_price,
+                                                    $discount,
+                                                );
                                             @endphp
                                             <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
                                         </li>
@@ -455,7 +475,7 @@
                             </div>
 
                             @if ($product->status === ProductStatusEnum::AVAILABLE->value)
-                                @if ($product->licenses_count > 0)
+                                @if ($product->licenses)
                                     <button type="submit"
                                         class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Beli Produk
                                     </button>
