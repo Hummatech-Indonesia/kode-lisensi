@@ -450,10 +450,12 @@
                                                 </td>
                                                 <td>
                                                     <div class="" style="display: flex">
-                                                        <a href="" style="margin-top: 5px">
+                                                        <a style="margin-top: 5px" id="btnEditVarian" data-bs-toggle="modal" data-bs-target="#editVarianModal{{$varianProduct->id}}">
                                                             <i class="ri-pencil-line"></i>
                                                         </a>
-                                                        <form method="POST" action="">
+                                                        <x-edit-varian-modal :varianProduct="$varianProduct"></x-edit-varian-modal>
+                                                        
+                                                        <form method="POST" action="{{route('delete.varian.product',$varianProduct->id)}}">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn text-danger delete-sweetalert"

@@ -19,4 +19,8 @@ class VarianProductObserver
         $varianProduct->id = Uuid::uuid();
         $varianProduct->slug = Str::slug($varianProduct->name);
     }
+
+    public function updating(VarianProduct $varianProduct){
+        $varianProduct->slug = Str::slug($varianProduct->name);
+    }
 }

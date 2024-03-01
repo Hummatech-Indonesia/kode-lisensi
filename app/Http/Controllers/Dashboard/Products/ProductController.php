@@ -99,7 +99,7 @@ class ProductController extends Controller
         $this->product->update($product->id, $data);
         return to_route('products.show', $product->id)->with('success', trans('alert.update_success'));
     }
-    
+
     /**
      * varianProductUpdate
      *

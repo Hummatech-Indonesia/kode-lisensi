@@ -2,83 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\VarianProductInterface;
+use App\Http\Requests\VarianProductStoreRequest;
+use App\Http\Requests\VarianProductUpdateModalRequest;
+use App\Models\VarianProduct;
 use Illuminate\Http\Request;
 
 class VarianProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+
+    private VarianProductInterface $varianProduct;
+    public function __construct(VarianProductInterface $varianProduct){
+        $this->varianProduct=$varianProduct;
+    }
+    public function index(){
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function update(VarianProductUpdateModalRequest $request,VarianProduct $varianProduct){
+        $this->varianProduct->update($varianProduct->id,$request->validated());
+        return redirect()->back();
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function destroy(VarianProduct $varianProduct){
+        $this->varianProduct->delete($varianProduct->id);
+        return redirect()->back();
     }
 }
