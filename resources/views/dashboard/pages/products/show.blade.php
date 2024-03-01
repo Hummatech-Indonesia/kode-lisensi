@@ -434,6 +434,7 @@
                                             <th scope="col">Harga Jual</th>
                                             <th scope="col">Harga Customer</th>
                                             <th scope="col">Harga Reseller</th>
+                                            <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -443,8 +444,25 @@
                                                 <td>{{ $varianProduct->name }}</td>
                                                 <td>{{ CurrencyHelper::rupiahCurrency($varianProduct->buy_price) }}</td>
                                                 <td>{{ CurrencyHelper::rupiahCurrency($varianProduct->sell_price) }}</td>
-                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price,$product->discount)) }}</td>
-                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price,$product->reseller_discount)) }}</td>
+                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->discount)) }}
+                                                </td>
+                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->reseller_discount)) }}
+                                                </td>
+                                                <td>
+                                                    <div class="" style="display: flex">
+                                                        <a href="" style="margin-top: 5px">
+                                                            <i class="ri-pencil-line"></i>
+                                                        </a>
+                                                        <form method="POST" action="">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn text-danger delete-sweetalert"
+                                                                type="submit">
+                                                                <i class="ri-delete-bin-line"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

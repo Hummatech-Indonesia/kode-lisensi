@@ -376,7 +376,6 @@
                                                 </a>
                                             </div>
                                         @endif
-
                                     @endauth
                                     @guest
                                         <div class="">
