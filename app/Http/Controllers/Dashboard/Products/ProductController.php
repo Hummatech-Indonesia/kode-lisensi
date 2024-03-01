@@ -77,7 +77,7 @@ class ProductController extends Controller
     {
         $categories = $this->category->get();
         if(!$product->varianProducts->isEmpty()){
-            return view('dashboard.pages.products.edit-varian',compact('product','categories'));
+            return view('dashboard.pages.products.edit-varian2',compact('product','categories'));
         }else{
             return view('dashboard.pages.products.edit', compact('product', 'categories'));
         }
