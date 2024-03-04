@@ -31,37 +31,42 @@
             </div>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
-                        type="button">Detail
+                    <button class="nav-link active" style="font-size: 14px" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" type="button">Detail
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
-                        type="button">Lisensi
+                    <button class="nav-link" style="font-size: 14px" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" type="button">Lisensi
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill" data-bs-target="#pills-usage"
-                        type="button">Fitur dan Panduan
+                    <button class="nav-link" style="font-size: 14px" id="pills-usage-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-usage" type="button">Fitur dan Panduan
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-ratings-tab" data-bs-toggle="pill" data-bs-target="#pills-ratings"
-                        type="button">Ulasan
+                    <button class="nav-link" style="font-size: 14px" id="pills-ratings-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-ratings" type="button">Ulasan
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill" data-bs-target="#pills-question"
-                        type="button">Pertanyaan
+                    <button class="nav-link" style="font-size: 14px" id="pills-question-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-question" type="button">Pertanyaan
                     </button>
                 </li>
                 @if (!$product->varianProducts->isEmpty())
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-question-tab" data-bs-toggle="pill"
+                        <button class="nav-link" style="font-size: 14px" id="pills-question-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-varian" type="button">Variasi Produk
                         </button>
                     </li>
                 @endif
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" style="font-size: 14px" id="pills-question-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-email" type="button">Email
+                    </button>
+                </li>
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
@@ -450,12 +455,15 @@
                                                 </td>
                                                 <td>
                                                     <div class="" style="display: flex">
-                                                        <a style="margin-top: 5px" id="btnEditVarian" data-bs-toggle="modal" data-bs-target="#editVarianModal{{$varianProduct->id}}">
+                                                        <a style="margin-top: 5px" id="btnEditVarian"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editVarianModal{{ $varianProduct->id }}">
                                                             <i class="ri-pencil-line"></i>
                                                         </a>
                                                         <x-edit-varian-modal :varianProduct="$varianProduct"></x-edit-varian-modal>
-                                                        
-                                                        <form method="POST" action="{{route('delete.varian.product',$varianProduct->id)}}">
+
+                                                        <form method="POST"
+                                                            action="{{ route('delete.varian.product', $varianProduct->id) }}">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn text-danger delete-sweetalert"
@@ -469,6 +477,48 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-email" role="tabpanel">
+                    <div class="card-header-1"></div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-sm-12 m-auto">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-header-2">
+                                            <h5>Tambah Format Email</h5>
+                                        </div>
+
+                                        @if ($errors->any())
+                                            <x-validation-errors :errors="$errors"></x-validation-errors>
+                                        @endif
+
+                                        <form enctype="multipart/form-data" action="{{ route('categories.store') }}"
+                                            class="theme-form theme-form-2 mega-form" method="POST">
+                                            @csrf
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-3 mb-0">Nama Kategori <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control" id="editor" name="description">{{ old('description') }}</textarea>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="mb-4 row align-items-center">
+                                                <div class="col-sm-6">
+
+                                                    <button class="btn btn-primary" type="submit"><i
+                                                            class="ri-1x me-2"></i>Simpan Data
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -831,5 +881,10 @@
             })
 
         })
+        $(document).ready(() => {
+            CKEDITOR.replace('editor');
+            CKEDITOR.replace('installation');
+            CKEDITOR.replace('features');
+        });
     </script>
 @endsection
