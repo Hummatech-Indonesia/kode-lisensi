@@ -153,9 +153,9 @@
                                                     <del class="text-discount mx-2"
                                                         id="price-product">{{ CurrencyHelper::rupiahCurrency($product->varianProducts[0]->sell_price) }}</del>
                                                 @endif
-                                                <span class="hidden-product review mx-2">||</span>
+                                                {{-- <span class="hidden-product review mx-2">||</span>
                                                 <span
-                                                    class="hidden-product review">{{ $product->varianProducts[0]->name }}</span>
+                                                    class="hidden-product review">{{ $product->varianProducts[0]->name }}</span> --}}
                                             </div>
                                         @else
                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
@@ -167,9 +167,9 @@
                                                         <del class="text-discount mx-2"
                                                             id="price-product">{{ CurrencyHelper::rupiahCurrency($product->varianProducts[0]->sell_price) }}</del>
                                                     @endif
-                                                    <span class="hidden-product review mx-2">||</span>
+                                                    {{-- <span class="hidden-product review mx-2">||</span>
                                                     <span
-                                                        class="hidden-product review">{{ $product->varianProducts[0]->name }}</span>
+                                                        class="hidden-product review">{{ $product->varianProducts[0]->name }}</span> --}}
                                                 </div>
                                             @else
                                                 <div class="d-flex">
@@ -180,9 +180,9 @@
                                                         <del class="text-discount mx-2"
                                                             id="price-product">{{ CurrencyHelper::rupiahCurrency($product->varianProducts[0]->sell_price) }}</del>
                                                     @endif
-                                                    <span class="hidden-product review mx-2">||</span>
+                                                    {{-- <span class="hidden-product review mx-2">||</span>
                                                     <span
-                                                        class="hidden-product review">{{ $product->varianProducts[0]->name }}</span>
+                                                        class="hidden-product review">{{ $product->varianProducts[0]->name }}</span> --}}
                                                 </div>
                                             @endif
                                         @endguest
@@ -226,7 +226,7 @@
                                         <h4>Variasi Produk</h4>
                                     </div>
                                     <ul class="select-package">
-                                        @foreach ($product->varianProducts as $varianProduct)
+                                        @foreach ($product->varianProducts as $index => $varianProduct)
                                             @auth
                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                     <li>
@@ -237,7 +237,7 @@
                                                             data-product = "{{ $product->slug }}"
                                                             data-discount="{{ $product->reseller_discount }}"
                                                             id="varian-product-{{ $varianProduct->id }}"
-                                                            class="varian-product">{{ $varianProduct->name }}</a>
+                                                            class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                     </li>
                                                 @else
                                                     <li>
@@ -248,7 +248,7 @@
                                                             data-name="{{ $varianProduct->name }}"
                                                             data-discount="{{ $product->discount }}"
                                                             id="varian-product-{{ $varianProduct->id }}"
-                                                            class="varian-product">{{ $varianProduct->name }}</a>
+                                                            class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                     </li>
                                                 @endif
                                             @endauth
@@ -261,7 +261,7 @@
                                                         data-name="{{ $varianProduct->name }}"
                                                         data-discount="{{ $product->discount }}"
                                                         id="varian-product-{{ $varianProduct->id }}"
-                                                        class="varian-product">{{ $varianProduct->name }}</a>
+                                                        class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                 </li>
                                             @endguest
                                         @endforeach
