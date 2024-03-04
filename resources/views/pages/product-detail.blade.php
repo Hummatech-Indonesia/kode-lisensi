@@ -496,34 +496,34 @@
                         <div class="product-section-box">
                             <ul class="nav nav-tabs custom-nav" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                                        <button style="font-size:15px;" class="nav-link active" id="description-tab" data-bs-toggle="tab"
                                         data-bs-target="#description" type="button" role="tab"
                                         aria-controls="description" aria-selected="true">Deskripsi
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info"
+                                    <button style="font-size:15px;" class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info"
                                         type="button" role="tab" aria-controls="info" aria-selected="false">Fitur
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="question-tab" data-bs-toggle="tab"
+                                    <button style="font-size:15px;" class="nav-link" id="question-tab" data-bs-toggle="tab"
                                         data-bs-target="#question" type="button" role="tab"
                                         aria-controls="question" aria-selected="false">Pertanyaan
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="care-tab" data-bs-toggle="tab" data-bs-target="#care"
+                                    <button style="font-size:15px;" class="nav-link" id="care-tab" data-bs-toggle="tab" data-bs-target="#care"
                                         type="button" role="tab" aria-controls="care" aria-selected="false">Tata
                                         Cara Instalasi
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="review-tab" data-bs-toggle="tab"
+                                    <button style="font-size:15px;" class="nav-link" id="review-tab" data-bs-toggle="tab"
                                         data-bs-target="#review" type="button" role="tab" aria-controls="review"
                                         aria-selected="false">Ulasan Pelanggan
                                     </button>
