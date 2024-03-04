@@ -73,6 +73,20 @@ class ProductService implements ShouldHandleFileUpload
 
         // if ($this->exist($exists)) return false;
 
+        $varian_product = $data['name_varian'];
+        $counts = array_count_values($varian_product);
+
+        $duplicates = false;
+        foreach ($counts as $varian_product => $count) {
+            if ($count > 1) {
+                $duplicates = true;
+                break;
+            }
+        }
+
+        if ($duplicates) {
+            dd("awokawok kembar");
+        }
 
         return [
             'category_id' => $data['category_id'],

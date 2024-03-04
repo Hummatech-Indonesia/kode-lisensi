@@ -234,6 +234,7 @@
                                                             data-sell-price="{{ $varianProduct->sell_price }}"
                                                             data-slug="{{ $varianProduct->slug }}"
                                                             data-name="{{ $varianProduct->name }}"
+                                                            data-product = "{{ $product->slug }}"
                                                             data-discount="{{ $product->reseller_discount }}"
                                                             id="varian-product-{{ $varianProduct->id }}"
                                                             class="varian-product">{{ $varianProduct->name }}</a>
@@ -243,6 +244,7 @@
                                                         <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
                                                             data-sell-price="{{ $varianProduct->sell_price }}"
                                                             data-slug="{{ $varianProduct->slug }}"
+                                                            data-product = "{{ $product->slug }}"
                                                             data-name="{{ $varianProduct->name }}"
                                                             data-discount="{{ $product->discount }}"
                                                             id="varian-product-{{ $varianProduct->id }}"
@@ -254,6 +256,7 @@
                                                 <li>
                                                     <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
                                                         data-sell-price="{{ $varianProduct->sell_price }}"
+                                                        data-product = "{{ $product->slug }}"
                                                         data-slug="{{ $varianProduct->slug }}"
                                                         data-name="{{ $varianProduct->name }}"
                                                         data-discount="{{ $product->discount }}"
@@ -1075,9 +1078,11 @@
                 var discount = parseFloat($(this).data('discount'));
                 var formattedPrice = formatCurrency(sellPrice);
                 var discountPrice = discountCurrency(sellPrice, discount);
+                var product = $(this).data("product");
                 var slug = $(this).data('slug');
-                $("#buy-product-varian").attr("href", "{{ route('checkout', [$product->slug, '']) }}/" +
-                    slug);
+                $("#buy-product-varian").attr("href",
+                    "{{ route('checkout', ['', '']) }}/" + product + "/" + slug);
+
                 $('#discount-price').text(formatCurrency(discountPrice));
                 $('#price-product').text(formattedPrice);
             });
