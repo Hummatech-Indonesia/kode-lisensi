@@ -5,12 +5,14 @@ namespace App\Providers;
 use App\Models\Article;
 use App\Models\License;
 use App\Models\Product;
+use App\Models\ProductEmail;
 use App\Models\ProductFavorite;
 use App\Models\ShareProductReseller;
 use App\Models\User;
 use App\Models\VarianProduct;
 use App\Observers\ArticleObserver;
 use App\Observers\LicenseObserver;
+use App\Observers\ProductEmailObserver;
 use App\Observers\ProductFavoriteObserver;
 use App\Observers\ProductObserver;
 use App\Observers\ShareProductReselllerObserver;
@@ -47,6 +49,7 @@ class EventServiceProvider extends ServiceProvider
         ProductFavorite::observe(ProductFavoriteObserver::class);
         ShareProductReseller::observe(ShareProductReselllerObserver::class);
         VarianProduct::observe(VarianProductObserver::class);
+        ProductEmail::observe(ProductEmailObserver::class);
     }
 
     /**

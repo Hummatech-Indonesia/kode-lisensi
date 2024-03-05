@@ -496,17 +496,25 @@
                                             <x-validation-errors :errors="$errors"></x-validation-errors>
                                         @endif
 
-                                        <form enctype="multipart/form-data" action="{{ route('categories.store') }}"
+
+                                        <form enctype="multipart/form-data"
+                                            action="{{ route('product.email.store', $product->id) }}"
                                             class="theme-form theme-form-2 mega-form" method="POST">
                                             @csrf
                                             <div class="mb-4 row align-items-center">
-                                                <label class="form-label-title col-sm-3 mb-0">Nama Kategori <span
+                                                <label class="form-label-title col-sm-3 mb-0">Panduan Penggunaan<span
                                                         class="text-danger">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" id="editor" name="description">{{ old('description') }}</textarea>
+                                                    <textarea class="form-control" id="manual_book" name="manual_book">{{ old('manual_book') }}</textarea>
                                                 </div>
                                             </div>
-
+                                            <div class="mb-4 row align-items-center">
+                                                <label class="form-label-title col-sm-3 mb-0">Note<span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control" id="note" name="note">{{ old('note') }}</textarea>
+                                                </div>
+                                            </div>
 
                                             <div class="mb-4 row align-items-center">
                                                 <div class="col-sm-6">
@@ -885,6 +893,8 @@
             CKEDITOR.replace('editor');
             CKEDITOR.replace('installation');
             CKEDITOR.replace('features');
+            CKEDITOR.replace('manual_book');
+            CKEDITOR.replace('note');
         });
     </script>
 @endsection

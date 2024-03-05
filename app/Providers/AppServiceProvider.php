@@ -15,6 +15,7 @@ use App\Contracts\Interfaces\HelpInterface;
 use App\Contracts\Interfaces\LicenseInterface;
 use App\Contracts\Interfaces\ProductFavoriteInterface;
 use App\Contracts\Interfaces\Products\ArchiveProductInterface;
+use App\Contracts\Interfaces\Products\ProductEmailInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\Products\ProductQuestionInterface;
 use App\Contracts\Interfaces\ProfileInterface;
@@ -41,6 +42,7 @@ use App\Contracts\Repositories\HelpRepository;
 use App\Contracts\Repositories\LicenseRepository;
 use App\Contracts\Repositories\ProductFavoriteRepository;
 use App\Contracts\Repositories\Products\ArchiveProductRepository;
+use App\Contracts\Repositories\Products\ProductEmailRepository;
 use App\Contracts\Repositories\Products\ProductQuestionRepository;
 use App\Contracts\Repositories\Products\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
@@ -89,6 +91,7 @@ class AppServiceProvider extends ServiceProvider
         ShareProductResellerInterface::class => ShareProductResellerRepository::class,
         UserInterface::class => UserRepository::class,
         VarianProductInterface::class => VarianProductRepository::class,
+        ProductEmailInterface::class => ProductEmailRepository::class
     ];
 
     /**

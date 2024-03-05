@@ -30,6 +30,7 @@ use App\Http\Controllers\Home\HomeProductController;
 use App\Http\Controllers\Home\ProductFavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\ProductEmailController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\User\MyAccountController;
@@ -54,6 +55,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes([
     'verify' => true
 ]);
+
 
 Route::name('home.')->group(function () {
     Route::get('send-email', function () {
@@ -84,6 +86,9 @@ Route::name('home.')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('notification',function(){
+        return view('notifikasi-email')->name('notification');
+    });
 
     Route::name('user.')->group(function () {
         Route::resources([
@@ -142,6 +147,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ]);
             Route::patch('varian-products-update/{product}',[ProductController::class,'varianProductUpdate'])->name('varian.products.update');
             Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');
+
+            // productEmail
+            ROute::post('product-email/{product}',[ProductEmailController::class,'store'])->name('product.email.store');
 
             // update-delete-varianProduct
             Route::patch('varian-products/{varianProduct}',[VarianProductController::class,'update'])->name('update.varian.product');

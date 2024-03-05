@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts
@@ -91,5 +92,15 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     public function product_favorites(): HasMany
     {
         return $this->hasMany(ProductFavorite::class);
+    }
+
+    /**
+     * Get all of the productEmails for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productEmail(): HasOne
+    {
+        return $this->hasOne(ProductEmail::class);
     }
 }
