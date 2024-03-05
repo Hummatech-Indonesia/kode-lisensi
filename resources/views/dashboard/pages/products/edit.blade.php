@@ -289,10 +289,14 @@
 
                 if (discount.val() >= 0 || discount.val() <= 100) {
                     $('#customer_label').text(convertRupiah(customer_discount))
+                }else{
+                    $('#customer_label').text(convertRupiah(seller_price));
                 }
 
                 if (reseller.val() >= 0 || reseller.val() <= 100) {
                     $('#reseller_label').text(convertRupiah(reseller_discount))
+                }else{
+                    $('#reseller_label').text(convertRupiah(seller_price));
                 }
             }
 
