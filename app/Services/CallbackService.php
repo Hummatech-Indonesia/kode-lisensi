@@ -72,7 +72,6 @@ class CallbackService
                     'paid_at' => $paid_at,
                     'product_status' => $product_status,
                     'product_type' => $product_relation->type,
-                    'attachment_file' => $product_relation->attachment_file,
                     'licenses' => [
                         'username' => ($license_relation) ? $license_relation->username : null,
                         'password' => ($license_relation) ? $license_relation->password : null,

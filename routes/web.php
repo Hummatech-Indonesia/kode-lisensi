@@ -56,6 +56,9 @@ Auth::routes([
     'verify' => true
 ]);
 
+Route::get('notifhaha', function () {
+    return view('notif');
+});
 
 Route::name('home.')->group(function () {
     Route::get('send-email', function () {
@@ -86,10 +89,6 @@ Route::name('home.')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('notification',function(){
-        return view('notifikasi-email')->name('notification');
-    });
-
     Route::name('user.')->group(function () {
         Route::resources([
             'profile' => ProfileController::class,
@@ -145,15 +144,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'archive-products' => ArchiveProductController::class,
                 'product-questions' => ProductQuestionController::class
             ]);
-            Route::patch('varian-products-update/{product}',[ProductController::class,'varianProductUpdate'])->name('varian.products.update');
+            Route::patch('varian-products-update/{product}', [ProductController::class, 'varianProductUpdate'])->name('varian.products.update');
             Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');
 
             // productEmail
-            ROute::post('product-email/{product}',[ProductEmailController::class,'store'])->name('product.email.store');
+            ROute::post('product-email/{product}', [ProductEmailController::class, 'store'])->name('product.email.store');
 
             // update-delete-varianProduct
-            Route::patch('varian-products/{varianProduct}',[VarianProductController::class,'update'])->name('update.varian.product');
-            Route::delete('varian-products/{varianProduct}',[VarianProductController::class,'destroy'])->name('delete.varian.product');
+            Route::patch('varian-products/{varianProduct}', [VarianProductController::class, 'update'])->name('update.varian.product');
+            Route::delete('varian-products/{varianProduct}', [VarianProductController::class, 'destroy'])->name('delete.varian.product');
 
             Route::resource('preorder-products', PreorderProductController::class)->only('index');
 
