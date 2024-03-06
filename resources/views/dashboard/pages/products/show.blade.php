@@ -430,7 +430,7 @@
                     <div class="row">
                         <div class="table-responsive category-table mt-2">
                             <div>
-                                <table class="table table-striped" id="product_question_id">
+                                <table class="table table-striped">
                                     <thead class="bg-primary">
                                         <tr>
                                             <th scope="col">No.</th>
@@ -712,11 +712,12 @@
                         serial_key: serialKey
                     },
                     success: (data) => {
-                        showSweetAlert(data, table)
                         $('#addLicensesModal').modal('hide')
+                        showSweetAlert(data, table)
                         updateStock()
                     },
                     error: (err) => {
+                        $('#addLicensesModal').modal('hide')
                         console.log(err)
                     }
                 })
@@ -825,11 +826,12 @@
                         answer: answer
                     },
                     success: (data) => {
-                        showSweetAlert(data, question_table)
                         $('#addQuestionModal').modal('hide')
+                        showSweetAlert(data, question_table)
 
                     },
                     error: (err) => {
+                        $('#addQuestionModal').modal('hide')
                         let errors = err.responseJSON.errors
                         console.log(errors)
                         swal({
