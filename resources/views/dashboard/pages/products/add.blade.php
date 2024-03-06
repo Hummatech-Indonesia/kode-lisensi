@@ -422,12 +422,16 @@
                 const customer_discount = calculateDiscount(seller_price, discount.val())
                 const reseller_discount = calculateDiscount(seller_price, reseller.val())
 
-                if (discount.val() >= 0 || discount.val() <= 100) {
+                if (discount.val() >= 0 && discount.val() <= 100) {
                     $('#customer_label').text(convertRupiah(customer_discount))
+                } else {
+                    $('#customer_label').text(convertRupiah($('#sell_price').val()));
                 }
 
-                if (reseller.val() >= 0 || reseller.val() <= 100) {
+                if (reseller.val() >= 0 && reseller.val() <= 100) {
                     $('#reseller_label').text(convertRupiah(reseller_discount))
+                } else {
+                    $('#reseller_label').text(convertRupiah($('#sell_price').val()));
                 }
 
             })
@@ -489,8 +493,16 @@
 
             let result_discount = sellPrice - (discount / 100 * sellPrice);
             let result_reseller_discount = sellPrice - (reseller_discount / 100 * sellPrice);
-            row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
-            row.find('.customer_label_varian').text(convertRupiah(result_discount));
+            if (discount >= 0 & discount <= 100) {
+                row.find('.customer_label_varian').text(convertRupiah(result_discount));
+            } else {
+                row.find('.customer_label_varian').text(convertRupiah(sellPrice));
+            }
+            if (reseller_discount >= 0 && reseller_discount <= 100) {
+                row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
+            } else {
+                row.find('.reseller_label_varian').text(convertRupiah(sellPrice));
+            }
         });
     </script>
 @endsection

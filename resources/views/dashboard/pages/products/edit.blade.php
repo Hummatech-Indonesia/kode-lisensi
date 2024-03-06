@@ -287,16 +287,16 @@
                 const customer_discount = calculateDiscount(seller_price, discount.val())
                 const reseller_discount = calculateDiscount(seller_price, reseller.val())
 
-                if (discount.val() >= 0 || discount.val() <= 100) {
+                if (discount.val() >= 0 && discount.val() <= 100) {
                     $('#customer_label').text(convertRupiah(customer_discount))
                 }else{
-                    $('#customer_label').text(convertRupiah(seller_price));
+                    $('#customer_label').text(convertRupiah($('#sell_price').val()));
                 }
 
-                if (reseller.val() >= 0 || reseller.val() <= 100) {
+                if (reseller.val() >= 0 && reseller.val() <= 100) {
                     $('#reseller_label').text(convertRupiah(reseller_discount))
                 }else{
-                    $('#reseller_label').text(convertRupiah(seller_price));
+                    $('#reseller_label').text(convertRupiah($('#sell_price').val()));
                 }
             }
 
