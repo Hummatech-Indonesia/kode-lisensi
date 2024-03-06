@@ -66,11 +66,13 @@ class TransactionService
         $discount = (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) ? $product->reseller_discount : $product->discount;
         if ($slug_varian) {
             $varianProduct = $this->varianProduct->getWhere(['product_id' => $product->id, 'slug_varian' => $slug_varian]);
+            $varianProductId = $varianProduct->id;
             $price = CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $discount);
         } else {
+            $varianProductId = null;
             $price = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
         }
-        
+
         $fee = CurrencyHelper::countProductTax($price, 10);
         $amount = CurrencyHelper::countPriceAfterTax($price, 10);
 
@@ -120,6 +122,7 @@ class TransactionService
             'transaction_id' => $transaction['id'],
             'product_id' => $product->id,
             'name' => $data['name'],
+            'varian_product_id' => $varianProductId,
             'phone_number' => $data['phone_number'],
             'email' => $data['email']
         ]);

@@ -15,7 +15,7 @@ class DetailTransaction extends Model implements HasOneProduct, HasOneTransactio
     public $incrementing = false;
     protected $table = 'detail_transactions';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'transaction_id', 'product_id', 'name', 'phone_number', 'email'];
+    protected $fillable = ['id', 'transaction_id', 'varian_product_id', 'product_id', 'name', 'phone_number', 'email'];
     protected $keyType = 'char';
 
     /**
