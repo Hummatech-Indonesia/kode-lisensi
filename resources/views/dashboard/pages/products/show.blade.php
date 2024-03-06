@@ -720,6 +720,25 @@
                         console.log(err)
                     }
                 })
+
+                table = $("#table_id").DataTable({
+                        scrollX: false,
+                        scrollY: '500px',
+                        paging: true,
+                        ordering: true,
+                        responsive: true,
+                        pageLength: 25,
+                        processing: true,
+                        serverSide: true,
+                        searching: true,
+                        ajax: `{{ route('licenses.show', ':id') }}`.replace(':id', id),
+                        columns: columns
+                    });
+
+                    $('#btnLoadData').addClass('disabled')
+                    $('#btnUpdateData').removeClass('disabled')
+
+
             });
 
 
@@ -840,6 +859,39 @@
                         })
                     }
                 })
+
+                question_table = $("#product_question_id").DataTable({
+                    scrollX: false,
+                    scrollY: '300px',
+                    paging: true,
+                    ordering: true,
+                    responsive: true,
+                    pageLength: 25,
+                    processing: true,
+                    serverSide: true,
+                    searching: true,
+                    ajax: "{{ route('product-questions.index') }}",
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
+                        },
+                        {
+                            data: 'question',
+                            name: 'question'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        }
+                    ]
+                });
+
+                $('#btnLoadQuestion').addClass('disabled')
+
             });
 
             $(document).on('click', '.edit-question', function() {
