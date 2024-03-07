@@ -19,6 +19,7 @@ class ProductEmailRepository extends BaseRepository implements ProductEmailInter
                 [
                     'product_id'=>$data['product_id']
                 ],
+                
                 $data
             );
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasCategory;
+use App\Base\Interfaces\HasDetailTransactions;
 use App\Base\Interfaces\HasLicenses;
 use App\Base\Interfaces\HasProductFavorites;
 use App\Base\Interfaces\HasProductQuestions;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts,HasDetailTransactions
 {
     use HasFactory, SoftDeletes, ScopeSearchTrait;
 
@@ -102,5 +103,16 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
     public function productEmail(): HasOne
     {
         return $this->hasOne(ProductEmail::class);
+    }
+
+
+    /**
+     * Get all of the detailTransactions for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function detailTransactions(): HasMany
+    {
+        return $this->hasMany(DetailTransaction::class);
     }
 }

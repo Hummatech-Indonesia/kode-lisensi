@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Base\Interfaces\HasDetailTransactions;
 use App\Base\Interfaces\HasProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class VarianProduct extends Model implements HasProduct
+class VarianProduct extends Model implements HasProduct,HasDetailTransactions
 {
     use HasFactory;
     public $incrementing = false;
@@ -39,4 +41,21 @@ class VarianProduct extends Model implements HasProduct
     {
         return $this->belongsTo(Product::class);
     }
+
+
+    /**
+     * Get all of the detailTransactions for the VarianProduct
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function detailTransactions(): HasMany
+    {
+        return $this->hasMany(DetailTransaction::class);
+    }
+
+    /**
+     * Get all of the detailTransactionsCount for the VarianProduct
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
 }
