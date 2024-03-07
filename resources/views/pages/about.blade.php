@@ -18,7 +18,7 @@
                         </nav>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </section>
     <section class="fresh-vegetable-section section-lg-space">

@@ -13,7 +13,7 @@
            class="text-danger delete-alert"><i
                 class="ri-delete-bin-line"></i></a>
     </li>
-    <li>
+    <li> 
         <a href="#"
            data-toggle="modal"
            data-target="#softModal"

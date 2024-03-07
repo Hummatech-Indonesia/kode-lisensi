@@ -11,7 +11,7 @@
         <a href="#"
            data-toggle="modal"
            data-target="#softModal"
-           data-id='{{ $data->id }}'
+           data-id='{{ $data->id }}' 
            class="text-warning delete-soft"><i
                 class="ri-refresh-line"></i></a>
     </li>

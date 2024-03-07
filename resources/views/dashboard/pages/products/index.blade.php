@@ -26,7 +26,7 @@
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
-                        <tr>
+                        <tr> 
                             <th>#</th>
                             <th>Produk</th>
                             <th>Kategori</th>

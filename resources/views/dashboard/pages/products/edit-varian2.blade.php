@@ -9,7 +9,7 @@
                 <x-validation-errors :errors="$errors"></x-validation-errors>
             @elseif(session('error'))
                 <x-alert-failed></x-alert-failed>
-            @endif
+            @endif 
             <div class="card">
                 <div class="card-body">
                     <div class="card-header-2">

@@ -11,7 +11,7 @@
                 @elseif(session('error'))
                     <x-alert-failed></x-alert-failed>
 
-                @endif
+                @endif 
             </div>
             <div class="col-sm-8 mt-3 mb-3">
                 <div class="alert alert-warning">
