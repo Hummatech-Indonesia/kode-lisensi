@@ -515,12 +515,11 @@
                                                     <textarea class="form-control" id="note" name="note">{{ old('note') }}</textarea>
                                                 </div>
                                             </div>
-
                                             <div class="mb-4 row align-items-center">
                                                 <div class="col-sm-6">
 
                                                     <button class="btn btn-primary" type="submit"><i
-                                                            class="ri-1x me-2"></i>Simpan Data
+                                                            class="ri-1x me-2"></i>Simpan Data 1
                                                     </button>
                                                 </div>
                                             </div>
