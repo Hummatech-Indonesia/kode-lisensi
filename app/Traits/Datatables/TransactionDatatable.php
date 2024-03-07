@@ -30,6 +30,9 @@ trait TransactionDatatable
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.orders.datatables.action', compact('data'));
             })
+            ->editColumn('created_at', function ($data) {
+                return view('dashboard.pages.orders.datatables.created_at', compact('data'));
+            })
             ->rawColumns(['action'])
             ->toJson();
     }

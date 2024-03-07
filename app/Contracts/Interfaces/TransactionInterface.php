@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\Eloquent\GetInterface;
 use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\GetAllnterface;
+use App\Contracts\Interfaces\Eloquent\GetWhereInterface;
 
 interface TransactionInterface extends GetInterface, StoreInterface, ShowInterface, GetAllnterface
 {
@@ -24,4 +25,11 @@ interface TransactionInterface extends GetInterface, StoreInterface, ShowInterfa
      */
 
     public function apiGetPreorder(): mixed;
+
+    /**
+     * getInvoice
+     *
+     * @return mixed
+     */
+    public function getInvoice(): mixed;
 }

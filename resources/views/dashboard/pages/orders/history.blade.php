@@ -26,14 +26,45 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="col-12">
-                        <form id="search-form" class="row justify-content-end" action="" method="GET">
-                            <div class="col-4"><input type="text" name="date"
-                                    value="{{ date('Y-m-d') . ' - ' . date('Y-m-d') }}" class="form-control"></div>
-                            <div class="col-2 d-flex flex-row">
-                                <button class="btn btn-primary me-2" type="submit">Cari</button>
+                    <div class="col-12 d-flex justify-content-between">
+                        <div class="">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Launch demo modal
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="">
+                            <form id="search-form" class="row justify-content-end" action="" method="GET">
+                                <div class="col-8"><input type="text" name="date"
+                                        value="{{ date('Y-m-d') . ' - ' . date('Y-m-d') }}" class="form-control"></div>
+                                <div class="col-4 d-flex flex-row">
+                                    <button class="btn btn-primary me-2" type="submit">Cari</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-12 mt-3">
                         <table id="datatables-responsive" class="table table-striped" style="width:100%">
@@ -147,5 +178,8 @@
                 }
             });
         });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 @endsection

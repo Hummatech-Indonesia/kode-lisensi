@@ -4,10 +4,13 @@ namespace App\Models;
 
 use App\Base\Interfaces\HasCategory;
 use App\Base\Interfaces\HasLicenses;
+use App\Base\Interfaces\HasOneProductEmail;
+use App\Base\Interfaces\HasProductEmails;
 use App\Base\Interfaces\HasProductFavorites;
 use App\Base\Interfaces\HasProductQuestions;
 use App\Base\Interfaces\HasRatings;
 use App\Base\Interfaces\HasTransactions;
+use App\Base\Interfaces\HasVarianEmails;
 use App\Base\Interfaces\HasVarianProducts;
 use App\Traits\ScopeSearchTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts, HasOneProductEmail
 {
     use HasFactory, SoftDeletes, ScopeSearchTrait;
 
