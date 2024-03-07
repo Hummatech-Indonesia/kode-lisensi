@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('detail_transactions', function (Blueprint $table) {
-            $table->foreignUuid('varian_product_id')->constrained()->restrictOnDelete()->nullable()->after('product_id');
+            $table->foreignUuid('varian_product_id')->nullable()->constrained();
         });
     }
 
