@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Base\Interfaces\HasOneProduct;
 use App\Base\Interfaces\HasOneTransaction;
+use App\Base\Interfaces\HasVarianProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class DetailTransaction extends Model implements HasOneProduct, HasOneTransaction
+class DetailTransaction extends Model implements HasOneProduct, HasOneTransaction, HasVarianProduct
 {
     use HasFactory;
 
@@ -37,5 +38,15 @@ class DetailTransaction extends Model implements HasOneProduct, HasOneTransactio
     public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class);
+    }
+
+    /**
+     * varianProduct
+     *
+     * @return BelongsTo
+     */
+    public function varianProduct(): BelongsTo
+    {
+        return $this->belongsTo(VarianProduct::class);
     }
 }

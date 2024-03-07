@@ -61,7 +61,18 @@ class TransactionService
     {
         $data = $request->validated();
 
-        $external_id = "invoice-" . Uuid::uuid();
+        $transaction = $this->transaction->getInvoice();
+        $getYear = substr(now()->format('Y'), -2);
+        if ($transaction) {
+            $invoice_id = substr($transaction->invoice_id, -4);
+            $invoice_id = intval($invoice_id);
+            $integer = $invoice_id + 1;
+            $length = 4;
+            $invoice_id = str_pad(intval($integer), $length, "0", STR_PAD_LEFT);
+            $external_id = "KLHM" . $getYear . $invoice_id;
+        } else {
+            $external_id = "KLHM" . $getYear . "0001";
+        }
         $license_id = null;
         $discount = (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) ? $product->reseller_discount : $product->discount;
         if ($slug_varian) {
@@ -88,6 +99,7 @@ class TransactionService
             'order_items' => [
                 [
                     'name' => $product->name,
+                    'sku' => $slug_varian,
                     'price' => $amount,
                     'quantity' => 1,
                     'product_url' => config('app.url') . "products/" . $product->slug,
@@ -96,7 +108,7 @@ class TransactionService
             ],
             'return_url' => config('app.url') . "checkout/" . $external_id . "/success",
             'expired_time' => (time() + (30 * 60)),
-            'signature' => $signature
+            'signature' => $signature,
         ];
 
         $createInvoice = $this->service->handleCreateTransaction($pay);

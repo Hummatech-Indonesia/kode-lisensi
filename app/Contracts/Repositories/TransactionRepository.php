@@ -87,7 +87,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     {
         return $this->model->query()
             ->where('invoice_id', $id)
-            ->with(['license.product', 'detail_transaction.product'])
+            ->with(['license.product', 'detail_transaction.product', 'detail_transaction.varianProduct'])
             ->firstOrFail();
     }
 
@@ -115,5 +115,17 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ]);
     }
 
-    
+    /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getInvoice(): mixed
+    {
+        return $this->model->query()
+            ->where('invoice_id', 'LIKE', '%' . "KLHM" . '%')
+            ->orderByDesc('created_at')
+            ->first();
+    }
 }

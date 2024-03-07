@@ -48,7 +48,6 @@ class CallbackService
             $buyer = UserHelper::instantGetUser($data->user_id);
 
             $license_status = (ProductStatusEnum::AVAILABLE->value === $product_status) ? LicenseStatusEnum::COMPLETED->value : LicenseStatusEnum::PROCESSED->value;
-
             $data->update([
                 'paid_amount' => $request->total_amount,
                 'paid_at' => $paid_at,
@@ -62,14 +61,12 @@ class CallbackService
                 [
                     'name' => $detail->name,
                     'email' => $detail->email,
+                    'product' => $product_relation,
                     'invoice_id' => $data->invoice_id,
                     'pack_name' => $product_relation->name,
                     'pack_price' => $request->amount_received,
-                    'quantity' => 1,
-                    'total_amount' => $request->total_amount,
-                    'payment_channel' => $request->payment_method_code,
-                    'payment_method' => $request->payment_method,
                     'paid_at' => $paid_at,
+                    'varian_product' => $detail->varianProduct->name,
                     'product_status' => $product_status,
                     'product_type' => $product_relation->type,
                     'licenses' => [

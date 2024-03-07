@@ -26,7 +26,8 @@
     <div class="container" style="margin: 2rem">
 
 
-        <span class="fw-bold">License Key Office 2021</span>
+        <h2 style="text-align: center; margin-bottom:1.5rem">Terimakasih Telah Membeli Produk Kami</h2>
+        <h4>License Key Office 2021</h4>
 
         <p>SADH-89JK-SDHUA-SD878</p>
 
@@ -40,7 +41,7 @@
 
 
 
-        <h4 class="text-center mt-3">Panduan Aktifitas Office 2021:</h4>
+        <h4 class="mt-3" style="text-align: center">Panduan Aktifitas Office 2021:</h4>
 
         <p>1.Jalankan salah satu produk Office,misalkan Word</p>
 
@@ -68,7 +69,7 @@
 
 
 
-        <h4 class="text-center mt-3">PERHATIAN:</h4>
+        <h4 class="mt-3" style="text-align: center">PERHATIAN:</h4>
 
         <p>1. License key berlaku pada device yang sama, sehingga selama tidak ganti device, bisa dipakai selamanya.
 
