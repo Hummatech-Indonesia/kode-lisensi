@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts, HasOneProductEmail
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts, HasOneProductEmail,HasDetailTransactions
 {
     use HasFactory, SoftDeletes, ScopeSearchTrait;
 
