@@ -61,7 +61,7 @@
                 <div class="col-xxl-12 col-xl-12">
                     <div class="title title-flex">
                         <div>
-                            <h2>Produk Terlaris</h2>
+                            <h2>Produk Terlaris 1</h2>
                             <span class="title-leaf">
                                 <svg class="icon-width">
                                     <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
@@ -143,19 +143,12 @@
                                                 </h4>
                                             </h6>
                                             <h5 class="price mt-3">
-                                                    @auth
-                                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                            <span
-                                                                class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
-                                                            @if ($product->reseller_discount != 0)
-                                                                <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                                            @endif
-                                                        @else
-                                                            <span
-                                                                class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
-                                                            @if ($product->discount != 0)
-                                                                <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
-                                                            @endif
+                                                @auth
+                                                    @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                        <span
+                                                            class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                        @if ($product->reseller_discount != 0)
+                                                            <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                         @endif
                                                     @else
                                                         <span
@@ -163,7 +156,14 @@
                                                         @if ($product->discount != 0)
                                                             <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                         @endif
-                                                    @endauth
+                                                    @endif
+                                                @else
+                                                    <span
+                                                        class="theme-color">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}</span>
+                                                    @if ($product->discount != 0)
+                                                        <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
+                                                    @endif
+                                                @endauth
 
                                             </h5>
                                         </div>
