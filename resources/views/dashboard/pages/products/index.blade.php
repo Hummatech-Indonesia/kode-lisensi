@@ -1,6 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('css')
     <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 @section('content')
     <div class="card card-table">
@@ -26,7 +27,7 @@
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
-                        <tr> 
+                        <tr>
                             <th>#</th>
                             <th>Produk</th>
                             <th>Kategori</th>

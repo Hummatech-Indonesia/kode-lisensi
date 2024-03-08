@@ -468,7 +468,6 @@
                             </div>
 
                             <div class="note-box product-packege mt-5 justify-content-center">
-                                @if ($product->status === ProductStatusEnum::AVAILABLE->value)
                                     @if ($product->licenses_count > 0)
                                         @if ($product->varianProducts->first())
                                             <a id="buy-product-varian"
@@ -483,11 +482,6 @@
                                             telah habis
                                         </button>
                                     @endif
-                                @else
-                                    <a href="{{ route('checkout', $product->slug) }}"
-                                        class="btn btn-md bg-dark cart-button text-white w-50">Preorder Produk
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </div>
