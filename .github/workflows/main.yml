@@ -22,11 +22,11 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.1
       with:
         # ftp server
-        server: kodelisensi.com
+        server: ftp.getjurnal.com
         # ftp username
-        username: kodelisensi
+        username: kodelisensi@kodelisensi.com
         # ftp password
-        password: Bismillahlaunching
+        password: T5JL^3Rrz5&;
         # Server port to connect to (read your web hosts docs)
         port: 21
         # protocol to deploy with - ftp, ftps, or ftps-legacy
