@@ -201,7 +201,7 @@
 
                                         </ul>
                                         @if (RatingHelper::sumProductRatings($product->id)['sumRating'] == 0)
-                                            <span class="review">Belum ada ulasan 1</span>
+                                            <span class="review">Belum ada ulasan</span>
                                         @else
                                             <span
                                                 class="review">{{ RatingHelper::sumProductRatings($product->id)['sumRating'] }}
@@ -468,7 +468,22 @@
                             </div>
 
                             <div class="note-box product-packege mt-5 justify-content-center">
-                                @if ($product->licenses_count > 0)
+                                @if ($product->status === ProductStatusEnum::AVAILABLE->value)
+                                    @if ($product->licenses_count > 0)
+                                        @if ($product->varianProducts->first())
+                                            <a id="buy-product-varian"
+                                                href="{{ route('checkout', [$product->slug, $product->varianProducts[0]->slug]) }}"
+                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                        @else
+                                            <a href="{{ route('checkout', $product->slug) }}"
+                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                        @endif
+                                    @else
+                                        <button class="btn btn-md bg-danger cart-button text-white w-50">Stok produk
+                                            telah habis
+                                        </button>
+                                    @endif
+                                @else
                                     @if ($product->varianProducts->first())
                                         <a id="buy-product-varian"
                                             href="{{ route('checkout', [$product->slug, $product->varianProducts[0]->slug]) }}"
@@ -477,11 +492,8 @@
                                         <a href="{{ route('checkout', $product->slug) }}"
                                             class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
                                     @endif
-                                @else
-                                    <button class="btn btn-md bg-danger cart-button text-white w-50">Stok produk
-                                        telah habis
-                                    </button>
                                 @endif
+
                             </div>
                         </div>
                     </div>
