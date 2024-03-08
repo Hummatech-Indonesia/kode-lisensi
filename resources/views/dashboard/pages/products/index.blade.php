@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('css')
     <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
-
 @endsection
 @section('content')
     <div class="card card-table">
@@ -70,7 +69,11 @@
                     },
                     {
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        render: function(data, type, row) {
+                            return '<a href="{{ route('home.products.show', ':slug') }}'.replace(
+                                ':slug', row.slug) + '">' + data + '</a>';
+                        }
                     },
                     {
                         data: 'category.name',
