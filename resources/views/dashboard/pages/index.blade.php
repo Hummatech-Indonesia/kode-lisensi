@@ -92,7 +92,7 @@
                                         <img width="150px" src="{{ asset('storage/' . $seller->photo) }}"
                                              alt="{{ $seller->name }}">
                                     </td>
-                                    <td>{{ $seller->name }}</td>
+                                    <td><a href="{{route('home.products.show',$seller->slug)}}" class="text-dark">{{ $seller->name }}</a></td>
                                     <td>{{ $seller->category->name }}</td>
                                     <td>
                                         @if($seller->status === ProductStatusEnum::PREORDER->value)
@@ -147,7 +147,7 @@
                                 <tbody>
                                 @forelse($lowStockProduct as $products)
                                     <tr>
-                                        <td>{{ $products->name }}</td>
+                                        <td><a href="{{route('home.products.show',$products->slug)}}" class="text-dark">{{ $products->name }}</a></td>
                                         <td>
                                             @if($products->licenses_count > 0)
                                                 <span
@@ -250,7 +250,7 @@
                                     <tr>
                                         <td>{{ $transaction->invoice_id }}</td>
                                         <td>{{ $transaction->user->name }}</td>
-                                        <td>{{ $transaction->detail_transaction->product->name }}</td>
+                                        <td><a href="{{route('home.products.show',$transaction->detail_transaction->product->slug)}}" class="text-dark">{{ $transaction->detail_transaction->product->name }}</a></td>
                                         <td>{{ CurrencyHelper::rupiahCurrency($transaction->amount)  }}</td>
                                         <td>
                                             @if(InvoiceStatusEnum::PAID->value === $transaction->invoice_status || InvoiceStatusEnum::SETTLED->value === $transaction->invoice_status)
