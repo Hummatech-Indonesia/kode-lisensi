@@ -28,7 +28,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Produk</th>
+                            <th>Produk1</th>
                             <th>Kategori</th>
                             <th>Stok</th>
                             <th>Harga Beli</th>
