@@ -33,6 +33,7 @@ use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductEmailController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UpdateIdInvoiceController;
 use App\Http\Controllers\User\MyAccountController;
 use App\Http\Controllers\User\MyFavoriteController;
 use App\Http\Controllers\User\MyHistoryController;
@@ -181,6 +182,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 });
                 Route::get('order-histories', [OrderController::class, 'history'])->name('history');
             });
+
+            Route::name('update.id.invoice.')->group(function () {
+                Route::prefix('update-id-invoice')->group(function () {
+                    Route::post('/', [UpdateIdInvoiceController::class, 'create'])->name('create');
+                });
+            });
+
 
 
             Route::name('users.')->prefix('users')->group(function () {

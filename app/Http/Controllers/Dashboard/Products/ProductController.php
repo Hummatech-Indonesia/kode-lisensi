@@ -76,9 +76,9 @@ class ProductController extends Controller
     public function edit(Product $product): View
     {
         $categories = $this->category->get();
-        if(!$product->varianProducts->isEmpty()){
-            return view('dashboard.pages.products.edit-varian2',compact('product','categories'));
-        }else{
+        if (!$product->varianProducts->isEmpty()) {
+            return view('dashboard.pages.products.edit-varian2', compact('product', 'categories'));
+        } else {
             return view('dashboard.pages.products.edit', compact('product', 'categories'));
         }
     }
@@ -128,10 +128,14 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request): RedirectResponse
     {
-        if (!$data = $this->productService->store($request)) {
+        $service =  $this->productService->store($request);
+        if (!$data = $service) {
             return back()->with('error', trans('alert.file_exist'));
         }
 
+        if ($service == false) {
+            return back()->withErrors('Nama Produk Tidak Boleh Sama');
+        }
         $product = $this->product->store($data);
 
         if ($product->status == ProductStatusEnum::PREORDER->value) {
@@ -149,8 +153,10 @@ class ProductController extends Controller
      */
     public function varianProductStore(VarianProductStoreRequest $request): RedirectResponse
     {
-        if (!$data = $this->productService->varianProductStore($request)) {
-            return back()->with('error', trans('alert.file_exist'));
+        $data = $this->productService->varianProductStore($request);
+
+        if ($data == false) {
+            return back()->withErrors('Nama Varian Produk Tidak Boleh Sama');
         }
         $product = $this->product->store($data);
 

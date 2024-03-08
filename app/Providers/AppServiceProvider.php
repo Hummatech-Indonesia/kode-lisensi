@@ -27,6 +27,7 @@ use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Interfaces\SliderInterface;
 use App\Contracts\Interfaces\TermInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Contracts\Interfaces\UpdateIdInvoiceInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Interfaces\VarianProductInterface;
 use App\Contracts\Repositories\AboutRepository;
@@ -54,6 +55,7 @@ use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\SliderRepository;
 use App\Contracts\Repositories\TermRepository;
 use App\Contracts\Repositories\TransactionRepository;
+use App\Contracts\Repositories\UpdateIdInvoiceRepository;
 use App\Contracts\Repositories\UserRepository;
 use App\Contracts\Repositories\VarianProductRepository;
 use App\Http\Requests\FcmTokenRequest;
@@ -91,7 +93,8 @@ class AppServiceProvider extends ServiceProvider
         ShareProductResellerInterface::class => ShareProductResellerRepository::class,
         UserInterface::class => UserRepository::class,
         VarianProductInterface::class => VarianProductRepository::class,
-        ProductEmailInterface::class => ProductEmailRepository::class
+        ProductEmailInterface::class => ProductEmailRepository::class,
+        UpdateIdInvoiceInterface::class => UpdateIdInvoiceRepository::class
     ];
 
     /**

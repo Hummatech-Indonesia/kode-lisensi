@@ -95,6 +95,8 @@ class OrderController extends Controller
      */
     public function history(): View
     {
-        return view('dashboard.pages.orders.history');
+        $invoice_id = $this->transaction->getInvoice();
+        $invoice_id = substr($invoice_id->invoice_id, -4);
+        return view('dashboard.pages.orders.history', ['invoice_id' => $invoice_id]);
     }
 }

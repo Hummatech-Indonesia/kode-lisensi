@@ -85,7 +85,7 @@ class ProductService implements ShouldHandleFileUpload
         }
 
         if ($duplicates) {
-            dd("awokawok kembar");
+            return false;
         }
 
         return [

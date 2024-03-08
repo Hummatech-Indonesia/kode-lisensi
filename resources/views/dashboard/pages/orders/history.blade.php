@@ -5,6 +5,16 @@
 @endsection
 @section('content')
     <h1 class="h3 mb-3">Halaman Riwayat Transaksi</h1>
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger" role="alert">
+            {{ $error }}
+        </div>
+    @endforeach
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-sm-6 col-xxl-6 col-lg-6">
@@ -29,32 +39,8 @@
                     <div class="col-12 d-flex justify-content-between">
                         <div class="">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Launch demo modal
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ...
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <a id="btnUpdateIdInvoice" data-bs-toggle="modal" data-bs-target="#updateIdInvoice"
+                                class="btn btn-primary">Update ID Invoice</a>
                         </div>
                         <div class="">
                             <form id="search-form" class="row justify-content-end" action="" method="GET">
@@ -83,6 +69,34 @@
                         </table>
                     </div>
 
+                </div>
+            </div>
+            <div class="modal fade" id="updateIdInvoice" tabindex="-1" role="dialog" aria-hidden="true"
+                data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Update Id Invoice</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('update.id.invoice.create') }}" method="POST">
+                            @csrf
+                            <div class="modal-body m-3">
+                                <div id="divUsername" class="mb-4 row align-items-center">
+                                    <label class="form-label-title col-sm-3 mb-0">Update Id Invoice <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-9">
+                                        <input id="addUsername" autocomplete="off" name="new_invoice" class="form-control"
+                                            type="text" value="" placeholder="{{ $invoice_id }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
