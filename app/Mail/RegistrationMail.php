@@ -50,11 +50,8 @@ class RegistrationMail extends Mailable
      *
      * @return Content
      */
-
     public function content(): Content
     {
-        return new Content(
-            view: 'emails.RegistrationMail',
-        );
+        return (new Content())->view('emails.RegistrationMail');
     }
 }

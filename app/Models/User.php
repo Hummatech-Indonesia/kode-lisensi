@@ -73,6 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
         $this->notify(new RegistrationNotification);
     }
 
+
     /**
      * Send the queued password reset verification notification.
      *

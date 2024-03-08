@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\LicenseInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Contracts\Interfaces\UpdateIdInvoiceInterface;
 use App\Contracts\Interfaces\VarianProductInterface;
 use App\Enums\LicenseStatusEnum;
 use App\Enums\ProductStatusEnum;
@@ -27,14 +28,16 @@ class TransactionService
     private TripayService $service;
     private FcmTokenInterface $fcmToken;
     private VarianProductInterface $varianProduct;
+    private UpdateIdInvoiceInterface $updateIdInvoice;
 
-    public function __construct(TransactionInterface $transaction, LicenseInterface $license, TripayService $service, FcmTokenInterface $fcmToken, VarianProductInterface $varianProduct)
+    public function __construct(TransactionInterface $transaction, LicenseInterface $license, TripayService $service, FcmTokenInterface $fcmToken, VarianProductInterface $varianProduct, UpdateIdInvoiceInterface $updateIdInvoice)
     {
         $this->transaction = $transaction;
         $this->license = $license;
         $this->service = $service;
         $this->fcmToken = $fcmToken;
         $this->varianProduct = $varianProduct;
+        $this->updateIdInvoice = $updateIdInvoice;
     }
 
     /**
@@ -61,18 +64,25 @@ class TransactionService
     {
         $data = $request->validated();
 
+        $updateIdInvoice = $this->updateIdInvoice->get();
         $transaction = $this->transaction->getInvoice();
         $getYear = substr(now()->format('Y'), -2);
-        if ($transaction) {
-            $invoice_id = substr($transaction->invoice_id, -4);
-            $invoice_id = intval($invoice_id);
-            $integer = $invoice_id + 1;
-            $length = 4;
-            $invoice_id = str_pad(intval($integer), $length, "0", STR_PAD_LEFT);
-            $external_id = "KLHM" . $getYear . $invoice_id;
+        if ($updateIdInvoice == null) {
+            if ($transaction) {
+                $invoice_id = substr($transaction->invoice_id, -4);
+                $invoice_id = intval($invoice_id);
+                $integer = $invoice_id + 1;
+                $length = 4;
+                $invoice_id = str_pad(intval($integer), $length, "0", STR_PAD_LEFT);
+                $external_id = "KLHM" . $getYear . $invoice_id;
+            } else {
+                $external_id = "KLHM" . $getYear . "0001";
+            }
         } else {
-            $external_id = "KLHM" . $getYear . "0001";
+            $external_id = "KLHM" . $getYear . $updateIdInvoice->new_invoice;
+            $this->updateIdInvoice->delete($updateIdInvoice->id);
         }
+
         $license_id = null;
         $discount = (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) ? $product->reseller_discount : $product->discount;
         if ($slug_varian) {

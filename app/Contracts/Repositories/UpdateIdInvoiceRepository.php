@@ -25,4 +25,27 @@ class UpdateIdInvoiceRepository extends BaseRepository implements UpdateIdInvoic
         return $this->model->query()
             ->create($data);
     }
+
+    /**
+     * get
+     *
+     * @return mixed
+     */
+    public function get(): mixed
+    {
+        return $this->model->query()
+            ->first();
+    }
+
+    /**
+     * delete
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function delete(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->delete();
+    }
 }
