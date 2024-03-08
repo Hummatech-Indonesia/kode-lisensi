@@ -201,7 +201,7 @@
 
                                         </ul>
                                         @if (RatingHelper::sumProductRatings($product->id)['sumRating'] == 0)
-                                            <span class="review">Belum ada ulasan</span>
+                                            <span class="review">Belum ada ulasan 1</span>
                                         @else
                                             <span
                                                 class="review">{{ RatingHelper::sumProductRatings($product->id)['sumRating'] }}
@@ -468,20 +468,20 @@
                             </div>
 
                             <div class="note-box product-packege mt-5 justify-content-center">
-                                    @if ($product->licenses_count > 0)
-                                        @if ($product->varianProducts->first())
-                                            <a id="buy-product-varian"
-                                                href="{{ route('checkout', [$product->slug, $product->varianProducts[0]->slug]) }}"
-                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
-                                        @else
-                                            <a href="{{ route('checkout', $product->slug) }}"
-                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
-                                        @endif
+                                @if ($product->licenses_count > 0)
+                                    @if ($product->varianProducts->first())
+                                        <a id="buy-product-varian"
+                                            href="{{ route('checkout', [$product->slug, $product->varianProducts[0]->slug]) }}"
+                                            class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
                                     @else
-                                        <button class="btn btn-md bg-danger cart-button text-white w-50">Stok produk
-                                            telah habis
-                                        </button>
+                                        <a href="{{ route('checkout', $product->slug) }}"
+                                            class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
                                     @endif
+                                @else
+                                    <button class="btn btn-md bg-danger cart-button text-white w-50">Stok produk
+                                        telah habis
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -490,36 +490,38 @@
                         <div class="product-section-box">
                             <ul class="nav nav-tabs custom-nav" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                        <button style="font-size:15px;" class="nav-link active" id="description-tab" data-bs-toggle="tab"
-                                        data-bs-target="#description" type="button" role="tab"
+                                    <button style="font-size:15px;" class="nav-link active" id="description-tab"
+                                        data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab"
                                         aria-controls="description" aria-selected="true">Deskripsi
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button style="font-size:15px;" class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info"
-                                        type="button" role="tab" aria-controls="info" aria-selected="false">Fitur
+                                    <button style="font-size:15px;" class="nav-link" id="info-tab" data-bs-toggle="tab"
+                                        data-bs-target="#info" type="button" role="tab" aria-controls="info"
+                                        aria-selected="false">Fitur
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button style="font-size:15px;" class="nav-link" id="question-tab" data-bs-toggle="tab"
-                                        data-bs-target="#question" type="button" role="tab"
+                                    <button style="font-size:15px;" class="nav-link" id="question-tab"
+                                        data-bs-toggle="tab" data-bs-target="#question" type="button" role="tab"
                                         aria-controls="question" aria-selected="false">Pertanyaan
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button style="font-size:15px;" class="nav-link" id="care-tab" data-bs-toggle="tab" data-bs-target="#care"
-                                        type="button" role="tab" aria-controls="care" aria-selected="false">Tata
+                                    <button style="font-size:15px;" class="nav-link" id="care-tab" data-bs-toggle="tab"
+                                        data-bs-target="#care" type="button" role="tab" aria-controls="care"
+                                        aria-selected="false">Tata
                                         Cara Instalasi
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button style="font-size:15px;" class="nav-link" id="review-tab" data-bs-toggle="tab"
-                                        data-bs-target="#review" type="button" role="tab" aria-controls="review"
-                                        aria-selected="false">Ulasan Pelanggan
+                                    <button style="font-size:15px;" class="nav-link" id="review-tab"
+                                        data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab"
+                                        aria-controls="review" aria-selected="false">Ulasan Pelanggan
                                     </button>
                                 </li>
                             </ul>

@@ -393,7 +393,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Pertanyaan</th>
-                                            <th>Aksi1</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
