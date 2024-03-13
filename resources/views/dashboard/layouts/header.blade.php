@@ -6,8 +6,8 @@
 <meta name="keywords"
       content="Kode Lisensi Dashboard">
 <meta name="author" content="Kode Lisensi">
-<link rel="icon" href="{{ asset('dashboard_assets/images/favicon.png') }}" type="image/x-icon">
-<link rel="shortcut icon" href="{{ asset('dashboard_assets/images/favicon.png') }}" type="image/x-icon">
+<link rel="icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
 <title>{{ config('app.name') }}</title>
 
 <!-- CSRF Token -->

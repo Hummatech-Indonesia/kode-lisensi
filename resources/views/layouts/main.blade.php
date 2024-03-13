@@ -10,7 +10,7 @@
     <meta name="keywords" content="{{ $keywords ?? config('app.name') }}">
     <meta name="author" content="{{ $author ?? config('app.name') }}">
     @yield('meta')
-    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
     <title>{{ $title ?? config('app.name') }}</title>
 
     <style>
