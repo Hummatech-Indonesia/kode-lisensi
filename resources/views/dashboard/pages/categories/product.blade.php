@@ -61,7 +61,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('products.index') }}",
+                ajax: "{{ route('categories.show', $category->id) }}",
                 columns: [{
                         data: 'photo',
                         name: 'photo'
@@ -76,10 +76,7 @@
                     },
                     {
                         data: 'category.name',
-                        name: 'category.name',
-                        render: function(data, type, row) {
-                            return '<a href="{{ route('categories.show', ':category.id') }}'.replace(':category.id', row.category.id) + '">' + data + '</a>';
-                        }
+                        name: 'category.name'
                     },
                     {
                         data: 'stock',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\CategoryInterface;
+use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Enums\UploadDiskEnum;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
@@ -10,17 +11,20 @@ use App\Http\Requests\Dashboard\CategoryRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
     private CategoryService $categoryService;
     private CategoryInterface $category;
+    private ProductInterface $product;
 
-    public function __construct(CategoryService $categoryService, CategoryInterface $category)
+    public function __construct(CategoryService $categoryService, CategoryInterface $category, ProductInterface $product)
     {
         $this->categoryService = $categoryService;
         $this->category = $category;
+        $this->product = $product;
     }
 
     /**
@@ -116,11 +120,16 @@ class CategoryController extends Controller
 
         return back()->with('success', trans('alert.delete_success'));
     }
-    public function show(Category $category){
-        return 'hi';
+    public function show(Category $category, Request $request)
+    {
+        if ($request->ajax())
+            return $this->product->showCategory($category->id);
+
+        return view('dashboard.pages.categories.product', compact('category'));
     }
-    public function getAjax(){
-        $categories=$this->category->get();
+    public function getAjax()
+    {
+        $categories = $this->category->get();
         return ResponseHelper::success($categories);
     }
 }

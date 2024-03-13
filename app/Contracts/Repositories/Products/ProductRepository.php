@@ -29,6 +29,16 @@ class ProductRepository extends BaseRepository implements ProductInterface
      * @throws Exception
      */
 
+    public function showCategory(mixed $id): mixed
+    {
+        return $this->ProductMockup(
+            $this->model->query()
+                ->with('category')
+
+                ->where('category_id', $id)
+        );
+    }
+
     public function preorder(): mixed
     {
         return $this->ProductMockup($this->model->query()

@@ -12,4 +12,14 @@ use App\Contracts\Interfaces\Eloquent\SoftDeleteInterface;
 
 interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderProductInterface, ShowSoftDeleteInterface, CursorPaginateInterface, ShowSlugInterface, GetAllnterface,GetWhereInterface
 {
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     */
+
+     public function showCategory(mixed $id): mixed;
 }
+

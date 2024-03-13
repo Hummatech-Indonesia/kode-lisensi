@@ -212,7 +212,8 @@
                     // $('#test').append('test');
                     $('#listCategory').append('<a href="{{ route('categories.show', '') }}/' + data
                         .id + '">' + data.name + '</a>');
-                })
+                });
+
 
             },
             error: function(xhr, status, error) {

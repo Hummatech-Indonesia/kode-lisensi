@@ -4,10 +4,12 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Models\Category;
+use App\Traits\Datatables\ProductDatatable;
 use Illuminate\Database\QueryException;
 
 class CategoryRepository extends BaseRepository implements CategoryInterface
 {
+    use ProductDatatable;
     public function __construct(Category $category)
     {
         $this->model = $category;
@@ -25,7 +27,8 @@ class CategoryRepository extends BaseRepository implements CategoryInterface
         try {
             $this->show($id)->delete($id);
         } catch (QueryException $e) {
-            if ($e->errorInfo[1] == 1451) return false;
+            if ($e->errorInfo[1] == 1451)
+                return false;
         }
 
         return true;
