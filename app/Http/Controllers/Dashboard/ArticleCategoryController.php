@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\ArticleCategoryInterface;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ArticleCategoryRequest;
 use App\Models\ArticleCategory;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -97,4 +99,5 @@ class ArticleCategoryController extends Controller
 
         return to_route('article-categories.index')->with('success', trans('alert.delete_success'));
     }
+
 }

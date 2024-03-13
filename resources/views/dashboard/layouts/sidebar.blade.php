@@ -9,6 +9,9 @@
             <span>Dashboard</span>
         </a>
     </li>
+
+
+
     @role('author')
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:void(0)">
@@ -27,12 +30,27 @@
     @endrole
 
     @role('admin')
-        <li class="sidebar-list">
+        {{-- <li class="sidebar-list">
             <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('categories.*') ? 'active' : '' }}"
                 href="{{ route('categories.index') }}">
                 <i class="ri-list-check-2"></i>
                 <span>Kategori</span>
             </a>
+        </li> --}}
+
+
+
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                <i class="ri-list-check-2"></i>
+                <span>Kategori</span>
+            </a>
+            <ul class="sidebar-submenu">
+                <li><a href="{{ route('categories.index') }}">
+                        <span> Tambah Kategori</span>
+                    </a></li>
+                <li id="listCategory"></li>
+            </ul>
         </li>
 
         <li class="sidebar-list">

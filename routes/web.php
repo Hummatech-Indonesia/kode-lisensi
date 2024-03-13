@@ -138,7 +138,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
 
 
-            Route::resource('categories', CategoryController::class)->except('show');
+            Route::resource('categories', CategoryController::class);
+            Route::get('categories-ajax',[CategoryController::class,'getAjax'])->name('categories.ajax');
 
             Route::resources([
                 'products' => ProductController::class,

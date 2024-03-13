@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Enums\UploadDiskEnum;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CategoryRequest;
 use App\Models\Category;
@@ -114,5 +115,12 @@ class CategoryController extends Controller
         $this->categoryService->remove($category->icon);
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+    public function show(Category $category){
+        return 'hi';
+    }
+    public function getAjax(){
+        $categories=$this->category->get();
+        return ResponseHelper::success($categories);
     }
 }
