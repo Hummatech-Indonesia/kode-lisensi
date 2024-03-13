@@ -16,6 +16,7 @@ class LicenseRequest extends BaseRequest
     {
         return [
             'username' => 'nullable',
+            'description'=>'nullable',
             'password' => 'nullable',
             'serial_key' => 'nullable'
         ];
@@ -31,6 +32,7 @@ class LicenseRequest extends BaseRequest
     {
         return [
             'username.required' => 'Username tidak boleh kosong',
+            'description.required' => 'Description tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
             'serial_key.required' => 'Serial key tidak boleh kosong'
         ];

@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-header-2">
-                        <h5>Informasi Produk1</h5> 
+                        <h5>Informasi Produk1</h5>
                     </div>
 
                     <div class="mb-4 row align-items-center">
@@ -289,6 +289,8 @@
                                 </option>
                                 <option {{ old('type') == 'serial' ? 'selected' : '' }} value="serial">Serial
                                     Key
+                                </option>
+                                <option {{ old('type') == 'description' ? 'selected' : '' }} value="description">Deskripsi
                                 </option>
                             </select>
                         </div>

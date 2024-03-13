@@ -77,7 +77,11 @@ class ProductRepository extends BaseRepository implements ProductInterface
             $product = $this->show($id);
             $product->update($data);
 
-            $product->varianProducts()->delete();
+            try {
+                $product->varianProducts()->delete();
+            } catch (Exception $e) {
+                return $product;
+            }
 
             for ($i = 0; $i < count($data['name_varian']); $i++) {
                 $product->varianProducts()->create([
@@ -136,7 +140,8 @@ class ProductRepository extends BaseRepository implements ProductInterface
                     ->forceDelete();
             }
         } catch (QueryException $e) {
-            if ($e->errorInfo[1] == 1451) return false;
+            if ($e->errorInfo[1] == 1451)
+                return false;
         }
 
         return true;
@@ -190,9 +195,11 @@ class ProductRepository extends BaseRepository implements ProductInterface
                 }
             ])
             ->withCount('product_ratings')
-            ->withSum(['product_ratings' => function ($query) {
-                $query->where('status', RatingStatusEnum::APPROVED->value);
-            }], 'rating')
+            ->withSum([
+                'product_ratings' => function ($query) {
+                    $query->where('status', RatingStatusEnum::APPROVED->value);
+                }
+            ], 'rating')
             ->latest()
             ->cursorPaginate($perPage, $columns, $cursorName, $cursor);
     }
@@ -214,9 +221,11 @@ class ProductRepository extends BaseRepository implements ProductInterface
                 }
             ])
             ->withCount('product_ratings')
-            ->withSum(['product_ratings' => function ($query) {
-                $query->where('status', RatingStatusEnum::APPROVED->value);
-            }], 'rating')
+            ->withSum([
+                'product_ratings' => function ($query) {
+                    $query->where('status', RatingStatusEnum::APPROVED->value);
+                }
+            ], 'rating')
             ->firstOrFail();
     }
 
@@ -253,8 +262,8 @@ class ProductRepository extends BaseRepository implements ProductInterface
     {
         return $this->model->query()
             ->where('slug', $data['slug'])
-            ->with('varianProducts',function ($query) use ($data) {
-                $query->where('slug',$data['slug_varian']);
+            ->with('varianProducts', function ($query) use ($data) {
+                $query->where('slug', $data['slug_varian']);
             })
             ->first();
     }

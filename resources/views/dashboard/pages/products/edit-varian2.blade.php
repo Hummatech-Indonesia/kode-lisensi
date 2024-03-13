@@ -9,18 +9,17 @@
                 <x-validation-errors :errors="$errors"></x-validation-errors>
             @elseif(session('error'))
                 <x-alert-failed></x-alert-failed>
-            @endif 
+            @endif
             <div class="card">
                 <div class="card-body">
                     <div class="card-header-2">
                         <h5>Informasi Produk</h5>
-                        <h4>Edit varian 2</h4>
                     </div>
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">Nama <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input value="{{ old('name',$product->name) }}" autocomplete="off" name="name" class="form-control"
-                                type="text" placeholder="Windows 10 Professional">
+                            <input value="{{ old('name', $product->name) }}" autocomplete="off" name="name"
+                                class="form-control" type="text" placeholder="Windows 10 Professional">
                         </div>
                     </div>
 
@@ -30,7 +29,8 @@
                         <div class="col-sm-9">
                             <select class="js-example-basic-single w-100" name="category_id">
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{ $category->id = $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}"
+                                        {{ $product->category_id = $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}</option>
                                 @endforeach
                             </select>
@@ -41,8 +41,8 @@
                         <label class="form-label-title col-sm-3 mb-0">Deskripsi singkat <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input value="{{ old('short_description',$product->short_description) }}" autocomplete="off" name="short_description"
-                                class="form-control" type="text"
+                            <input value="{{ old('short_description', $product->short_description) }}" autocomplete="off"
+                                name="short_description" class="form-control" type="text"
                                 placeholder="Lisensi ori windows 10 professional untuk perorangan">
                         </div>
                     </div>
@@ -97,15 +97,16 @@
                                 <td>Customer</td>
                                 <td>
                                     <input min="0" max="100" id="discount_variant" name="discount_varian"
-                                        value="{{ old('discount_varian',$product->discount) }}" class="form-control" type="number"
-                                        placeholder="0">
+                                        value="{{ old('discount_varian', $product->discount) }}" class="form-control"
+                                        type="number" placeholder="0">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Reseller</td>
                                 <td>
-                                    <input value="{{ old('reseller_discount_varian',$product->reseller_discount) }}" id="reseller_discount_varian"
-                                        name="reseller_discount_varian" class="form-control" type="number" placeholder="0">
+                                    <input value="{{ old('reseller_discount_varian', $product->reseller_discount) }}"
+                                        id="reseller_discount_varian" name="reseller_discount_varian" class="form-control"
+                                        type="number" placeholder="0">
                                 </td>
                             </tr>
                         </tbody>
@@ -274,10 +275,12 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="status">
                                 <option>--Pilih--</option>
-                                <option {{ old('status',$product->status) == 'stocking' ? 'selected' : '' }} value="stocking">Stock
+                                <option {{ old('status', $product->status) == 'stocking' ? 'selected' : '' }}
+                                    value="stocking">Stock
                                     Produk
                                 </option>
-                                <option {{ old('status',$product->status) == 'preorder' ? 'selected' : '' }} value="preorder">Preorder
+                                <option {{ old('status', $product->status) == 'preorder' ? 'selected' : '' }}
+                                    value="preorder">Preorder
                                 </option>
                             </select>
                         </div>
@@ -289,10 +292,12 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="type">
                                 <option>--Pilih--</option>
-                                <option {{ old('type',$product->type) == 'credential' ? 'selected' : '' }} value="credential">Username
+                                <option {{ old('type', $product->type) == 'credential' ? 'selected' : '' }}
+                                    value="credential">Username
                                     & Password
                                 </option>
-                                <option {{ old('type',$product->type) == 'serial' ? 'selected' : '' }} value="serial">Serial
+                                <option {{ old('type', $product->type) == 'serial' ? 'selected' : '' }} value="serial">
+                                    Serial
                                     Key
                                 </option>
                             </select>
@@ -313,7 +318,7 @@
                                 <label class="form-label-title col-sm-3 mb-0">Deskripsi<span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-12">
-                                    <textarea class="form-control" id="editor" name="description">{{ old('description',$product->description) }}</textarea>
+                                    <textarea class="form-control" id="editor" name="description">{{ old('description', $product->description) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -322,7 +327,7 @@
                                 <label class="form-label-title col-sm-3 mb-0">Fitur <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-12">
-                                    <textarea class="form-control" id="features" name="features">{{ old('features',$product->features) }}</textarea>
+                                    <textarea class="form-control" id="features" name="features">{{ old('features', $product->features) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +336,7 @@
                                 <label class="form-label-title col-sm-3 mb-0">Panduan Penggunaan <span
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-12">
-                                    <textarea class="form-control" id="installation" name="installation">{{ old('installation',$product->installation) }}</textarea>
+                                    <textarea class="form-control" id="installation" name="installation">{{ old('installation', $product->installation) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -358,6 +363,7 @@
                     </div>
 
                     <div class="mb-4 row align-items-center">
+                        {{-- <img src="{{asset('storage/'.$product->photo)}}" alt=""> --}}
                         <label class="col-sm-3 col-form-label form-label-title">Foto <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
@@ -428,14 +434,14 @@
 
                 if (discount.val() >= 0 && discount.val() <= 100) {
                     $('#customer_label').text(convertRupiah(customer_discount))
-                }else{
+                } else {
 
                     $('#customer_label').text(convertRupiah(seller_price))
                 }
 
                 if (reseller.val() >= 0 && reseller.val() <= 100) {
                     $('#reseller_label').text(convertRupiah(reseller_discount))
-                }else{
+                } else {
 
                     $('#reseller_label').text(convertRupiah(seller_price))
                 }
@@ -499,16 +505,16 @@
 
             let result_discount = sellPrice - (discount / 100 * sellPrice);
             let result_reseller_discount = sellPrice - (reseller_discount / 100 * sellPrice);
-            if(reseller_discount >= 0 && reseller_discount <= 100){
+            if (reseller_discount >= 0 && reseller_discount <= 100) {
                 row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
-            }else{
+            } else {
                 row.find('.reseller_label_varian').text(convertRupiah(sellPrice));
             }
 
-            if(discount >= 0 && discount <= 100){
+            if (discount >= 0 && discount <= 100) {
 
                 row.find('.customer_label_varian').text(convertRupiah(result_discount));
-            }else{
+            } else {
                 row.find('.customer_label_varian').text(convertRupiah(sellPrice));
 
             }

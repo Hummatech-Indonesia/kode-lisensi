@@ -6,6 +6,7 @@ enum ProductTypeEnum: string
 {
     case SERIAL = 'serial';
     case CREDENTIAL = 'credential';
+    case DESCRIPTION = 'description';
 }
 
 

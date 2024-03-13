@@ -28,6 +28,7 @@ class LicenseService
 
         $this->license->store([
             'product_id' => $request->id,
+            'description' => $validated['description'] ?? null,
             'username' => $validated['username'] ?? null,
             'password' => $validated['password'] ?? null,
             'serial_key' => $validated['serial_key'] ?? null

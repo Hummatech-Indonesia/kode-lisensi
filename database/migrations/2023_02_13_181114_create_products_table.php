@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->enum('status', ['stocking', 'preorder']);
-            $table->enum('type', ['serial', 'credential']);
+            $table->enum('type', ['serial', 'credential','description']);
             $table->string('name');
             $table->text('photo')->nullable();
             $table->integer('buy_price');

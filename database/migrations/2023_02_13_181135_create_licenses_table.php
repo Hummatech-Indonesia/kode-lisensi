@@ -17,6 +17,7 @@ return new class extends Migration {
         Schema::create('licenses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->text('description')->nullable();
             $table->text('username')->nullable();
             $table->text('password')->nullable();
             $table->text('serial_key')->nullable();

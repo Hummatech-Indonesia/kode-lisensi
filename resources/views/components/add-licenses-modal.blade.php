@@ -34,6 +34,15 @@
                                    placeholder="BGY78-HUNGY-7TFVD-5RSE4-KWA3Z">
                         </div>
                     </div>
+                    <div id="divDescription" class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">Description <span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input id="addDescription" autocomplete="off" name="description" class="form-control"
+                                   type="text"
+                                   placeholder="BGY78-HUNGY-7TFVD-5RSE4-KWA3Z">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Tambah</button>

@@ -205,8 +205,10 @@
                                             @if ($product->type == ProductTypeEnum::CREDENTIAL->value)
                                                 <th>Username</th>
                                                 <th>Password</th>
-                                            @else
+                                            @elseif ($product->type == ProductTypeEnum::SERIAL->value)
                                                 <th>Serial Key</th>
+                                            @else
+                                                <th>Description</th>
                                             @endif
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -555,12 +557,14 @@
 
             let username = null
             let password = null
+            let description = null
             let serialKey = null
             let table = null
             let question_table = null
             let columns = null
 
             if (type === 'serial') {
+                $('#divDescription').css('display', 'none');
                 $('#divUsername').css('display', 'none');
                 $('#divPassword').css('display', 'none');
 
@@ -579,7 +583,28 @@
                         searchable: false
                     }
                 ]
+            } else if (type === 'description') {
+                $('#divSerial').css('display', 'none');
+                $('#divUsername').css('display', 'none');
+                $('#divPassword').css('display', 'none');
+
+                columns = [{
+                        data: 'description',
+                        name: 'description'
+                    },
+                    {
+                        data: 'is_purchased',
+                        name: 'is_purchased'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
             } else {
+                $('#divDescription').css('display', 'none');
                 $('#divSerial').css('display', 'none');
                 columns = [{
                         data: 'username',
@@ -681,6 +706,7 @@
 
             $('#btnAddLicense').on('click', () => {
                 password = $('#addPassword').val('')
+                description = $('#addDescription').val('')
                 serialKey = $('#addSerial_key').val('')
                 username = $('#addUsername').val('')
             })
@@ -697,6 +723,7 @@
             $('#addLicenses').on('submit', function(e) {
                 e.preventDefault();
                 password = $('#addPassword').val()
+                description = $('#addDescription').val()
                 serialKey = $('#addSerial_key').val()
                 username = $('#addUsername').val()
 
@@ -708,6 +735,7 @@
                         id: id,
                         username: username,
                         password: password,
+                        description: description,
                         serial_key: serialKey
                     },
                     success: (data) => {
