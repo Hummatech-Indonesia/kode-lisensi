@@ -117,7 +117,7 @@
                                                                     class="form-label">Nomor telepon</label>
                                                                 <div class="custom-input">
                                                                     <input autocomplete="off"
-                                                                        value="{{ auth()->user()->phone_number }}"
+                                                                        value="{{ old('phone_number', auth()->user()->phone_number) }}"
                                                                         name="phone_number" type="number"
                                                                         class="form-control @error('phone_number') is-invalid @enderror"
                                                                         id="exampleFormControlInput3"
