@@ -27,12 +27,12 @@
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Produk</th>
-                            <th>Kategori</th>
-                            <th>Stok</th>
-                            <th>Harga Jual</th>
-                            <th>Aksi</th>
+                            <th data-name="photo">#</th>
+                            <th data-name="name">Produk</th>
+                            <th data-name="category.name">Kategori</th>
+                            <th data-name="stock">Stok</th>
+                            <th data-name="sell_price">Harga Jual</th>
+                            <th data-name="action">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,7 +78,8 @@
                         data: 'category.name',
                         name: 'category.name',
                         render: function(data, type, row) {
-                            return '<a href="{{ route('categories.show', ':category.id') }}'.replace(':category.id', row.category.id) + '">' + data + '</a>';
+                            return '<a href="{{ route('categories.show', ':category.id') }}'
+                                .replace(':category.id', row.category.id) + '">' + data + '</a>';
                         }
                     },
                     {
@@ -87,8 +88,8 @@
                         searchable: false
                     },
                     {
-                        data: 'buy_price',
-                        name: 'buy_price'
+                        data: 'sell_price',
+                        name: 'sell_price'
                     },
                     {
                         data: 'action',

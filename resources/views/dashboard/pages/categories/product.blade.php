@@ -84,8 +84,8 @@
                         searchable: false
                     },
                     {
-                        data: 'buy_price',
-                        name: 'buy_price'
+                        data: 'sell_price',
+                        name: 'sell_price'
                     },
                     {
                         data: 'action',
