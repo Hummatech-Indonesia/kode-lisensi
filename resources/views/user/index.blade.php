@@ -1,8 +1,13 @@
-@php use App\Enums\InvoiceStatusEnum;use App\Enums\ProductStatusEnum;use App\Enums\UserRoleEnum;use App\Helpers\CurrencyHelper;
-use App\Helpers\RatingHelper;use App\Helpers\UserHelper;
-use App\Helpers\UserSummaryHelper;
-use Carbon\Carbon;
-use App\Helpers\NotificationHelper;
+@php
+    use App\Enums\InvoiceStatusEnum;
+    use App\Enums\ProductStatusEnum;
+    use App\Enums\UserRoleEnum;
+    use App\Helpers\CurrencyHelper;
+    use App\Helpers\RatingHelper;
+    use App\Helpers\UserHelper;
+    use App\Helpers\UserSummaryHelper;
+    use Carbon\Carbon;
+    use App\Helpers\NotificationHelper;
     $take = 5;
     $notifications = NotificationHelper::take($take);
     $totalNotifications = NotificationHelper::count();
@@ -35,21 +40,19 @@ use App\Helpers\NotificationHelper;
                         </div>
                         <div class="profile-box">
                             <div class="cover-image">
-                                <img src="../assets/images/inner-page/cover-img.jpg"
-                                     class="img-fluid blur-up lazyloaded" alt="">
+                                <img src="../assets/images/inner-page/cover-img.jpg" class="img-fluid blur-up lazyloaded"
+                                    alt="">
                             </div>
 
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        @if(UserHelper::getUserPhoto())
+                                        @if (UserHelper::getUserPhoto())
                                             <img src="{{ asset('storage/' . UserHelper::getUserPhoto()) }}"
-                                                 class="blur-up update_img lazyloaded"
-                                                 alt="{{ UserHelper::getUserName() }}">
+                                                class="blur-up update_img lazyloaded" alt="{{ UserHelper::getUserName() }}">
                                         @else
-                                            <img src="{{ asset('avatar.png') }}"
-                                                 class="blur-up update_img lazyloaded"
-                                                 alt="{{ UserHelper::getUserName() }}">
+                                            <img src="{{ asset('avatar.png') }}" class="blur-up update_img lazyloaded"
+                                                alt="{{ UserHelper::getUserName() }}">
                                         @endif
 
                                     </div>
@@ -65,8 +68,8 @@ use App\Helpers\NotificationHelper;
                         <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-dashboard" type="button" role="tab"
-                                        aria-controls="pills-dashboard" aria-selected="false">
+                                    data-bs-target="#pills-dashboard" type="button" role="tab"
+                                    aria-controls="pills-dashboard" aria-selected="false">
                                     <i data-feather="home"></i>
                                     Dashboard
                                 </button>
@@ -74,8 +77,8 @@ use App\Helpers\NotificationHelper;
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-order" type="button" role="tab"
-                                        aria-controls="pills-order" aria-selected="false">
+                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
+                                    aria-selected="false">
                                     <i data-feather="shopping-bag"></i>
                                     Riwayat Transaksi
                                 </button>
@@ -83,8 +86,8 @@ use App\Helpers\NotificationHelper;
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-notification-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-notification" type="button" role="tab"
-                                        aria-controls="pills-notification" aria-selected="false">
+                                    data-bs-target="#pills-notification" type="button" role="tab"
+                                    aria-controls="pills-notification" aria-selected="false">
                                     <i data-feather="bell"></i>
                                     Notifikasi
                                 </button>
@@ -92,8 +95,8 @@ use App\Helpers\NotificationHelper;
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-wishlist-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-wishlist" type="button" role="tab"
-                                        aria-controls="pills-wishlist" aria-selected="false">
+                                    data-bs-target="#pills-wishlist" type="button" role="tab"
+                                    aria-controls="pills-wishlist" aria-selected="false">
                                     <i data-feather="heart"></i>
                                     Favorit
                                 </button>
@@ -101,8 +104,8 @@ use App\Helpers\NotificationHelper;
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile" type="button" role="tab"
-                                        aria-controls="pills-profile" aria-selected="true">
+                                    data-bs-target="#pills-profile" type="button" role="tab"
+                                    aria-controls="pills-profile" aria-selected="true">
                                     <i data-feather="user"></i>
                                     Profile
                                 </button>
@@ -110,8 +113,8 @@ use App\Helpers\NotificationHelper;
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-security-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-security" type="button" role="tab"
-                                        aria-controls="pills-security" aria-selected="false">
+                                    data-bs-target="#pills-security" type="button" role="tab"
+                                    aria-controls="pills-security" aria-selected="false">
                                     <i data-feather="shield"></i>
                                     Update Password
                                 </button>
@@ -119,14 +122,14 @@ use App\Helpers\NotificationHelper;
 
 
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     <i data-feather="log-out"></i>
                                     Logout
                                 </a>
                             </li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                  class="d-none">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </ul>
@@ -140,7 +143,7 @@ use App\Helpers\NotificationHelper;
                     <div class="dashboard-right-sidebar">
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-dashboard" role="tabpanel"
-                                 aria-labelledby="pills-dashboard-tab">
+                                aria-labelledby="pills-dashboard-tab">
                                 <div class="dashboard-home">
                                     <div class="title">
                                         <h2>Dashboard Saya</h2>
@@ -163,21 +166,22 @@ use App\Helpers\NotificationHelper;
                                             <div class="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
                                                 <div class="totle-contain">
                                                     <img src="{{ asset('assets/images/svg/wishlist.svg') }}"
-                                                         class="img-1 blur-up lazyloaded" alt="">
+                                                        class="img-1 blur-up lazyloaded" alt="">
                                                     <img src="{{ asset('assets/images/svg/wishlist.svg') }}"
-                                                         class="blur-up lazyloaded" alt="">
+                                                        class="blur-up lazyloaded" alt="">
                                                     <div class="totle-detail">
                                                         <h5>Total Pengeluaran</h5>
-                                                        <h3>{{ CurrencyHelper::rupiahCurrency(UserSummaryHelper::sumAmountOrder()) }}</h3>
+                                                        <h3>{{ CurrencyHelper::rupiahCurrency(UserSummaryHelper::sumAmountOrder()) }}
+                                                        </h3>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
                                                 <div class="totle-contain">
                                                     <img src="{{ asset('assets/images/svg/pending.svg') }}"
-                                                         class="img-1 blur-up lazyloaded" alt="">
+                                                        class="img-1 blur-up lazyloaded" alt="">
                                                     <img src="{{ asset('assets/images/svg/pending.svg') }}"
-                                                         class="blur-up lazyloaded" alt="">
+                                                        class="blur-up lazyloaded" alt="">
                                                     <div class="totle-detail">
                                                         <h5>Order Berhasil</h5>
                                                         <h3>{{ UserSummaryHelper::countUserOrders('success') }}</h3>
@@ -187,10 +191,9 @@ use App\Helpers\NotificationHelper;
                                             <div class="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
                                                 <div class="totle-contain">
                                                     <img src="{{ asset('assets/images/svg/order.svg') }}"
-                                                         class="img-1 blur-up lazyloaded" alt="">
+                                                        class="img-1 blur-up lazyloaded" alt="">
                                                     <img src="{{ asset('assets/images/svg/order.svg') }}"
-                                                         class="blur-up lazyloaded"
-                                                         alt="">
+                                                        class="blur-up lazyloaded" alt="">
                                                     <div class="totle-detail">
                                                         <h5>Order Pending</h5>
                                                         <h3>{{ UserSummaryHelper::countUserOrders('pending') }}</h3>
@@ -204,7 +207,7 @@ use App\Helpers\NotificationHelper;
                             </div>
 
                             <div class="tab-pane fade" id="pills-notification" role="tabpanel"
-                                 aria-labelledby="pills-wishlist-tab">
+                                aria-labelledby="pills-wishlist-tab">
                                 <div class="dashboard-order">
                                     <div class="title">
                                         <h2>Notifikasi Saya</h2>
@@ -214,11 +217,11 @@ use App\Helpers\NotificationHelper;
                                             </svg>
                                         </span>
                                     </div>
-                                    @if($totalNotifications > 0)
+                                    @if ($totalNotifications > 0)
                                         <div class="col-xxl-12 mb-4">
                                             <div class="col-xxl-4">
                                                 <form method="POST"
-                                                      action="{{ route('notification.markAsRead', $take) }}">
+                                                    action="{{ route('notification.markAsRead', $take) }}">
                                                     @csrf
                                                     <button class="btn theme-bg-color btn-md fw-bold mt-4 text-white">
                                                         Tandai
@@ -240,7 +243,9 @@ use App\Helpers\NotificationHelper;
 
                                                     <div class="order-detail">
                                                         <h4>{{ $notify->data['name'] }} </h4>
-                                                        <h6 class="text-content">{{ Carbon::parse($notify->created_at)->translatedFormat('d F Y h:i') }}</h6>
+                                                        <h6 class="text-content">
+                                                            {{ Carbon::parse($notify->created_at)->translatedFormat('d F Y h:i') }}
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -253,7 +258,7 @@ use App\Helpers\NotificationHelper;
                             </div>
 
                             <div class="tab-pane fade" id="pills-wishlist" role="tabpanel"
-                                 aria-labelledby="pills-wishlist-tab">
+                                aria-labelledby="pills-wishlist-tab">
                                 <div class="dashboard-wishlist">
                                     <div class="title">
                                         <h2>Produk Favorit Saya</h2>
@@ -272,7 +277,7 @@ use App\Helpers\NotificationHelper;
                             </div>
 
                             <div class="tab-pane fade" id="pills-order" role="tabpanel"
-                                 aria-labelledby="pills-order-tab">
+                                aria-labelledby="pills-order-tab">
                                 <div class="dashboard-order">
                                     <div class="title">
                                         <h2>Riwayat Transaksi</h2>
@@ -304,43 +309,60 @@ use App\Helpers\NotificationHelper;
 
                                                     <div class="order-detail">
                                                         <h4> {{ $trans->invoice_id }}
-                                                            @if($trans->invoice_status == InvoiceStatusEnum::FAILED->value || $trans->invoice_status == InvoiceStatusEnum::EXPIRED->value)
+                                                            @if (
+                                                                $trans->invoice_status == InvoiceStatusEnum::FAILED->value ||
+                                                                    $trans->invoice_status == InvoiceStatusEnum::EXPIRED->value)
                                                                 <span>Dibatalkan</span>
-                                                            @elseif($trans->invoice_status == InvoiceStatusEnum::PAID->value || $trans->invoice_status == InvoiceStatusEnum::SETTLED->value)
+                                                            @elseif(
+                                                                $trans->invoice_status == InvoiceStatusEnum::PAID->value ||
+                                                                    $trans->invoice_status == InvoiceStatusEnum::SETTLED->value)
                                                                 <span class="success-bg">Lunas</span>
                                                             @else
                                                                 <span>Pending</span>
                                                             @endif
                                                         </h4>
                                                         <h6 class="text-content">Total
-                                                            Harga: {{ CurrencyHelper::rupiahCurrency($trans->amount) }}</h6>
+                                                            Harga: {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
+                                                        </h6>
                                                     </div>
                                                 </div>
 
                                                 <div class="product-order-detail">
                                                     <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                                       class="order-image">
-                                                        <img
-                                                            style="max-height: 200px; max-width: 200px;"
+                                                        class="order-image">
+                                                        <img style="max-height: 200px; max-width: 200px;"
                                                             src="{{ asset('storage/' . $trans->detail_transaction->product->photo) }}"
                                                             class="blur-up lazyloaded"
                                                             alt="{{ $trans->detail_transaction->product->name }}">
                                                     </a>
 
                                                     <div class="order-wrap">
-                                                        <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}">
+                                                        <a
+                                                            href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}">
                                                             <h3>{{ $trans->detail_transaction->product->name }}</h3>
                                                         </a>
-                                                        <p class="text-content">{{ $trans->detail_transaction->product->short_description }}</p>
+                                                        <p class="text-content">
+                                                            {{ $trans->detail_transaction->product->short_description }}
+                                                        </p>
                                                         <ul class="product-size">
                                                             <li>
                                                                 <div class="size-box">
                                                                     <h6 class="text-content">Harga : </h6>
                                                                     <h5>
                                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                            {{ CurrencyHelper::countPriceAfterDiscount($trans->detail_transaction->product->sell_price, $trans->detail_transaction->product->reseller_discount, true) }}
+                                                                            @if (!$trans->detail_transaction->varianProduct)
+                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
+                                                                                <span>({{ $trans->detail_transaction->varianProduct->name }})</span>
+                                                                            @else
+                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
+                                                                            @endif
                                                                         @else
-                                                                            {{ CurrencyHelper::countPriceAfterDiscount($trans->detail_transaction->product->sell_price, $trans->detail_transaction->product->discount, true) }}
+                                                                            @if ($trans->detail_transaction->varianProduct)
+                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
+                                                                                <span>({{ $trans->detail_transaction->varianProduct->name }})</span>
+                                                                            @else
+                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
+                                                                            @endif
                                                                         @endif
                                                                     </h5>
                                                                 </div>
@@ -351,11 +373,11 @@ use App\Helpers\NotificationHelper;
                                                                     <h6 class="text-content">Rate : </h6>
                                                                     <div class="product-rating ms-2">
                                                                         <ul class="rating">
-                                                                            @for($i = 1; $i <= 5; $i++)
+                                                                            @for ($i = 1; $i <= 5; $i++)
                                                                                 <li>
-                                                                                    @if($i <= RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['stars'])
+                                                                                    @if ($i <= RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['stars'])
                                                                                         <i data-feather="star"
-                                                                                           class="fill"></i>
+                                                                                            class="fill"></i>
                                                                                     @else
                                                                                         <i data-feather="star"></i>
                                                                                     @endif
@@ -363,11 +385,13 @@ use App\Helpers\NotificationHelper;
                                                                             @endfor
 
                                                                         </ul>
-                                                                        @if(RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['sumRating'] == 0)
+                                                                        @if (RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['sumRating'] == 0)
                                                                             <span>(Belum ada ulasan)</span>
-
                                                                         @else
-                                                                            <span>{{ RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['sumRating'] }} ({{ $trans->detail_transaction->product->product_ratings_count }} ulasan)</span>
+                                                                            <span>{{ RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['sumRating'] }}
+                                                                                ({{ $trans->detail_transaction->product->product_ratings_count }}
+                                                                                ulasan)
+                                                                            </span>
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -381,20 +405,21 @@ use App\Helpers\NotificationHelper;
                                                                             Tersedia
                                                                         @else
                                                                             Preorder
-                                                                        @endif</h5>
+                                                                        @endif
+                                                                    </h5>
                                                                 </div>
                                                             </li>
 
                                                             <li class="mt-3">
                                                                 <div class="size-box">
-                                                                    @if(RatingHelper::checkUserHasRating($trans->detail_transaction->product->id))
+                                                                    @if (RatingHelper::checkUserHasRating($trans->detail_transaction->product->id))
                                                                         <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                                                           class="btn btn-success btn-sm text-white">
+                                                                            class="btn btn-success btn-sm text-white">
                                                                             Cek Ulasan Saya
                                                                         </a>
                                                                     @else
                                                                         <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                                                           class="btn btn-danger btn-sm text-white">
+                                                                            class="btn btn-danger btn-sm text-white">
                                                                             Tambah ulasan baru
                                                                         </a>
                                                                     @endif
@@ -412,7 +437,7 @@ use App\Helpers\NotificationHelper;
                             </div>
 
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                                 aria-labelledby="pills-profile-tab">
+                                aria-labelledby="pills-profile-tab">
                                 <div class="dashboard-profile">
                                     <div class="title">
                                         <h2>Profil Saya</h2>
@@ -430,7 +455,7 @@ use App\Helpers\NotificationHelper;
                                         <div class="profile-name-detail">
 
                                             <a href="javascript:void(0)" data-bs-toggle="modal"
-                                               data-bs-target="#editProfile">Edit Profile</a>
+                                                data-bs-target="#editProfile">Edit Profile</a>
                                         </div>
 
                                         <div class="location-profile">
@@ -446,7 +471,9 @@ use App\Helpers\NotificationHelper;
                                                     <div class="location-box">
                                                         <i data-feather="check-square"></i>
                                                         <h6>Bergabung
-                                                            sejak: {{ Carbon::parse(auth()->user()->created_at)->translatedFormat('d F Y') }}</h6>
+                                                            sejak:
+                                                            {{ Carbon::parse(auth()->user()->created_at)->translatedFormat('d F Y') }}
+                                                        </h6>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -463,15 +490,15 @@ use App\Helpers\NotificationHelper;
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <tbody>
-                                                        <tr>
-                                                            <td>Status :</td>
-                                                            <td>{{ UserHelper::getUserRole() }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Nomor Telepon :</td>
-                                                            <td>{{ UserHelper::getUserPhone() }}
-                                                            </td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td>Status :</td>
+                                                                <td>{{ UserHelper::getUserRole() }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Nomor Telepon :</td>
+                                                                <td>{{ UserHelper::getUserPhone() }}
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -479,8 +506,7 @@ use App\Helpers\NotificationHelper;
 
                                             <div class="col-xxl-5">
                                                 <div class="profile-image">
-                                                    <img
-                                                        src="{{ asset('assets/images/inner-page/dashboard-profile.png') }}"
+                                                    <img src="{{ asset('assets/images/inner-page/dashboard-profile.png') }}"
                                                         class="img-fluid blur-up lazyloaded" alt="">
                                                 </div>
                                             </div>
@@ -491,7 +517,7 @@ use App\Helpers\NotificationHelper;
                             </div>
 
                             <div class="tab-pane fade" id="pills-security" role="tabpanel"
-                                 aria-labelledby="pills-security-tab">
+                                aria-labelledby="pills-security-tab">
                                 <div class="dashboard-privacy">
                                     <div class="dashboard-bg-box mt-4">
                                         <div class="dashboard-title mb-4">
@@ -499,16 +525,16 @@ use App\Helpers\NotificationHelper;
                                         </div>
 
                                         <form action="{{ route('user.change-password.update', auth()->id()) }}"
-                                              class="theme-form theme-form-2 mega-form"
-                                              method="POST" enctype="multipart/form-data">
-                                            @method("PATCH")
+                                            class="theme-form theme-form-2 mega-form" method="POST"
+                                            enctype="multipart/form-data">
+                                            @method('PATCH')
                                             @csrf
                                             <div class="row">
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="form-label-title col-sm-2 mb-0">Password Lama</label>
                                                     <div class="col-sm-10">
                                                         <input name="old_password" autocomplete="off"
-                                                               class="form-control" type="password">
+                                                            class="form-control" type="password">
                                                     </div>
                                                 </div>
 
@@ -516,7 +542,7 @@ use App\Helpers\NotificationHelper;
                                                     <label class="form-label-title col-sm-2 mb-0">Password Baru</label>
                                                     <div class="col-sm-10">
                                                         <input name="password" autocomplete="off" class="form-control"
-                                                               type="password">
+                                                            type="password">
                                                     </div>
                                                 </div>
 
@@ -525,8 +551,7 @@ use App\Helpers\NotificationHelper;
                                                         Password</label>
                                                     <div class="col-sm-10">
                                                         <input name="password_confirmation" autocomplete="off"
-                                                               class="form-control"
-                                                               type="password">
+                                                            class="form-control" type="password">
                                                     </div>
                                                 </div>
 
@@ -534,7 +559,7 @@ use App\Helpers\NotificationHelper;
                                                     <label class="col-sm-2 col-form-label form-label-title"></label>
                                                     <div class="col-sm-10">
                                                         <button type="submit"
-                                                                class="btn theme-bg-color btn-md fw-bold mt-4 text-white">
+                                                            class="btn theme-bg-color btn-md fw-bold mt-4 text-white">
                                                             Perbarui Password
                                                         </button>
                                                     </div>
