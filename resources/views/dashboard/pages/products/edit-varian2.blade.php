@@ -300,6 +300,10 @@
                                     Serial
                                     Key
                                 </option>
+                                <option {{ old('type', $product->type) == 'description' ? 'selected' : '' }}
+                                    value="description">
+                                    Deskripsi
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -353,8 +357,6 @@
                                 Catatan: <br>
                                 <ul>
                                     <li>Foto Produk harus berupa jpg,png,jpeg dengan ukuran maksimal 5Mb</li>
-                                    {{-- <li>Berkas Panduan harus berupa pdf dengan ukuran maksimal 20Mb</li>
-                                    <li>Pastikan nama file berkas berbeda tiap produknya</li> --}}
                                 </ul>
 
                             </div>
@@ -363,7 +365,14 @@
                     </div>
 
                     <div class="mb-4 row align-items-center">
-                        {{-- <img src="{{asset('storage/'.$product->photo)}}" alt=""> --}}
+                        <label class="col-sm-3 col-form-label form-label-title"></label>
+                        <div class="col-sm-9">
+                            <img style="width: 200px;" class="img-fluid" src="{{ asset('storage/' . $product->photo) }}"
+                                alt="{{ $product->photo }}">
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
                         <label class="col-sm-3 col-form-label form-label-title">Foto <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
@@ -371,13 +380,8 @@
                         </div>
                     </div>
 
-                    {{-- <div class="row align-items-center">
-                        <label class="col-sm-3 col-form-label form-label-title">Berkas Panduan <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <input name="attachment_file" class="form-control form-choose" type="file">
-                        </div>
-                    </div> --}}
+
+
                 </div>
             </div>
 
