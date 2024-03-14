@@ -33,7 +33,6 @@
                         <th>#</th>
                         <th>Produk</th>
                         <th>Kategori</th>
-                        <th>Harga Beli</th>
                         <th>Harga Jual</th>
                         <th>Aksi</th>
                     </tr>
@@ -78,10 +77,7 @@
                         data: 'category.name',
                         name: 'category.name'
                     },
-                    {
-                        data: 'buy_price',
-                        name: 'buy_price'
-                    },
+                    
                     {
                         data: 'sell_price',
                         name: 'sell_price'
