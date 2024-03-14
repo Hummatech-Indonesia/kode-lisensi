@@ -546,6 +546,7 @@
         $(document).ready(() => {
             let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             CKEDITOR.replace('description');
+            CKEDITOR.replace('addDescription');
             CKEDITOR.replace('installation');
             CKEDITOR.replace('features');
 
