@@ -507,14 +507,14 @@
                                                 <label class="form-label-title col-sm-3 mb-0">Panduan Penggunaan<span
                                                         class="text-danger">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" id="manual_book" name="manual_book">{{ old('manual_book') }}</textarea>
+                                                    <textarea class="form-control" id="manual_book" name="manual_book">{!! $product->productEmail->manual_book ?? old('manual_book') !!}</textarea>
                                                 </div>
                                             </div>
                                             <div class="mb-4 row align-items-center">
                                                 <label class="form-label-title col-sm-3 mb-0">Note<span
                                                         class="text-danger">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" id="note" name="note">{{ old('note') }}</textarea>
+                                                    <textarea class="form-control" id="note" name="note">{!! $product->productEmail->note ??  old('note') !!}</textarea>
                                                 </div>
                                             </div>
                                             <div class="mb-4 row align-items-center">
