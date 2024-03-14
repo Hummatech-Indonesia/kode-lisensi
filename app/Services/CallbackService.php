@@ -66,7 +66,7 @@ class CallbackService
                     'pack_name' => $product_relation->name,
                     'pack_price' => $request->amount_received,
                     'paid_at' => $paid_at,
-                    'varian_product' => $detail->varianProduct->name,
+                    'varian_product' => $detail->varianProduct?->name,
                     'product_status' => $product_status,
                     'product_type' => $product_relation->type,
                     'licenses' => [

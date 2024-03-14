@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('licenses', function (Blueprint $table) {
-            $table->text('description')->nullable();
+        Schema::table('detail_transactions', function (Blueprint $table) {
+            $table->text('note')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('licenses', function (Blueprint $table) {
-            $table->dropColumn('description');
+        Schema::table('detail_transactions', function (Blueprint $table) {
+            $table->dropColumn('note');
         });
     }
 };

@@ -144,6 +144,7 @@ class TransactionService
             'transaction_id' => $transaction['id'],
             'product_id' => $product->id,
             'name' => $data['name'],
+            'note'=>$data['note'],
             'varian_product_id' => $varianProductId,
             'phone_number' => $data['phone_number'],
             'email' => $data['email']

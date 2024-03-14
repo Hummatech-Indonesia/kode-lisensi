@@ -15,6 +15,7 @@ class TransactionRequest extends BaseRequest
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|max:50',
+            'note'=>'nullable',
             'g-recaptcha-response' => 'required',
             'payment_code' => 'required'
         ];

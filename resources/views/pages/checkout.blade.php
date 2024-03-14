@@ -130,6 +130,22 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-xxl-12 col-lg-12 col-sm-12">
+                                                            <div class="mb-md-4 mb-3 custom-form">
+                                                                <label for="exampleFormControlInput4"
+                                                                    class="form-label">Catatan (opsional)</label>
+                                                                <div class="custom-input">
+                                                                        <textarea name="note" id="exampleFormControlInput4" cols="15" rows="5" class="form-control" placeholder="catatan pemesanan">{{old('note')}}</textarea>
+                                                                    @error('note')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="col-12 fv-row mb-10">
                                                             {!! htmlFormSnippet() !!}
                                                         </div>
