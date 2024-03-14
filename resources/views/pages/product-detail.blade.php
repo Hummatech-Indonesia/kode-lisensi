@@ -221,6 +221,7 @@
                                         <span>Bandingkan Produk</span>
                                     </a>
                                 </div>
+                                @if ($product->varianProducts->isNotEmpty())
                                 <div class="product-package">
                                     <div class="product-title">
                                         <h4>Variasi Produk</h4>
@@ -267,6 +268,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
+                                @endif
                                 <div class="py-4">
                                     <div class="">
                                         <p>Bagikan Produk: </p>
