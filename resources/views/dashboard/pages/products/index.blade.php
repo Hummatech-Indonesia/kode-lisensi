@@ -71,7 +71,7 @@
                         name: 'name',
                         render: function(data, type, row) {
                             return '<a href="{{ route('home.products.show', ':slug') }}'.replace(
-                                ':slug', row.slug) + '">' + data + '</a>';
+                                ':slug', row.slug) + '" target="_blank">' + data + '</a>';
                         }
                     },
                     {

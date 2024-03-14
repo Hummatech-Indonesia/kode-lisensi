@@ -172,6 +172,8 @@
                                 </option>
                                 <option {{ $product->type == 'serial' ? 'selected' : '' }} value="serial">Serial Key
                                 </option>
+                                <option {{ $product->type == 'description' ? 'selected' : '' }} value="description">Deskripsi
+                                </option>
                             </select>
                         </div>
                     </div>
