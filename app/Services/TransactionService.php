@@ -197,7 +197,8 @@ class TransactionService
                 'licenses' => [
                     'username' => $request->username ?? null,
                     'password' => $request->password ?? null,
-                    'serial_key' => $request->serial_key ?? null
+                    'serial_key' => $request->serial_key ?? null,
+                    'description' => $request->description ?? null
                 ]
             ]
         ));

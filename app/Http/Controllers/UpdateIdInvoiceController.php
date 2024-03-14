@@ -22,17 +22,21 @@ class UpdateIdInvoiceController extends Controller
     }
 
     /**
-     * create
+     * store
      *
      * @param  mixed $request
      * @return JsonResponse
      */
-    public function create(UpdateIdInvoiceRequest $request)
+    public function store(UpdateIdInvoiceRequest $request)
     {
+        $updateIdInvoice = $this->updateIdInvoice->get();
         $invoice_id = $this->transaction->getInvoice();
         $invoice_id = substr($invoice_id->invoice_id, -4);
         if ($request->new_invoice <= $invoice_id) {
             return redirect()->back()->withErrors("jangan menginputkan kode lebih kecil dari kode sebelumnnya!!!");
+        }
+        if ($updateIdInvoice) {
+            $this->updateIdInvoice->delete($updateIdInvoice->id);
         }
         $this->updateIdInvoice->store($request->validated());
         return redirect()->back()->with('success', trans('alert.add_success'));

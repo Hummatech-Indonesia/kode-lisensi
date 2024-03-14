@@ -79,7 +79,7 @@
                             <h3 class="modal-title">Update Id Invoice</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{ route('update.id.invoice.create') }}" method="POST">
+                        <form action="{{ route('update.id.invoice.store') }}" method="POST">
                             @csrf
                             <div class="modal-body m-3">
                                 <div id="divUsername" class="mb-4 row align-items-center">
@@ -107,6 +107,15 @@
     <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
     <script>
+        $.ajax({
+            type: "method",
+            url: "url",
+            data: "data",
+            dataType: "dataType",
+            success: function (response) {
+
+            }
+        });
         document.addEventListener("DOMContentLoaded", function() {
 
             const firstUrl =

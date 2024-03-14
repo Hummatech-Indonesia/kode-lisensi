@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Base\Interfaces\uploads\ShouldHandleFileUpload;
 use App\Contracts\Interfaces\Products\ProductInterface;
+use App\Enums\ProductStatusEnum;
 use App\Enums\UploadDiskEnum;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
 use App\Http\Requests\Dashboard\Product\ProductUpdateRequest;
@@ -39,8 +40,6 @@ class ProductService implements ShouldHandleFileUpload
         // $exists = UploadDiskEnum::PRODUCT_ATTACHMENTS->value . "/" . $attachment->getClientOriginalName();
 
         // if ($this->exist($exists)) return false;
-
-
         return [
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
@@ -91,7 +90,7 @@ class ProductService implements ShouldHandleFileUpload
         return [
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
-            'status' => $data['status'],
+            'status' => ProductStatusEnum::PREORDER->value,
             'type' => $data['type'],
             'name' => $data['name'],
             'photo' => $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo')),
@@ -171,7 +170,7 @@ class ProductService implements ShouldHandleFileUpload
         return [
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
-            'status' => $data['status'],
+            'status' => ProductStatusEnum::PREORDER->value,
             'type' => $data['type'],
             'name' => $data['name'],
             'photo' => $old_photo,

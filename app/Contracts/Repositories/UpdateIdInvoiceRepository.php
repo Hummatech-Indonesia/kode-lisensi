@@ -34,6 +34,7 @@ class UpdateIdInvoiceRepository extends BaseRepository implements UpdateIdInvoic
     public function get(): mixed
     {
         return $this->model->query()
+            ->latest()
             ->first();
     }
 

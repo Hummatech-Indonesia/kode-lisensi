@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('detail_transactions', function (Blueprint $table) {
-            $table->text('note')->nullable();
+            $table->text('note')->nullable()->before('created_at');
         });
     }
 

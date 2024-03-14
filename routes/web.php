@@ -186,7 +186,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::name('update.id.invoice.')->group(function () {
                 Route::prefix('update-id-invoice')->group(function () {
-                    Route::post('/', [UpdateIdInvoiceController::class, 'create'])->name('create');
+                    Route::post('/', [UpdateIdInvoiceController::class, 'store'])->name('store');
                 });
             });
 

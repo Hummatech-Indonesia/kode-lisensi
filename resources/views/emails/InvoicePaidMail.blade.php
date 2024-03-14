@@ -22,6 +22,14 @@
             <h4>Password: </h4>
 
             <p>{{ $data['licenses']['password'] }}</p>
+        @elseif (ProductTypeEnum::DESCRIPTION->value === $data['product_type'])
+            @if ($data['varian_product'])
+                <h4>License Key {{ $data['pack_name'] }} ({{ $data['varian_product'] }})</h4>
+            @else
+                <h4>License Key {{ $data['pack_name'] }}</h4>
+            @endif
+
+            <p>{{ $data['licenses']['description'] }}</p>
         @else
             @if ($data['varian_product'])
                 <h4>License Key {{ $data['pack_name'] }} ({{ $data['varian_product'] }})</h4>

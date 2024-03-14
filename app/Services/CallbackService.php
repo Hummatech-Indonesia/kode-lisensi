@@ -72,7 +72,8 @@ class CallbackService
                     'licenses' => [
                         'username' => ($license_relation) ? $license_relation->username : null,
                         'password' => ($license_relation) ? $license_relation->password : null,
-                        'serial_key' => ($license_relation) ? $license_relation->serial_key : null
+                        'serial_key' => ($license_relation) ? $license_relation->serial_key : null,
+                        'description' => ($license_relation) ? $license_relation->description : null
                     ]
                 ]
             ));

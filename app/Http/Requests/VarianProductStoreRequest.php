@@ -26,7 +26,6 @@ class VarianProductStoreRequest extends FormRequest
             'discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
             'reseller_discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
             'type' => 'required',
-            'status' => 'required',
             'description' => 'required',
             'features' => 'required',
             'installation' => 'required',

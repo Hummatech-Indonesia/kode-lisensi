@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-header-2">
-                        <h5>Informasi Produk1</h5>
+                        <h5>Informasi Produk</h5>
                     </div>
 
                     <div class="mb-4 row align-items-center">
@@ -267,9 +267,10 @@
                         <label class="form-label-title col-sm-3 mb-0">Tipe Lisensi <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="status">
+                            <select class="form-control" name="status" id="statusSelected">
                                 <option>--Pilih--</option>
-                                <option {{ old('status') == 'stocking' ? 'selected' : '' }} value="stocking">Stock
+                                <option {{ old('status') == 'stocking' ? 'selected' : '' }} value="stocking">
+                                    Stock
                                     Produk
                                 </option>
                                 <option {{ old('status') == 'preorder' ? 'selected' : '' }} value="preorder">Preorder
@@ -392,7 +393,6 @@
 @section('script')
     <script>
         $(document).ready(() => {
-
             CKEDITOR.replace('editor');
             CKEDITOR.replace('installation');
             CKEDITOR.replace('features');
@@ -456,6 +456,8 @@
                 $("#discount_varian_product").removeAttr("style").css("display", "block");
                 $(".varian_product").removeAttr("style").css("display", "block");
                 $("#form").attr("action", "{{ route('varian.products.store') }}");
+                $('#statusSelected').prop('disabled', true);
+                $('#statusSelected option[value="preorder"]').prop('selected', true);
             });
             $("#cancel_variant_product").click(function() {
                 $("#price").show();
@@ -464,6 +466,8 @@
                 $("#discount_varian_product").removeAttr("style").css("display", "none");
                 $(".varian_product").removeAttr("style").css("display", "none");
                 $("#form").attr("action", "{{ route('products.store') }}");
+                $('#statusSelected').prop('disabled', false);
+                $('#statusSelected option[value="preorder"]').prop('selected', false);
             });
         });
 
@@ -474,7 +478,6 @@
                 $(".delete_varian:last").removeAttr("style").css("display", "block");
             });
         });
-
         $(document).ready(function() {
             $(document).on("click", ".delete_varian", function() {
                 $(".varian_product:last").remove();

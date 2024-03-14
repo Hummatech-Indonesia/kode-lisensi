@@ -405,12 +405,10 @@
                     }
                 })
             }
-
             $('#btnLoadMore').on('click', function(e) {
                 e.preventDefault()
                 let nextCursor = document.getElementById('next-cursor').innerHTML || null
                 if (nextCursor) infiniteLoadMore(nextCursor);
-
             })
 
             $('#setFilter').on('click', function(e) {

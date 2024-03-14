@@ -56,6 +56,21 @@
 
     <!-- log in section end -->
 
+    <div class="theme-option">
+        <div class="setting-box">
+            <a target="__blank" href="https://wa.me/+6282131536153">
+                <button class="btn setting-button">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </button>
+            </a>
+        </div>
+
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
     <!-- Bg overlay Start -->
     <div class="bg-overlay"></div>
     <!-- Bg overlay End -->
