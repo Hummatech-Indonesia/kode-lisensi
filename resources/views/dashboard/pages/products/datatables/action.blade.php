@@ -1,5 +1,10 @@
 <ul>
     <li>
+        <a data-bs-toggle="modal" data-id="{{ $data->id }}"
+            data-bs-target="#addProductReccomendationModal" class="text-primary product-recommendation" title="rekomendasikan produk">
+            <i class="ri-arrow-up-fill"></i> </a>
+    </li>
+    <li>
         <a class="text-primary" href="{{ route('products.show', $data->id) }}" title="lihat produk">
             <i class="ri-eye-line"></i>
         </a>

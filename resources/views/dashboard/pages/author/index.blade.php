@@ -75,7 +75,7 @@
         $(document).on('click', '.delete-alert', function() {
             $('#exampleModal').modal('show')
             const id = $(this).attr('data-id');
-            let url = `{{ route('users.destroy', ':id') }}`.replace(':id', id);
+            let url = `{{ route('users.delete', ':id') }}`.replace(':id', id);
             $('#deleteForm').attr('action', url);
         });
     </script>

@@ -18,6 +18,8 @@ use App\Contracts\Interfaces\Products\ArchiveProductInterface;
 use App\Contracts\Interfaces\Products\ProductEmailInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\Products\ProductQuestionInterface;
+use App\Contracts\Interfaces\Products\ProductRecommendationInterface;
+use App\Contracts\Interfaces\Products\ProductRecommendationsInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RatingInterface;
 use App\Contracts\Interfaces\RegisterInterface;
@@ -45,6 +47,7 @@ use App\Contracts\Repositories\ProductFavoriteRepository;
 use App\Contracts\Repositories\Products\ArchiveProductRepository;
 use App\Contracts\Repositories\Products\ProductEmailRepository;
 use App\Contracts\Repositories\Products\ProductQuestionRepository;
+use App\Contracts\Repositories\Products\ProductRecommendationRepository;
 use App\Contracts\Repositories\Products\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\RatingRepository;
@@ -94,7 +97,8 @@ class AppServiceProvider extends ServiceProvider
         UserInterface::class => UserRepository::class,
         VarianProductInterface::class => VarianProductRepository::class,
         ProductEmailInterface::class => ProductEmailRepository::class,
-        UpdateIdInvoiceInterface::class => UpdateIdInvoiceRepository::class
+        UpdateIdInvoiceInterface::class => UpdateIdInvoiceRepository::class,
+        ProductRecommendationInterface::class => ProductRecommendationRepository::class
     ];
 
     /**

@@ -8,123 +8,64 @@
 <div
     style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;color:#718096;height:100%;line-height:1.4;margin:0;padding:0;width:100%!important">
 
-    <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#edf2f7;margin:0;padding:0;width:100%">
-        <tbody>
-            <tr>
-                <td align="center"
-                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';margin:0;padding:0;width:100%">
-                        <tbody>
-                            <tr>
-                                <td
-                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';padding:25px 0;text-align:center">
-                                    <img width="20%" src="{{ config('app.url') . 'storage/' . $site->logo }}"
-                                        alt="Logo">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="100%" cellpadding="0" cellspacing="0"
-                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#edf2f7;border-bottom:1px solid #edf2f7;border-top:1px solid #edf2f7;margin:0;padding:0;width:100%">
-                                    <table class="m_-1691184708288144981inner-body" align="center" width="570"
-                                        cellpadding="0" cellspacing="0" role="presentation"
-                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;border-color:#e8e5ef;border-radius:2px;border-width:1px;margin:0 auto;padding:0;width:570px">
+    <div class="container" style="margin: 2rem">
 
-                                        <h1
-                                            style="display:flex;justify-content:center; box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
-                                            Terima Kasih Telah Membeli Produk Kami</h1>
-                                        <div class="" style="margin-bottom: 1rem;">
-                                            <h1
-                                                style="margin:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin:0;text-align:left">
-                                                License Key Office 2021</h1>
-                                            <p style="margin: 0">SADH-89JK-SDHUA-SD878</p>
-                                        </div>
-                                        <div class="">
-                                            <h1
-                                                style="margin:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin:0;text-align:left">
-                                                License Key Office 2021</h1>
-                                            <p style="margin: 0">SADH-89JK-SDHUA-SD878</p>
-                                        </div>
-                                        <div class="" style="margin-top: 1rem;">
-                                            <h1
-                                                style="margin:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:14px;font-weight:bold;margin:0;text-align:left">
-                                                License Key Office 2021</h1>
-                                            <a href="https://www.microsoft.com/id-id/download/office.aspx"
-                                                style="margin: 0">https://www.microsoft.com/id-id/download/office.aspx
-                                            </a>
-                                        </div>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="100%" cellpadding="0" cellspacing="0"
-                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#edf2f7;border-bottom:1px solid #edf2f7;border-top:1px solid #edf2f7;margin:0;padding:0;width:100%">
-                                    <table class="m_-1691184708288144981inner-body" align="center" width="570"
-                                        cellpadding="0" cellspacing="0" role="presentation"
-                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;border-color:#e8e5ef;border-radius:2px;border-width:1px;margin:0 auto;padding:0;width:570px">
+        <div style="text-align: center">
+            <img width="20%" src="{{ config('app.url') . 'storage/' . $site->logo }}" alt="Logo">
+        </div>
 
-                                        <h1
-                                            style="display:flex;justify-content:center; box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
-                                            Panduan Pemasangan Zoom Premium: </h1>
-                                        <p style="margin: 0">1. Install apk zoom dari link yang sudah disediakan. </p>
-                                        <p style="margin: 0">2. Login menggunakan username dan password yang dikirim
-                                            oleh kami</p>
-                                        <p style="margin: 0">3. Anda bisa menikmati fitur-fitur zoom premium</p>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="100%" cellpadding="0" cellspacing="0"
-                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#edf2f7;border-bottom:1px solid #edf2f7;border-top:1px solid #edf2f7;margin:0;padding:0;width:100%">
-                                    <table class="m_-1691184708288144981inner-body" align="center" width="570"
-                                        cellpadding="0" cellspacing="0" role="presentation"
-                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;border-color:#e8e5ef;border-radius:2px;border-width:1px;margin:0 auto;padding:0;width:570px">
+        <h2 style="text-align: center; margin-bottom:1.5rem">Terimakasih Telah Membeli Produk Kami</h2>
+        @if (ProductTypeEnum::CREDENTIAL->value === $data['product_type'])
+            <h4>Username: </h4>
 
-                                        <h1
-                                            style="display:flex;justify-content:center; box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
-                                            Catatan: </h1>
-                                        <p style="margin: 0">Applikasi anda akan aktif selama 1 bulan lamanya. </p>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="100%" cellpadding="0" cellspacing="0"
-                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#edf2f7;border-bottom:1px solid #edf2f7;border-top:1px solid #edf2f7;margin:0;padding:0;width:100%">
-                                    <table class="m_-1691184708288144981inner-body" align="center" width="570"
-                                        cellpadding="0" cellspacing="0" role="presentation"
-                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;border-color:#e8e5ef;border-radius:2px;border-width:1px;margin:0 auto;padding:0;width:570px">
-                                        <p style="margin-top: 2rem">Terimakasih telah bebelanja di kodelisensi.com </p>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td
-                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                    <table class="m_-1691184708288144981footer" align="center" width="570"
-                                        cellpadding="0" cellspacing="0" role="presentation"
-                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';margin:0 auto;padding:0;text-align:center;width:570px">
-                                        <tbody>
-                                            <tr>
-                                                <td align="center"
-                                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';max-width:100vw;padding:32px">
-                                                    <p
-                                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';line-height:1.5em;margin-top:0;color:#b0adc5;font-size:12px;text-align:center">
-                                                        © 2022 {{ config('app.name') }}. All rights reserved.</p>
+            <p>{{ $data['licenses']['username'] }}</p>
+            <h4>Password: </h4>
 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <img width="1" height="1"
-        src="https://ci5.googleusercontent.com/proxy/C2oUh09riaMbeuxBQmTe0Ow0OI-fqeWup2o3s3WgWbeSLv4y2qM57JyogsHrRhP7unSLBawJcakVOhW7ylFWnoUe8pcQdkOKKX8YMAi8b0Hc0AvrQWiIMz9JAaDiXWnrJXYi8SF_nM90CHHbeJzhxL8VvdUO5OPPWuUSUwcUebKJ8SW-UfieZNTJO6jZmD-DerZB2rP48KOH5iz3nwQkRzKr_0mKiaCFDvwTfdFUCTvBazk2fPhJ8_6vWEigUvjB9M3VN8k-hCH0ozkRCGoRuCPmxdAKAtGv4JZ6WCQv4lcg3j-TXQSDFMCa=s0-d-e1-ft#https://ecfabgg.r.af.d.sendibt2.com/tr/op/AcWerahdjqjASLpPwnuVckFdmC-_P0Zfs-cKn0G_0rKFK7GYo8hHnAqHGKXOW-dqLE4Ncp_9ur0tve5ILBFSd-_q9IpDg_Yl-QToZKozavWbV1W3nhFkx8_TRn1W31spzDr4Z275QcTAG3SQPZ5RknTqoH_gVw8yMbgwBPXUo5Vg"
-        alt="" class="CToWUd" data-bit="iit">
+            <p>{{ $data['licenses']['password'] }}</p>
+        @elseif (ProductTypeEnum::DESCRIPTION->value === $data['product_type'])
+            @if ($data['varian_product'])
+                <h4>Lisensi Deskripsi {{ $data['pack_name'] }} ({{ $data['varian_product'] }})</h4>
+            @else
+                <h4>Lisensi Deskripsi {{ $data['pack_name'] }}</h4>
+            @endif
+
+            <p>{!! $data['licenses']['description'] !!}</p>
+        @else
+            @if ($data['varian_product'])
+                <h4>License Key {{ $data['pack_name'] }} ({{ $data['varian_product'] }})</h4>
+            @else
+                <h4>License Key {{ $data['pack_name'] }}</h4>
+            @endif
+
+            <p>{{ $data['licenses']['serial_key'] }}</p>
+        @endif
+
+
+        @if ($data['varian_product'])
+            <h4 class="mt-3" style="text-align: center">Panduan Aktifitasi {{ $data['pack_name'] }}
+                ({{ $data['varian_product'] }})</h4>
+        @else
+            <h4 class="mt-3" style="text-align: center">Panduan Aktifitasi {{ $data['pack_name'] }}</h4>
+        @endif
+
+
+        @if ($data['product']->productEmail)
+            {!! $data['product']->productEmail->manual_book !!}
+        @else
+            {!! $data['product']->installation !!}
+        @endif
+
+        <h4 class="mt-3" style="text-align: center">PERHATIAN:</h4>
+
+        @if ($data['product']->productEmail)
+            {!! $data['product']->productEmail->note !!}
+        @else
+            {!! $data['product']->description !!}
+        @endif
+
+        <p>Terima kasih sudah belanja di <a href="https://kodelisensi.com/">kodelisensi.com</a></p>
+
+
+
+    </div>
 </div>

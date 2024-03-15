@@ -55,15 +55,4 @@ class SendLicenseMail extends Mailable
             view: 'emails.SendLicenseMail',
         );
     }
-
-    /**
-     * Get an attachment instance for this entity.
-     *
-     * @return Attachment
-     */
-    public function attachments(): Attachment
-    {
-        return Attachment::fromPath(public_path('storage/' . $this->data['attachment_file']))
-            ->withMime('application/pdf');
-    }
 }

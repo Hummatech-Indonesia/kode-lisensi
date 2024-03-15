@@ -31,6 +31,7 @@ use App\Http\Controllers\Home\ProductFavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductEmailController;
+use App\Http\Controllers\ProductRecommendationController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UpdateIdInvoiceController;
@@ -139,13 +140,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
             Route::resource('categories', CategoryController::class);
-            Route::get('categories-ajax',[CategoryController::class,'getAjax'])->name('categories.ajax');
+            Route::get('categories-ajax', [CategoryController::class, 'getAjax'])->name('categories.ajax');
 
             Route::resources([
                 'products' => ProductController::class,
                 'archive-products' => ArchiveProductController::class,
                 'product-questions' => ProductQuestionController::class
             ]);
+
+            Route::post('product-recommendations/{product}', [ProductRecommendationController::class, 'store'])->name('product.recommendations.store');
+
             Route::patch('varian-products-update/{product}', [ProductController::class, 'varianProductUpdate'])->name('varian.products.update');
             Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');
 

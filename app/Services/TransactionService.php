@@ -144,7 +144,7 @@ class TransactionService
             'transaction_id' => $transaction['id'],
             'product_id' => $product->id,
             'name' => $data['name'],
-            'note'=>$data['note'],
+            'note' => $data['note'],
             'varian_product_id' => $varianProductId,
             'phone_number' => $data['phone_number'],
             'email' => $data['email']
@@ -185,6 +185,8 @@ class TransactionService
             [
                 'name' => $transaction->detail_transaction->name,
                 'email' => $transaction->detail_transaction->email,
+                'product' => $product,
+                'varian_product' => $product->varianProduct?->name,
                 'invoice_id' => $transaction->invoice_id,
                 'pack_name' => $product->name,
                 'pack_price' => $product->sell_price,
@@ -192,7 +194,6 @@ class TransactionService
                 'payment_method' => $transaction->payment_method,
                 'paid_at' => $transaction->paid_at,
                 'product_type' => $product->type,
-                'attachment_file' => $product->attachment_file,
                 'created_at' => $transaction->created_at,
                 'licenses' => [
                     'username' => $request->username ?? null,
