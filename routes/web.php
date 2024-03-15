@@ -160,7 +160,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::patch('varian-products/{varianProduct}', [VarianProductController::class, 'update'])->name('update.varian.product');
             Route::delete('varian-products/{varianProduct}', [VarianProductController::class, 'destroy'])->name('delete.varian.product');
 
-            Route::resource('preorder-products', PreorderProductController::class)->only('index');
+            // Route::resource('preorder-products', PreorderProductController::class)->only('index');
 
             Route::post('licenses-update', [LicenseController::class, 'licensesUpdate'])->name('licenses.update');
             Route::resource('licenses', LicenseController::class)->only('show', 'store', 'destroy');
