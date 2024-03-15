@@ -34,11 +34,15 @@ class ProductRepository extends BaseRepository implements ProductInterface
         return $this->ProductMockup(
             $this->model->query()
                 ->with('category')
-
                 ->where('category_id', $id)
         );
     }
 
+    /**
+     * preorder
+     *
+     * @return mixed
+     */
     public function preorder(): mixed
     {
         return $this->ProductMockup($this->model->query()
@@ -190,6 +194,9 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->when($request->categories, function ($query) use ($request) {
                 return $query->whereIn('category_id', $request->categories);
             })
+            ->when($request->category_id, function ($query) use ($request) {
+                return $query->where('category_id', $request->category_id);
+            })
             ->when($request->search, function ($query) use ($request) {
                 return $query->whereLike('name', $request->search);
             })
@@ -268,6 +275,13 @@ class ProductRepository extends BaseRepository implements ProductInterface
             ->oldest('licenses_count')
             ->where('status', ProductStatusEnum::AVAILABLE->value));
     }
+
+    /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
     public function getWhere(array $data): mixed
     {
         return $this->model->query()

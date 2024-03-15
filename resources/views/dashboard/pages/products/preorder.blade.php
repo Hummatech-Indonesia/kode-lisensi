@@ -119,13 +119,11 @@
                 })
                 table.ajax.reload()
             }
-
             $('#productReccomendations').on('submit', function(e) {
                 e.preventDefault();
                 startDate = $('#startDate').val()
                 endDate = $('#endDate').val()
                 let url = `{{ route('product.recommendations.store', ':id') }}`.replace(':id', id);
-
                 $.ajax({
                     url: url,
                     method: 'post',

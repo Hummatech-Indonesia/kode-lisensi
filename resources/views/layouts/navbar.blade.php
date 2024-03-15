@@ -169,7 +169,7 @@
                         <ul class="category-list">
                             @foreach ($nav_categories as $category)
                                 <li class="onhover-category-list">
-                                    <a href="javascript:void(0)" class="category-name">
+                                    <a href="{{ route('home.category', $category->id) }}" class="category-name">
                                         <h6>{{ $category->name }}</h6>
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>

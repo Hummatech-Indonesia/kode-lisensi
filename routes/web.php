@@ -25,6 +25,7 @@ use App\Http\Controllers\Dashboard\SiteSettingController;
 use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\Home\HomeArticleController;
+use App\Http\Controllers\Home\HomeCategoryController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\HomeProductController;
 use App\Http\Controllers\Home\ProductFavoriteController;
@@ -77,6 +78,9 @@ Route::name('home.')->group(function () {
         Route::get('contact-us', [ContactController::class, 'homepage'])->name('index');
         Route::post('contact-us', [ContactController::class, 'store'])->name('store');
     });
+
+    Route::get('categories/{category}', [HomeCategoryController::class, 'show'])->name('category');
+
     Route::get('term-and-condition', [TermController::class, 'homepage'])->name('term');
     Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
     Route::resources([
