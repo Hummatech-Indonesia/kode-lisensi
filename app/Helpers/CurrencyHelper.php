@@ -81,4 +81,13 @@ class CurrencyHelper
 
     return $minSellPrice;
     }
+    public static function varianPriceMax(mixed $varianProducts){
+        $maxSellPrice = PHP_INT_MIN; // Inisialisasi dengan nilai minimum PHP_INT_MIN
+
+        foreach ($varianProducts as $varianProduct) {
+            $maxSellPrice = max($maxSellPrice, $varianProduct->sell_price);
+        }
+
+        return $maxSellPrice;
+    }
 }
