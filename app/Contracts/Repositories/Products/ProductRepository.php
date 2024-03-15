@@ -273,7 +273,9 @@ class ProductRepository extends BaseRepository implements ProductInterface
                 }
             ])
             ->oldest('licenses_count')
-            ->where('status', ProductStatusEnum::AVAILABLE->value));
+            ->get()
+        );
+            // ->where('status', ProductStatusEnum::AVAILABLE->value));
     }
 
     /**
@@ -291,4 +293,25 @@ class ProductRepository extends BaseRepository implements ProductInterface
             })
             ->first();
     }
+    /**
+     * Handle count all data event from models.
+     *
+     *
+     * @return mixed
+     */
+
+     public function search(Request $request): mixed{
+        return $this->ProductMockup($this->model->query()
+        ->with('category')
+        ->withCount([
+            'licenses as licenses_count' => function ($query) {
+                $query->where('is_purchased', 0);
+            }
+        ])
+        ->oldest('licenses_count')
+        ->when($request->filter, function ($query) use ($request) {
+            return $query->whereIn('status', $request->filter);
+        })
+    );
+     }
 }

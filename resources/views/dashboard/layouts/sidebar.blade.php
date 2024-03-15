@@ -64,11 +64,11 @@
                     <a href="{{ route('products.create') }}">Tambah Produk Baru</a>
                 </li>
                 <li>
-                    <a href="{{ route('products.index') }}">Produk Stok</a>
+                    <a href="{{ route('products.index') }}">List Produk</a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('preorder-products.index') }}">Produk Preorder</a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('archive-products.index') }}">Arsip Produk</a>
                 </li>
