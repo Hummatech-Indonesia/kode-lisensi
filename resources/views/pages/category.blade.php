@@ -34,7 +34,7 @@
     <section class="section-b-space shop-section">
         <div class="container-fluid-lg">
             <div class="row">
-                <div class="col-custome-9">
+                <div class="col-custome-12">
                     <div class="show-button">
                         <div class="filter-button-group mt-0">
                             <div class="filter-button d-inline-block d-lg-none">
@@ -48,7 +48,7 @@
                     </div>
 
                     <div id="productContainer"
-                        class="row g-sm-4 g-3 product-list-section row-cols-xxl-3 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 mt-3">
+                        class="row g-sm-4 g-3 product-list-section row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 mt-3">
                         @forelse($products as $product)
                             <div class="loopProducts">
                                 <div class="product-box-3 h-100 wow fadeInUp"
