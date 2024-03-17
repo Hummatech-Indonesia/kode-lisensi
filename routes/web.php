@@ -153,6 +153,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ]);
 
             Route::post('product-recommendations/{product}', [ProductRecommendationController::class, 'store'])->name('product.recommendations.store');
+            Route::get('product-recommendations', [ProductRecommendationController::class, 'get'])->name('product.recommendations.index');
 
             Route::patch('varian-products-update/{product}', [ProductController::class, 'varianProductUpdate'])->name('varian.products.update');
             Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');

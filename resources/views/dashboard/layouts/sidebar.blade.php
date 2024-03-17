@@ -66,6 +66,9 @@
                 <li>
                     <a href="{{ route('products.index') }}">List Produk</a>
                 </li>
+                <li>
+                    <a href="{{ route('product.recommendations.index') }}">Rekomendasi Produk</a>
+                </li>
                 {{-- <li>
                     <a href="{{ route('preorder-products.index') }}">Produk Preorder</a>
                 </li> --}}

@@ -11,7 +11,7 @@ use App\Contracts\Interfaces\Eloquent\ShowSlugInterface;
 use App\Contracts\Interfaces\Eloquent\ShowSoftDeleteInterface;
 use App\Contracts\Interfaces\Eloquent\SoftDeleteInterface;
 
-interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderProductInterface, ShowSoftDeleteInterface, CursorPaginateInterface, ShowSlugInterface, GetAllnterface,GetWhereInterface,SearchInterface
+interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderProductInterface, ShowSoftDeleteInterface, CursorPaginateInterface, ShowSlugInterface, GetAllnterface, GetWhereInterface, SearchInterface
 {
     /**
      * Handle get the specified data by id from models.
@@ -21,6 +21,13 @@ interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderP
      * @return mixed
      */
 
-     public function showCategory(mixed $id): mixed;
-}
+    public function showCategory(mixed $id): mixed;
 
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     */
+
+    public function getProductRecommendation(): mixed;
+}

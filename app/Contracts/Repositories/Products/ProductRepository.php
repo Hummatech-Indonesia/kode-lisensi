@@ -265,17 +265,31 @@ class ProductRepository extends BaseRepository implements ProductInterface
      */
     public function get(): mixed
     {
-        return $this->ProductMockup($this->model->query()
-            ->with('category')
-            ->withCount([
-                'licenses as licenses_count' => function ($query) {
-                    $query->where('is_purchased', 0);
-                }
-            ])
-            ->oldest('licenses_count')
-            ->get()
+        return $this->ProductMockup(
+            $this->model->query()
+                ->with('category')
+                ->withCount([
+                    'licenses as licenses_count' => function ($query) {
+                        $query->where('is_purchased', 0);
+                    }
+                ])
+                ->where('status', ProductStatusEnum::AVAILABLE->value)
+                ->oldest('licenses_count')
         );
-            // ->where('status', ProductStatusEnum::AVAILABLE->value));
+    }
+
+    /**
+     * getProductRecommendation
+     *
+     * @return mixed
+     */
+    public function getProductRecommendation(): mixed
+    {
+        return $this->ProductMockup(
+            $this->model->query()
+                ->with('category')
+                ->whereHas('product_recommendations')
+        );
     }
 
     /**
@@ -300,18 +314,20 @@ class ProductRepository extends BaseRepository implements ProductInterface
      * @return mixed
      */
 
-     public function search(Request $request): mixed{
-        return $this->ProductMockup($this->model->query()
-        ->with('category')
-        ->withCount([
-            'licenses as licenses_count' => function ($query) {
-                $query->where('is_purchased', 0);
-            }
-        ])
-        ->oldest('licenses_count')
-        ->when($request->filter, function ($query) use ($request) {
-            return $query->whereIn('status', $request->filter);
-        })
-    );
-     }
+    public function search(Request $request): mixed
+    {
+        return $this->ProductMockup(
+            $this->model->query()
+                ->with('category')
+                ->withCount([
+                    'licenses as licenses_count' => function ($query) {
+                        $query->where('is_purchased', 0);
+                    }
+                ])
+                ->oldest('licenses_count')
+                ->when($request->filter, function ($query) use ($request) {
+                    return $query->whereIn('status', $request->filter);
+                })
+        );
+    }
 }

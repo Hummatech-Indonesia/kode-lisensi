@@ -70,7 +70,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('products.index') }}",
+                ajax: "{{ route('preorder-products.index') }}",
                 columns: [{
                         data: 'photo',
                         name: 'photo'

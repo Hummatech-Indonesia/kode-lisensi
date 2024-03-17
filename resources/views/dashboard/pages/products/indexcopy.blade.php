@@ -16,30 +16,23 @@
                 <div class="alert alert-warning">
                     Catatan: <br>
                     <ul>
-                        <li>Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
+                        <li>- Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
                     </ul>
-                </div>
-                <div class="alert alert-danger alert-dismissible" role="alert" style="display: none;"
-                    id="validation_errors">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <div class="alert-message">
-                        <ul id="alert_message">
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div class="title-header option-title">
-                <h5>Halaman Produk Preorder</h5>
+                <h5>Halaman Produk</h5>
             </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Produk</th>
-                            <th>Kategori</th>
-                            <th>Harga Jual</th>
-                            <th>Aksi</th>
+                            <th data-name="photo">#</th>
+                            <th data-name="name">Produk</th>
+                            <th data-name="category.name">Kategori</th>
+                            <th data-name="stock">Stok</th>
+                            <th data-name="sell_price">Harga Jual</th>
+                            <th data-name="action">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,15 +44,13 @@
 @endsection
 
 @section('script')
-    <x-product-recommendation></x-product-recommendation>
     <x-delete-modal></x-delete-modal>
     <x-soft-delete-modal></x-soft-delete-modal>
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
-        let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
         $(document).ready(function() {
+            // Datatables Responsive
             $("#table_id").DataTable({
                 scrollX: false,
                 scrollY: '500px',
@@ -77,13 +68,25 @@
                     },
                     {
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        render: function(data, type, row) {
+                            return '<a href="{{ route('home.products.show', ':slug') }}'.replace(
+                                ':slug', row.slug) + '" target="_blank">' + data + '</a>';
+                        }
                     },
                     {
                         data: 'category.name',
-                        name: 'category.name'
+                        name: 'category.name',
+                        render: function(data, type, row) {
+                            return '<a href="{{ route('categories.show', ':category.id') }}'
+                                .replace(':category.id', row.category.id) + '">' + data + '</a>';
+                        }
                     },
-
+                    {
+                        data: 'stock',
+                        name: 'licenses_count',
+                        searchable: false
+                    },
                     {
                         data: 'sell_price',
                         name: 'sell_price'
@@ -102,49 +105,6 @@
                 const id = $(this).attr('data-id');
                 let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
                 $('#deleteForm').attr('action', url);
-            });
-
-            let startDate = null;
-            let endDate = null;
-            let id = null;
-            $(document).on('click', '.product-recommendation', function() {
-                id = $(this).attr('data-id');
-            });
-
-            const showSweetAlert = (data, table) => {
-                swal({
-                    title: "Berhasil",
-                    text: data.meta.message,
-                    icon: data.meta.status,
-                })
-                table.ajax.reload()
-            }
-            $('#productReccomendations').on('submit', function(e) {
-                e.preventDefault();
-                startDate = $('#startDate').val()
-                endDate = $('#endDate').val()
-                const url = `{{ route('product.recommendations.store', ':id') }}`.replace(':id', id);
-                const urlRecommendationProduct = `{{ route('product.recommendations.index') }}`;
-                $.ajax({
-                    url: url,
-                    method: 'post',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        start_date: startDate,
-                        end_date: endDate
-                    },
-                    success: (data) => {
-                        $('#addProductReccomendationModal').modal('hide')
-                        window.location.href = urlRecommendationProduct;
-                    },
-                    error: (err) => {
-                        $('#addProductReccomendationModal').modal('hide')
-                        $("#validation_errors").removeAttr("style").css("display", "block");
-                        $.each(err.responseJSON.errors, function(index, data) {
-                            $('#alert_message').append(`<li>` + data + `</li>`);
-                        });
-                    }
-                })
             });
 
             $(document).on('click', '.delete-soft', function() {

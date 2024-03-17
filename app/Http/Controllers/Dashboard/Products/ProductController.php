@@ -40,7 +40,7 @@ class ProductController extends Controller
 
     public function index(Request $request): object
     {
-        if ($request->ajax()) return $this->product->get();
+        if ($request->ajax()) return $this->product->search($request);
 
         return view('dashboard.pages.products.index');
     }
