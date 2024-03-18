@@ -41,7 +41,7 @@ class OrderNotification extends Notification
         return FcmMessage::create()
             ->setData(['data1' => 'value', 'data2' => 'value2'])
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                ->setTitle("Absensi Siswa")
+                ->setTitle("Pembelian Produk")
                 ->setBody(auth()->user()->name . "melakukan pembelian " . $this->product->name . "pada" . Carbon::parse($this->transaction->created_at)->format('H:i:s')))
             ->setAndroid(
                 AndroidConfig::create()
