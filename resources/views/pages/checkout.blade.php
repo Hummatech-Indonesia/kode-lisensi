@@ -136,7 +136,8 @@
                                                                 <label for="exampleFormControlInput4"
                                                                     class="form-label">Catatan (opsional)</label>
                                                                 <div class="custom-input">
-                                                                        <textarea name="note" id="exampleFormControlInput4" cols="15" rows="5" class="form-control @error('note') is-invalid @enderror" placeholder="catatan pemesanan">{{old('note')}}</textarea>
+                                                                    <textarea name="note" id="exampleFormControlInput4" cols="15" rows="5"
+                                                                        class="form-control @error('note') is-invalid @enderror" placeholder="catatan pemesanan">{{ old('note') }}</textarea>
                                                                     @error('note')
                                                                         <span class="invalid-feedback" role="alert">
                                                                             <strong>{{ $message }}</strong>
@@ -501,8 +502,8 @@
                                     </button>
                                 @endif
                             @else
-                                <button type="submit" class="btn bg-dark text-white btn-md w-100 mt-4 fw-bold">
-                                    Preorder Produk
+                                <button type="submit"
+                                    class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Beli Produk
                                 </button>
                             @endif
                         </div>
