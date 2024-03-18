@@ -44,6 +44,7 @@
 @endsection
 
 @section('script')
+    <x-delete-product-recommendation></x-delete-product-recommendation>
     <x-delete-modal></x-delete-modal>
     <x-soft-delete-modal></x-soft-delete-modal>
 
@@ -99,12 +100,18 @@
                     }
                 ]
             });
-
             $(document).on('click', '.delete-alert', function() {
                 $('#exampleModal').modal('show')
                 const id = $(this).attr('data-id');
                 let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
                 $('#deleteForm').attr('action', url);
+            });
+
+            $(document).on('click', '.delete-product-recommendation', function() {
+                $('#deleteProductRecommendationModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('product.recommendations.delete', ':id') }}`.replace(':id', id);
+                $('#deleteProductRecommendation').attr('action', url);
             });
 
             $(document).on('click', '.delete-soft', function() {

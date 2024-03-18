@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Products\ProductRecommendationInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\ProductRecommendationRequest;
 use App\Models\Product;
+use App\Models\ProductRecommendation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -45,5 +46,10 @@ class ProductRecommendationController extends Controller
         $data['product_id'] = $product->id;
         $this->productRecommendation->store($data);
         return ResponseHelper::success(null, trans('alert.add_success'));
+    }
+    public function destroy(ProductRecommendation $product){
+        $this->productRecommendation->delete($product->id);
+        // return ResponseHelper::success(null,trans('alert.delete_success'));
+        return redirect()->back();
     }
 }

@@ -152,6 +152,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'product-questions' => ProductQuestionController::class
             ]);
 
+            Route::delete('product-recommendations/{product}', [ProductRecommendationController::class, 'destroy'])->name('product.recommendations.delete');
             Route::post('product-recommendations/{product}', [ProductRecommendationController::class, 'store'])->name('product.recommendations.store');
             Route::get('product-recommendations', [ProductRecommendationController::class, 'get'])->name('product.recommendations.index');
 

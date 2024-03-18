@@ -31,4 +31,7 @@ class ProductRecommendationRepository extends BaseRepository implements ProductR
                 $data
             );
     }
+    public function delete(mixed $id):mixed{
+        return $this->model->query()->findOrFail($id)->delete();
+    }
 }

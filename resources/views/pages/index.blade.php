@@ -792,7 +792,7 @@
         </div>
     </section>
 
-    <section class="banner-section">
+    {{-- <section class="banner-section">
         <div class="container-fluid-lg">
             <div class="row gy-lg-0 gy-3">
                 <div class="col-lg-6">
@@ -837,7 +837,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <section class="product-list-section section-b-space mt-3">
         <div class="container-fluid-lg">

@@ -32,11 +32,13 @@
                 <h5>Halaman Produk Preorder</h5>
             </div>
             <div class="title-header option-title">
-                <select name="" class="form-control" id="status">
-                    <option value="">Tampilkan Semua</option>
-                    <option value="stocking">Stok</option>
-                    <option value="preorder">Preorder</option>
-                </select>
+                <div style="width: 200px">
+                    <select name="" class="form-select" id="status">
+                        <option value="">Tampilkan Semua</option>
+                        <option value="stocking">Stok</option>
+                        <option value="preorder">Preorder</option>
+                    </select>
+                </div>
             </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
