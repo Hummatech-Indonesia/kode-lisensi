@@ -324,6 +324,9 @@ class ProductRepository extends BaseRepository implements ProductInterface
                         $query->where('is_purchased', 0);
                     }
                 ])
+                ->when($request->status, function ($query) use ($request) {
+                    $query->where('status', $request->status);
+                })
                 ->oldest('licenses_count')
                 ->when($request->filter, function ($query) use ($request) {
                     return $query->whereIn('status', $request->filter);

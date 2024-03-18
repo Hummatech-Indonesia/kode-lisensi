@@ -31,6 +31,13 @@
             <div class="title-header option-title">
                 <h5>Halaman Produk Preorder</h5>
             </div>
+            <div class="title-header option-title">
+                <select name="" class="form-control" id="status">
+                    <option value="">Tampilkan Semua</option>
+                    <option value="stocking">Stok</option>
+                    <option value="preorder">Preorder</option>
+                </select>
+            </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
@@ -59,8 +66,109 @@
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
+        // $(document).ready(function() {
+        //     $("#table_id").DataTable({
+        //         scrollX: false,
+        //         scrollY: '500px',
+        //         paging: true,
+        //         ordering: true,
+        //         responsive: true,
+        //         pageLength: 50,
+        //         processing: true,
+        //         serverSide: true,
+        //         searching: true,
+        //         ajax: {
+        //             url: "{{ route('products.index') }}",
+        //             data: function(d) {
+        //                 d.status = $('#status').val();
+        //             }
+        //         },
+        //         columns: [{
+        //                 data: 'photo',
+        //                 name: 'photo'
+        //             },
+        //             {
+        //                 data: 'name',
+        //                 name: 'name'
+        //             },
+        //             {
+        //                 data: 'category.name',
+        //                 name: 'category.name'
+        //             },
+
+        //             {
+        //                 data: 'sell_price',
+        //                 name: 'sell_price'
+        //             },
+        //             {
+        //                 data: 'action',
+        //                 name: 'action',
+        //                 orderable: false,
+        //                 searchable: false
+        //             }
+        //         ]
+        //     });
+
+        //     $(document).on('click', '.delete-alert', function() {
+        //         $('#exampleModal').modal('show')
+        //         const id = $(this).attr('data-id');
+        //         let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
+        //         $('#deleteForm').attr('action', url);
+        //     });
+
+        //     let startDate = null;
+        //     let endDate = null;
+        //     let id = null;
+        //     $(document).on('click', '.product-recommendation', function() {
+        //         id = $(this).attr('data-id');
+        //     });
+
+        //     const showSweetAlert = (data, table) => {
+        //         swal({
+        //             title: "Berhasil",
+        //             text: data.meta.message,
+        //             icon: data.meta.status,
+        //         })
+        //         table.ajax.reload()
+        //     }
+        //     $('#productReccomendations').on('submit', function(e) {
+        //         e.preventDefault();
+        //         startDate = $('#startDate').val()
+        //         endDate = $('#endDate').val()
+        //         const url = `{{ route('product.recommendations.store', ':id') }}`.replace(':id', id);
+        //         const urlRecommendationProduct = `{{ route('product.recommendations.index') }}`;
+        //         $.ajax({
+        //             url: url,
+        //             method: 'post',
+        //             data: {
+        //                 _token: CSRF_TOKEN,
+        //                 start_date: startDate,
+        //                 end_date: endDate
+        //             },
+        //             success: (data) => {
+        //                 $('#addProductReccomendationModal').modal('hide')
+        //                 window.location.href = urlRecommendationProduct;
+        //             },
+        //             error: (err) => {
+        //                 $('#addProductReccomendationModal').modal('hide')
+        //                 $("#validation_errors").removeAttr("style").css("display", "block");
+        //                 $.each(err.responseJSON.errors, function(index, data) {
+        //                     $('#alert_message').append(`<li>` + data + `</li>`);
+        //                 });
+        //             }
+        //         })
+        //     });
+
+        //     $(document).on('click', '.delete-soft', function() {
+        //         $('#softModal').modal('show')
+        //         const id = $(this).attr('data-id');
+        //         let url = `{{ route('product.soft.delete', ':id') }}`.replace(':id', id);
+        //         $('#deleteSoft').attr('action', url);
+        //     });
+
+        // });
         $(document).ready(function() {
-            $("#table_id").DataTable({
+            var table = $("#table_id").DataTable({
                 scrollX: false,
                 scrollY: '500px',
                 paging: true,
@@ -70,7 +178,12 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('products.index') }}",
+                ajax: {
+                    url: "{{ route('products.index') }}",
+                    data: function(d) {
+                        d.status = $('#status').val();
+                    }
+                },
                 columns: [{
                         data: 'photo',
                         name: 'photo'
@@ -83,7 +196,6 @@
                         data: 'category.name',
                         name: 'category.name'
                     },
-
                     {
                         data: 'sell_price',
                         name: 'sell_price'
@@ -95,6 +207,10 @@
                         searchable: false
                     }
                 ]
+            });
+
+            $('#status').on('change', function() {
+                table.ajax.reload();
             });
 
             $(document).on('click', '.delete-alert', function() {
@@ -119,6 +235,7 @@
                 })
                 table.ajax.reload()
             }
+
             $('#productReccomendations').on('submit', function(e) {
                 e.preventDefault();
                 startDate = $('#startDate').val()
@@ -153,7 +270,6 @@
                 let url = `{{ route('product.soft.delete', ':id') }}`.replace(':id', id);
                 $('#deleteSoft').attr('action', url);
             });
-
         });
     </script>
 @endsection

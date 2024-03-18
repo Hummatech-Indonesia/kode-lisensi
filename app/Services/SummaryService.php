@@ -21,11 +21,26 @@ class SummaryService
     private Product $product;
     private Transaction $transaction;
 
-    public function __construct(Product $product, Transaction $transaction, User $user)
+    public function __construct(Product $product, Transaction $transaction)
     {
         $this->product = $product;
         $this->transaction = $transaction;
-        $this->user = $user;
+    }
+
+    /**
+     * productRecommendations
+     *
+     * @return mixed
+     */
+    public function productRecommendations(): mixed
+    {
+        return $this->product->query()
+            ->whereHas('product_recommendations', function ($query) {
+                $query->where('start_date', '<=', now()->format('Y-m-d'))
+                    ->where('end_date', '>=', now()->format('Y-m-d'));
+            })
+            ->take(8)
+            ->get();
     }
 
     /**
@@ -237,10 +252,10 @@ class SummaryService
      * @return object
      */
 
-    public function handleRecommendProducts(int $take,mixed $product): object
+    public function handleRecommendProducts(int $take, mixed $product): object
     {
         return $this->product->query()
-        ->whereNot('slug',$product->slug)
+            ->whereNot('slug', $product->slug)
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
             ->with('category')
             ->withCount(['product_ratings', 'licenses'])
