@@ -74,6 +74,15 @@
                                         <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
+                                @if ($transaction->detail_transaction->note)
+                                <div class="mb-4 row align-items-center">
+                                    <label for="" class="form-label-title col sm-0 mb-3">Catatan Pembeli <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-12">
+                                        <textarea name="" id="" cols="15" rows="5" class="form-control" readonly>{{ $transaction->detail_transaction->note }}</textarea>
+                                    </div>
+                                </div>
+                                @endif
 
                                 <div class="mb-4 row align-items-center">
                                     <div class="col-sm-6">
