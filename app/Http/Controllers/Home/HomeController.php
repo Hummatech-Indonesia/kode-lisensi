@@ -38,6 +38,7 @@ class HomeController extends Controller
         return view('pages.index', [
             'productRecommendation' => $this->summaryService->productRecommendations(),
             'bestSellerProducts' => $this->summaryService->handleBestSeller(8),
+            'bestSellerProductPage' => $this->summaryService->handleBestSellerPage(8),
             'highestRatingProducts' => $this->summaryService->handleHighestRatings(12),
             'latestProducts' => $this->summaryService->handleLatestProducts(),
             'slider' => $this->slider->get(),

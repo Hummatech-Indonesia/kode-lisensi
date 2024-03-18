@@ -200,6 +200,34 @@ class SummaryService
     }
 
     /**
+     * handleBestSellerPage
+     *
+     * @param  mixed $take
+     * @return object
+     */
+    public function handleBestSellerPage(int $take = 5): object
+    {
+        $data = $this->product->query()
+            ->whereHas('detailTransactions', function ($query) {
+                $query->whereHas('transaction', function ($query) {
+                    $query->whereIn('invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value]);
+                });
+            })
+            ->with(['category', 'varianProducts'])
+            ->withCount('product_ratings')
+            ->withCount('transactions')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->groupBy('products.name')
+            ->take($take)
+            ->orderByDesc('transactions_count')
+            ->get();
+
+        return $data;
+    }
+
+    /**
      * Handle the highest ratings products
      *
      * @param int $take
