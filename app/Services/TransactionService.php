@@ -91,6 +91,7 @@ class TransactionService
             $price = CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $discount);
         } else {
             $varianProductId = null;
+            $varianProduct = null;
             $price = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
         }
 
@@ -161,6 +162,7 @@ class TransactionService
             'url' => $createInvoice['data']['checkout_url'],
             'pack_name' => $product->name,
             'pack_price' => $price,
+            'varian_product' => $varianProduct,
             'quantity' => 1,
             'fees' => $fee,
             'total_amount' => $createInvoice['data']['amount'],
