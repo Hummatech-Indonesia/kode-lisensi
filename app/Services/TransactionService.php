@@ -127,7 +127,6 @@ class TransactionService
             $license_id = ($product->status === ProductStatusEnum::PREORDER->value) ? null : $license->id;
         }
 
-        dd($createInvoice);
         $transaction = $this->transaction->store([
             'id' => $createInvoice['data']['reference'],
             'invoice_id' => $createInvoice['data']['merchant_ref'],
