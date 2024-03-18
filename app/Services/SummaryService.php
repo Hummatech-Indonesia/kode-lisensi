@@ -186,7 +186,7 @@ class SummaryService
             ->leftJoin('detail_transactions as dt', 'dt.product_id', '=', 'products.id')
             ->leftJoin('transactions as tc', 'tc.id', '=', 'dt.transaction_id')
             ->whereIn('tc.invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value])
-            ->with(['category'])
+            ->with(['category', 'varianProducts'])
             ->withCount('product_ratings')
             ->withSum(['product_ratings' => function ($query) {
                 $query->where('status', RatingStatusEnum::APPROVED->value);

@@ -74,7 +74,7 @@
                     </div>
                     <div id="productContainer"
                         class="row g-sm-4 g-3 product-list-section row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 mt-3 mb-5">
-                        @forelse($productReccomendation as $product)
+                        @forelse($productRecommendation as $product)
                             <div class="loopProducts" id="latestProduct">
                                 <div class="product-box-3 h-100 wow fadeInUp"
                                     style="visibility: visible; animation-name: fadeInUp;">
