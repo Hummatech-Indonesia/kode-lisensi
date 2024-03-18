@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="title-header option-title">
-                <h5>Halaman Produk Preorder</h5>
+                <h5>Halaman Produk</h5>
             </div>
             <div class="title-header option-title">
                 <div style="width: 200px">
@@ -60,6 +60,7 @@
 @endsection
 
 @section('script')
+    <x-delete-product-recommendation></x-delete-product-recommendation>
     <x-product-recommendation></x-product-recommendation>
     <x-delete-modal></x-delete-modal>
     <x-soft-delete-modal></x-soft-delete-modal>
@@ -264,6 +265,13 @@
                         });
                     }
                 })
+            });
+
+            $(document).on('click', '.delete-product-recommendation', function() {
+                $('#deleteProductRecommendationModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('product.recommendations.delete', ':id') }}`.replace(':id', id);
+                $('#deleteProductRecommendation').attr('action', url);
             });
 
             $(document).on('click', '.delete-soft', function() {
