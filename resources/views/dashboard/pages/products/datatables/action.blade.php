@@ -2,8 +2,8 @@
     @if ($data->product_recommendations->first())
         <li>
             <a data-bs-toggle="modal" data-id="{{ $data->product_recommendations->first()->id }}" data-bs-target="#deleteProductRecommendationModal"
-                class="text-primary delete-product-recommendation" title="hapus dari rekomendasx`i produk">
-                <i class="ri-arrow-down-fill"></i> </a>
+                class="text-primary delete-product-recommendation" title="hapus dari rekomendasi produk">
+                <i class="ri-settings-3-fill"></i> </a>
         </li>
     @else
         <li>
