@@ -219,10 +219,12 @@
                                                     <h4 class="badge bg-warning">Discount:
                                                         {{ $product->reseller_discount }}%</h4>
                                                 @else
-                                                    <h4><span class="badge bg-warning">Discount: {{$product->discount}}%</span></h4>
+                                                    <h4><span class="badge bg-warning">Discount:
+                                                            {{ $product->discount }}%</span></h4>
                                                 @endif
                                             @else
-                                                <h4><span class="badge bg-warning">Discount: {{$product->discount}}%</span></h4>
+                                                <h4><span class="badge bg-warning">Discount: {{ $product->discount }}%</span>
+                                                </h4>
                                             @endauth
 
 
@@ -341,7 +343,8 @@
                                                     @endif
                                                 @else
                                                     <h4>
-                                                        <span class="badge rounded-pill text-bg-danger">Preorder</span>
+                                                        <span
+                                                            class="badge rounded-pill text-bg-info text-white">Preorder</span>
                                                     </h4>
                                                 @endif
                                             </h6>
