@@ -26,6 +26,7 @@
                         <th>Produk</th>
                         <th>Bayar</th>
                         <th>Metode</th>
+                        <th>Catatan</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -75,6 +76,10 @@
                     {
                         data: 'payment_method',
                         name: 'payment_method'
+                    },
+                    {
+                        data:'detail_transaction.note',
+                        name:'detail_transaction.note'
                     },
                     {
                         data: 'action',
