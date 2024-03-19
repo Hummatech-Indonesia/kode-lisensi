@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Products;
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Enums\ProductStatusEnum;
+use App\Helpers\ProductHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ProductStoreRequest;
@@ -40,7 +41,8 @@ class ProductController extends Controller
 
     public function index(Request $request): object
     {
-        if ($request->ajax()) return $this->product->search($request);
+        if ($request->ajax())
+            return $this->product->search($request);
 
         return view('dashboard.pages.products.index');
     }
@@ -56,6 +58,11 @@ class ProductController extends Controller
         return view('dashboard.pages.products.add', compact('categories'));
     }
 
+    public function shareButtons(String $slug)
+    {
+        $shareProduct = ProductHelper::shareButtons($slug);
+        return ResponseHelper::success($shareProduct);
+    }
     /**
      * Display the specified resource.
      *
@@ -128,7 +135,7 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request): RedirectResponse
     {
-        $service =  $this->productService->store($request);
+        $service = $this->productService->store($request);
         if (!$data = $service) {
             return back()->with('error', trans('alert.file_exist'));
         }

@@ -86,7 +86,9 @@ Route::name('home.')->group(function () {
     Route::resources([
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
-    ], ['only' => ['index', 'show']]);
+    ], ['only' => ['index', 'show','showShare']]);
+
+    Route::get('share-product/{slug?}', [ProductController::class, 'shareButtons'])->name('share.product');
 
     Route::prefix('checkout')->group(function () {
         Route::get('{invoice_id}/success', [CallbackController::class, 'showSuccessPage']);

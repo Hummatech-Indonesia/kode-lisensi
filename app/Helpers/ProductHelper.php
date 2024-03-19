@@ -4,6 +4,11 @@ namespace App\Helpers;
 
 use App\Enums\ProductStatusEnum;
 use App\Models\Product;
+use Illuminate\View\View;
+use Jorenvh\Share\Share;
+use Illuminate\Support\Facades\URL;
+use App\Enums\UserRoleEnum;
+
 
 class ProductHelper
 {
@@ -44,4 +49,16 @@ class ProductHelper
     {
         return Product::query()->count();
     }
+
+    public static function shareButtons(string $slug)
+    {
+        $share = new Share();
+        $shareButtons = $share->page(URL::to('/products/' . $slug))
+        ->whatsapp()
+        ->facebook()
+        ->telegram()
+        ->getRawLinks();
+        return $shareButtons;
+    }
+
 }

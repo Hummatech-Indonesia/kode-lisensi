@@ -4,6 +4,7 @@
     use App\Helpers\CurrencyHelper;
     use App\Helpers\RatingHelper;
     use App\Helpers\UserHelper;
+    use App\Helpers\ProductHelper;
 @endphp
 @extends('layouts.main')
 @section('meta')
@@ -151,15 +152,19 @@
                                                     <a href="{{ route('home.products.show', $product->slug) }}">
                                                         <i data-feather="eye"></i>
                                                     </a>
+
                                                 </li>
-
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="Bandingkan Produk">
-                                                    <a href="#">
-                                                        <i data-feather="refresh-cw"></i>
-
+                                                {{-- pemicu tombol share --}}
+                                                <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
+                                                    <a>
+                                                        <i data-feather="share" data-bs-toggle="modal"
+                                                            data-bs-target="#shareProductModal"
+                                                            data-slug="{{ $product->slug }}" id="shareButtonsTrigger"></i>
                                                     </a>
                                                 </li>
+
+
+
                                                 @auth
                                                     @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
                                                         <li data-bs-toggle="tooltip" class="favorite" data-bs-placement="top"
@@ -373,7 +378,7 @@
 @endsection
 @section('script')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <x-share-modal></x-share-modal>
     <script>
         $(document).ready(() => {
 
@@ -541,6 +546,41 @@
                     error: function(xhr, status, error) {
                         console.error("Terjadi kesalahan: " + error);
                     }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '#shareButtonsTrigger', function() {
+            var slug = $(this).data('slug');
+            $('#shareProductModal').modal('show');
+            // berikan nilai slug pada value sharewhatsappbutton
+            console.log(slug);
+
+            $.ajax({
+                url: "{{ route('home.share.product') }}" + "/" + slug,
+                method: 'GET',
+                success: function(response) {
+                    console.log(response);
+                    // Gunakan data yang diterima dari server (misalnya, update href)
+                    $('#shareLinkButton').attr('href', response.data.getRawLinks);
+                    $('#shareWhatsappButton').attr('href', response.data.whatsapp);
+                    $('#shareFacebookButton').attr('href', response.data.facebook);
+                    $('#shareTelegramButton').attr('href', response.data.telegram);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            $('#shareLinkButton').click(function() {
+                // Perhatikan penggunaan URL::to() untuk mendapatkan URL lengkap
+                var urlToCopy = "{{ URL::to('/products') }}/" + slug;
+                navigator.clipboard.writeText(urlToCopy).then(function() {
+                    alert('Tautan berhasil disalin!');
+                }, function(err) {
+                    console.error('Gagal menyalin tautan: ', err);
+                    alert('Gagal menyalin tautan. Silakan coba lagi.');
                 });
             });
         });
