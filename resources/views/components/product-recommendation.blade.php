@@ -14,20 +14,20 @@
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <input id="startDate" autocomplete="off" name="start_date" class="form-control"
-                                type="date">
+                                type="date" value="">
                         </div>
                     </div>
                     <div id="divEndDate" class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">Tanggal Berakhir <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input id="endDate" autocomplete="off" name="end_date" class="form-control"
-                                type="date">
+                            <input id="endDate" autocomplete="off" name="end_date" class="form-control" type="date"
+                                value="">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                 </div>
             </form>

@@ -54,7 +54,7 @@
         </li>
 
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title {{ request()->routeIs('products.*') || request()->routeIs('preorder-products.*') || request()->routeIs('archive-products.index') ? 'active' : '' }}"
+            <a class="sidebar-link sidebar-title {{ request()->routeIs('products.*') || request()->routeIs('preorder-products.*') || request()->routeIs('archive-products.index')||request()->routeIs('product-recommendation') ? 'active' : '' }}"
                 href="javascript:void(0)">
                 <i class="ri-store-3-line"></i>
                 <span>Produk</span>

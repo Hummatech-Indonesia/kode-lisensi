@@ -48,6 +48,7 @@
                                     <select name="role" class="form-control" id="">
                                         <option value="admin">Admin</option>
                                         <option value="author">Author</option>
+                                        <option value="reseller">Reseller</option>
                                     </select>
                                 </div>
                             </div>

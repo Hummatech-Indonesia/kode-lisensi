@@ -1,10 +1,19 @@
 <ul>
     @if ($data->product_recommendations->first())
-        <li>
-            <a data-bs-toggle="modal" data-id="{{ $data->product_recommendations->first()->id }}" data-bs-target="#deleteProductRecommendationModal"
-                class="text-primary delete-product-recommendation" title="hapus dari rekomendasi produk">
-                <i class="ri-settings-3-fill"></i> </a>
-        </li>
+        @if (request()->routeIs('products.*'))
+            <li>
+                <a data-bs-toggle="modal" data-id="{{ $data->id }}" data-bs-target="#addProductReccomendationModal"
+                    class="text-primary product-recommendation" title="rekomendasikan produk">
+                    <i class="ri-settings-3-fill"></i> </a>
+            </li>
+        @else
+            <li>
+                <a data-bs-toggle="modal" data-id="{{ $data->product_recommendations->first()->id }}"
+                    data-bs-target="#deleteProductRecommendationModal" class="text-primary delete-product-recommendation"
+                    title="hapus dari rekomendasi produk">
+                    <i class="ri-arrow-down-fill"></i> </a>
+            </li>
+        @endif
     @else
         <li>
             <a data-bs-toggle="modal" data-id="{{ $data->id }}" data-bs-target="#addProductReccomendationModal"

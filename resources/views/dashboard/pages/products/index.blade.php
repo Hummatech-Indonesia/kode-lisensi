@@ -60,6 +60,7 @@
 @endsection
 
 @section('script')
+    <x-product-recommendation></x-product-recommendation>
     <x-delete-product-recommendation></x-delete-product-recommendation>
     <x-product-recommendation></x-product-recommendation>
     <x-delete-modal></x-delete-modal>
