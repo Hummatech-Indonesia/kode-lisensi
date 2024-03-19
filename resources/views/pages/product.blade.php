@@ -157,7 +157,7 @@
                                                 {{-- pemicu tombol share --}}
                                                 <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
                                                     <a>
-                                                        <i data-feather="share" data-bs-toggle="modal"
+                                                        <i data-feather="share-2" data-bs-toggle="modal"
                                                             data-bs-target="#shareProductModal"
                                                             data-slug="{{ $product->slug }}" id="shareButtonsTrigger"></i>
                                                     </a>
