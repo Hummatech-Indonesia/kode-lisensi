@@ -21,6 +21,7 @@ use App\Http\Controllers\Dashboard\Products\ProductQuestionController;
 use App\Http\Controllers\Dashboard\ProductTestimonialController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResellerController;
+use App\Http\Controllers\Dashboard\ResellerDashboardController;
 use App\Http\Controllers\Dashboard\RevenueController;
 use App\Http\Controllers\Dashboard\SiteSettingController;
 use App\Http\Controllers\Dashboard\SliderController;
@@ -34,7 +35,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductEmailController;
 use App\Http\Controllers\ProductRecommendationController;
-use App\Http\Controllers\ResellerDashboardController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionAffiliateController;
 use App\Http\Controllers\TransactionController;
@@ -114,16 +114,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::name('notification.')->prefix('notification')->group(function () {
         Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
     });
-    Route::middleware('role:admin|author|reseller')->group(function () {
-
+    Route::middleware('role:admin|reseller')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
-                Route::get('history',[ResellerDashboardController::class,'history'])->name('history');
-                Route::get('notification',[ResellerDashboardController::class,'notification'])->name('notification');
+                Route::get('history', [ResellerDashboardController::class, 'history'])->name('history');
+                Route::get('notification', [ResellerDashboardController::class, 'notification'])->name('notification');
             });
         });
-
     });
     Route::middleware('role:reseller|customer')->group(function () {
         Route::name('users.account.')->prefix('my-account')->group(function () {

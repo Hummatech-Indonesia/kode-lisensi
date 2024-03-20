@@ -39,6 +39,8 @@ class DashboardController extends Controller
                 'latestTransaction' => $this->service->handleLatestTransaction(),
                 'bestSeller' => $this->service->handleBestSeller()
             ]);
+        } elseif (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) {
+            return view('dashboard.pages.reseller-dashboard.index');
         }
         return view('dashboard.pages.author.dashboard.index');
     }
