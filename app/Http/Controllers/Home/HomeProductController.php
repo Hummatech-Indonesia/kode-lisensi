@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Home;
 
 use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
-use App\Contracts\Interfaces\ShareProductResellerInterface;
+use App\Contracts\Interfaces\TransactionAffiliateInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UrlRequest;
 use App\Models\Product;
+use App\Models\TransactionAffiliate;
 use App\Services\ProductService;
 use App\Services\SummaryService;
 use Illuminate\Http\JsonResponse;
@@ -23,18 +25,20 @@ use Illuminate\Support\Facades\URL;
 class HomeProductController extends Controller
 {
     private ProductInterface $product;
+    private UserInterface $user;
+    private TransactionAffiliateInterface $transactionAffiliate;
     private CategoryInterface $category;
     private ProductService $productService;
     private SummaryService $summaryService;
-    private ShareProductResellerInterface $shareProductReseller;
 
-    public function __construct(ProductInterface $product, CategoryInterface $category, ProductService $productService, SummaryService $summaryService, ShareProductResellerInterface $shareProductReseller)
+    public function __construct(ProductInterface $product, CategoryInterface $category, ProductService $productService, SummaryService $summaryService, TransactionAffiliateInterface $transactionAffiliate, UserInterface $user)
     {
         $this->product = $product;
+        $this->user = $user;
+        $this->transactionAffiliate = $transactionAffiliate;
         $this->category = $category;
         $this->productService = $productService;
         $this->summaryService = $summaryService;
-        $this->shareProductReseller = $shareProductReseller;
     }
 
     /**
@@ -71,21 +75,18 @@ class HomeProductController extends Controller
      * @return View
      */
 
-    public function show(string $slug): View
+    public function show(string $slug, string $code_affiliate = null): View
     {
         $product = $this->product->showWithSlug($slug);
 
+        $user = $this->user->show($code_affiliate);
         if (auth()->user()) {
             $roleReseller = UserHelper::getUserRole() == UserRoleEnum::RESELLER->value;
-            $checkUser = $this->shareProductReseller->show($product->id);
         }
         $share = new Share();
         if (auth()->user()) {
             if ($roleReseller) {
-                $code = strtolower(str_random(7));
-                if ($checkUser) {
-                    $code = $checkUser->code;
-                }
+                $code = auth()->user()->code_affiliate;
                 $shareButtons = $share->page(URL::to('/products/' . $slug . '/' . $code))
                     ->whatsapp()
                     ->facebook()
@@ -105,14 +106,15 @@ class HomeProductController extends Controller
                 ->telegram()
                 ->getRawLinks();
         }
+
         if (auth()->user()) {
             if ($roleReseller) {
                 return view('pages.product-detail', [
-                    'checkUser' => $checkUser,
                     'code' => $code,
                     'roleReseller' => $roleReseller,
                     'shareButtons' => $shareButtons,
                     'title' => trans('title.product_detail', ['product' => $product->name]),
+                    'user' => $user,
                     'product' => $product,
                     'recommendProducts' => $this->summaryService->handleRecommendProducts(5, $product),
                     'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
@@ -121,6 +123,7 @@ class HomeProductController extends Controller
                 return view('pages.product-detail', [
                     'shareButtons' => $shareButtons,
                     'title' => trans('title.product_detail', ['product' => $product->name]),
+                    'user' => $user,
                     'product' => $product,
                     'recommendProducts' => $this->summaryService->handleRecommendProducts(5, $product),
                     'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
@@ -130,27 +133,11 @@ class HomeProductController extends Controller
             return view('pages.product-detail', [
                 'shareButtons' => $shareButtons,
                 'title' => trans('title.product_detail', ['product' => $product->name]),
+                'user' => $user,
                 'product' => $product,
                 'recommendProducts' => $this->summaryService->handleRecommendProducts(5, $product),
                 'sameCategoryProducts' => $this->summaryService->handleSameCategoryProducts($product->id, $product->category_id)
             ]);
         }
-    }
-
-   
-
-    /**
-     * shareProductReseller
-     *
-     * @return RedirectResponse
-     */
-    public function shareProductReseller(Product $product, string $code, UrlRequest $request): RedirectResponse
-    {
-        $this->shareProductReseller->store([
-            'user_id' => auth()->user()->id,
-            'product_id' => $product->id,
-            'code' => $code
-        ]);
-        return redirect()->away($request->url);
     }
 }

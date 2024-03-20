@@ -6,7 +6,6 @@ use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\TransactionRequest;
-use App\Http\Resources\HistoryTransactionResource;
 use App\Http\Resources\TransactionResource;
 use App\Services\TransactionService;
 use App\Services\TripayService;

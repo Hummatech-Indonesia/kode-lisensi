@@ -35,6 +35,7 @@ class HomeController extends Controller
 
     public function index(Request $request): View
     {
+        // dd($this->summaryService->handleLatestProducts());   
         return view('pages.index', [
             'productRecommendation' => $this->summaryService->productRecommendations(),
             'bestSellerProducts' => $this->summaryService->handleBestSeller(8),

@@ -40,6 +40,20 @@ class UserRepository extends BaseRepository implements UserInterface
     }
 
     /**
+     * show
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->whereNotNull('code_affiliate')
+            ->where('code_affiliate', $id)
+            ->first();
+    }
+
+    /**
      * getWhere
      *
      * @param  mixed $data

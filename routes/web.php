@@ -1,5 +1,6 @@
 <?php
 
+use App\Contracts\Interfaces\TransactionAffiliateInterface;
 use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AboutController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\ProductEmailController;
 use App\Http\Controllers\ProductRecommendationController;
 use App\Http\Controllers\ResellerDashboardController;
 use App\Http\Controllers\TermController;
+use App\Http\Controllers\TransactionAffiliateController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UpdateIdInvoiceController;
 use App\Http\Controllers\User\MyAccountController;
@@ -89,6 +91,8 @@ Route::name('home.')->group(function () {
         'articles' => HomeArticleController::class
     ], ['only' => ['index', 'show', 'showShare']]);
 
+    Route::get('products/{slug}/{code_affiliate?}', [HomeProductController::class, 'show']);
+
     Route::get('share-product/{slug?}', [ProductController::class, 'shareButtons'])->name('share.product');
 
     Route::prefix('checkout')->group(function () {
@@ -136,6 +140,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('checkout')->group(function () {
             Route::get('{slug}/{slug_varian?}', [TransactionController::class, 'index'])->name('checkout');
             Route::post('{slug}/{slug_varian?}', [TransactionController::class, 'store'])->name('doCheckout');
+        });
+        Route::prefix('checkout-products')->group(function () {
+            Route::get('{slug}/{code_affiliate}/{slug_varian}', [TransactionAffiliateController::class, 'index'])->name('checkout.products');
+            Route::post('{slug}/{code_affiliate}/{slug_varian}', [TransactionAffiliateController::class, 'store'])->name('doCheckout.products');
         });
     });
 

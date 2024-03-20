@@ -44,10 +44,15 @@ class UserController extends Controller
             $password = bcrypt($data['password']);
         }
         $data['password'] = $password;
+        if ($data['role'] == UserRoleEnum::RESELLER->value) {
+            $data['code_affiliate'] = strtolower(str_random(7));
+        }
         $user = $this->user->store($data);
         $user->assignRole($data['role']);
         if ($data['role'] == UserRoleEnum::ADMIN->value) {
             return redirect()->route('users.admin.index')->with('success', trans('alert.add_success'));
+        } elseif ($data['role'] == UserRoleEnum::RESELLER->value) {
+            return redirect()->route('users.reseller.index');
         }
         return redirect()->route('users.author.index')->with('success', trans('alert.add_success'));
     }

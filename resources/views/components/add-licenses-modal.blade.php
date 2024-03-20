@@ -1,4 +1,4 @@
-<div class="modal fade" id="addLicensesModal{{$product->slug}}" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static"
+<div class="modal fade" id="addLicensesModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static"
     data-bs-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

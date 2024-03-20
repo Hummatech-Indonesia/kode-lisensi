@@ -261,7 +261,7 @@ class SummaryService
     {
         return $this->product->query()
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
-            ->with('category')
+            ->with(['category', 'varianProducts'])
             ->withCount(['product_ratings', 'licenses' => function ($query) {
                 return $query->where('is_purchased', 0);
             }])

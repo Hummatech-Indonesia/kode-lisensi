@@ -9,6 +9,7 @@ use App\Models\ProductEmail;
 use App\Models\ProductFavorite;
 use App\Models\ProductRecommendation;
 use App\Models\ShareProductReseller;
+use App\Models\TransactionAffiliate;
 use App\Models\User;
 use App\Models\VarianProduct;
 use App\Observers\ArticleObserver;
@@ -18,6 +19,7 @@ use App\Observers\ProductFavoriteObserver;
 use App\Observers\ProductObserver;
 use App\Observers\ProductRecommendationObserver;
 use App\Observers\ShareProductReselllerObserver;
+use App\Observers\TransactionAffiliateObserver;
 use App\Observers\UserObserver;
 use App\Observers\VarianProductObserver;
 use Illuminate\Auth\Events\Registered;
@@ -53,6 +55,7 @@ class EventServiceProvider extends ServiceProvider
         VarianProduct::observe(VarianProductObserver::class);
         ProductEmail::observe(ProductEmailObserver::class);
         ProductRecommendation::observe(ProductRecommendationObserver::class);
+        TransactionAffiliate::observe(TransactionAffiliateObserver::class);
     }
 
     /**

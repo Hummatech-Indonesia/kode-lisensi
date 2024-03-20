@@ -17,7 +17,7 @@ class AdminRoleRule implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        return in_array($value, [UserRoleEnum::ADMIN->value, UserRoleEnum::AUTHOR->value]);
+        return in_array($value, [UserRoleEnum::ADMIN->value, UserRoleEnum::AUTHOR->value, UserRoleEnum::RESELLER->value]);
     }
 
     /**

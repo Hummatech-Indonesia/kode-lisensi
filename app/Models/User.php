@@ -39,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
         'photo',
         'phone_number',
         'password',
+        'code_affiliate',
         'fcm_token',
         'api_token'
     ];

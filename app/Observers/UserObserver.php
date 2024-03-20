@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Enums\UserRoleEnum;
+use App\Helpers\UserHelper;
 use App\Models\User;
 use Faker\Provider\Uuid;
 
