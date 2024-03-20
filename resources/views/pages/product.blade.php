@@ -262,7 +262,7 @@
                                                 @else
                                                     @auth
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                            @if ($product->discount != 0)
+                                                            @if ($product->reseller_discount != 0)
                                                                 <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}</del>
                                                                 -
                                                                 <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($product->varianProducts)) }}</del>
