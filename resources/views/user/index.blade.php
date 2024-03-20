@@ -350,7 +350,7 @@
                                                                     <h6 class="text-content">Harga : </h6>
                                                                     <h5>
                                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                            @if (!$trans->detail_transaction->varianProduct)
+                                                                            @if ($trans->detail_transaction->varianProduct)
                                                                                 {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
                                                                                 <span>({{ $trans->detail_transaction->varianProduct->name }})</span>
                                                                             @else

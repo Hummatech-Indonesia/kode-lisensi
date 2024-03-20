@@ -117,7 +117,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
                 Route::get('history',[ResellerDashboardController::class,'history'])->name('history');
                 Route::get('notification',[ResellerDashboardController::class,'notification'])->name('notification');
-                Route::get('favorite',[ResellerDashboardController::class,'favorite'])->name('favorite');
             });
         });
 

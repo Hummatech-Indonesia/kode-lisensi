@@ -15,7 +15,4 @@ class ResellerDashboardController extends Controller
     public function notification(){
         return view('dashboard.pages.reseller-dashboard.notification');
     }
-    public function favorite(){
-        return view('dashboard.pages.reseller-dashboard.favorite');
-    }
 }

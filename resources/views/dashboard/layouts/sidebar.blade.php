@@ -58,21 +58,7 @@
             Notifikasi
         </a>
     </li> --}}
-        <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.favorite') }}">
-                <i class="ri-heart-line"></i>
-                <span>Favorit</span>
-            </a>
-        </li>
-
-        {{-- <li class="sidebar-list" role="presentation">
-            <a class="sidebar-link sidebar-title link-nav" id="pills-wishlist-tab" data-bs-toggle="pill"
-                data-bs-target="#pills-wishlist" type="button" role="tab" aria-controls="pills-wishlist"
-                aria-selected="false">
-                <i data-feather="heart"></i>
-                Favorit
-            </a>
-        </li> --}}
+        
 
     @endrole
 
