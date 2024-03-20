@@ -29,6 +29,53 @@
         </li>
     @endrole
 
+    @role('reseller')
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.history') }}">
+                <i class="ri-shopping-bag-line"></i>
+                <span>Riwayat Transaksi</span>
+            </a>
+        </li>
+        {{-- <li class="sidebar-list" role="presentation">
+            <a class="sidebar-link sidebar-title link-nav" id="pills-order-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
+                aria-selected="false">
+                <i data-feather="shopping-bag"></i>
+                Riwayat Transaksi
+            </a>
+        </li> --}}
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.notification') }}">
+                <i class="ri-bell-line"></i>
+                <span>Notifikasi</span>
+            </a>
+        </li>
+        {{-- <li class="sidebar-list" role="presentation">
+            <a class="sidebar-link sidebar-title link-nav" id="pills-notification-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification"
+            aria-selected="false">
+            <i data-feather="bell"></i>
+            Notifikasi
+        </a>
+    </li> --}}
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.favorite') }}">
+                <i class="ri-heart-line"></i>
+                <span>Favorit</span>
+            </a>
+        </li>
+
+        {{-- <li class="sidebar-list" role="presentation">
+            <a class="sidebar-link sidebar-title link-nav" id="pills-wishlist-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-wishlist" type="button" role="tab" aria-controls="pills-wishlist"
+                aria-selected="false">
+                <i data-feather="heart"></i>
+                Favorit
+            </a>
+        </li> --}}
+
+    @endrole
+
     @role('admin')
         {{-- <li class="sidebar-list">
             <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('categories.*') ? 'active' : '' }}"
@@ -54,7 +101,7 @@
         </li>
 
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title {{ request()->routeIs('products.*') || request()->routeIs('preorder-products.*') || request()->routeIs('archive-products.index')||request()->routeIs('product-recommendation') ? 'active' : '' }}"
+            <a class="sidebar-link sidebar-title {{ request()->routeIs('products.*') || request()->routeIs('preorder-products.*') || request()->routeIs('archive-products.index') || request()->routeIs('product-recommendation') ? 'active' : '' }}"
                 href="javascript:void(0)">
                 <i class="ri-store-3-line"></i>
                 <span>Produk</span>

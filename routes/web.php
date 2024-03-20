@@ -33,6 +33,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductEmailController;
 use App\Http\Controllers\ProductRecommendationController;
+use App\Http\Controllers\ResellerDashboardController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UpdateIdInvoiceController;
@@ -86,7 +87,7 @@ Route::name('home.')->group(function () {
     Route::resources([
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
-    ], ['only' => ['index', 'show','showShare']]);
+    ], ['only' => ['index', 'show', 'showShare']]);
 
     Route::get('share-product/{slug?}', [ProductController::class, 'shareButtons'])->name('share.product');
 
@@ -109,7 +110,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::name('notification.')->prefix('notification')->group(function () {
         Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
     });
+    Route::middleware('role:admin|author|reseller')->group(function () {
 
+        Route::prefix('dashboard')->group(function () {
+            Route::name('dashboard.')->group(function () {
+                Route::get('/', [DashboardController::class, 'index'])->name('index');
+                Route::get('history',[ResellerDashboardController::class,'history'])->name('history');
+                Route::get('notification',[ResellerDashboardController::class,'notification'])->name('notification');
+                Route::get('favorite',[ResellerDashboardController::class,'favorite'])->name('favorite');
+            });
+        });
+
+    });
     Route::middleware('role:reseller|customer')->group(function () {
         Route::name('users.account.')->prefix('my-account')->group(function () {
             Route::get('/', [MyAccountController::class, 'index'])->name('index');
@@ -127,11 +139,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('{slug}/{slug_varian?}', [TransactionController::class, 'store'])->name('doCheckout');
         });
     });
+
     Route::middleware('role:admin|author')->group(function () {
         Route::prefix('dashboard')->group(function () {
-            Route::name('dashboard.')->group(function () {
-                Route::get('/', [DashboardController::class, 'index'])->name('index');
-            });
             // article
             Route::resources([
                 'article-categories' => ArticleCategoryController::class,
@@ -139,6 +149,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ], ['except' => ['show']]);
         });
     });
+
+
 
     Route::middleware('role:admin')->group(function () {
         Route::prefix('dashboard')->group(function () {

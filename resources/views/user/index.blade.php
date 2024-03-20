@@ -275,7 +275,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            {{-- riwayat transaksi --}}
                             <div class="tab-pane fade" id="pills-order" role="tabpanel"
                                 aria-labelledby="pills-order-tab">
                                 <div class="dashboard-order">
@@ -435,7 +435,7 @@
                                     </div>
                                 </div>
                             </div>
-
+{{-- profil saya --}}
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                 aria-labelledby="pills-profile-tab">
                                 <div class="dashboard-profile">

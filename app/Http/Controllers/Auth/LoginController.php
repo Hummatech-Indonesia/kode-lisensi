@@ -79,10 +79,10 @@ class LoginController extends Controller
     {
         $this->loginService->handleLoginUser($request);
 
-        if (UserHelper::getUserRole() === UserRoleEnum::ADMIN->value || UserHelper::getUserRole() === UserRoleEnum::AUTHOR->value) {
-            return to_route('dashboard.index');
+        if (UserHelper::getUserRole() === UserRoleEnum::CUSTOMER->value) {
+            return to_route('home.index');
         }
-        return to_route('home.index');
+        return to_route('dashboard.index');
     }
 
     /**
