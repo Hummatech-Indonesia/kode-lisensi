@@ -31,35 +31,19 @@
 
     @role('reseller')
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.history') }}">
+            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.history') ? 'active' : '' }}"
+                href="{{ route('dashboard.history') }}">
                 <i class="ri-shopping-bag-line"></i>
                 <span>Riwayat Transaksi</span>
             </a>
         </li>
-        {{-- <li class="sidebar-list" role="presentation">
-            <a class="sidebar-link sidebar-title link-nav" id="pills-order-tab" data-bs-toggle="pill"
-                data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-                aria-selected="false">
-                <i data-feather="shopping-bag"></i>
-                Riwayat Transaksi
-            </a>
-        </li> --}}
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dashboard.notification') }}">
+            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.notification') ? 'active' : '' }}"
+                href="{{ route('dashboard.notification') }}">
                 <i class="ri-bell-line"></i>
                 <span>Notifikasi</span>
             </a>
         </li>
-        {{-- <li class="sidebar-list" role="presentation">
-            <a class="sidebar-link sidebar-title link-nav" id="pills-notification-tab" data-bs-toggle="pill"
-            data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification"
-            aria-selected="false">
-            <i data-feather="bell"></i>
-            Notifikasi
-        </a>
-    </li> --}}
-        
-
     @endrole
 
     @role('admin')

@@ -264,9 +264,13 @@
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                             @if ($product->discount != 0)
                                                                 <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}</del>
+                                                                -
+                                                                <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($product->varianProducts)) }}</del>
                                                             @endif
                                                             <h4 class="theme-color fw-bold">
                                                                 {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->reseller_discount)) }}
+                                                                -
+                                                                {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->reseller_discount)) }}
                                                             </h4>
                                                         @else
                                                             @if ($product->discount != 0)
