@@ -16,7 +16,11 @@ class UserHelper
 
     public static function getUserRole(): string
     {
-        return auth()->user()->roles->pluck('name')[0];
+        if (auth()->user()) {
+            return auth()->user()->roles->pluck('name')[0];
+        } else {
+            return 'Anda belum login';
+        }
     }
 
     /**
