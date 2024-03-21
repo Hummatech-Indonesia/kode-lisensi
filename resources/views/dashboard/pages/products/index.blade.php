@@ -93,11 +93,20 @@
                     },
                     {
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        render: function(data, type, row) {
+                            return '<a href="{{ route('home.products.show', ':slug') }}'.replace(
+                                ':slug', row.slug) + '" target="_blank">' + data + '</a>';
+                        }
                     },
                     {
                         data: 'category.name',
-                        name: 'category.name'
+                        name: 'category.name',
+                        render: function(data, type, row) {
+                            return '<a href="{{ route('home.category', ':category.id') }}'
+                                .replace(':category.id', row.category.id) + '" target="_blank">' +
+                                data + '</a>';
+                        }
                     },
                     {
                         data: 'sell_price',

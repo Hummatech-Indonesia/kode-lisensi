@@ -79,8 +79,9 @@
                         data: 'category.name',
                         name: 'category.name',
                         render: function(data, type, row) {
-                            return '<a href="{{ route('categories.show', ':category.id') }}'
-                                .replace(':category.id', row.category.id) + '">' + data + '</a>';
+                            return '<a href="{{ route('home.category', ':category.id') }}'
+                                .replace(':category.id', row.category.id) + '" target="_blank">' +
+                                data + '</a>';
                         }
                     },
                     {
