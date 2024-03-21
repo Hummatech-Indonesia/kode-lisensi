@@ -135,9 +135,15 @@
             let startDate = null;
             let endDate = null;
             let id = null;
+
             $(document).on('click', '.product-recommendation', function() {
                 id = $(this).attr('data-id');
+                startDate = $(this).attr('data-start-date');
+                endDate = $(this).attr('data-end-date');
+                $('#startDate').val(startDate);
+                $('#endDate').val(endDate);
             });
+
 
             const showSweetAlert = (data, table) => {
                 swal({
