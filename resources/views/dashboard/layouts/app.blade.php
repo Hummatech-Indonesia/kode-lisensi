@@ -1,5 +1,6 @@
 @php
     use App\Helpers\UserHelper;
+    use App\Helpers\TransactionAffiliateHelper;
     use App\Helpers\NotificationHelper;
     use Carbon\Carbon;
     $take = 5;
@@ -46,6 +47,12 @@
                 </h3>
                 <div class="nav-right col-6 pull-right right-header p-0">
                     <ul class="nav-menus">
+                        @role('reseller')
+                            <h3>
+                                <span class="badge badge-success">Saldo Anda:
+                                    {{ TransactionAffiliateHelper::profit() }}</span>
+                            </h3>
+                        @endrole
                         <li class="onhover-dropdown">
                             <div class="notification-box">
                                 <i class="ri-notification-line"></i>
