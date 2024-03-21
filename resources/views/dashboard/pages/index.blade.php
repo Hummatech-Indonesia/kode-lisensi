@@ -1,4 +1,8 @@
-@php use App\Enums\InvoiceStatusEnum;use App\Enums\ProductStatusEnum;use App\Helpers\CurrencyHelper; @endphp
+@php
+    use App\Enums\InvoiceStatusEnum;
+    use App\Enums\ProductStatusEnum;
+    use App\Helpers\CurrencyHelper;
+@endphp
 @extends('dashboard.layouts.app')
 @section('content')
     <div class="col-sm-6 col-xxl-4 col-lg-6">
@@ -67,47 +71,48 @@
                 <div>
                     <div class="table-responsive">
                         <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
-                               id="table_id">
+                            id="table_id">
                             <thead>
-                            <tr>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">#
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Nama
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Kategori
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Jenis
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Terjual
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Total
-                                    Pendapatan
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">#
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Nama
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">
+                                        Kategori
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Jenis
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Terjual
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Total
+                                        Pendapatan
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @forelse($bestSeller as $seller)
-                                <tr>
-                                    <td>
-                                        <img width="150px" src="{{ asset('storage/' . $seller->photo) }}"
-                                             alt="{{ $seller->name }}">
-                                    </td>
-                                    <td><a href="{{route('home.products.show',$seller->slug)}}" class="text-dark">{{ $seller->name }}</a></td>
-                                    <td>{{ $seller->category->name }}</td>
-                                    <td>
-                                        @if($seller->status === ProductStatusEnum::PREORDER->value)
-                                            <span class="badge badge-danger">Preorder</span>
-                                        @else
-                                            <span class="badge badge-success">Stocking</span>
-
-                                        @endif
-                                    </td>
-                                    <td>{{ $seller->transactions_count }}</td>
-                                    <td>{{ CurrencyHelper::rupiahCurrency($seller->total) }}</td>
-                                </tr>
-                            @empty
-                                <p>Belum ada Produk.</p>
-                            @endforelse
+                                @forelse($bestSeller as $seller)
+                                    <tr>
+                                        <td>
+                                            <img width="150px" src="{{ asset('storage/' . $seller->photo) }}"
+                                                alt="{{ $seller->name }}">
+                                        </td>
+                                        <td><a href="{{ route('home.products.show', $seller->slug) }}"
+                                                class="text-dark">{{ $seller->name }}</a></td>
+                                        <td>{{ $seller->category->name }}</td>
+                                        <td>
+                                            @if ($seller->status === ProductStatusEnum::PREORDER->value)
+                                                <span class="badge badge-danger">Preorder</span>
+                                            @else
+                                                <span class="badge badge-success">Stocking</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $seller->transactions_count }}</td>
+                                        <td>{{ CurrencyHelper::rupiahCurrency($seller->total) }}</td>
+                                    </tr>
+                                @empty
+                                    <p>Belum ada Produk.</p>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -131,41 +136,44 @@
                     <div class="table-responsive">
                         <div id="table_id_wrapper" class="dataTables_wrapper no-footer">
                             <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
-                                   id="table_id" style="display: block; overflow-y: scroll; max-height: 300px">
+                                id="table_id" style="display: block; overflow-y: scroll; max-height: 300px">
                                 <thead>
-                                <tr>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Nama
-                                        Produk
-                                    </th>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Sisa Stok
-                                    </th>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Tambah
-                                        Stok
-                                    </th>
-                                </tr>
+                                    <tr>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">
+                                            Nama
+                                            Produk
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">
+                                            Sisa Stok
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">
+                                            Tambah
+                                            Stok
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($lowStockProduct as $products)
-                                    <tr>
-                                        <td><a href="{{route('home.products.show',$products->slug)}}" class="text-dark">{{ $products->name }}</a></td>
-                                        <td>
-                                            @if($products->licenses_count > 0)
-                                                <span
-                                                    class="badge badge-success">Tersisa {{ $products->licenses_count }}</span>
-                                            @else
-
-                                                <span class="badge badge-danger">Habis</span>
-                                            @endif
-                                        </td>
-                                        <td width="10%">
-                                            <a class="text-primary"
-                                               href="{{ route('products.show', $products->id) }}"><i
-                                                    class="ri-add-line"></i></a>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <p>Belum ada Produk.</p>
-                                @endforelse
+                                    @forelse($lowStockProduct as $products)
+                                        <tr>
+                                            <td><a href="{{ route('home.products.show', $products->slug) }}"
+                                                    class="text-dark">{{ $products->name }}</a></td>
+                                            <td>
+                                                @if ($products->licenses_count > 0)
+                                                    <span class="badge badge-success">Tersisa
+                                                        {{ $products->licenses_count }}</span>
+                                                @else
+                                                    <span class="badge badge-danger">Habis</span>
+                                                @endif
+                                            </td>
+                                            <td width="10%">
+                                                <a class="text-primary"
+                                                    href="{{ route('products.show', $products->id) }}"><i
+                                                        class="ri-add-line"></i></a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <p>Belum ada Produk.</p>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -227,47 +235,53 @@
                     <div class="table-responsive">
                         <div id="table_id_wrapper" class="dataTables_wrapper no-footer">
                             <table class="user-table ticket-table review-table theme-table table dataTable no-footer"
-                                   id="table_id">
+                                id="table_id">
                                 <thead>
-                                <tr>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">ID
-                                        Invoice
-                                    </th>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Pelanggan
-                                    </th>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Produk
-                                        dibeli
-                                    </th>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Total
-                                        Tagihan
-                                    </th>
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 150px;">Status
-                                    </th>
-                                </tr>
+                                    <tr>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1"
+                                            style="width: 150px;">ID
+                                            Invoice
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1"
+                                            style="width: 150px;">Pelanggan
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1"
+                                            style="width: 150px;">Produk
+                                            dibeli
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1"
+                                            style="width: 150px;">Total
+                                            Tagihan
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1"
+                                            style="width: 150px;">Status
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($latestTransaction as $transaction)
-                                    <tr>
-                                        <td>{{ $transaction->invoice_id }}</td>
-                                        <td>{{ $transaction->user->name }}</td>
-                                        <td><a href="{{route('home.products.show',$transaction->detail_transaction->product->slug)}}" class="text-dark">{{ $transaction->detail_transaction->product->name }}</a></td>
-                                        <td>{{ CurrencyHelper::rupiahCurrency($transaction->amount)  }}</td>
-                                        <td>
-                                            @if(InvoiceStatusEnum::PAID->value === $transaction->invoice_status || InvoiceStatusEnum::SETTLED->value === $transaction->invoice_status)
-                                                <span
-                                                    class="badge badge-success">LUNAS</span>
-                                            @elseif(InvoiceStatusEnum::EXPIRED->value === $transaction->invoice_status || InvoiceStatusEnum::FAILED->value === $transaction->invoice_status)
-                                                <span
-                                                    class="badge badge-danger">EXPIRED</span>
-                                            @else
-                                                <span
-                                                    class="badge badge-warning">PENDING</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <p>Belum ada Produk.</p>
-                                @endforelse
+                                    @forelse($latestTransaction as $transaction)
+                                        <tr>
+                                            <td>{{ $transaction->invoice_id }}</td>
+                                            <td>{{ $transaction->user->name }}</td>
+                                            <td><a href="{{ route('home.products.show', $transaction->detail_transaction->product->slug) }}"
+                                                    class="text-dark">{{ $transaction->detail_transaction->product->name }}</a>
+                                            </td>
+                                            <td>{{ CurrencyHelper::rupiahCurrency($transaction->amount) }}</td>
+                                            <td>
+                                                @if (InvoiceStatusEnum::PAID->value === $transaction->invoice_status ||
+                                                        InvoiceStatusEnum::SETTLED->value === $transaction->invoice_status)
+                                                    <span class="badge badge-success">LUNAS</span>
+                                                @elseif(InvoiceStatusEnum::EXPIRED->value === $transaction->invoice_status ||
+                                                        InvoiceStatusEnum::FAILED->value === $transaction->invoice_status)
+                                                    <span class="badge badge-danger">EXPIRED</span>
+                                                @else
+                                                    <span class="badge badge-warning">PENDING</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <p>Belum ada Produk.</p>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -374,15 +388,15 @@
                         }
                     },
                     responsive: [{
-                        breakpoint: 1200,
-                        options: {
-                            grid: {
-                                padding: {
-                                    right: -95,
-                                }
+                            breakpoint: 1200,
+                            options: {
+                                grid: {
+                                    padding: {
+                                        right: -95,
+                                    }
+                                },
                             },
                         },
-                    },
                         {
                             breakpoint: 992,
                             options: {
@@ -414,7 +428,7 @@
                     ],
                     yaxis: {
                         labels: {
-                            formatter: function (value) {
+                            formatter: function(value) {
                                 return "Rp " + value;
                             }
                         },
