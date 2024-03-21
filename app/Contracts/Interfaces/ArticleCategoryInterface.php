@@ -10,4 +10,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface ArticleCategoryInterface extends GetInterface, StoreInterface, UpdateInterface, ShowInterface, DeleteInterface
 {
+    public function count(): int;
 }

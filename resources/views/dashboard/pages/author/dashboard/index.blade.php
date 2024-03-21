@@ -25,11 +25,11 @@
                             <div class="media-body p-0">
                                 <span class="m-0">Jumlah Artikel</span>
                                 <h4 class="mb-0 counter">
-                                    {{ CurrencyHelper::rupiahCurrency(UserSummaryHelper::sumAmountOrder()) }}
+                                    {{ $totalArticle }}
                                 </h4>
                             </div>
                             <div class="align-self-center text-center">
-                                <i class="ri-exchange-dollar-fill"></i>
+                                <i class="ri-article-line"></i>
                             </div>
                         </div>
                     </div>
@@ -41,11 +41,11 @@
                         <div class="media align-items-center static-top-widget">
                             <div class="media-body p-0">
                                 <span class="m-0">Jumlah pengunjung</span>
-                                <h4 class="mb-0 counter">{{ UserSummaryHelper::countUserOrders('success') }}
+                                <h4 class="mb-0 counter">{{ $view }}
                                 </h4>
                             </div>
                             <div class="align-self-center text-center">
-                                <i class="ri-shopping-bag-fill"></i>
+                                <i class="ri-user-line"></i>
                             </div>
                         </div>
                     </div>
@@ -57,11 +57,11 @@
                         <div class="media align-items-center static-top-widget">
                             <div class="media-body p-0">
                                 <span class="m-0">Jumlah Kategori</span>
-                                <h4 class="mb-0 counter">{{ UserSummaryHelper::countUserOrders('pending') }}
+                                <h4 class="mb-0 counter">{{ $totalArticleCategory }}
                                 </h4>
                             </div>
                             <div class="align-self-center text-center">
-                                <i class="ri-time-fill"></i>
+                                <i class="ri-list-check"></i>
                             </div>
                         </div>
                     </div>
@@ -78,21 +78,14 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white">
-                        <tr>
-                            <td>1</td>
-                            <td>Hukum penggunaan software bajakan</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Cyber Security</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Customer Service</td>
-                            <td>500</td>
-                        </tr>
+                        @foreach ($articles as $key => $article)
+                            <tr>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $article->title }}</td>
+                                <td>{{ $article->view }}</td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>

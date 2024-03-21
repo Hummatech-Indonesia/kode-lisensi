@@ -14,6 +14,16 @@ class ArticleCategoryRepository extends BaseRepository implements ArticleCategor
     }
 
     /**
+     * count
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->model->query()
+            ->count();
+    }
+    /**
      * Handle show method and delete data instantly from models.
      *
      * @param mixed $id
