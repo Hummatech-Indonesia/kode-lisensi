@@ -25,7 +25,7 @@ class ResellerDashboardController extends Controller
      */
     public function profit(Request $request): JsonResponse|View
     {
-        if ($request->ajax()) return $this->transactionAffiliate->getWhere([]);
+        if ($request->ajax()) return $this->transactionAffiliate->get();
         return view('dashboard.pages.reseller-dashboard.profit.index');
     }
 

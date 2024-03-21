@@ -32,6 +32,31 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
     }
 
     /**
+     * count
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->model->query()
+            ->where('user_id', auth()->user()->id)
+            ->count();
+    }
+
+    /**
+     * getByUser
+     *
+     * @return mixed
+     */
+    public function getByUser(): mixed
+    {
+        return $this->model->query()
+            ->where('user_id', auth()->user()->id)
+            ->orderBy('view', 'desc')
+            ->get();
+    }
+
+    /**
      * Handle get the specified data by id from models.
      *
      * @param mixed $id
@@ -117,6 +142,5 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
             ->with(['category', 'user'])
             ->latest()
             ->paginate($pagination);
-
     }
 }

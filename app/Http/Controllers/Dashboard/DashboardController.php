@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Contracts\Interfaces\ArticleCategoryInterface;
+use App\Contracts\Interfaces\ArticleInterface;
 use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
 use App\Helpers\UserHelper;
@@ -14,10 +16,14 @@ use Xendit\Exceptions\ApiException;
 class DashboardController extends Controller
 {
     private SummaryService $service;
+    private ArticleInterface $article;
+    private ArticleCategoryInterface $articleCategory;
 
-    public function __construct(SummaryService $service)
+    public function __construct(SummaryService $service, ArticleInterface $article, ArticleCategoryInterface $articleCategory)
     {
         $this->service = $service;
+        $this->article = $article;
+        $this->articleCategory = $articleCategory;
     }
 
     /**
@@ -40,9 +46,18 @@ class DashboardController extends Controller
                 'bestSeller' => $this->service->handleBestSeller()
             ]);
         } elseif (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) {
+
             return view('dashboard.pages.reseller-dashboard.index');
+        } else {
+            $totalArticle = $this->article->count();
+            $totalArticleCategory = $this->articleCategory->count();
+            $articles = $this->article->getByUser();
+            $view = 0;
+            foreach ($articles as $article) {
+                $view += $article->view;
+            }
+            return view('dashboard.pages.author.dashboard.index', compact('totalArticle', 'totalArticleCategory', 'articles', 'view'));
         }
-        return view('dashboard.pages.author.dashboard.index');
     }
 
     /**

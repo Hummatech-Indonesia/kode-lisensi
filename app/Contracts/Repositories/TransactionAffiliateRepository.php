@@ -28,12 +28,11 @@ class TransactionAffiliateRepository extends BaseRepository implements Transacti
     }
 
     /**
-     * getWhere
+     * get
      *
-     * @param  mixed $data
      * @return mixed
      */
-    public function getWhere(array $data): mixed
+    public function get(): mixed
     {
         return $this->TransactionAffiliateMockup(
             $this->model->query()
