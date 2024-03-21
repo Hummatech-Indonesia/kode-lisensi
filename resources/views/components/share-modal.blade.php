@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body m-3 d-flex justify-content-between">
                 <li data-bs-toggle="tooltip" data-bs-original-title="Salin Tautan">
-                    <a class="mx-1" href="" id="shareLinkButton" style="cursor: pointer"
+                    <a class="mx-1" href="#" id="shareLinkButton" style="cursor: pointer"
                         data-bs-placement="top" title="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                             class="bi bi-copy" viewBox="0 0 16 16">

@@ -35,13 +35,16 @@ class HomeController extends Controller
 
     public function index(Request $request): View
     {
-        // dd($this->summaryService->handleLatestProducts());   
+        // dd($this->summaryService->handleLatestProducts());
         return view('pages.index', [
             'productRecommendation' => $this->summaryService->productRecommendations(),
+            'latestProductNotRecommendations' => $this->summaryService->handleLatestProductNotReccomendation(),
+            'latestProductNotBestSellers' => $this->summaryService->handleLatestProductNotBestSeller(),
+            'latestProductNotRatings' => $this->summaryService->handleLatestProductNotRating(),
+            'latestProducts' => $this->summaryService->handleLatestProducts(),
             'bestSellerProducts' => $this->summaryService->handleBestSeller(8),
             'bestSellerProductPage' => $this->summaryService->handleBestSellerPage(8),
             'highestRatingProducts' => $this->summaryService->handleHighestRatings(12),
-            'latestProducts' => $this->summaryService->handleLatestProducts(),
             'slider' => $this->slider->get(),
             'banners' => $this->banner->get()
         ]);

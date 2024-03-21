@@ -47,6 +47,7 @@ class UserController extends Controller
         if ($data['role'] == UserRoleEnum::RESELLER->value) {
             $data['code_affiliate'] = strtolower(str_random(7));
         }
+        $data['email_verified_at'] = now();
         $user = $this->user->store($data);
         $user->assignRole($data['role']);
         if ($data['role'] == UserRoleEnum::ADMIN->value) {

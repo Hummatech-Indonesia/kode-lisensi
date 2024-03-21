@@ -50,15 +50,29 @@ class ProductHelper
         return Product::query()->count();
     }
 
+    /**
+     * shareButtons
+     *
+     * @param  mixed $slug
+     * @return void
+     */
     public static function shareButtons(string $slug)
     {
         $share = new Share();
-        $shareButtons = $share->page(URL::to('/products/' . $slug))
-        ->whatsapp()
-        ->facebook()
-        ->telegram()
-        ->getRawLinks();
+        if (auth()->user()->code_affiliate) {
+            $code = auth()->user()->code_affiliate;
+            $shareButtons = $share->page(URL::to('/products/' . $slug . '/' . $code))
+                ->whatsapp()
+                ->facebook()
+                ->telegram()
+                ->getRawLinks();
+        } else {
+            $shareButtons = $share->page(URL::to('/products/' . $slug))
+                ->whatsapp()
+                ->facebook()
+                ->telegram()
+                ->getRawLinks();
+        }
         return $shareButtons;
     }
-
 }

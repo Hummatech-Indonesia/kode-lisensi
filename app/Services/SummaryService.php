@@ -274,6 +274,73 @@ class SummaryService
     }
 
     /**
+     * handleLatestProducts
+     *
+     * @param  mixed $take
+     * @return object
+     */
+    public function handleLatestProductNotReccomendation(int $take = 15): object
+    {
+        return $this->product->query()
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->with(['category', 'varianProducts'])
+            ->withCount(['product_ratings', 'licenses' => function ($query) {
+                return $query->where('is_purchased', 0);
+            }])
+            ->whereDoesntHave('product_recommendations')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->take($take)
+            ->latest()
+            ->get();
+    }
+    /**
+     * handleLatestProducts
+     *
+     * @param  mixed $take
+     * @return object
+     */
+    public function handleLatestProductNotBestSeller(int $take = 15): object
+    {
+        return $this->product->query()
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->with(['category', 'varianProducts'])
+            ->withCount(['product_ratings', 'licenses' => function ($query) {
+                return $query->where('is_purchased', 0);
+            }])
+            ->whereDoesntHave('transactions')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->take($take)
+            ->latest()
+            ->get();
+    }
+    /**
+     * handleLatestProductNotRating
+     *
+     * @param  mixed $take
+     * @return object
+     */
+    public function handleLatestProductNotRating(int $take = 15): object
+    {
+        return $this->product->query()
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->with(['category', 'varianProducts'])
+            ->withCount(['product_ratings', 'licenses' => function ($query) {
+                return $query->where('is_purchased', 0);
+            }])
+            ->whereDoesntHave('product_ratings')
+            ->withSum(['product_ratings' => function ($query) {
+                $query->where('status', RatingStatusEnum::APPROVED->value);
+            }], 'rating')
+            ->take($take)
+            ->latest()
+            ->get();
+    }
+
+    /**
      * Handle recommended products
      *
      * @param int $take

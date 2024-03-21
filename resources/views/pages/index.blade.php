@@ -97,7 +97,7 @@
                                                     <a>
                                                         <i data-feather="share-2" data-bs-toggle="modal"
                                                             data-bs-target="#shareProductModal"
-                                                            data-slug="{{ $product->slug }}" id="shareButtonsTrigger"></i>
+                                                            data-slug="{{ $product->slug }}" id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                     </a>
                                                 </li>
 
@@ -298,7 +298,7 @@
                             </div>
                         @endforeach
                         @if (count($bestSellerProductPage) <= 8)
-                            @if (count($latestProducts) >= 8 - count($bestSellerProductPage))
+                            @if (count($latestProductNotRecommendations) >= 8 - count($bestSellerProductPage))
                                 @for ($i = 0; $i < 8 - count($bestSellerProductPage); $i++)
                                     <div class="loopProducts" id="latestProduct">
                                         <div class="product-box-3 h-100 wow fadeInUp"
@@ -306,15 +306,15 @@
                                             <div class="product-header">
                                                 <div class="product-image">
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <img src="{{ asset('storage/' . $latestProducts[$i]->photo) }}"
+                                                        href="{{ route('home.products.show', $latestProductNotRecommendations[$i]->slug) }}">
+                                                        <img src="{{ asset('storage/' . $latestProductNotRecommendations[$i]->photo) }}"
                                                             class="img-fluid blur-up lazyloaded" alt="">
                                                     </a>
                                                     <ul class="product-option">
                                                         <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="" data-bs-original-title="Lihat Produk">
                                                             <a
-                                                                href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
+                                                                href="{{ route('home.products.show', $latestProductNotRecommendations[$i]->slug) }}">
                                                                 <i data-feather="eye"></i>
                                                             </a>
                                                         </li>
@@ -324,17 +324,17 @@
                                                             <a>
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
-                                                                    data-slug="{{ $latestProducts[$i]->slug }}"
-                                                                    id="shareButtonsTrigger"></i>
+                                                                    data-slug="{{ $latestProductNotRecommendations[$i]->slug }}"
+                                                                    id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                             </a>
                                                         </li>
                                                         @auth
-                                                            @if ($latestProducts[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
+                                                            @if ($latestProductNotRecommendations[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
                                                                 <li data-bs-toggle="tooltip" class="favorite"
                                                                     data-bs-placement="top" title=""
                                                                     data-bs-original-title="Favorit">
                                                                     <a href="" class="delete-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotRecommendations[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" style="color: red"
                                                                             fill="currentColor" class="bi bi-suit-heart-fill"
@@ -348,7 +348,7 @@
                                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                     title="" data-bs-original-title="Favorit">
                                                                     <a href="" class="add-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotRecommendations[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" fill="currentColor"
                                                                             class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -364,7 +364,7 @@
                                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 title="" data-bs-original-title="Favorit">
                                                                 <a href="/login" class="add-favorite"
-                                                                    data-id="{{ $latestProducts[$i]->id }}">
+                                                                    data-id="{{ $latestProductNotRecommendations[$i]->id }}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                         height="16" fill="currentColor"
                                                                         class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -380,86 +380,86 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4>{{ $latestProducts[$i]->category->name }}</h4>
+                                                    <h4>{{ $latestProductNotRecommendations[$i]->category->name }}</h4>
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <h3 class="name mb-1">{{ $latestProducts[$i]->name }}</h3>
+                                                        href="{{ route('home.products.show', $latestProductNotRecommendations[$i]->slug) }}">
+                                                        <h3 class="name mb-1">{{ $latestProductNotRecommendations[$i]->name }}</h3>
                                                     </a>
                                                     @auth
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                             <h4 class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->reseller_discount }}%</h4>
+                                                                {{ $latestProductNotRecommendations[$i]->reseller_discount }}%</h4>
                                                         @else
                                                             <h4><span class="badge bg-warning">Discount:
-                                                                    {{ $latestProducts[$i]->discount }}%</span></h4>
+                                                                    {{ $latestProductNotRecommendations[$i]->discount }}%</span></h4>
                                                         @endif
                                                     @else
                                                         <h4><span class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->discount }}%</span>
+                                                                {{ $latestProductNotRecommendations[$i]->discount }}%</span>
                                                         </h4>
                                                     @endauth
 
                                                     <h5 class="price">
-                                                        @if ($latestProducts[$i]->varianProducts->isEmpty())
+                                                        @if ($latestProductNotRecommendations[$i]->varianProducts->isEmpty())
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotRecommendations[$i]->reseller_discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRecommendations[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->reseller_discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRecommendations[$i]->sell_price, $latestProductNotRecommendations[$i]->reseller_discount, true) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotRecommendations[$i]->discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRecommendations[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRecommendations[$i]->sell_price, $latestProductNotRecommendations[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                @if ($latestProductNotRecommendations[$i]->discount)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRecommendations[$i]->sell_price) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRecommendations[$i]->sell_price, $latestProductNotRecommendations[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @else
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}</del>
+                                                                    @if ($latestProductNotRecommendations[$i]->reseller_discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRecommendations[$i]->varianProducts)) }}</del>
                                                                         -
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRecommendations[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRecommendations[$i]->varianProducts), $latestProductNotRecommendations[$i]->reseller_discount)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRecommendations[$i]->varianProducts), $latestProductNotRecommendations[$i]->reseller_discount)) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                    @if ($latestProductNotRecommendations[$i]->discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRecommendations[$i]->varianProducts)) }}
                                                                             -
-                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRecommendations[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRecommendations[$i]->varianProducts), $latestProductNotRecommendations[$i]->discount, true) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRecommendations[$i]->varianProducts), $latestProductNotRecommendations[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount != 0)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                @if ($latestProductNotRecommendations[$i]->discount != 0)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRecommendations[$i]->varianProducts)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRecommendations[$i]->varianProducts)) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount)) }}
+                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRecommendations[$i]->varianProducts), $latestProductNotRecommendations[$i]->discount)) }}
                                                                     -
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRecommendations[$i]->varianProducts), $latestProductNotRecommendations[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @endif
@@ -469,7 +469,7 @@
                                                         <ul class="rating">
                                                             @for ($j = 1; $j <= 5; $j++)
                                                                 <li>
-                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProducts[$i]->id)['stars'])
+                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProductNotRecommendations[$i]->id)['stars'])
                                                                         <i data-feather="star" class="fill"></i>
                                                                     @else
                                                                         <i data-feather="star"></i>
@@ -478,22 +478,22 @@
                                                             @endfor
 
                                                         </ul>
-                                                        @if (RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] == 0)
+                                                        @if (RatingHelper::sumProductRatings($latestProductNotRecommendations[$i]->id)['sumRating'] == 0)
                                                             <span>(Belum ada ulasan)</span>
                                                         @else
-                                                            <span>{{ RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] }}
-                                                                ({{ $latestProducts[$i]->product_ratings_count }} ulasan)
+                                                            <span>{{ RatingHelper::sumProductRatings($latestProductNotRecommendations[$i]->id)['sumRating'] }}
+                                                                ({{ $latestProductNotRecommendations[$i]->product_ratings_count }} ulasan)
                                                             </span>
                                                         @endif
 
                                                     </div>
                                                     <h6 class="unit">
-                                                        @if ($latestProducts[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                            @if ($latestProducts[$i]->licenses_count > 0)
+                                                        @if ($latestProductNotRecommendations[$i]->status === ProductStatusEnum::AVAILABLE->value)
+                                                            @if ($latestProductNotRecommendations[$i]->licenses_count > 0)
                                                                 <h4>
                                                                     <span class="badge rounded-pill text-bg-success">
                                                                         Tersedia:
-                                                                        {{ $latestProducts[$i]->licenses_count }}
+                                                                        {{ $latestProductNotRecommendations[$i]->licenses_count }}
                                                                         Stok</span>
                                                                 </h4>
                                                             @else
@@ -516,7 +516,7 @@
                                     </div>
                                 @endfor
                             @else
-                                @for ($i = 0; $i < count($latestProducts); $i++)
+                                @for ($i = 0; $i < count($latestProductNotRecommendations); $i++)
                                     <div class="loopProducts" id="latestProduct">
                                         <div class="product-box-3 h-100 wow fadeInUp"
                                             style="visibility: visible; animation-name: fadeInUp;">
@@ -542,7 +542,7 @@
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
                                                                     data-slug="{{ $latestProducts[$i]->slug }}"
-                                                                    id="shareButtonsTrigger"></i>
+                                                                    id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                             </a>
                                                         </li>
                                                         @auth
@@ -782,7 +782,7 @@
                                                         <i data-feather="share-2" data-bs-toggle="modal"
                                                             data-bs-target="#shareProductModal"
                                                             data-slug="{{ $product->slug }}"
-                                                            id="shareButtonsTrigger"></i>
+                                                            id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                     </a>
                                                 </li>
 
@@ -984,7 +984,7 @@
                             </div>
                         @endforeach
                         @if (count($bestSellerProductPage) <= 8)
-                            @if (count($latestProducts) >= 8 - count($bestSellerProductPage))
+                            @if (count($latestProductNotBestSellers) >= 8 - count($bestSellerProductPage))
                                 @for ($i = 0; $i < 8 - count($bestSellerProductPage); $i++)
                                     <div class="loopProducts" id="latestProduct">
                                         <div class="product-box-3 h-100 wow fadeInUp"
@@ -992,15 +992,15 @@
                                             <div class="product-header">
                                                 <div class="product-image">
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <img src="{{ asset('storage/' . $latestProducts[$i]->photo) }}"
+                                                        href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
+                                                        <img src="{{ asset('storage/' . $latestProductNotBestSellers[$i]->photo) }}"
                                                             class="img-fluid blur-up lazyloaded" alt="">
                                                     </a>
                                                     <ul class="product-option">
                                                         <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="" data-bs-original-title="Lihat Produk">
                                                             <a
-                                                                href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
+                                                                href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
                                                                 <i data-feather="eye"></i>
                                                             </a>
                                                         </li>
@@ -1010,17 +1010,17 @@
                                                             <a>
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
-                                                                    data-slug="{{ $latestProducts[$i]->slug }}"
-                                                                    id="shareButtonsTrigger"></i>
+                                                                    data-slug="{{ $latestProductNotBestSellers[$i]->slug }}"
+                                                                    id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                             </a>
                                                         </li>
                                                         @auth
-                                                            @if ($latestProducts[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
+                                                            @if ($latestProductNotBestSellers[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
                                                                 <li data-bs-toggle="tooltip" class="favorite"
                                                                     data-bs-placement="top" title=""
                                                                     data-bs-original-title="Favorit">
                                                                     <a href="" class="delete-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotBestSellers[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" style="color: red"
                                                                             fill="currentColor" class="bi bi-suit-heart-fill"
@@ -1034,7 +1034,7 @@
                                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                     title="" data-bs-original-title="Favorit">
                                                                     <a href="" class="add-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotBestSellers[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" fill="currentColor"
                                                                             class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1050,7 +1050,7 @@
                                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 title="" data-bs-original-title="Favorit">
                                                                 <a href="/login" class="add-favorite"
-                                                                    data-id="{{ $latestProducts[$i]->id }}">
+                                                                    data-id="{{ $latestProductNotBestSellers[$i]->id }}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                         height="16" fill="currentColor"
                                                                         class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1066,86 +1066,86 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4>{{ $latestProducts[$i]->category->name }}</h4>
+                                                    <h4>{{ $latestProductNotBestSellers[$i]->category->name }}</h4>
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <h3 class="name mb-1">{{ $latestProducts[$i]->name }}</h3>
+                                                        href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
+                                                        <h3 class="name mb-1">{{ $latestProductNotBestSellers[$i]->name }}</h3>
                                                     </a>
                                                     @auth
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                             <h4 class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->reseller_discount }}%</h4>
+                                                                {{ $latestProductNotBestSellers[$i]->reseller_discount }}%</h4>
                                                         @else
                                                             <h4><span class="badge bg-warning">Discount:
-                                                                    {{ $latestProducts[$i]->discount }}%</span></h4>
+                                                                    {{ $latestProductNotBestSellers[$i]->discount }}%</span></h4>
                                                         @endif
                                                     @else
                                                         <h4><span class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->discount }}%</span>
+                                                                {{ $latestProductNotBestSellers[$i]->discount }}%</span>
                                                         </h4>
                                                     @endauth
 
                                                     <h5 class="price">
-                                                        @if ($latestProducts[$i]->varianProducts->isEmpty())
+                                                        @if ($latestProductNotBestSellers[$i]->varianProducts->isEmpty())
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotBestSellers[$i]->reseller_discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->reseller_discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->reseller_discount, true) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotBestSellers[$i]->discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                @if ($latestProductNotBestSellers[$i]->discount)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @else
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}</del>
+                                                                    @if ($latestProductNotBestSellers[$i]->reseller_discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                         -
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->reseller_discount)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->reseller_discount)) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                    @if ($latestProductNotBestSellers[$i]->discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts)) }}
                                                                             -
-                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount != 0)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                @if ($latestProductNotBestSellers[$i]->discount != 0)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount)) }}
+                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount)) }}
                                                                     -
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @endif
@@ -1155,7 +1155,7 @@
                                                         <ul class="rating">
                                                             @for ($j = 1; $j <= 5; $j++)
                                                                 <li>
-                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProducts[$i]->id)['stars'])
+                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProductNotBestSellers[$i]->id)['stars'])
                                                                         <i data-feather="star" class="fill"></i>
                                                                     @else
                                                                         <i data-feather="star"></i>
@@ -1164,22 +1164,22 @@
                                                             @endfor
 
                                                         </ul>
-                                                        @if (RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] == 0)
+                                                        @if (RatingHelper::sumProductRatings($latestProductNotBestSellers[$i]->id)['sumRating'] == 0)
                                                             <span>(Belum ada ulasan)</span>
                                                         @else
-                                                            <span>{{ RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] }}
-                                                                ({{ $latestProducts[$i]->product_ratings_count }} ulasan)
+                                                            <span>{{ RatingHelper::sumProductRatings($latestProductNotBestSellers[$i]->id)['sumRating'] }}
+                                                                ({{ $latestProductNotBestSellers[$i]->product_ratings_count }} ulasan)
                                                             </span>
                                                         @endif
 
                                                     </div>
                                                     <h6 class="unit">
-                                                        @if ($latestProducts[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                            @if ($latestProducts[$i]->licenses_count > 0)
+                                                        @if ($latestProductNotBestSellers[$i]->status === ProductStatusEnum::AVAILABLE->value)
+                                                            @if ($latestProductNotBestSellers[$i]->licenses_count > 0)
                                                                 <h4>
                                                                     <span class="badge rounded-pill text-bg-success">
                                                                         Tersedia:
-                                                                        {{ $latestProducts[$i]->licenses_count }}
+                                                                        {{ $latestProductNotBestSellers[$i]->licenses_count }}
                                                                         Stok</span>
                                                                 </h4>
                                                             @else
@@ -1201,22 +1201,22 @@
                                     </div>
                                 @endfor
                             @else
-                                @for ($i = 0; $i < count($latestProducts); $i++)
+                                @for ($i = 0; $i < count($latestProductNotBestSellers); $i++)
                                     <div class="loopProducts" id="latestProduct">
                                         <div class="product-box-3 h-100 wow fadeInUp"
                                             style="visibility: visible; animation-name: fadeInUp;">
                                             <div class="product-header">
                                                 <div class="product-image">
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <img src="{{ asset('storage/' . $latestProducts[$i]->photo) }}"
+                                                        href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
+                                                        <img src="{{ asset('storage/' . $latestProductNotBestSellers[$i]->photo) }}"
                                                             class="img-fluid blur-up lazyloaded" alt="">
                                                     </a>
                                                     <ul class="product-option">
                                                         <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="" data-bs-original-title="Lihat Produk">
                                                             <a
-                                                                href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
+                                                                href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
                                                                 <i data-feather="eye"></i>
                                                             </a>
                                                         </li>
@@ -1226,17 +1226,17 @@
                                                             <a>
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
-                                                                    data-slug="{{ $latestProducts[$i]->slug }}"
-                                                                    id="shareButtonsTrigger"></i>
+                                                                    data-slug="{{ $latestProductNotBestSellers[$i]->slug }}"
+                                                                    id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                             </a>
                                                         </li>
                                                         @auth
-                                                            @if ($latestProducts[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
+                                                            @if ($latestProductNotBestSellers[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
                                                                 <li data-bs-toggle="tooltip" class="favorite"
                                                                     data-bs-placement="top" title=""
                                                                     data-bs-original-title="Favorit">
                                                                     <a href="" class="delete-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotBestSellers[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" style="color: red"
                                                                             fill="currentColor" class="bi bi-suit-heart-fill"
@@ -1250,7 +1250,7 @@
                                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                     title="" data-bs-original-title="Favorit">
                                                                     <a href="" class="add-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotBestSellers[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" fill="currentColor"
                                                                             class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1266,7 +1266,7 @@
                                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 title="" data-bs-original-title="Favorit">
                                                                 <a href="/login" class="add-favorite"
-                                                                    data-id="{{ $latestProducts[$i]->id }}">
+                                                                    data-id="{{ $latestProductNotBestSellers[$i]->id }}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                         height="16" fill="currentColor"
                                                                         class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1282,86 +1282,86 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4>{{ $latestProducts[$i]->category->name }}</h4>
+                                                    <h4>{{ $latestProductNotBestSellers[$i]->category->name }}</h4>
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <h3 class="name mb-1">{{ $latestProducts[$i]->name }}</h3>
+                                                        href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
+                                                        <h3 class="name mb-1">{{ $latestProductNotBestSellers[$i]->name }}</h3>
                                                     </a>
                                                     @auth
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                             <h4 class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->reseller_discount }}%</h4>
+                                                                {{ $latestProductNotBestSellers[$i]->reseller_discount }}%</h4>
                                                         @else
                                                             <h4><span class="badge bg-warning">Discount:
-                                                                    {{ $latestProducts[$i]->discount }}%</span></h4>
+                                                                    {{ $latestProductNotBestSellers[$i]->discount }}%</span></h4>
                                                         @endif
                                                     @else
                                                         <h4><span class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->discount }}%</span>
+                                                                {{ $latestProductNotBestSellers[$i]->discount }}%</span>
                                                         </h4>
                                                     @endauth
 
                                                     <h5 class="price">
-                                                        @if ($latestProducts[$i]->varianProducts->isEmpty())
+                                                        @if ($latestProductNotBestSellers[$i]->varianProducts->isEmpty())
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotBestSellers[$i]->reseller_discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->reseller_discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->reseller_discount, true) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotBestSellers[$i]->discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                @if ($latestProductNotBestSellers[$i]->discount)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @else
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}</del>
+                                                                    @if ($latestProductNotBestSellers[$i]->reseller_discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                         -
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->reseller_discount)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->reseller_discount)) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                    @if ($latestProductNotBestSellers[$i]->discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts)) }}
                                                                             -
-                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount != 0)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                @if ($latestProductNotBestSellers[$i]->discount != 0)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount)) }}
+                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount)) }}
                                                                     -
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @endif
@@ -1371,7 +1371,7 @@
                                                         <ul class="rating">
                                                             @for ($j = 1; $j <= 5; $j++)
                                                                 <li>
-                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProducts[$i]->id)['stars'])
+                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProductNotBestSellers[$i]->id)['stars'])
                                                                         <i data-feather="star" class="fill"></i>
                                                                     @else
                                                                         <i data-feather="star"></i>
@@ -1380,22 +1380,22 @@
                                                             @endfor
 
                                                         </ul>
-                                                        @if (RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] == 0)
+                                                        @if (RatingHelper::sumProductRatings($latestProductNotBestSellers[$i]->id)['sumRating'] == 0)
                                                             <span>(Belum ada ulasan)</span>
                                                         @else
-                                                            <span>{{ RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] }}
-                                                                ({{ $latestProducts[$i]->product_ratings_count }} ulasan)
+                                                            <span>{{ RatingHelper::sumProductRatings($latestProductNotBestSellers[$i]->id)['sumRating'] }}
+                                                                ({{ $latestProductNotBestSellers[$i]->product_ratings_count }} ulasan)
                                                             </span>
                                                         @endif
 
                                                     </div>
                                                     <h6 class="unit">
-                                                        @if ($latestProducts[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                            @if ($latestProducts[$i]->licenses_count > 0)
+                                                        @if ($latestProductNotBestSellers[$i]->status === ProductStatusEnum::AVAILABLE->value)
+                                                            @if ($latestProductNotBestSellers[$i]->licenses_count > 0)
                                                                 <h4>
                                                                     <span class="badge rounded-pill text-bg-success">
                                                                         Tersedia:
-                                                                        {{ $latestProducts[$i]->licenses_count }}
+                                                                        {{ $latestProductNotBestSellers[$i]->licenses_count }}
                                                                         Stok</span>
                                                                 </h4>
                                                             @else
@@ -1469,7 +1469,7 @@
                                                         <i data-feather="share-2" data-bs-toggle="modal"
                                                             data-bs-target="#shareProductModal"
                                                             data-slug="{{ $product->slug }}"
-                                                            id="shareButtonsTrigger"></i>
+                                                            id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                     </a>
                                                 </li>
 
@@ -1671,7 +1671,7 @@
                             </div>
                         @endforeach
                         @if (count($highestRatingProducts) <= 8)
-                            @if (count($latestProducts) >= 8 - count($highestRatingProducts))
+                            @if (count($latestProductNotRatings) >= 8 - count($highestRatingProducts))
                                 @for ($i = 0; $i < 8 - count($highestRatingProducts); $i++)
                                     <div class="loopProducts" id="latestProduct">
                                         <div class="product-box-3 h-100 wow fadeInUp"
@@ -1679,15 +1679,15 @@
                                             <div class="product-header">
                                                 <div class="product-image">
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <img src="{{ asset('storage/' . $latestProducts[$i]->photo) }}"
+                                                        href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
+                                                        <img src="{{ asset('storage/' . $latestProductNotRatings[$i]->photo) }}"
                                                             class="img-fluid blur-up lazyloaded" alt="">
                                                     </a>
                                                     <ul class="product-option">
                                                         <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="" data-bs-original-title="Lihat Produk">
                                                             <a
-                                                                href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
+                                                                href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
                                                                 <i data-feather="eye"></i>
                                                             </a>
                                                         </li>
@@ -1697,17 +1697,17 @@
                                                             <a>
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
-                                                                    data-slug="{{ $latestProducts[$i]->slug }}"
-                                                                    id="shareButtonsTrigger"></i>
+                                                                    data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                    id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                             </a>
                                                         </li>
                                                         @auth
-                                                            @if ($latestProducts[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
+                                                            @if ($latestProductNotRatings[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
                                                                 <li data-bs-toggle="tooltip" class="favorite"
                                                                     data-bs-placement="top" title=""
                                                                     data-bs-original-title="Favorit">
                                                                     <a href="" class="delete-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotRatings[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" style="color: red"
                                                                             fill="currentColor" class="bi bi-suit-heart-fill"
@@ -1721,7 +1721,7 @@
                                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                     title="" data-bs-original-title="Favorit">
                                                                     <a href="" class="add-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotRatings[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" fill="currentColor"
                                                                             class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1737,7 +1737,7 @@
                                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 title="" data-bs-original-title="Favorit">
                                                                 <a href="/login" class="add-favorite"
-                                                                    data-id="{{ $latestProducts[$i]->id }}">
+                                                                    data-id="{{ $latestProductNotRatings[$i]->id }}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                         height="16" fill="currentColor"
                                                                         class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1753,86 +1753,86 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4>{{ $latestProducts[$i]->category->name }}</h4>
+                                                    <h4>{{ $latestProductNotRatings[$i]->category->name }}</h4>
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <h3 class="name mb-1">{{ $latestProducts[$i]->name }}</h3>
+                                                        href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
+                                                        <h3 class="name mb-1">{{ $latestProductNotRatings[$i]->name }}</h3>
                                                     </a>
                                                     @auth
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                             <h4 class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->reseller_discount }}%</h4>
+                                                                {{ $latestProductNotRatings[$i]->reseller_discount }}%</h4>
                                                         @else
                                                             <h4><span class="badge bg-warning">Discount:
-                                                                    {{ $latestProducts[$i]->discount }}%</span></h4>
+                                                                    {{ $latestProductNotRatings[$i]->discount }}%</span></h4>
                                                         @endif
                                                     @else
                                                         <h4><span class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->discount }}%</span>
+                                                                {{ $latestProductNotRatings[$i]->discount }}%</span>
                                                         </h4>
                                                     @endauth
 
                                                     <h5 class="price">
-                                                        @if ($latestProducts[$i]->varianProducts->isEmpty())
+                                                        @if ($latestProductNotRatings[$i]->varianProducts->isEmpty())
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotRatings[$i]->reseller_discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRatings[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->reseller_discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRatings[$i]->sell_price, $latestProductNotRatings[$i]->reseller_discount, true) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotRatings[$i]->discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRatings[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRatings[$i]->sell_price, $latestProductNotRatings[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                @if ($latestProductNotRatings[$i]->discount)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRatings[$i]->sell_price) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRatings[$i]->sell_price, $latestProductNotRatings[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @else
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}</del>
+                                                                    @if ($latestProductNotRatings[$i]->reseller_discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                         -
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->reseller_discount)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->reseller_discount)) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                    @if ($latestProductNotRatings[$i]->discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts)) }}
                                                                             -
-                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount != 0)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                @if ($latestProductNotRatings[$i]->discount != 0)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount)) }}
+                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount)) }}
                                                                     -
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @endif
@@ -1842,7 +1842,7 @@
                                                         <ul class="rating">
                                                             @for ($j = 1; $j <= 5; $j++)
                                                                 <li>
-                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProducts[$i]->id)['stars'])
+                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProductNotRatings[$i]->id)['stars'])
                                                                         <i data-feather="star" class="fill"></i>
                                                                     @else
                                                                         <i data-feather="star"></i>
@@ -1851,22 +1851,22 @@
                                                             @endfor
 
                                                         </ul>
-                                                        @if (RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] == 0)
+                                                        @if (RatingHelper::sumProductRatings($latestProductNotRatings[$i]->id)['sumRating'] == 0)
                                                             <span>(Belum ada ulasan)</span>
                                                         @else
-                                                            <span>{{ RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] }}
-                                                                ({{ $latestProducts[$i]->product_ratings_count }} ulasan)
+                                                            <span>{{ RatingHelper::sumProductRatings($latestProductNotRatings[$i]->id)['sumRating'] }}
+                                                                ({{ $latestProductNotRatings[$i]->product_ratings_count }} ulasan)
                                                             </span>
                                                         @endif
 
                                                     </div>
                                                     <h6 class="unit">
-                                                        @if ($latestProducts[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                            @if ($latestProducts[$i]->licenses_count > 0)
+                                                        @if ($latestProductNotRatings[$i]->status === ProductStatusEnum::AVAILABLE->value)
+                                                            @if ($latestProductNotRatings[$i]->licenses_count > 0)
                                                                 <h4>
                                                                     <span class="badge rounded-pill text-bg-success">
                                                                         Tersedia:
-                                                                        {{ $latestProducts[$i]->licenses_count }}
+                                                                        {{ $latestProductNotRatings[$i]->licenses_count }}
                                                                         Stok</span>
                                                                 </h4>
                                                             @else
@@ -1889,22 +1889,22 @@
                                     </div>
                                 @endfor
                             @else
-                                @for ($i = 0; $i < count($latestProducts); $i++)
+                                @for ($i = 0; $i < count($latestProductNotRatings); $i++)
                                     <div class="loopProducts" id="latestProduct">
                                         <div class="product-box-3 h-100 wow fadeInUp"
                                             style="visibility: visible; animation-name: fadeInUp;">
                                             <div class="product-header">
                                                 <div class="product-image">
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <img src="{{ asset('storage/' . $latestProducts[$i]->photo) }}"
+                                                        href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
+                                                        <img src="{{ asset('storage/' . $latestProductNotRatings[$i]->photo) }}"
                                                             class="img-fluid blur-up lazyloaded" alt="">
                                                     </a>
                                                     <ul class="product-option">
                                                         <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="" data-bs-original-title="Lihat Produk">
                                                             <a
-                                                                href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
+                                                                href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
                                                                 <i data-feather="eye"></i>
                                                             </a>
                                                         </li>
@@ -1914,17 +1914,17 @@
                                                             <a>
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
-                                                                    data-slug="{{ $latestProducts[$i]->slug }}"
-                                                                    id="shareButtonsTrigger"></i>
+                                                                    data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                    id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                                             </a>
                                                         </li>
                                                         @auth
-                                                            @if ($latestProducts[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
+                                                            @if ($latestProductNotRatings[$i]->product_favorites->where('user_id', auth()->user()->id)->first())
                                                                 <li data-bs-toggle="tooltip" class="favorite"
                                                                     data-bs-placement="top" title=""
                                                                     data-bs-original-title="Favorit">
                                                                     <a href="" class="delete-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotRatings[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" style="color: red"
                                                                             fill="currentColor" class="bi bi-suit-heart-fill"
@@ -1938,7 +1938,7 @@
                                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                     title="" data-bs-original-title="Favorit">
                                                                     <a href="" class="add-favorite"
-                                                                        data-id="{{ $latestProducts[$i]->id }}">
+                                                                        data-id="{{ $latestProductNotRatings[$i]->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                             height="16" fill="currentColor"
                                                                             class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1954,7 +1954,7 @@
                                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                                 title="" data-bs-original-title="Favorit">
                                                                 <a href="/login" class="add-favorite"
-                                                                    data-id="{{ $latestProducts[$i]->id }}">
+                                                                    data-id="{{ $latestProductNotRatings[$i]->id }}">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                         height="16" fill="currentColor"
                                                                         class="bi bi-suit-heart" viewBox="0 0 16 16">
@@ -1970,86 +1970,86 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4>{{ $latestProducts[$i]->category->name }}</h4>
+                                                    <h4>{{ $latestProductNotRatings[$i]->category->name }}</h4>
                                                     <a
-                                                        href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
-                                                        <h3 class="name mb-1">{{ $latestProducts[$i]->name }}</h3>
+                                                        href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
+                                                        <h3 class="name mb-1">{{ $latestProductNotRatings[$i]->name }}</h3>
                                                     </a>
                                                     @auth
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                             <h4 class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->reseller_discount }}%</h4>
+                                                                {{ $latestProductNotRatings[$i]->reseller_discount }}%</h4>
                                                         @else
                                                             <h4><span class="badge bg-warning">Discount:
-                                                                    {{ $latestProducts[$i]->discount }}%</span></h4>
+                                                                    {{ $latestProductNotRatings[$i]->discount }}%</span></h4>
                                                         @endif
                                                     @else
                                                         <h4><span class="badge bg-warning">Discount:
-                                                                {{ $latestProducts[$i]->discount }}%</span>
+                                                                {{ $latestProductNotRatings[$i]->discount }}%</span>
                                                         </h4>
                                                     @endauth
 
                                                     <h5 class="price">
-                                                        @if ($latestProducts[$i]->varianProducts->isEmpty())
+                                                        @if ($latestProductNotRatings[$i]->varianProducts->isEmpty())
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotRatings[$i]->reseller_discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRatings[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->reseller_discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRatings[$i]->sell_price, $latestProductNotRatings[$i]->reseller_discount, true) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                    @if ($latestProductNotRatings[$i]->discount)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRatings[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRatings[$i]->sell_price, $latestProductNotRatings[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProducts[$i]->sell_price) }}</del>
+                                                                @if ($latestProductNotRatings[$i]->discount)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotRatings[$i]->sell_price) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProducts[$i]->sell_price, $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotRatings[$i]->sell_price, $latestProductNotRatings[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @else
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                    @if ($latestProducts[$i]->reseller_discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}</del>
+                                                                    @if ($latestProductNotRatings[$i]->reseller_discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                         -
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->reseller_discount)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->reseller_discount)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->reseller_discount)) }}
                                                                     </h4>
                                                                 @else
-                                                                    @if ($latestProducts[$i]->discount != 0)
-                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                    @if ($latestProductNotRatings[$i]->discount != 0)
+                                                                        <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts)) }}
                                                                             -
-                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                            {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true) }}
                                                                     </h4>
                                                                 @endif
                                                             @else
-                                                                @if ($latestProducts[$i]->discount != 0)
-                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts)) }}
+                                                                @if ($latestProductNotRatings[$i]->discount != 0)
+                                                                    <del>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts)) }}</del>
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount)) }}
+                                                                    {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount)) }}
                                                                     -
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProducts[$i]->varianProducts), $latestProducts[$i]->discount, true) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true) }}
                                                                 </h4>
                                                             @endauth
                                                         @endif
@@ -2059,7 +2059,7 @@
                                                         <ul class="rating">
                                                             @for ($j = 1; $j <= 5; $j++)
                                                                 <li>
-                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProducts[$i]->id)['stars'])
+                                                                    @if ($j <= RatingHelper::sumProductRatings($latestProductNotRatings[$i]->id)['stars'])
                                                                         <i data-feather="star" class="fill"></i>
                                                                     @else
                                                                         <i data-feather="star"></i>
@@ -2068,22 +2068,22 @@
                                                             @endfor
 
                                                         </ul>
-                                                        @if (RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] == 0)
+                                                        @if (RatingHelper::sumProductRatings($latestProductNotRatings[$i]->id)['sumRating'] == 0)
                                                             <span>(Belum ada ulasan)</span>
                                                         @else
-                                                            <span>{{ RatingHelper::sumProductRatings($latestProducts[$i]->id)['sumRating'] }}
-                                                                ({{ $latestProducts[$i]->product_ratings_count }} ulasan)
+                                                            <span>{{ RatingHelper::sumProductRatings($latestProductNotRatings[$i]->id)['sumRating'] }}
+                                                                ({{ $latestProductNotRatings[$i]->product_ratings_count }} ulasan)
                                                             </span>
                                                         @endif
 
                                                     </div>
                                                     <h6 class="unit">
-                                                        @if ($latestProducts[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                            @if ($latestProducts[$i]->licenses_count > 0)
+                                                        @if ($latestProductNotRatings[$i]->status === ProductStatusEnum::AVAILABLE->value)
+                                                            @if ($latestProductNotRatings[$i]->licenses_count > 0)
                                                                 <h4>
                                                                     <span class="badge rounded-pill text-bg-success">
                                                                         Tersedia:
-                                                                        {{ $latestProducts[$i]->licenses_count }}
+                                                                        {{ $latestProductNotRatings[$i]->licenses_count }}
                                                                         Stok</span>
                                                                 </h4>
                                                             @else
@@ -2220,7 +2220,7 @@
                                             <a>
                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                     data-bs-target="#shareProductModal" data-slug="{{ $product->slug }}"
-                                                    id="shareButtonsTrigger"></i>
+                                                    id="shareButtonsTrigger" data-code="{{auth()->user()->code_affiliate}}"></i>
                                             </a>
                                         </li>
                                         @auth
@@ -2525,9 +2525,9 @@
     <script>
         $(document).on('click', '#shareButtonsTrigger', function() {
             var slug = $(this).data('slug');
+            var code = $(this).data('code');
             $('#shareProductModal').modal('show');
             // berikan nilai slug pada value sharewhatsappbutton
-            console.log(slug);
 
             $.ajax({
                 url: "{{ route('home.share.product') }}" + "/" + slug,
@@ -2535,7 +2535,6 @@
                 success: function(response) {
                     console.log(response);
                     // Gunakan data yang diterima dari server (misalnya, update href)
-                    $('#shareLinkButton').attr('href', response.data.getRawLinks);
                     $('#shareWhatsappButton').attr('href', response.data.whatsapp);
                     $('#shareFacebookButton').attr('href', response.data.facebook);
                     $('#shareTelegramButton').attr('href', response.data.telegram);
@@ -2546,8 +2545,12 @@
             });
 
             $('#shareLinkButton').click(function() {
-                // Perhatikan penggunaan URL::to() untuk mendapatkan URL lengkap
-                var urlToCopy = "{{ URL::to('/products') }}/" + slug;
+                var currentURL = "{{ URL::to('/products') }}"
+                if (code) {
+                    var urlToCopy = currentURL + '/' + slug +'/'+ code;
+                }else{
+                    var urlToCopy = currentURL;
+                }
                 navigator.clipboard.writeText(urlToCopy).then(function() {
                     alert('Tautan berhasil disalin!');
                 }, function(err) {
@@ -2555,6 +2558,7 @@
                     alert('Gagal menyalin tautan. Silakan coba lagi.');
                 });
             });
+
         });
     </script>
 @endsection
