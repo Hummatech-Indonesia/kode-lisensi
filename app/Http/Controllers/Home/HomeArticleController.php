@@ -43,6 +43,7 @@ class HomeArticleController extends Controller
     public function show(string $slug): View
     {
         $article = $this->article->showWithSlug($slug);
+        $article->update(['view' => $article->view + 1]);
 
         return view('pages.article-detail', [
             'title' => $article->title,

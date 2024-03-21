@@ -13,7 +13,7 @@ class Article extends Model implements HasArticleCategory, HasUser
 {
     use HasFactory, ScopeSearchTrait;
 
-    public $fillable = ['id', 'article_category_id', 'title', 'description', 'photo', 'content', 'tags', 'slug', 'status', 'user_id'];
+    public $fillable = ['id', 'article_category_id', 'title', 'description', 'photo', 'content', 'tags', 'slug', 'status', 'user_id', 'view'];
     protected $table = 'articles';
     protected $primaryKey = 'id';
 

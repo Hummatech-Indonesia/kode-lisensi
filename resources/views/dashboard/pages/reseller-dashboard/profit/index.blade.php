@@ -6,12 +6,6 @@
     <div class="card card-table">
         <div class="card-body">
             <div class="col-sm-8 mt-3 mb-3">
-                <div class="alert alert-warning">
-                    Catatan: <br>
-                    <ul>
-                        <li>Produk yang telah dibeli oleh pengguna tidak dapat dihapus, namun dapat diarsipkan.</li>
-                    </ul>
-                </div>
                 <div class="alert alert-danger alert-dismissible" role="alert" style="display: none;" id="validation_errors">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     <div class="alert-message">
@@ -21,7 +15,7 @@
                 </div>
             </div>
             <div class="title-header option-title">
-                <h5>Halaman Produk</h5>
+                <h5>Halaman Transaksi</h5>
             </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
