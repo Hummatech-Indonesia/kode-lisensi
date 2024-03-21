@@ -223,45 +223,92 @@
                                             <h4>Variasi Produk</h4>
                                         </div>
                                         <ul class="select-package">
-                                            @foreach ($product->varianProducts as $index => $varianProduct)
-                                                @auth
-                                                    @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                            @if ($user)
+                                                @foreach ($product->varianProducts as $index => $varianProduct)
+                                                    @auth
+                                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
+                                                                    data-sell-price="{{ $varianProduct->sell_price }}"
+                                                                    data-user="{{ $user->code_affiliate }}"
+                                                                    data-slug="{{ $varianProduct->slug }}"
+                                                                    data-name="{{ $varianProduct->name }}"
+                                                                    data-product = "{{ $product->slug }}"
+                                                                    data-discount="{{ $product->reseller_discount }}"
+                                                                    id="varian-product-{{ $varianProduct->id }}"
+                                                                    class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
+                                                            </li>
+                                                        @else
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
+                                                                    data-sell-price="{{ $varianProduct->sell_price }}"
+                                                                    data-user="{{ $user->code_affiliate }}"
+                                                                    data-slug="{{ $varianProduct->slug }}"
+                                                                    data-product = "{{ $product->slug }}"
+                                                                    data-name="{{ $varianProduct->name }}"
+                                                                    data-discount="{{ $product->discount }}"
+                                                                    id="varian-product-{{ $varianProduct->id }}"
+                                                                    class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
+                                                            </li>
+                                                        @endif
+                                                    @endauth
+                                                    @guest
                                                         <li>
                                                             <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
                                                                 data-sell-price="{{ $varianProduct->sell_price }}"
-                                                                data-slug="{{ $varianProduct->slug }}"
-                                                                data-name="{{ $varianProduct->name }}"
+                                                                data-user="{{ $user->code_affiliate }}"
                                                                 data-product = "{{ $product->slug }}"
-                                                                data-discount="{{ $product->reseller_discount }}"
-                                                                id="varian-product-{{ $varianProduct->id }}"
-                                                                class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
-                                                        </li>
-                                                    @else
-                                                        <li>
-                                                            <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
-                                                                data-sell-price="{{ $varianProduct->sell_price }}"
                                                                 data-slug="{{ $varianProduct->slug }}"
-                                                                data-product = "{{ $product->slug }}"
                                                                 data-name="{{ $varianProduct->name }}"
                                                                 data-discount="{{ $product->discount }}"
                                                                 id="varian-product-{{ $varianProduct->id }}"
                                                                 class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                         </li>
-                                                    @endif
-                                                @endauth
-                                                @guest
-                                                    <li>
-                                                        <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
-                                                            data-sell-price="{{ $varianProduct->sell_price }}"
-                                                            data-product = "{{ $product->slug }}"
-                                                            data-slug="{{ $varianProduct->slug }}"
-                                                            data-name="{{ $varianProduct->name }}"
-                                                            data-discount="{{ $product->discount }}"
-                                                            id="varian-product-{{ $varianProduct->id }}"
-                                                            class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
-                                                    </li>
-                                                @endguest
-                                            @endforeach
+                                                    @endguest
+                                                @endforeach
+                                            @else
+                                                @foreach ($product->varianProducts as $index => $varianProduct)
+                                                    @auth
+                                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                            <li>
+                                                                <a href="javascript:void(0)"
+                                                                    data-id="{{ $varianProduct->id }}"
+                                                                    data-sell-price="{{ $varianProduct->sell_price }}"
+                                                                    data-slug="{{ $varianProduct->slug }}"
+                                                                    data-name="{{ $varianProduct->name }}"
+                                                                    data-product = "{{ $product->slug }}"
+                                                                    data-discount="{{ $product->reseller_discount }}"
+                                                                    id="varian-product-{{ $varianProduct->id }}"
+                                                                    class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
+                                                            </li>
+                                                        @else
+                                                            <li>
+                                                                <a href="javascript:void(0)"
+                                                                    data-id="{{ $varianProduct->id }}"
+                                                                    data-sell-price="{{ $varianProduct->sell_price }}"
+                                                                    data-slug="{{ $varianProduct->slug }}"
+                                                                    data-product = "{{ $product->slug }}"
+                                                                    data-name="{{ $varianProduct->name }}"
+                                                                    data-discount="{{ $product->discount }}"
+                                                                    id="varian-product-{{ $varianProduct->id }}"
+                                                                    class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
+                                                            </li>
+                                                        @endif
+                                                    @endauth
+                                                    @guest
+                                                        <li>
+                                                            <a href="javascript:void(0)" data-id="{{ $varianProduct->id }}"
+                                                                data-sell-price="{{ $varianProduct->sell_price }}"
+                                                                data-product = "{{ $product->slug }}"
+                                                                data-slug="{{ $varianProduct->slug }}"
+                                                                data-name="{{ $varianProduct->name }}"
+                                                                data-discount="{{ $product->discount }}"
+                                                                id="varian-product-{{ $varianProduct->id }}"
+                                                                class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
+                                                        </li>
+                                                    @endguest
+                                                @endforeach
+                                            @endif
                                         </ul>
                                     </div>
                                 @endif
@@ -1113,7 +1160,7 @@
                 var dataCode = $(this).data('code');
                 if (dataCode) {
                     var urlToCopy = currentURL + '/' + dataCode;
-                }else{
+                } else {
                     var urlToCopy = currentURL;
                 }
                 navigator.clipboard.writeText(urlToCopy).then(function() {
@@ -1134,12 +1181,19 @@
                 var sellPrice = parseFloat($(this).data(
                     'sell-price'));
                 var discount = parseFloat($(this).data('discount'));
+                var code = $(this).data('user');
                 var formattedPrice = formatCurrency(sellPrice);
                 var discountPrice = discountCurrency(sellPrice, discount);
                 var product = $(this).data("product");
                 var slug = $(this).data('slug');
-                $("#buy-product-varian").attr("href",
-                    "{{ route('checkout', ['', '']) }}/" + product + "/" + slug);
+                if (code) {
+                    $("#buy-product-varian").attr("href",
+                        "{{ route('checkout.products', ['', '', '']) }}/" + product + "/" + code + "/" +slug);
+                    }else{
+                    $("#buy-product-varian").attr("href",
+                        "{{ route('checkout', ['', '']) }}/" + product + "/" + slug);
+
+                }
 
                 $('#discount-price').text(formatCurrency(discountPrice));
                 $('#price-product').text(formattedPrice);
@@ -1161,8 +1215,6 @@
         $(document).on('click', '#shareButtonsTrigger', function() {
             var slug = $(this).data('slug');
             $('#shareProductModal').modal('show');
-            // berikan nilai slug pada value sharewhatsappbutton
-            console.log(slug);
 
             $.ajax({
                 url: "{{ route('home.share.product') }}" + "/" + slug,

@@ -157,8 +157,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('{slug}/{slug_varian?}', [TransactionController::class, 'store'])->name('doCheckout');
         });
         Route::prefix('checkout-products')->group(function () {
-            Route::get('{slug}/{code_affiliate}/{slug_varian}', [TransactionAffiliateController::class, 'index'])->name('checkout.products');
-            Route::post('{slug}/{code_affiliate}/{slug_varian}', [TransactionAffiliateController::class, 'store'])->name('doCheckout.products');
+            Route::get('{slug}/{code_affiliate}/{slug_varian?}', [TransactionAffiliateController::class, 'index'])->name('checkout.products');
+            Route::post('{slug}/{code_affiliate}/{slug_varian?}', [TransactionAffiliateController::class, 'store'])->name('doCheckout.products');
         });
     });
 
