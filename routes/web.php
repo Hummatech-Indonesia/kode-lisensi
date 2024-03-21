@@ -114,12 +114,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::name('notification.')->prefix('notification')->group(function () {
         Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
     });
-    Route::middleware('role:admin|reseller')->group(function () {
+    Route::middleware('role:admin|author|reseller')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
-                Route::get('history', [ResellerDashboardController::class, 'history'])->name('history');
+            });
+        });
+    });
+
+
+    Route::middleware('role:admin|reseller')->group(function () {
+        Route::prefix('dashboard')->group(function () {
+            Route::name('dashboard.')->group(function () {
+                Route::get('history', function () {
+                    return view('dashboard.pages.reseller-dashboard.history');
+                })->name('history.transaction');
                 Route::get('notification', [ResellerDashboardController::class, 'notification'])->name('notification');
+            });
+        });
+    });
+    Route::middleware('role:reseller')->group(function () {
+        Route::prefix('dashboard')->group(function () {
+            Route::name('dashboard.')->group(function () {
+                Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
             });
         });
     });
@@ -149,7 +166,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('dashboard')->group(function () {
             // article
             Route::resources([
-                'article-categories' => ArticleCategoryController::class,
                 'articles' => ArticleController::class
             ], ['except' => ['show']]);
         });
@@ -159,6 +175,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::prefix('dashboard')->group(function () {
+            Route::resources([
+                'article-categories' => ArticleCategoryController::class,
+            ]);
+
             Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
 
             Route::resource('categories', CategoryController::class);

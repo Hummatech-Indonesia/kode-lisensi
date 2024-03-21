@@ -127,6 +127,12 @@ class CategoryController extends Controller
 
         return view('dashboard.pages.categories.product', compact('category'));
     }
+    
+    /**
+     * getAjax
+     *
+     * @return void
+     */
     public function getAjax()
     {
         $categories = $this->category->get();

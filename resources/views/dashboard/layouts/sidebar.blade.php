@@ -14,28 +14,29 @@
 
     @role('author')
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('articles.index') ? 'active' : '' }}"
+                href="{{ route('articles.index') }}">
                 <i class="ri-article-line"></i>
                 <span>Artikel</span>
             </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="{{ route('article-categories.index') }}">Kategori</a>
-                </li>
-                <li>
-                    <a href="{{ route('articles.index') }}">List</a>
-                </li>
-            </ul>
         </li>
     @endrole
 
     @role('reseller')
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.history') ? 'active' : '' }}"
-                href="{{ route('dashboard.history') }}">
+            <a
+                class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.history.transaction') || request()->routeIs('dashboard.profit.transaction') ? 'active' : '' }}">
                 <i class="ri-shopping-bag-line"></i>
-                <span>Riwayat Transaksi</span>
+                <span>Transaksi</span>
             </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{ route('dashboard.history.transaction') }}">Riwayat Transaksi</a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.profit.transaction') }}">Keuntungan Transaksi</a>
+                </li>
+            </ul>
         </li>
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.notification') ? 'active' : '' }}"

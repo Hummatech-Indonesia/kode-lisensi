@@ -1,7 +1,6 @@
 <ul>
     <li>
-        <a class="text-primary" href="{{ route('orders.detail', $data->invoice_id) }}"
-           title="">
+        <a class="text-primary" href="" title="">
             <i class="ri-eye-line"></i>
         </a>
     </li>
