@@ -12,13 +12,30 @@
 
 
 
-    @role('author')
+    {{-- @role('author')
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('articles.index') ? 'active' : '' }}"
                 href="{{ route('articles.index') }}">
                 <i class="ri-article-line"></i>
                 <span>Artikel</span>
             </a>
+        </li>
+    @endrole --}}
+    @role('author')
+        <li class="sidebar-list">
+            <a
+                class="sidebar-link sidebar-title {{ request()->routeIs('article.index') || request()->routeIs('article-categories.index') ? 'active' : '' }}">
+                <i class="ri-article-line"></i>
+                <span>Artikel</span>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{ route('article-categories.index') }}">Kategori</a>
+                </li>
+                <li>
+                    <a href="{{ route('articles.index') }}">List</a>
+                </li>
+            </ul>
         </li>
     @endrole
 

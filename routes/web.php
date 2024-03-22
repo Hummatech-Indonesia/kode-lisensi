@@ -168,6 +168,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resources([
                 'articles' => ArticleController::class
             ], ['except' => ['show']]);
+            Route::resources([
+                'article-categories' => ArticleCategoryController::class,
+            ]);
         });
     });
 
@@ -175,9 +178,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::prefix('dashboard')->group(function () {
-            Route::resources([
-                'article-categories' => ArticleCategoryController::class,
-            ]);
+
 
             Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
 
