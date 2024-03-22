@@ -36,6 +36,7 @@ class DashboardController extends Controller
         if (UserHelper::getUserRole() === UserRoleEnum::ADMIN->value) {
             return view('dashboard.pages.index', [
                 'balance' => $this->service->handleBalance(),
+                'revenue' => $this->service->handleRevenue(),
                 'order' => $this->service->handleCountOrders(),
                 'product' => $this->service->handleCountProducts(),
                 'customer' => $this->service->handleCountCustomers(),
