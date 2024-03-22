@@ -62,6 +62,13 @@
                 <span>Notifikasi</span>
             </a>
         </li>
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.balance.withdrawal.index') ? 'active' : '' }}"
+                href="{{ route('dashboard.balance.withdrawal.index') }}">
+                <i class="ri-wallet-line"></i>
+                <span>Penarikan Saldo</span>
+            </a>
+        </li>
     @endrole
 
     @role('admin')

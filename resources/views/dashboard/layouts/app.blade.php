@@ -53,7 +53,7 @@
                         @role('reseller')
                             <h3>
                                 <span class="badge badge-success">Saldo Anda:
-                                    {{ TransactionAffiliateHelper::profit() }}</span>
+                                    {{ TransactionAffiliateHelper::profit()['format'] }}</span>
                             </h3>
                         @endrole
                         <li class="onhover-dropdown">

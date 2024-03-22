@@ -77,6 +77,10 @@ class HomeProductController extends Controller
 
     public function show(string $slug, string $code_affiliate = null): View
     {
+        if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value) {
+            $code_affiliate = null;
+        }
+
         $product = $this->product->showWithSlug($slug);
 
         $user = $this->user->show($code_affiliate);

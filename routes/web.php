@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AboutController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
 use App\Http\Controllers\Dashboard\ArticleController;
+use App\Http\Controllers\Dashboard\BalanceWithdrawalController;
 use App\Http\Controllers\Dashboard\BannerController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChangePasswordController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LicenseController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\PinRekeningController;
 use App\Http\Controllers\Dashboard\Products\ArchiveProductController;
 use App\Http\Controllers\Dashboard\Products\DestroyProductController;
 use App\Http\Controllers\Dashboard\Products\PreorderProductController;
@@ -62,9 +64,18 @@ Auth::routes([
     'verify' => true
 ]);
 
-Route::get('notifhaha', function () {
-    return view('notif');
+Route::prefix('dashboard')->group(function () {
+    Route::name('dashboard.')->group(function () {
+        Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
+        Route::prefix('dashboard')->group(function () {
+
+            Route::name('pin.rekening.')->group(function () {
+                Route::get('pin-rekening/{pin}/{id}', [PinRekeningController::class, 'index'])->name('index');
+            });
+        });
+    });
 });
+
 
 Route::name('home.')->group(function () {
     Route::get('send-email', function () {
@@ -137,6 +148,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
+                Route::prefix('dashboard')->group(function () {
+                    Route::name('balance.withdrawal.')->group(function () {
+                        Route::get('balance-withdrawal', [BalanceWithdrawalController::class, 'index'])->name('index');
+                    });
+                    Route::name('pin.rekening.')->group(function () {
+                        Route::post('pin-rekening', [PinRekeningController::class, 'sendEmail'])->name('send.email');
+                    });
+                });
             });
         });
     });

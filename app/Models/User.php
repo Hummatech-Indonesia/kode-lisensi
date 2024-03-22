@@ -3,20 +3,24 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Base\Interfaces\HasOnePinRekening;
 use App\Base\Interfaces\HasTransactions;
 use App\Notifications\RegistrationNotification;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, CanResetPassword, HasTransactions
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword, HasTransactions, HasOnePinRekening
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
@@ -96,5 +100,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * pinRekening
+     *
+     * @return HasOne
+     */
+    public function pinRekening(): HasOne
+    {
+        return $this->hasOne(PinRekening::class);
     }
 }

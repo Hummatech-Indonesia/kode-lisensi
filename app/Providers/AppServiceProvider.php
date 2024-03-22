@@ -13,6 +13,7 @@ use App\Contracts\Interfaces\CustomerInterface;
 use App\Contracts\Interfaces\FcmTokenInterface;
 use App\Contracts\Interfaces\HelpInterface;
 use App\Contracts\Interfaces\LicenseInterface;
+use App\Contracts\Interfaces\PinRekeningInterface;
 use App\Contracts\Interfaces\ProductFavoriteInterface;
 use App\Contracts\Interfaces\Products\ArchiveProductInterface;
 use App\Contracts\Interfaces\Products\ProductEmailInterface;
@@ -43,6 +44,7 @@ use App\Contracts\Repositories\CustomerRepository;
 use App\Contracts\Repositories\FcmTokenRepository;
 use App\Contracts\Repositories\HelpRepository;
 use App\Contracts\Repositories\LicenseRepository;
+use App\Contracts\Repositories\PinRekeningRepository;
 use App\Contracts\Repositories\ProductFavoriteRepository;
 use App\Contracts\Repositories\Products\ArchiveProductRepository;
 use App\Contracts\Repositories\Products\ProductEmailRepository;
@@ -98,7 +100,8 @@ class AppServiceProvider extends ServiceProvider
         VarianProductInterface::class => VarianProductRepository::class,
         ProductEmailInterface::class => ProductEmailRepository::class,
         UpdateIdInvoiceInterface::class => UpdateIdInvoiceRepository::class,
-        ProductRecommendationInterface::class => ProductRecommendationRepository::class
+        ProductRecommendationInterface::class => ProductRecommendationRepository::class,
+        PinRekeningInterface::class => PinRekeningRepository::class,
     ];
 
     /**

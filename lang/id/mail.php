@@ -20,5 +20,6 @@ return [
     'invoice_paid.subject' => 'Pembayaran anda di ' . config('app.name') . ' telah berhasil',
     'invoice_expired.subject' => 'Tagihan anda di ' . config('app.name') . ' telah expired',
     'invoice_preorder.subject' => 'Pelanggan telah membeli produk Preorder!',
-    'license_send.subject' => 'Lisensi Produk :product Anda'
+    'license_send.subject' => 'Lisensi Produk :product Anda',
+    'pin_rekening' => 'Silahkan cek email anda untuk konfirmasi email'
 ];

@@ -22,6 +22,8 @@ class TransactionAffiliateHelper
         foreach ($transactionAffiliates as $transactionAffiliate) {
             $saldo += $transactionAffiliate->profit;
         }
-        return "Rp. " . number_format($saldo, 0, ',', '.');
+        $data['format'] = "Rp. " . number_format($saldo, 0, ',', '.');
+        $data['saldo'] = $saldo;
+        return $data;
     }
 }
