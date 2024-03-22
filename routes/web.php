@@ -64,6 +64,8 @@ Auth::routes([
     'verify' => true
 ]);
 
+
+
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
