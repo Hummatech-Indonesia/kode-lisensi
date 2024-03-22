@@ -45,6 +45,9 @@
                 <h3>
                     <span class="badge badge-success">Login Sebagai : {{ UserHelper::getUserRole() }}</span>
                 </h3>
+                @role('reseller')
+                <h3 class="ms-3"><span class="badge badge-warning">Beli Produk <i class="ri-shopping-cart-line"></i></span></h3>
+                @endrole
                 <div class="nav-right col-6 pull-right right-header p-0">
                     <ul class="nav-menus">
                         @role('reseller')

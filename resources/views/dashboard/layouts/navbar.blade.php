@@ -1,7 +1,14 @@
 <div class="logo-wrapper logo-wrapper-center">
-    <a href="{{ route('dashboard.index') }}" data-bs-original-title="" title="">
-        <h2 class="text-white">{{ config('app.name') }}</h2>
-    </a>
+
+    @role('reseller')
+        <a href="{{ route('home.index') }}" data-bs-original-title="" title="">
+            <h2 class="text-white">{{ config('app.name') }}</h2>
+        </a>
+    @else
+        <a href="{{ route('dashboard.index') }}" data-bs-original-title="" title="">
+            <h2 class="text-white">{{ config('app.name') }}</h2>
+        </a>
+    @endrole
     <div class="back-btn">
         <i class="fa fa-angle-left"></i>
     </div>
@@ -12,8 +19,7 @@
 <div class="logo-icon-wrapper">
     <a href="{{ route('home.index') }}">
         <img class="img-fluid main-logo main-white" src="assets/images/logo/logo.png" alt="logo">
-        <img class="img-fluid main-logo main-dark" src="assets/images/logo/logo-white.png"
-             alt="logo">
+        <img class="img-fluid main-logo main-dark" src="assets/images/logo/logo-white.png" alt="logo">
     </a>
 </div>
 <nav class="sidebar-main">

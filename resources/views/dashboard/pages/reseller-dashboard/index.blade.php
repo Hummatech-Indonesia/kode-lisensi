@@ -18,10 +18,10 @@
     @endphp
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">Halo, <b>{{ auth()->user()->name }}</b></h5>
+                        <h3 class="card-title">Halo, <b>{{ auth()->user()->name }}</b></h3>
                         <p class="card-text">Pada dashboard akun, anda bisa melihat dan monitoring terkait aktivitas,
                             informasi dan transaksi terbaru dari akun anda.</p>
                     </div>
