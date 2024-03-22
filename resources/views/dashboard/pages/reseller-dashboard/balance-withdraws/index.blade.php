@@ -12,7 +12,7 @@
             <div class="title-header option-title">
                 <h5>Penarikan Saldo</h5>
                 <div class="d-inline-flex">
-                    <a id="btnAddLicense" data-bs-toggle="modal" data-bs-target="#settingLicense"
+                    <a id="btnSettingLicense" data-bs-toggle="modal" data-bs-target="#settingLicense"
                         class="btn btn-primary">Setting Pin Rekening Anda</a>
 
                     {{-- Modal Setting Pin Rekening --}}
@@ -59,6 +59,62 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="card-body mt-5">
+            <form action="{{ route('dashboard.balance.withdrawal.store') }}" method="post">
+                @csrf
+                <div class="">
+                    <label for="via">Pilih Metode Penarikan</label>
+                    <select name="via" class="form-select" id="via">
+                        <option value="">Pilih metode penarikan</option>
+                        <option value="bluebca">Blue Bca</option>
+                        <option value="dana">Dana</option>
+                        <option value="ovo">Ovo</option>
+                        <option value="gopay">Gopay</option>
+                    </select>
+                </div>
+                <div class="mt-3">
+                    <label for="rekening_number">No Handphone / No Rekening</label>
+                    <input type="number" name="rekening_number" class="form-control" id="">
+                </div>
+                <div class="mt-3">
+                    <label for="balance">Jumlah Penarikan</label>
+                    <input type="number" name="balance" class="form-control" id="">
+                    <p class="mt-2" style="color: #0DA487">Minimal penarikan saldo adalah Rp. 50.000,00</p>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <a id="btnBalanceWithdrawals" data-bs-toggle="modal" style="width: 20%"
+                        data-bs-target="#balanceWithdrawals" class="btn btn-primary col-sm-6">Lanjutkan</a>
+                </div>
+                {{-- Modal Setting Pin Rekening --}}
+                <div class="modal fade" id="balanceWithdrawals" tabindex="-1" role="dialog" aria-hidden="true"
+                    data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Masukkan Pin Anda</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body m-3">
+                                <div id="divUsername" class="mb-4 row align-items-center">
+                                    <label for="pin" class="form-label-title col-sm-3 mb-0">PIN Anda <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-9">
+                                        <input id="pin" autocomplete="off" name="pin" class="form-control"
+                                            type="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Kirim</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

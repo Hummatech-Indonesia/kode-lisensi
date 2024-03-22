@@ -150,9 +150,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
-                Route::prefix('dashboard')->group(function () {
+                Route::prefix('balance-withdrawal')->group(function () {
                     Route::name('balance.withdrawal.')->group(function () {
-                        Route::get('balance-withdrawal', [BalanceWithdrawalController::class, 'index'])->name('index');
+                        Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
+                        Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
+                        Route::post('balance-withdrawal', [BalanceWithdrawalController::class, 'store'])->name('store');
                     });
                     Route::name('pin.rekening.')->group(function () {
                         Route::post('pin-rekening', [PinRekeningController::class, 'sendEmail'])->name('send.email');

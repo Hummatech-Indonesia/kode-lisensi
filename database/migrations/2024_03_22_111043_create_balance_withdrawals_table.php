@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('via', [WithdrawalEnum::BLUEBCA->value, WithdrawalEnum::DANA->value, WithdrawalEnum::GOPAY->value, WithdrawalEnum::OVO->value]);
             $table->integer('rekening_number');
             $table->integer('balance');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
