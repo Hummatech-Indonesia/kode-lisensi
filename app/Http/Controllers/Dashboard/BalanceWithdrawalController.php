@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\BalanceWithdrawalInterface;
+use App\Helpers\TransactionAffiliateHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BalanceWithdrawalRequest;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -37,6 +39,10 @@ class BalanceWithdrawalController extends Controller
     {
 
         $data = $request->validated();
+        $saldo = TransactionAffiliateHelper::profit()['saldo'];
+        if ($data['balance'] >= $saldo) {
+            return redirect()->back()->withErrors('Saldo anda tidak cukup wkwk');
+        }
         $data['status'] = 0;
         $this->balanceWithdrawal->store($data);
         return redirect()->back()->with('success', 'permintaan penarikan saldo anda telah dikirim. Jika dalam 2 hari saldo anda masih belum masuk silahkan hubungi admin');
@@ -48,9 +54,10 @@ class BalanceWithdrawalController extends Controller
      *
      * @return View
      */
-    public function history(): View
+    public function history(Request $request): View|JsonResponse
     {
-        $this->balanceWithdrawal->get();
+        if ($request->ajax())
+            return $this->balanceWithdrawal->get();
         return view('dashboard.pages.reseller-dashboard.balance-withdraws.history');
     }
 }
