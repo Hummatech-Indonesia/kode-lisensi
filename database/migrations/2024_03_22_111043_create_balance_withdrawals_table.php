@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -18,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('via', [WithdrawalEnum::BLUEBCA->value, WithdrawalEnum::DANA->value, WithdrawalEnum::GOPAY->value, WithdrawalEnum::OVO->value]);
-            $table->integer('rekening_number');
+            $table->string('rekening_number', 25);
             $table->integer('balance');
             $table->boolean('status')->default(0);
             $table->timestamps();

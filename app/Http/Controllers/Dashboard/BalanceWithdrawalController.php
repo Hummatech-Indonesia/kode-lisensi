@@ -35,10 +35,12 @@ class BalanceWithdrawalController extends Controller
      */
     public function store(BalanceWithdrawalRequest $request): RedirectResponse
     {
+
         $data = $request->validated();
         $data['status'] = 0;
         $this->balanceWithdrawal->store($data);
         return redirect()->back()->with('success', 'permintaan penarikan saldo anda telah dikirim. Jika dalam 2 hari saldo anda masih belum masuk silahkan hubungi admin');
+    
     }
 
     /**

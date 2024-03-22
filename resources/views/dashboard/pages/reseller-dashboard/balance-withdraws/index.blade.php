@@ -44,7 +44,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-sm-9">
                                                 <input id="pin" autocomplete="off" name="pin" class="form-control"
-                                                    type="password">
+                                                    type="password" value="{{auth()->user()->pinRekening->pin}}">
                                             </div>
                                         </div>
                                     </div>
@@ -65,21 +65,39 @@
                 @csrf
                 <div class="">
                     <label for="via">Pilih Metode Penarikan</label>
-                    <select name="via" class="form-select" id="via">
+                    <select name="via" class="form-select @error('via') is-invalid @enderror" id="via">
                         <option value="">Pilih metode penarikan</option>
-                        <option value="bluebca">Blue Bca</option>
-                        <option value="dana">Dana</option>
-                        <option value="ovo">Ovo</option>
-                        <option value="gopay">Gopay</option>
+                        <option value="bluebca" {{ old('via') == 'bluebca' ? 'selected' : '' }}>Blue Bca</option>
+                        <option value="dana" {{ old('via') == 'dana' ? 'selected' : '' }}>Dana</option>
+                        <option value="ovo" {{ old('via') == 'ovo' ? 'selected' : '' }}>Ovo</option>
+                        <option value="gopay" {{ old('via') == 'gopay' ? 'selected' : '' }}>Gopay</option>
                     </select>
+                    @error('via')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="mt-3">
                     <label for="rekening_number">No Handphone / No Rekening</label>
-                    <input type="number" name="rekening_number" class="form-control" id="">
+                    <input type="number" name="rekening_number"
+                        class="form-control @error('rekening_number') is-invalid @enderror" id=""
+                        value="{{ old('rekening_number') }}">
+                    @error('rekening_number')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="mt-3">
                     <label for="balance">Jumlah Penarikan</label>
-                    <input type="number" name="balance" class="form-control" id="">
+                    <input type="number" name="balance" class="form-control @error('rekening_number') is-invalid @enderror"
+                        id="" value="{{ old('balance') }}">
+                    @error('balance')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <p class="mt-2" style="color: #0DA487">Minimal penarikan saldo adalah Rp. 50.000,00</p>
                 </div>
 
@@ -102,8 +120,13 @@
                                     <label for="pin" class="form-label-title col-sm-3 mb-0">PIN Anda <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="pin" autocomplete="off" name="pin" class="form-control"
-                                            type="password">
+                                        <input id="pin" autocomplete="off" name="pin"
+                                            class="form-control @error('pin') is-invalid @enderror" type="password">
+                                        @error('pin')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
