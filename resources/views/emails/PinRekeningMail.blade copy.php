@@ -33,54 +33,62 @@
                                                     {{-- <h1
                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
                                                         Halo {{ $user->name }}</h1> --}}
-                                                    <p
-                                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                        Anda telah melakukan permintaan pergantian pin di
-                                                        <b>Kode Lisensi</b>
-                                                        <br><br>
-                                                        <br><br>
-                                                        klik tautan di
-                                                        bawah ini untuk konfirmasi bahwa itu benar-benar
-                                                        akun anda.
-                                                    <table align="center" width="100%" cellpadding="0" cellspacing="0"
-                                                        role="presentation"
-                                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';margin:30px auto;padding:0;text-align:center;width:100%">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="center"
-                                                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                    <table width="100%" border="0" cellpadding="0"
-                                                                        cellspacing="0" role="presentation"
+                                                    <h1 style="text-align: center;">
+                                                        Konfirmasi Ubah PIN email</h1>
+                                                        <p style="font-weight: 500;">Haii..Kami baru saja melihat akun Anda untuk mengganti PIN
+                                                            akun
+                                                            anda.Kami ingin memastikan bahwa itu memang Anda.
+                                                        </p>
+                                                        <p style="font-weight: 500;">Aoakah Anda Anda meminta Ubah PIN ? jika tidak abaikan Pesan
+                                                            ini
+                                                        </p>
+                                                        <p style="font-weight: 500;">Ubah PIN pada akun email Anda <a
+                                                                href="{{ $data['user']->email }}">{{ $data['user']->email }}</a>
+                                                        </p>
+                                                        <p style="font-weight: 500;">Klik tombol berikut untuk mengubah PIN Anda :</p>
+                                                        <table align="center" width="100%" cellpadding="0"
+                                                            cellspacing="0" role="presentation"
+                                                            style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';margin:30px auto;padding:0;text-align:center;width:100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="center"
                                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td align="center"
-                                                                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                                    <table border="0"
-                                                                                        cellpadding="0" cellspacing="0"
-                                                                                        role="presentation"
+                                                                        <table width="100%" border="0"
+                                                                            cellpadding="0" cellspacing="0"
+                                                                            role="presentation"
+                                                                            style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="center"
                                                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                                        <tbody>
-                                                                                            <tr>
-                                                                                                <td
-                                                                                                    style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
-                                                                                                    <a href="{{ route('dashboard.pin.rekening.index', ['pin' => $data['pin'], 'id' => $data['user']->id]) }}"
-                                                                                                        class="m_-1691184708288144981button"
-                                                                                                        rel="noopener"
-                                                                                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748"
-                                                                                                        target="_blank">Konfirmasi</a>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                                        <table border="0"
+                                                                                            cellpadding="0"
+                                                                                            cellspacing="0"
+                                                                                            role="presentation"
+                                                                                            style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td
+                                                                                                        style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
+                                                                                                        <a href="{{ route('dashboard.pin.rekening.index', ['pin' => $data['pin'], 'id' => $data['user']->id]) }}"
+                                                                                                            class="m_-1691184708288144981button"
+                                                                                                            rel="noopener"
+                                                                                                            style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748"
+                                                                                                            target="_blank">Konfirmasi</a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p style="font-weight: 500;">Terima kasih,</p>
+                                                        <p style="font-weight: 500;">Tim Kodelisensi</p>
                                                 </td>
                                             </tr>
                                         </tbody>
