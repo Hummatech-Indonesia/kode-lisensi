@@ -55,7 +55,8 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-sm-9">
                                                 <input id="pin" autocomplete="off" name="pin" class="form-control"
-                                                    type="password" value="{{ auth()->user()->pinRekening->pin }}">
+                                                    type="password"
+                                                    value="{{ auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null }}">
                                             </div>
                                         </div>
                                     </div>

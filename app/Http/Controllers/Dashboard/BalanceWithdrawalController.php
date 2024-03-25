@@ -33,7 +33,7 @@ class BalanceWithdrawalController extends Controller
     public function index(Request $request): View|JsonResponse
     {
         if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value) {
-            $pin = auth()->user()->pinRekening->pin;
+            $pin = auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null;
             $pin = substr($pin, 0, -4);
             return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('pin'));
         } else {
