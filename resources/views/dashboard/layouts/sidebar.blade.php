@@ -157,6 +157,21 @@
             </ul>
         </li>
         <li class="sidebar-list">
+            <a
+                class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.balance.withdrawal.index') || request()->routeIs('dashboard.balance.withdrawal.history') ? 'active' : '' }}">
+                <i class="ri-wallet-line"></i>
+                <span>Penarikan Saldo</span>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{ route('withdrawal.index') }}">Tarik Saldo</a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.balance.withdrawal.history') }}">Riwayat Penarikan</a>
+                </li>
+            </ul>
+        </li>
+        <li class="sidebar-list">
             <a class="sidebar-link sidebar-title {{ request()->routeIs('users.customer.index') || request()->routeIs('users.reseller.index') || request()->routeIs('users.author.index') || request()->routeIs('users.admin.index') || request()->routeIs('users.create') ? 'active' : '' }}"
                 href="javascript:void(0)">
                 <i class="ri-user-3-line"></i>

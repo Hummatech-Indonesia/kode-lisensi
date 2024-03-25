@@ -1,6 +1,7 @@
 <?php
 
 use App\Contracts\Interfaces\TransactionAffiliateInterface;
+use App\Http\Controllers\AdminWithdrawalController;
 use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AboutController;
@@ -218,6 +219,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('product-recommendations/{product}', [ProductRecommendationController::class, 'store'])->name('product.recommendations.store');
             Route::get('product-recommendations', [ProductRecommendationController::class, 'get'])->name('product.recommendations.index');
 
+            Route::name('withdrawal.')->prefix('withdrawal')->group(function(){
+                Route::get('/',[AdminWithdrawalController::class,'index'])->name('index');
+                Route::get('get-ajax',[AdminWithdrawalController::class,'getAjax'])->name('getAjax');
+            });
             Route::patch('varian-products-update/{product}', [ProductController::class, 'varianProductUpdate'])->name('varian.products.update');
             Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');
 
@@ -232,6 +237,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::post('licenses-update', [LicenseController::class, 'licensesUpdate'])->name('licenses.update');
             Route::resource('licenses', LicenseController::class)->only('show', 'store', 'destroy');
+
 
             Route::name('product.')->prefix('product')->group(function () {
                 Route::get('count-stock/{product}', [ProductController::class, 'getStockDetail'])->name('count.stocks');
