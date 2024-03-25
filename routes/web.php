@@ -154,6 +154,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::prefix('balance-withdrawal')->group(function () {
                     Route::name('balance.withdrawal.')->group(function () {
                         Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
+                        Route::get('/{balance_withdrawal}', [BalanceWithdrawalController::class, 'update'])->name('update');
                         Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
                         Route::post('balance-withdrawal', [BalanceWithdrawalController::class, 'store'])->name('store');
                     });
@@ -221,6 +222,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::name('balance.withdrawal.admin.')->prefix('balance-withdrawal-admin')->group(function () {
                 Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
+                Route::put('/{balance_withdrawal}', [BalanceWithdrawalController::class, 'update'])->name('update');
                 Route::get('history-admin', [BalanceWithdrawalController::class, 'historyAdmin'])->name('history');
             });
             Route::patch('varian-products-update/{product}', [ProductController::class, 'varianProductUpdate'])->name('varian.products.update');

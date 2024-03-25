@@ -38,7 +38,7 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
     public function search(Request $request): mixed
     {
         return $this->BalanceWithdrawalMockup(
-            $this->model->query()
+            $this->model->query()->where('status', 0)
         );
     }
 
@@ -54,10 +54,15 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
                 ->where('user_id', auth()->user()->id)
         );
     }
+    /**
+     * getHistory
+     *
+     * @return mixed
+     */
     public function getHistory(): mixed
     {
         return $this->BalanceWithdrawalMockup(
-            $this->model->query()->with('user')->where('status',1)
+            $this->model->query()->with('user')->where('status', 1)
         );
     }
 }

@@ -12,10 +12,10 @@
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Produk</th>
-                            <th>Kategori</th>
-                            <th>Harga Jual</th>
+                            <th>Nama Reseller</th>
+                            <th>Saldo Ditarik</th>
+                            <th>Metode Pembayaran</th>
+                            <th>Tanggal Penarikan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -28,6 +28,7 @@
 @endsection
 
 @section('script')
+    <x-approve-withdrawal-modal></x-approve-withdrawal-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -54,12 +55,32 @@
                         name: 'user_id',
                     },
                     {
+                        data: 'balance',
+                        name: 'balance',
+                    },
+                    {
+                        data: 'via',
+                        name: 'via',
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
                         searchable: false
                     }
                 ]
+            });
+
+            $(document).on('click', '.approve-withdrawal', function() {
+                $('#exampleModal').modal('show')
+                const id = $(this).attr('data-id');
+                console.log(id);
+                let url = `{{ route('balance.withdrawal.admin.update', ':id') }}`.replace(':id', id);
+                $('#deleteForm').attr('action', url);
             });
         });
     </script>

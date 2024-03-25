@@ -11,7 +11,7 @@ class BalanceWithdrawal extends Model implements HasUser
 {
     use HasFactory;
     public $incrementing = false;
-    public $fillable = ['id', 'user_id', 'via', 'rekening_number', 'balance', 'status'];
+    public $fillable = ['user_id', 'via', 'rekening_number', 'balance', 'status'];
     public $keyType = 'char';
     protected $table = 'balance_withdrawals';
     protected $primaryKey = 'id';
