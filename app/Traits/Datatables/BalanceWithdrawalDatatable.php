@@ -30,7 +30,10 @@ trait BalanceWithdrawalDatatable
             ->editColumn('created_at', function ($data) {
                 return view('dashboard.pages.reseller-dashboard.balance-withdraws.datatable.created-at', compact('data'));
             })
-            ->rawColumns([])
+            ->editColumn('action', function ($data) {
+                return view('dashboard.pages.reseller-dashboard.balance-withdraws.datatable.created-at', compact('data'));
+            })
+            ->rawColumns(['action'])
             ->toJson();
     }
 }

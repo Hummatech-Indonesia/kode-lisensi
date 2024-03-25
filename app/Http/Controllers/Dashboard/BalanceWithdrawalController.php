@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\AdminWithdrawalInterface;
 use App\Contracts\Interfaces\BalanceWithdrawalInterface;
+use App\Enums\UserRoleEnum;
 use App\Helpers\TransactionAffiliateHelper;
+use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BalanceWithdrawalRequest;
 use App\Mail\BalanceWithdrawalMail;
@@ -28,11 +30,18 @@ class BalanceWithdrawalController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View|JsonResponse
     {
-        $pin = auth()->user()->pinRekening->pin;
-        $pin = substr($pin, 0, -4);
-        return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('pin'));
+        if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value) {
+            $pin = auth()->user()->pinRekening->pin;
+            $pin = substr($pin, 0, -4);
+            return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('pin'));
+        } else {
+            if ($request->ajax())
+                return $this->balanceWithdrawal->search($request);
+
+            return view('dashboard.pages.admin-withdrawal.index');
+        }
     }
 
     /**

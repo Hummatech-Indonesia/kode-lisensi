@@ -7,6 +7,7 @@ use App\Models\BalanceWithdrawal;
 use App\Models\PinRekening;
 use App\Traits\Datatables\BalanceWithdrawalDatatable;
 use App\Traits\Datatables\ProductDatatable;
+use Illuminate\Http\Request;
 
 class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithdrawalInterface
 {
@@ -26,6 +27,19 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
     {
         return $this->model->query()
             ->create($data);
+    }
+
+    /**
+     * search
+     *
+     * @param  mixed $request
+     * @return mixed
+     */
+    public function search(Request $request): mixed
+    {
+        return $this->BalanceWithdrawalMockup(
+            $this->model->query()
+        );
     }
 
     /**

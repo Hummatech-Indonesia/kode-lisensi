@@ -164,7 +164,7 @@
             </a>
             <ul class="sidebar-submenu">
                 <li>
-                    <a href="{{ route('withdrawal.index') }}">Tarik Saldo</a>
+                    <a href="{{ route('balance.withdrawal.admin.index') }}">Tarik Saldo</a>
                 </li>
                 <li>
                     <a href="{{ route('withdrawal.history') }}">Riwayat Penarikan</a>
