@@ -54,9 +54,9 @@ class BalanceWithdrawalController extends Controller
     {
         $data = $request->validated();
         $saldo = TransactionAffiliateHelper::profit()['saldo'];
-        // if ($data['balance'] >= $saldo) {
-        //     return redirect()->back()->withErrors('Saldo anda tidak cukup');
-        // }
+        if ($data['balance'] >= $saldo) {
+            return redirect()->back()->withErrors('Saldo anda tidak cukup');
+        }
         $data['status'] = 0;
         $this->balanceWithdrawal->store($data);
         Mail::to(config('mail.notify_preorder'))->send(new BalanceWithdrawalMail([
