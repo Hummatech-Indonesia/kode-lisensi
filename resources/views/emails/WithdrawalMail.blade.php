@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 <div
     style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';background-color:#ffffff;color:#718096;height:100%;line-height:1.4;margin:0;padding:0;width:100%!important">
 
@@ -35,7 +38,7 @@
                                                         Halo {{ $user->name }}</h1> --}}
                                                     <h1 style="text-align: center;">
                                                         Penarikan Dana</h1>
-                                                    <p style="font-weight: 500;">Haii.. reseller ada yang menarik dana
+                                                    <p style="font-weight: 500;">Haii.. Admin ada yang menarik dana
                                                         nih
                                                     </p>
                                                     <p style="font-weight: 500;">Detail data penarikan sebagai berikut :
@@ -47,15 +50,18 @@
                                                         </tr>
                                                         <tr>
                                                             <td style="font-weight:500;">Tanggal penarikan:</td>
-                                                            <td style="font-weight:500;">Selasa,23 Maret 2024,13:34</td>
+                                                            <td style="font-weight:500;">
+                                                                {{ Carbon::parse($data['time'])->isoFormat('dddd, D MMMM Y') }}
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="font-weight:500;">Penarikan Via:</td>
-                                                            <td style="font-weight:500;">Dana</td>
+                                                            <td style="font-weight:500;">{{ $data['via'] }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td style="font-weight:500;">Saldo Penarikan</td>
-                                                            <td style="color:#0000FF; font-weight:500;">Rp.1.500.000
+                                                            <td style="color:#0000FF; font-weight:500;">Rp.
+                                                                {{ number_format($data['balance'], 0, ',', '.') }}
                                                             </td>
                                                         </tr>
                                                     </table>

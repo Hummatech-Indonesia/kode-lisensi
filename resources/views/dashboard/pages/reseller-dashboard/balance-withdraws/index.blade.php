@@ -5,8 +5,17 @@
             <div class="col-sm-6 mb-3">
                 @if (session('success'))
                     <x-alert-success></x-alert-success>
-                @elseif(session('error'))
-                    <x-alert-failed></x-alert-failed>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="alert-message">
+                            <strong>Terjadi Kesalahan!</strong>
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                        </div>
+                    </div>
                 @endif
             </div>
             <div class="title-header option-title">
@@ -33,7 +42,9 @@
                                                 <p style="font-size: 14px">Catatan: </p>
                                                 <p style="font-size: 14px">Pin yang anda inputkan wajib 6 karakter </p>
                                                 @if (auth()->user()->pinRekening)
-                                                    <p style="font-size: 14px">Anda sudah memiliki pin sebelumnya, apakah
+                                                    <p style="font-size: 14px">Anda sudah memiliki pin sebelumnya
+                                                        ({{ $pin }}....),
+                                                        apakah
                                                         anda
                                                         ingin menggantinya? </p>
                                                 @endif
@@ -44,7 +55,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-sm-9">
                                                 <input id="pin" autocomplete="off" name="pin" class="form-control"
-                                                    type="password" value="{{auth()->user()->pinRekening->pin}}">
+                                                    type="password" value="{{ auth()->user()->pinRekening->pin }}">
                                             </div>
                                         </div>
                                     </div>
