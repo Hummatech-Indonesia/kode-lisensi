@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Contracts\Interfaces\AdminWithdrawalInterface;
 use App\Contracts\Interfaces\BalanceWithdrawalInterface;
 use App\Helpers\TransactionAffiliateHelper;
 use App\Http\Controllers\Controller;
@@ -16,10 +17,11 @@ use Illuminate\Support\Facades\Mail;
 class BalanceWithdrawalController extends Controller
 {
     private BalanceWithdrawalInterface $balanceWithdrawal;
-
-    public function __construct(BalanceWithdrawalInterface $balanceWithdrawal)
+    private AdminWithdrawalInterface $adminWithdrawal;
+    public function __construct(BalanceWithdrawalInterface $balanceWithdrawal, AdminWithdrawalInterface $adminWithdrawal)
     {
         $this->balanceWithdrawal = $balanceWithdrawal;
+        $this->adminWithdrawal = $adminWithdrawal;
     }
     /**
      * index
@@ -68,4 +70,17 @@ class BalanceWithdrawalController extends Controller
             return $this->balanceWithdrawal->get();
         return view('dashboard.pages.reseller-dashboard.balance-withdraws.history');
     }
+
+    public function indexAdmin(Request $request)
+    {
+        return view('dashboard.pages.admin-withdrawal.index');
+    }
+    public function historyAdmin(Request $request): View|JsonResponse
+    {
+        if ($request->ajax())
+            return $this->balanceWithdrawal->get();
+        return view('dashboard.pages.admin-withdrawal.history');
+    }
+
+
 }

@@ -167,7 +167,7 @@
                     <a href="{{ route('withdrawal.index') }}">Tarik Saldo</a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.balance.withdrawal.history') }}">Riwayat Penarikan</a>
+                    <a href="{{ route('withdrawal.history') }}">Riwayat Penarikan</a>
                 </li>
             </ul>
         </li>

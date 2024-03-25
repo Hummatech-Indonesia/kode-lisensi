@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\Interfaces\AboutInterface;
+use App\Contracts\Interfaces\AdminWithdrawalInterface;
 use App\Contracts\Interfaces\ArticleCategoryInterface;
 use App\Contracts\Interfaces\ArticleInterface;
 use App\Contracts\Interfaces\BalanceWithdrawalInterface;
@@ -35,6 +36,7 @@ use App\Contracts\Interfaces\UpdateIdInvoiceInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Interfaces\VarianProductInterface;
 use App\Contracts\Repositories\AboutRepository;
+use App\Contracts\Repositories\AdminWithdrawalRepository;
 use App\Contracts\Repositories\ArticleCategoryRepository;
 use App\Contracts\Repositories\ArticleRepository;
 use App\Contracts\Repositories\BalanceWithdrawalRepository;
@@ -104,7 +106,8 @@ class AppServiceProvider extends ServiceProvider
         UpdateIdInvoiceInterface::class => UpdateIdInvoiceRepository::class,
         ProductRecommendationInterface::class => ProductRecommendationRepository::class,
         PinRekeningInterface::class => PinRekeningRepository::class,
-        BalanceWithdrawalInterface::class => BalanceWithdrawalRepository::class
+        BalanceWithdrawalInterface::class => BalanceWithdrawalRepository::class,
+        AdminWithdrawalInterface::class => AdminWithdrawalRepository::class
     ];
 
     /**
