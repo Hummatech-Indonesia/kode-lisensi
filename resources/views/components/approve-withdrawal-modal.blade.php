@@ -12,8 +12,8 @@
                     <p class="mb-0">Setujui penarikan pembayaran?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary">Terima</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-secondary">Batal</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Terima</button>
                 </div>
             </form>
         </div>

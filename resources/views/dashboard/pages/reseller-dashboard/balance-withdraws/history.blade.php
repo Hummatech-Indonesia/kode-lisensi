@@ -15,7 +15,7 @@
             <div class="title-header option-title">
                 <h5>Halaman Produk</h5>
             </div>
-          
+
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
@@ -23,6 +23,7 @@
                             <th>Metode Penarikan</th>
                             <th>Saldo Ditarik</th>
                             <th>Tanggal Penarikan</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +64,10 @@
                     {
                         data: 'created_at',
                         name: 'created_at'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     }
                 ]
             });
