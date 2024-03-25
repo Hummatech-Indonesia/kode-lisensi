@@ -87,7 +87,7 @@ class BalanceWithdrawalController extends Controller
     public function historyAdmin(Request $request): View|JsonResponse
     {
         if ($request->ajax())
-            return $this->balanceWithdrawal->get();
+            return $this->balanceWithdrawal->getHistory();
         return view('dashboard.pages.admin-withdrawal.history');
     }
 

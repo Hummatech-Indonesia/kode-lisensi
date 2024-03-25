@@ -54,6 +54,7 @@
                     url: "{{ route('balance.withdrawal.admin.history') }}",
                 },
                 columns: [
+                    
                     {
                         data: 'user.name',
                         name: 'user.name',
