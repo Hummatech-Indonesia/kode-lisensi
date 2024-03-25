@@ -30,7 +30,6 @@
                             <th data-name="photo">#</th>
                             <th data-name="name">Produk</th>
                             <th data-name="category.name">Kategori</th>
-                            <th data-name="stock">Stok</th>
                             <th data-name="sell_price">Harga Jual</th>
                             <th data-name="action">Aksi</th>
                         </tr>
@@ -83,11 +82,6 @@
                                 .replace(':category.id', row.category.id) + '" target="_blank">' +
                                 data + '</a>';
                         }
-                    },
-                    {
-                        data: 'stock',
-                        name: 'licenses_count',
-                        searchable: false
                     },
                     {
                         data: 'sell_price',

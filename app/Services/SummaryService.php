@@ -39,6 +39,12 @@ class SummaryService
                 $query->where('start_date', '<=', now()->format('Y-m-d'))
                     ->where('end_date', '>=', now()->format('Y-m-d'));
             })
+            ->withCount([
+                'product_ratings',
+                'licenses' => function ($query) {
+                    return $query->where('is_purchased', 0);
+                }
+            ])
             ->take(8)
             ->get();
     }
@@ -64,9 +70,9 @@ class SummaryService
         // Melakukan iterasi pada setiap transaksi untuk menghitung omset
         foreach ($transactions as $transaction) {
             // Mengambil harga beli produk
-            if($transaction->detail_transaction->varianProduct){
+            if ($transaction->detail_transaction->varianProduct) {
                 $buyPrice = $transaction->detail_transaction->varianProduct->buy_price;
-            }else{
+            } else {
                 $buyPrice = $transaction->detail_transaction->product->buy_price;
             }
             // Mengambil biaya transaksi
@@ -240,6 +246,12 @@ class SummaryService
                     $query->whereIn('invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value]);
                 });
             })
+            ->withCount([
+                'product_ratings',
+                'licenses' => function ($query) {
+                    return $query->where('is_purchased', 0);
+                }
+            ])
             ->with(['category', 'varianProducts'])
             ->withCount('product_ratings')
             ->withCount('transactions')
@@ -269,6 +281,12 @@ class SummaryService
             ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug')
             ->with('category')
             ->withCount('product_ratings')
+            ->withCount([
+                'product_ratings',
+                'licenses' => function ($query) {
+                    return $query->where('is_purchased', 0);
+                }
+            ])
             ->withSum([
                 'product_ratings' => function ($query) {
                     $query->where('status', RatingStatusEnum::APPROVED->value);
