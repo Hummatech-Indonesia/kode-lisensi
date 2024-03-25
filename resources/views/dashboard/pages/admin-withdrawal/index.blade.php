@@ -5,6 +5,13 @@
 @section('content')
     <div class="card card-table">
         <div class="card-body">
+            <div class="col-sm-6 mb-3">
+                @if (session('success'))
+                    <x-alert-success></x-alert-success>
+                @elseif(session('error'))
+                    <x-alert-failed></x-alert-failed>
+                @endif
+            </div>
             <div class="title-header option-title">
                 <h5>Halaman Produk</h5>
             </div>
@@ -46,9 +53,6 @@
                 searching: true,
                 ajax: {
                     url: "{{ route('balance.withdrawal.admin.index') }}",
-                    data: function(d) {
-                        d.status = $('#status').val();
-                    }
                 },
                 columns: [{
                         data: 'user_id',
