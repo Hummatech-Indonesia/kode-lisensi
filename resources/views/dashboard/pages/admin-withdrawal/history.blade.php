@@ -51,7 +51,7 @@
                 serverSide: true,
                 searching: true,
                 ajax: {
-                    url: "{{ route('withdrawal.history') }}",
+                    url: "{{ route('balance.withdrawal.admin.history') }}",
                 },
                 columns: [
                     {
