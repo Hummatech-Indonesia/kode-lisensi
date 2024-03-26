@@ -26,7 +26,6 @@ use App\Contracts\Interfaces\Products\ProductRecommendationsInterface;
 use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RatingInterface;
 use App\Contracts\Interfaces\RegisterInterface;
-use App\Contracts\Interfaces\RekeningNumberInterface;
 use App\Contracts\Interfaces\ResellerInterface;
 use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Interfaces\SliderInterface;
@@ -59,7 +58,6 @@ use App\Contracts\Repositories\Products\ProductRepository;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\RatingRepository;
 use App\Contracts\Repositories\RegisterRepository;
-use App\Contracts\Repositories\RekeningNumberRepository;
 use App\Contracts\Repositories\ResellerRepository;
 use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\SliderRepository;
@@ -109,8 +107,7 @@ class AppServiceProvider extends ServiceProvider
         ProductRecommendationInterface::class => ProductRecommendationRepository::class,
         PinRekeningInterface::class => PinRekeningRepository::class,
         BalanceWithdrawalInterface::class => BalanceWithdrawalRepository::class,
-        AdminWithdrawalInterface::class => AdminWithdrawalRepository::class,
-        RekeningNumberInterface::class => RekeningNumberRepository::class
+        AdminWithdrawalInterface::class => AdminWithdrawalRepository::class
     ];
 
     /**

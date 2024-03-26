@@ -86,23 +86,19 @@
                             <th scope="col">Nama Pemilik</th>
                             <th scope="col">Nama Bank</th>
                             <th scope="col">Nomor Rekening</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($rekeningNumbers as $rekeningNumber)
                         <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$rekeningNumber->name}}</td>
-                            <td>{{$rekeningNumber->rekening}}</td>
-                            <td>{{$rekeningNumber->rekening_number}}</td>
-                            <td>{{$rekeningNumber->status}}</td>
+                            <td>1</td>
+                            <td>Frendika</td>
+                            <td>BRIVA</td>
+                            <td>123456789</td>
                             <td><button class="btn btn-primary" data-bs-target="#withdrawal" data-bs-toggle="modal">
-                                Tarik
-                                Saldo</button></td>
-                            </tr>
-                            @endforeach
+                                    Tarik
+                                    Saldo</button></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -118,7 +114,7 @@
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function() {
-
+            
         })
     </script>
 @endsection
