@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Base\Interfaces\HasBalanceWithdrawals;
 use App\Base\Interfaces\HasOnePinRekening;
 use App\Base\Interfaces\HasTransactions;
 use App\Notifications\RegistrationNotification;
@@ -20,7 +21,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, CanResetPassword, HasTransactions, HasOnePinRekening
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword, HasTransactions, HasOnePinRekening, HasBalanceWithdrawals
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
@@ -111,5 +112,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
     public function pinRekening(): HasOne
     {
         return $this->hasOne(PinRekening::class);
+    }
+
+    /**
+     * balanceWithdrawals
+     *
+     * @return HasMany
+     */
+    public function balanceWithdrawals(): HasMany
+    {
+        return $this->hasMany(BalanceWithdrawal::class);
     }
 }

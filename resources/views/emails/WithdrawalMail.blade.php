@@ -16,7 +16,8 @@
                             <tr>
                                 <td
                                     style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';padding:25px 0;text-align:center">
-                                    <img width="20%" src="{{ config('app.url') . 'storage/' . $site->logo }}"
+                                    <img width="20%"
+                                        src="https://i.ibb.co/YRYMs70/d-Hwk0o-Wqh-Hic9-UVn5zuh7-TXWB7-Ztbt-M7j0zbqb1p.png"
                                         alt="Logo">
                                 </td>
                             </tr>
