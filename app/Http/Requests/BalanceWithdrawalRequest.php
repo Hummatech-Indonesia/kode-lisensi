@@ -17,9 +17,7 @@ class BalanceWithdrawalRequest extends FormRequest
     public function rules()
     {
         return [
-            'via' => ['required', new ViaRule],
-            'rekening_number' => 'required|max:25',
-            'balance' => 'required|integer|min:50000',
+            'balance' => 'required|max:25',
             'pin' => [
                 'required',
                 Rule::exists('pin_rekenings', 'pin')->where(function ($query) {
@@ -39,8 +37,8 @@ class BalanceWithdrawalRequest extends FormRequest
         return [
             'via.required' => 'Kolom via harus diisi.',
             'rekening_number.required' => 'Kolom nomor rekening harus diisi.',
-            'rekening_number.max'=>'Input maksimal kolom rekening adalah 25',
-            'balance.required'=> 'Tentukan jumlah saldo penarikan',
+            'rekening_number.max' => 'Input maksimal kolom rekening adalah 25',
+            'balance.required' => 'Tentukan jumlah saldo penarikan',
             'balance.integer' => 'Saldo harus dalam bentuk angka.',
             'balance.min' => 'Saldo minimal harus Rp 50.000.',
             'pin.required' => 'Pin wajib diisi',

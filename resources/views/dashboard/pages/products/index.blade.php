@@ -144,7 +144,6 @@
                 $('#endDate').val(endDate);
             });
 
-
             const showSweetAlert = (data, table) => {
                 swal({
                     title: "Berhasil",

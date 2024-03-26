@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BalanceWithdrawalRequest;
 use App\Mail\BalanceWithdrawalMail;
 use App\Models\BalanceWithdrawal;
+use App\Models\RekeningNumber;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -50,21 +51,16 @@ class BalanceWithdrawalController extends Controller
      * @param  mixed $request
      * @return RedirectResponse
      */
-    public function store(BalanceWithdrawalRequest $request): RedirectResponse
+    public function store(BalanceWithdrawalRequest $request, RekeningNumber $rekeningNumber): RedirectResponse
     {
         $data = $request->validated();
-        $saldo = TransactionAffiliateHelper::profit()['saldo'];
-        if ($data['balance'] > $saldo) {
-            return redirect()->back()->withErrors('Saldo anda tidak cukup');
-        }
+        // $saldo = TransactionAffiliateHelper::profit()['saldo'];
+        // if ($data['balance'] > $saldo) {
+        //     return redirect()->back()->withErrors('Saldo anda tidak cukup');
+        // }
         $data['status'] = 0;
+        $data['rekening_number_id'] = $rekeningNumber->id;
         $this->balanceWithdrawal->store($data);
-        Mail::to(config('mail.notify_preorder'))->send(new BalanceWithdrawalMail([
-            'user' => auth()->user(),
-            'via' => $data['via'],
-            'balance' => $data['balance'],
-            'time' => now(),
-        ]));
         return redirect()->back()->with('success', 'permintaan penarikan saldo anda telah dikirim. Jika dalam 2 hari saldo anda masih belum masuk silahkan hubungi admin');
     }
 

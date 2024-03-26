@@ -155,7 +155,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::name('balance.withdrawal.')->group(function () {
                         Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
                         Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
-                        Route::post('balance-withdrawal', [BalanceWithdrawalController::class, 'store'])->name('store');
+                        Route::post('balance-withdrawals/{rekening_number}', [BalanceWithdrawalController::class, 'store'])->name('store');
                     });
                     Route::name('pin.rekening.')->group(function () {
                         Route::post('pin-rekening', [PinRekeningController::class, 'sendEmail'])->name('send.email');

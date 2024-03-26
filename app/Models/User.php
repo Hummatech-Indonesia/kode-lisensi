@@ -115,6 +115,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
         return $this->hasOne(PinRekening::class);
     }
 
+
     /**
      * rekeningNumbers
      *

@@ -111,4 +111,10 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            
+        })
+    </script>
 @endsection
