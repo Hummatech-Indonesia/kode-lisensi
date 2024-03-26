@@ -54,7 +54,7 @@ class BalanceWithdrawalController extends Controller
     {
         $data = $request->validated();
         $saldo = TransactionAffiliateHelper::profit()['saldo'];
-        if ($data['balance'] >= $saldo) {
+        if ($data['balance'] > $saldo) {
             return redirect()->back()->withErrors('Saldo anda tidak cukup');
         }
         $data['status'] = 0;

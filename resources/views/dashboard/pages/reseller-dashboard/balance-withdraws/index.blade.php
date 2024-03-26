@@ -55,8 +55,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-sm-9">
                                                 <input id="pin" autocomplete="off" name="pin" class="form-control"
-                                                    type="number"
-                                                    value="{{ auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null }}">
+                                                    type="number">
                                             </div>
                                         </div>
                                     </div>
