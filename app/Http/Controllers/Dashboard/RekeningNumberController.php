@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\RekeningNumberInterface;
+use App\Enums\UserRoleEnum;
+use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RekeningNumberRequest;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class RekeningNumberController extends Controller
@@ -13,18 +16,24 @@ class RekeningNumberController extends Controller
 
     private RekeningNumberInterface $rekeningNumber;
 
-    public function __construct(RekeningNumberInterface $rekeningNumber){
-        $this->rekeningNumber=$rekeningNumber;
+    public function __construct(RekeningNumberInterface $rekeningNumber)
+    {
+        $this->rekeningNumber = $rekeningNumber;
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        $rekeningNumbers=$this->rekeningNumber->get();
-        // return view()
+        $rekeningNumbers = $this->rekeningNumber->get();
+
+        $pin = auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null;
+        $pin = substr($pin, 0, -4);
+
+        return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('rekeningNumbers', 'pin'));
+
     }
 
     /**
@@ -46,7 +55,7 @@ class RekeningNumberController extends Controller
     public function store(RekeningNumberRequest $request)
     {
         $this->rekeningNumber($request->validated());
-        return redirect()->back()->with('success','Berhasil menambahkan rekening baru');
+        return redirect()->back()->with('success', 'Berhasil menambahkan rekening baru');
     }
 
     /**

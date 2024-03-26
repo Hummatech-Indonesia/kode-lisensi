@@ -23,6 +23,7 @@ use App\Http\Controllers\Dashboard\Products\ProductController;
 use App\Http\Controllers\Dashboard\Products\ProductQuestionController;
 use App\Http\Controllers\Dashboard\ProductTestimonialController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\RekeningNumberController;
 use App\Http\Controllers\Dashboard\ResellerController;
 use App\Http\Controllers\Dashboard\ResellerDashboardController;
 use App\Http\Controllers\Dashboard\RevenueController;
@@ -150,6 +151,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:reseller')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
+            Route::resource('rekening-numbers',RekeningNumberController::class);
                 Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
                 Route::prefix('balance-withdrawal')->group(function () {
                     Route::name('balance.withdrawal.')->group(function () {
@@ -224,6 +226,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::put('/{balance_withdrawal}', [BalanceWithdrawalController::class, 'update'])->name('update');
                 Route::get('history-admin', [BalanceWithdrawalController::class, 'historyAdmin'])->name('history');
             });
+
+
+
             Route::patch('varian-products-update/{product}', [ProductController::class, 'varianProductUpdate'])->name('varian.products.update');
             Route::post('varian-products', [ProductController::class, 'varianProductStore'])->name('varian.products.store');
 

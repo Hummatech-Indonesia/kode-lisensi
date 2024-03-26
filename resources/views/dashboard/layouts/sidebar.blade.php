@@ -70,7 +70,7 @@
             </a>
             <ul class="sidebar-submenu">
                 <li>
-                    <a href="{{ route('dashboard.balance.withdrawal.index') }}">Tarik Saldo</a>
+                    <a href="{{ route('dashboard.rekening-numbers.index') }}">Tarik Saldo</a>
                 </li>
                 <li>
                     <a href="{{ route('dashboard.balance.withdrawal.history') }}">Riwayat Penarikan</a>
