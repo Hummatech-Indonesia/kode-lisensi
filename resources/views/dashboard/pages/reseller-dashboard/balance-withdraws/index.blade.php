@@ -23,7 +23,6 @@
                 <div class="d-inline-flex">
                     <a id="btnSettingLicense" data-bs-toggle="modal" data-bs-target="#settingLicense"
                         class="btn btn-primary">Setting Pin Rekening Anda</a>
-
                     {{-- Modal Setting Pin Rekening --}}
                     <div class="modal fade" id="settingLicense" tabindex="-1" role="dialog" aria-hidden="true"
                         data-bs-backdrop="static" data-bs-keyboard="false">
@@ -68,87 +67,48 @@
                             </div>
                         </div>
                     </div>
+
+                    <button class="btn btn-primary ms-3" data-bs-target="#rekening" data-bs-toggle="modal">
+                        Tambahkan nomor rekening</button>
+
+
+
                 </div>
             </div>
         </div>
         <div class="card-body mt-5">
-            <form action="{{ route('dashboard.balance.withdrawal.store') }}" method="post">
-                @csrf
-                <div class="">
-                    <label for="via">Pilih Metode Penarikan</label>
-                    <select name="via" class="form-select @error('via') is-invalid @enderror" id="via">
-                        <option value="">Pilih metode penarikan</option>
-                        <option value="bluebca" {{ old('via') == 'bluebca' ? 'selected' : '' }}>Blue Bca</option>
-                        <option value="dana" {{ old('via') == 'dana' ? 'selected' : '' }}>Dana</option>
-                        <option value="ovo" {{ old('via') == 'ovo' ? 'selected' : '' }}>Ovo</option>
-                        <option value="gopay" {{ old('via') == 'gopay' ? 'selected' : '' }}>Gopay</option>
-                    </select>
-                    @error('via')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="mt-3">
-                    <label for="rekening_number">No Handphone / No Rekening</label>
-                    <input type="number" name="rekening_number"
-                        class="form-control @error('rekening_number') is-invalid @enderror" id=""
-                        value="{{ old('rekening_number') }}">
-                    @error('rekening_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="mt-3">
-                    <label for="balance">Jumlah Penarikan</label>
-                    <input type="number" name="balance" class="form-control @error('rekening_number') is-invalid @enderror"
-                        id="" value="{{ old('balance') }}">
-                    @error('balance')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    <p class="mt-2" style="color: #0DA487">Minimal penarikan saldo adalah Rp. 50.000,00</p>
-                </div>
 
-                <div class="d-flex justify-content-end">
-                    <a id="btnBalanceWithdrawals" data-bs-toggle="modal" style="width: 20%"
-                        data-bs-target="#balanceWithdrawals" class="btn btn-primary col-sm-6">Lanjutkan</a>
-                </div>
-                {{-- Modal Setting Pin Rekening --}}
-                <div class="modal fade" id="balanceWithdrawals" tabindex="-1" role="dialog" aria-hidden="true"
-                    data-bs-backdrop="static" data-bs-keyboard="false">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Masukkan Pin Anda</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body m-3">
-                                <div id="divUsername" class="mb-4 row align-items-center">
-                                    <label for="pin" class="form-label-title col-sm-3 mb-0">PIN Anda <span
-                                            class="text-danger">*</span></label>
-                                    <div class="col-sm-9">
-                                        <input id="pin" autocomplete="off" name="pin"
-                                            class="form-control @error('pin') is-invalid @enderror" type="password">
-                                        @error('pin')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Kirim</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <div class="table-responsive">
+                <table class="table variation-table">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Nama Pemilik</th>
+                            <th scope="col">Nama Bank</th>
+                            <th scope="col">Nomor Rekening</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Frendika</td>
+                            <td>BRIVA</td>
+                            <td>123456789</td>
+                            <td><button class="btn btn-primary" data-bs-target="#withdrawal" data-bs-toggle="modal">
+                                    Tarik
+                                    Saldo</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <x-create-rekening-modal></x-create-rekening-modal>
+            <x-withdrawal-modal></x-withdrawal-modal>
         </div>
     </div>
+@endsection
+
+@section('script')
 @endsection
