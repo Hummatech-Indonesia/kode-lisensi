@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\WithdrawalEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('balance_withdrawals', function (Blueprint $table) {
+        Schema::create('rekening_numbers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('rekening_number_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('balance');
-            $table->text('proof')->nullable();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('name');
+            $table->string('rekening');
+            $table->string('rekening_number', 25);
             $table->boolean('status')->default(0);
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('balance_withdrawals');
+        Schema::dropIfExists('rekening_numbers');
     }
 };

@@ -2,27 +2,27 @@
 
 namespace App\Models;
 
-use App\Base\Interfaces\HasRekeningNumber;
+use App\Base\Interfaces\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class BalanceWithdrawal extends Model implements HasRekeningNumber
+class RekeningNumber extends Model implements HasUser
 {
     use HasFactory;
     public $incrementing = false;
-    public $fillable = ['rekening_number_id', 'balance', 'proof', 'status'];
+    public $fillable = ['id', 'user_id', 'name', 'rekening', 'rekening_number', 'status'];
     public $keyType = 'char';
-    protected $table = 'balance_withdrawals';
+    protected $table = 'categories';
     protected $primaryKey = 'id';
 
     /**
-     * rekeningNumber
+     * user
      *
      * @return BelongsTo
      */
-    public function rekeningNumber(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(RekeningNumber::class);
+        return $this->belongsTo(User::class);
     }
 }
