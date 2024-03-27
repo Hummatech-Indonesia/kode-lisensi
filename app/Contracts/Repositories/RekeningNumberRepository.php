@@ -15,7 +15,7 @@ class RekeningNumberRepository extends BaseRepository implements RekeningNumberI
         $this->model=$rekeningNumber;
     }
     public function get():mixed{
-        return $this->model->query()->where('user_id',Auth::id())->get();
+        return $this->model->query()->where('user_id',Auth::id())->where('status',true)->get();
     }
     public function store(array $data):mixed{
         return $this->model->query()->create($data);
