@@ -34,22 +34,47 @@
                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
                                                         Halo {{ $user->name }}</h1> --}}
                                                     <h1 style="text-align: center;">
-                                                        Konfirmasi Ubah PIN email</h1>
+                                                        Konfirmasi Tambah Rekening</h1>
                                                     <p style="font-weight: 500;">Haii..Kami baru saja melihat akun Anda
-                                                        untuk mengganti PIN
+                                                        untuk menambah rekening
                                                         akun
                                                         anda.Kami ingin memastikan bahwa itu memang Anda.
 
-                                                        Nama pemilik rekening adalah {{ $data['name'] }}
                                                     </p>
-                                                    <p style="font-weight: 500;">Aoakah Anda meminta Ubah PIN ? jika
+                                                    {{-- <div style="width: 100%; background-color:#edf2f7; padding:5%;">
+                                                        <p style="font-weight: 500;">Nama pemilik:
+                                                            {{ $data['name'] }}</p>
+                                                        <p style="font-weight: 500;">Nama bank:
+                                                            {{ $data['rekening'] }}</p>
+                                                        <p style="font-weight: 500;">Nomor rekening:
+                                                            {{ $data['rekening_number'] }}</p>
+                                                    </div> --}}
+
+                                                    <table style="width: 100%; background-color:#edf2f7; padding:5%;">
+                                                        <tr>
+                                                            <td style="font-weight:500;">Nama Pemilik :</td>
+                                                            <td style="font-weight:500;">{{ $data['name'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:500;">Bank:</td>
+                                                            <td style="font-weight:500;">{{ $data['rekening'] }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:500;">Nomor Rekening:</td>
+                                                            <td style="font-weight:500;">{{ $data['rekening_number'] }}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+
+                                                    <p style="font-weight: 500;">Apakah Anda meminta tambah rekening ?
+                                                        jika
                                                         tidak abaikan Pesan
                                                         ini
                                                     </p>
-                                                    <p style="font-weight: 500;">Ubah PIN pada akun email Anda <a
-                                                            href="{{ $data['user']->email }}">{{ $data['user']->email }}</a>
-                                                    </p>
-                                                    <p style="font-weight: 500;">Klik tombol berikut untuk mengubah PIN
+                                                    <p style="font-weight: 500;">Klik tombol berikut untuk menambah
+                                                        rekening
                                                         Anda :</p>
                                                     <table align="center" width="100%" cellpadding="0" cellspacing="0"
                                                         role="presentation"
