@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Dashboard;
 use App\Contracts\Interfaces\RekeningNumberInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RekeningNumberRequest;
+use App\Mail\RekeningNumberMail;
 use App\Models\RekeningNumber;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RekeningNumberController extends Controller
 {
@@ -25,14 +28,13 @@ class RekeningNumberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): View
-    {
-        $rekeningNumbers = $this->rekeningNumber->get();
-        $pin = auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null;
-        $pin = substr($pin, 0, -4);
 
-        return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('rekeningNumbers', 'pin'));
+    public function index(RekeningNumber $rekeningNumber): RedirectResponse
+    {
+        $rekeningNumber->update(['status' => 1]);
+        return redirect()->route('dashboard.balance.withdrawal.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,8 +54,17 @@ class RekeningNumberController extends Controller
      */
     public function store(RekeningNumberRequest $request): RedirectResponse
     {
-        $this->rekeningNumber->store($request->validated());
-        return redirect()->back()->with('success', 'Berhasil menambahkan rekening baru');
+        $rekeningNumber = $this->rekeningNumber->store($request->validated());
+        $email = auth()->user()->email;
+        Mail::to($email)->send(new RekeningNumberMail([
+            'user' => auth()->user(),
+            'id' => $rekeningNumber->id,
+            'name' => $request->name,
+            'rekening' => $request->rekening,
+            'rekening_number' => $request->rekening_number,
+            'time' => now()
+        ]));
+        return redirect()->back()->with('success', trans('mail.rekening_number'));
     }
 
     /**
@@ -85,10 +96,10 @@ class RekeningNumberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RekeningNumberRequest $request, RekeningNumber $rekeningNumber):RedirectResponse
+    public function update(RekeningNumberRequest $request, RekeningNumber $rekeningNumber): RedirectResponse
     {
-        $this->rekeningNumber->update($rekeningNumber->id,$request->validated());
-        return redirect()->back()->with('success','Berhasil memperbarui data rekening');
+        $this->rekeningNumber->update($rekeningNumber->id, $request->validated());
+        return redirect()->back()->with('success', 'Berhasil memperbarui data rekening');
     }
 
     /**
@@ -102,4 +113,5 @@ class RekeningNumberController extends Controller
         $this->rekeningNumber->delete($rekeningNumber->id);
         return redirect()->back()->with('success', 'Berhasil menghapus data rekening');
     }
+
 }

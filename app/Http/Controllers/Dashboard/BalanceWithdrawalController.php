@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\AdminWithdrawalInterface;
 use App\Contracts\Interfaces\BalanceWithdrawalInterface;
+use App\Contracts\Interfaces\RekeningNumberInterface;
 use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
 use App\Helpers\TransactionAffiliateHelper;
@@ -22,9 +23,11 @@ use Illuminate\Support\Facades\Mail;
 class BalanceWithdrawalController extends Controller
 {
     private BalanceWithdrawalInterface $balanceWithdrawal;
-    public function __construct(BalanceWithdrawalInterface $balanceWithdrawal)
+    private RekeningNumberInterface $rekeningNumber;
+    public function __construct(BalanceWithdrawalInterface $balanceWithdrawal,RekeningNumberInterface $rekeningNumber)
     {
         $this->balanceWithdrawal = $balanceWithdrawal;
+        $this->rekeningNumber=$rekeningNumber;
     }
     /**
      * index
@@ -34,9 +37,10 @@ class BalanceWithdrawalController extends Controller
     public function index(Request $request): View|JsonResponse
     {
         if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value) {
+            $rekeningNumbers = $this->rekeningNumber->get();
             $pin = auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null;
             $pin = substr($pin, 0, -4);
-            return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('pin'));
+            return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('pin','rekeningNumbers'));
         } else {
             if ($request->ajax())
                 return $this->balanceWithdrawal->search($request);
