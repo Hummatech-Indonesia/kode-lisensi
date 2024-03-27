@@ -96,13 +96,14 @@
                                 <td>{{ $rekeningNumber->name }}</td>
                                 <td>{{ $rekeningNumber->rekening }}</td>
                                 <td>{{ $rekeningNumber->rekening_number }}</td>
-                                <td><button class="btn btn-primary" data-bs-target="#withdrawal" data-bs-toggle="modal">
+                                <td><button class="btn btn-primary" id="balanceWithdrawal"
+                                        data-id="{{ $rekeningNumber->id }}">
                                         Tarik
                                         Saldo</button></td>
-                                <td><a class="text-danger" id="deleteRekening"
-                                        data-id="{{ $rekeningNumber->id }}"><i class="ri-delete-bin-2-line"></i></a></td>
-                                <td><a class="text-warning" id="updateRekening"
-                                        data-id="{{ $rekeningNumber->id }}" data-name="{{ $rekeningNumber->name }}"
+                                <td><button class="btn btn-danger" id="deleteRekening"
+                                        data-id="{{ $rekeningNumber->id }}">Delete</button></td>
+                                <td><button class="btn btn-warning" id="updateRekening" data-id="{{ $rekeningNumber->id }}"
+                                        data-name="{{ $rekeningNumber->name }}"
                                         data-rekening={{ $rekeningNumber->rekening }}
                                         data-rekening-number="{{ $rekeningNumber->rekening_number }}"><i class="ri-pencil-line"></i></a></td>
                             </tr>
@@ -112,12 +113,12 @@
             </div>
 
             <x-create-rekening-modal></x-create-rekening-modal>
-            <x-withdrawal-modal></x-withdrawal-modal>
         </div>
     </div>
 @endsection
 
 @section('script')
+    <x-withdrawal-modal></x-withdrawal-modal>
     <x-update-rekening-modal></x-update-rekening-modal>
     <x-delete-rekening-modal></x-delete-rekening-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
@@ -129,6 +130,7 @@
                 id);
             $('#deleteRekeningForm').attr('action', url);
         });
+
         $(document).on('click', '#updateRekening', function() {
             $('#updateRekeningModal').modal('show')
             const id = $(this).data('id');
@@ -141,6 +143,17 @@
             $('#rekeningUpdate').val(rekening);
             $('#rekening_numberUpdate').val(rekeningNumber);
             $('#updateRekeningForm').attr('action', url);
+        });
+
+        $(document).on('click', '#balanceWithdrawal', function() {
+            $('#withdrawal').modal('show')
+            const id = $(this).data('id');
+            let url = `{{ route('dashboard.balance.withdrawal.store', ':id') }}`.replace(':id',
+                id);
+            $('#balance').val();
+            $('#pin').val();
+            console.log(id);
+            $('#balanceWithdrawalPost').attr('action', url);
         });
     </script>
 @endsection

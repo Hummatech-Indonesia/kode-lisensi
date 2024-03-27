@@ -54,8 +54,8 @@
                     url: "{{ route('dashboard.balance.withdrawal.history') }}",
                 },
                 columns: [{
-                        data: 'via',
-                        name: 'via',
+                        data: 'rekening_number_id',
+                        name: 'rekening_number_id'
                     },
                     {
                         data: 'balance',

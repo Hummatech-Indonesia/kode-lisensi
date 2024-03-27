@@ -38,7 +38,7 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
     public function search(Request $request): mixed
     {
         return $this->BalanceWithdrawalMockup(
-            $this->model->query()->where('status', 0)
+            $this->model->query()->where('status', 0)->with('rekening_number')
         );
     }
 
@@ -51,7 +51,9 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
     {
         return $this->BalanceWithdrawalMockup(
             $this->model->query()
-                ->where('user_id', auth()->user()->id)
+                ->whereHas('rekeningNumber', function ($query) {
+                    $query->where('user_id', auth()->user()->id);
+                })
         );
     }
     /**
@@ -62,7 +64,7 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
     public function getHistory(): mixed
     {
         return $this->BalanceWithdrawalMockup(
-            $this->model->query()->with('user')->where('status', 1)
+            $this->model->query()->where('status', 1)->with('rekening_number')
         );
     }
 }

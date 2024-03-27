@@ -15,15 +15,16 @@
             <div class="title-header option-title">
                 <h5>Halaman Produk</h5>
             </div>
-
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
-                            <th>Nama Reseller</th>
-                            <th>Metode Penarikan</th>
+                            <th>Nama</th>
                             <th>Saldo Ditarik</th>
+                            <th>Metode Pembayaran</th>
+                            <th>Nomor Rekening</th>
                             <th>Tanggal Penarikan</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +36,7 @@
 @endsection
 
 @section('script')
+    <x-detail-withdrawal-modal></x-detail-withdrawal-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -53,25 +55,43 @@
                 ajax: {
                     url: "{{ route('balance.withdrawal.admin.history') }}",
                 },
-                columns: [
-                    
-                    {
-                        data: 'user.name',
-                        name: 'user.name',
-                    },
-                    {
-                        data: 'via',
-                        name: 'via',
+                columns: [{
+                        data: 'rekening_number.name',
+                        name: 'rekening_number.name',
+                        orderable: false,
                     },
                     {
                         data: 'balance',
                         name: 'balance'
                     },
                     {
+                        data: 'rekening_number.rekening',
+                        name: 'rekening_number.rekening',
+                    },
+                    {
+                        data: 'rekening_number.rekening_number',
+                        name: 'rekening_number.rekening_number',
+                    },
+                    {
                         data: 'created_at',
                         name: 'created_at'
+                    },
+                    {
+                        data: 'detail',
+                        name: 'detail',
+                        orderable: false,
+                        searchable: false,
                     }
                 ]
+            });
+
+            $(document).on('click', '.detail-withdrawal', function() {
+                $('#detailModal').modal('show')
+                const id = $(this).attr('data-id');
+                const proof = $(this).attr('data-proof');
+                $('#proofImage').attr('src', '/storage/' + proof);
+                let url = `{{ route('balance.withdrawal.admin.update', ':id') }}`.replace(':id', id);
+                $('#updateForm').attr('action', url);
             });
         });
     </script>

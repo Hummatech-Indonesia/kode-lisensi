@@ -16,6 +16,5 @@ class BalanceWithdrawalObserver
     public function creating(BalanceWithdrawal $balanceWithdrawal)
     {
         $balanceWithdrawal->id = Uuid::uuid();
-        $balanceWithdrawal->user_id = auth()->user()->id;
     }
 }

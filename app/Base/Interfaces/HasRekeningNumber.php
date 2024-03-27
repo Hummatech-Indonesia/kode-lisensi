@@ -13,5 +13,5 @@ interface HasRekeningNumber
      * @return BelongsTo
      */
 
-    public function rekeningNumber(): BelongsTo;
+    public function rekening_number(): BelongsTo;
 }

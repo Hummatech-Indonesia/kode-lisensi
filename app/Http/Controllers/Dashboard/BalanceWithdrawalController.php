@@ -11,9 +11,11 @@ use App\Helpers\TransactionAffiliateHelper;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BalanceWithdrawalRequest;
+use App\Http\Requests\ProofBalanceWithdrawalRequest;
 use App\Mail\BalanceWithdrawalMail;
 use App\Models\BalanceWithdrawal;
 use App\Models\RekeningNumber;
+use App\Services\ProofBalanceWithdrawalService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -24,10 +26,12 @@ class BalanceWithdrawalController extends Controller
 {
     private BalanceWithdrawalInterface $balanceWithdrawal;
     private RekeningNumberInterface $rekeningNumber;
-    public function __construct(BalanceWithdrawalInterface $balanceWithdrawal,RekeningNumberInterface $rekeningNumber)
+    private ProofBalanceWithdrawalService  $service;
+    public function __construct(BalanceWithdrawalInterface $balanceWithdrawal, RekeningNumberInterface $rekeningNumber, ProofBalanceWithdrawalService $service)
     {
         $this->balanceWithdrawal = $balanceWithdrawal;
-        $this->rekeningNumber=$rekeningNumber;
+        $this->rekeningNumber = $rekeningNumber;
+        $this->service = $service;
     }
     /**
      * index
@@ -40,7 +44,7 @@ class BalanceWithdrawalController extends Controller
             $rekeningNumbers = $this->rekeningNumber->get();
             $pin = auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null;
             $pin = substr($pin, 0, -4);
-            return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('pin','rekeningNumbers'));
+            return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('pin', 'rekeningNumbers'));
         } else {
             if ($request->ajax())
                 return $this->balanceWithdrawal->search($request);
@@ -109,9 +113,9 @@ class BalanceWithdrawalController extends Controller
      *
      * @return JsonResponse
      */
-    public function update(BalanceWithdrawal $balance_withdrawal): RedirectResponse
+    public function update(ProofBalanceWithdrawalRequest $request, BalanceWithdrawal $balance_withdrawal): RedirectResponse
     {
-        $balance_withdrawal->update(['status' => 1]);
+        $balance_withdrawal->update($this->service->store($request));
         return redirect()->back()->with('success', trans('alert.update_success'));
     }
 }

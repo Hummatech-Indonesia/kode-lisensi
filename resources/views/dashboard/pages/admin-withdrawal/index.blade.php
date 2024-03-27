@@ -19,9 +19,10 @@
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
-                            <th>Nama Reseller</th>
+                            <th>Nama</th>
                             <th>Saldo Ditarik</th>
                             <th>Metode Pembayaran</th>
+                            <th>Nomor Rekening</th>
                             <th>Tanggal Penarikan</th>
                             <th>Aksi</th>
                         </tr>
@@ -55,26 +56,31 @@
                     url: "{{ route('balance.withdrawal.admin.index') }}",
                 },
                 columns: [{
-                        data: 'user_id',
-                        name: 'user_id',
+                        data: 'rekening_number.name',
+                        name: 'rekening_number.name',
+                        orderable: false,
                     },
                     {
                         data: 'balance',
-                        name: 'balance',
+                        name: 'balance'
                     },
                     {
-                        data: 'via',
-                        name: 'via',
+                        data: 'rekening_number.rekening',
+                        name: 'rekening_number.rekening',
+                    },
+                    {
+                        data: 'rekening_number.rekening_number',
+                        name: 'rekening_number.rekening_number',
                     },
                     {
                         data: 'created_at',
-                        name: 'created_at',
+                        name: 'created_at'
                     },
                     {
                         data: 'action',
                         name: 'action',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
                     }
                 ]
             });
@@ -82,9 +88,8 @@
             $(document).on('click', '.approve-withdrawal', function() {
                 $('#exampleModal').modal('show')
                 const id = $(this).attr('data-id');
-                console.log(id);
                 let url = `{{ route('balance.withdrawal.admin.update', ':id') }}`.replace(':id', id);
-                $('#deleteForm').attr('action', url);
+                $('#updateForm').attr('action', url);
             });
         });
     </script>

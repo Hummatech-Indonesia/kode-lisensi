@@ -18,7 +18,6 @@ use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PinRekeningController;
 use App\Http\Controllers\Dashboard\Products\ArchiveProductController;
 use App\Http\Controllers\Dashboard\Products\DestroyProductController;
-use App\Http\Controllers\Dashboard\Products\PreorderProductController;
 use App\Http\Controllers\Dashboard\Products\ProductController;
 use App\Http\Controllers\Dashboard\Products\ProductQuestionController;
 use App\Http\Controllers\Dashboard\ProductTestimonialController;
@@ -154,9 +153,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
                 Route::prefix('balance-withdrawal')->group(function () {
                     Route::name('balance.withdrawal.')->group(function () {
-                        Route::resource('rekening-numbers',RekeningNumberController::class)->except('index');
-                        Route::get('rekening-numbers/{rekening_number}',[RekeningNumberController::class,'index'])->name('rekening-numbers.index');
-                        Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
+                        Route::resource('rekening-numbers', RekeningNumberController::class)->except('index');
+                        // Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
                         Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
                         Route::post('balance-withdrawals/{rekening_number}', [BalanceWithdrawalController::class, 'store'])->name('store');
                     });

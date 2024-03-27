@@ -21,7 +21,7 @@ class BalanceWithdrawal extends Model implements HasRekeningNumber
      *
      * @return BelongsTo
      */
-    public function rekeningNumber(): BelongsTo
+    public function rekening_number(): BelongsTo
     {
         return $this->belongsTo(RekeningNumber::class);
     }

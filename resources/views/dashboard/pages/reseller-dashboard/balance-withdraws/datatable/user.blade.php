@@ -1,1 +1,1 @@
-<p>{{ $data->user->name }}</p>
+<p>{{ $data->rekening_number->user->name }}</p>
