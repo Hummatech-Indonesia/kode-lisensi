@@ -20,7 +20,7 @@
                 <div class="modal-footer">
                     <div class="d-flex justify-content-end mt-3">
                         <button class="btn btn-primary" type="submit">Tambahkan nomor rekening</button>
-                        <button class="btn btn-danger ms-3" data-bs-dismiss="modal">Batalkan
+                        <button class="btn btn-danger ms-3" data-bs-dismiss="modal" type="button">Batalkan
                         </button>
                     </div>
             </form>
