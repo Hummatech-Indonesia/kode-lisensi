@@ -39,7 +39,7 @@
                                                             akun
                                                             anda.Kami ingin memastikan bahwa itu memang Anda.
                                                         </p>
-                                                        <p style="font-weight: 500;">Aoakah Anda meminta Ubah PIN ? jika tidak abaikan Pesan
+                                                        <p style="font-weight: 500;">Apakah Anda meminta Ubah PIN ? jika tidak abaikan Pesan
                                                             ini
                                                         </p>
                                                         <p style="font-weight: 500;">Ubah PIN pada akun email Anda <a

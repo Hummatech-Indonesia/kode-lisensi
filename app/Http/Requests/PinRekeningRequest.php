@@ -16,7 +16,7 @@ class PinRekeningRequest extends FormRequest
     public function rules()
     {
         return [
-            'pin' => 'required|max:6',
+            'pin' => 'required|size:6',
         ];
     }
 
@@ -29,7 +29,7 @@ class PinRekeningRequest extends FormRequest
     {
         return [
             'pin.required' => 'Pin wajib diisi.',
-            'pin.max'=>'Karakter maksimal pin adalah :max.'
+            'pin.size'=>'Karakter pin harus berjumlah :size.'
         ];
     }
 }

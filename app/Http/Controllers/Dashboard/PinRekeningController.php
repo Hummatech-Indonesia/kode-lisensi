@@ -41,7 +41,7 @@ class PinRekeningController extends Controller
      *
      * @return RedirectResponse
      */
-    public function index(int $pin, string $id): RedirectResponse
+    public function index(mixed $pin, mixed $id): RedirectResponse
     {
         $this->pinRekening->store([
             'user_id' => $id,

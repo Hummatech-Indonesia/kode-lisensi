@@ -100,12 +100,13 @@
                                         data-id="{{ $rekeningNumber->id }}">
                                         Tarik
                                         Saldo</button></td>
-                                <td><button class="btn btn-danger" id="deleteRekening"
-                                        data-id="{{ $rekeningNumber->id }}">Delete</button></td>
-                                <td><button class="btn btn-warning" id="updateRekening" data-id="{{ $rekeningNumber->id }}"
+                                <td><a class="text-danger" id="deleteRekening" data-id="{{ $rekeningNumber->id }}"><i
+                                            class="ri-delete-bin-2-line"></i></a></td>
+                                <td><a class="text-warning" id="updateRekening" data-id="{{ $rekeningNumber->id }}"
                                         data-name="{{ $rekeningNumber->name }}"
                                         data-rekening={{ $rekeningNumber->rekening }}
-                                        data-rekening-number="{{ $rekeningNumber->rekening_number }}"><i class="ri-pencil-line"></i></a></td>
+                                        data-rekening-number="{{ $rekeningNumber->rekening_number }}"><i
+                                            class="ri-pencil-line"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>
