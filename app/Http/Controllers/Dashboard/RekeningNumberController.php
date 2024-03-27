@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Contracts\Interfaces\RekeningNumberInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RekeningNumberRequest;
+use App\Models\RekeningNumber;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class RekeningNumberController extends Controller
@@ -13,18 +16,22 @@ class RekeningNumberController extends Controller
 
     private RekeningNumberInterface $rekeningNumber;
 
-    public function __construct(RekeningNumberInterface $rekeningNumber){
-        $this->rekeningNumber=$rekeningNumber;
+    public function __construct(RekeningNumberInterface $rekeningNumber)
+    {
+        $this->rekeningNumber = $rekeningNumber;
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        $rekeningNumbers=$this->rekeningNumber->get();
-        // return view()
+        $rekeningNumbers = $this->rekeningNumber->get();
+        $pin = auth()->user()->pinRekening ? auth()->user()->pinRekening->pin : null;
+        $pin = substr($pin, 0, -4);
+
+        return view('dashboard.pages.reseller-dashboard.balance-withdraws.index', compact('rekeningNumbers', 'pin'));
     }
 
     /**
@@ -43,10 +50,10 @@ class RekeningNumberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RekeningNumberRequest $request)
+    public function store(RekeningNumberRequest $request): RedirectResponse
     {
-        $this->rekeningNumber($request->validated());
-        return redirect()->back()->with('success','Berhasil menambahkan rekening baru');
+        $this->rekeningNumber->store($request->validated());
+        return redirect()->back()->with('success', 'Berhasil menambahkan rekening baru');
     }
 
     /**
@@ -78,9 +85,10 @@ class RekeningNumberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RekeningNumberRequest $request, RekeningNumber $rekeningNumber):RedirectResponse
     {
-        //
+        $this->rekeningNumber->update($rekeningNumber->id,$request->validated());
+        return redirect()->back()->with('success','Berhasil memperbarui data rekening');
     }
 
     /**
@@ -89,8 +97,9 @@ class RekeningNumberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RekeningNumber $rekeningNumber): RedirectResponse
     {
-        //
+        $this->rekeningNumber->delete($rekeningNumber->id);
+        return redirect()->back()->with('success', 'Berhasil menghapus data rekening');
     }
 }

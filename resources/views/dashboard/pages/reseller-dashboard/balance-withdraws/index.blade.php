@@ -86,23 +86,30 @@
                             <th scope="col">Nama Pemilik</th>
                             <th scope="col">Nama Bank</th>
                             <th scope="col">Nomor Rekening</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col" colspan="3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Frendika</td>
-                            <td>BRIVA</td>
-                            <td>123456789</td>
-                            <td><button class="btn btn-primary" data-bs-target="#withdrawal" data-bs-toggle="modal">
-                                    Tarik
-                                    Saldo</button></td>
-                        </tr>
+                        @foreach ($rekeningNumbers as $rekeningNumber)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $rekeningNumber->name }}</td>
+                                <td>{{ $rekeningNumber->rekening }}</td>
+                                <td>{{ $rekeningNumber->rekening_number }}</td>
+                                <td><button class="btn btn-primary" data-bs-target="#withdrawal" data-bs-toggle="modal">
+                                        Tarik
+                                        Saldo</button></td>
+                                <td><button class="btn btn-danger" id="deleteRekening"
+                                        data-id="{{ $rekeningNumber->id }}">Delete</button></td>
+                                <td><button class="btn btn-warning" id="updateRekening"
+                                        data-id="{{ $rekeningNumber->id }}" data-name="{{ $rekeningNumber->name }}"
+                                        data-rekening={{ $rekeningNumber->rekening }}
+                                        data-rekening-number="{{ $rekeningNumber->rekening_number }}">Update</button></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-
 
             <x-create-rekening-modal></x-create-rekening-modal>
             <x-withdrawal-modal></x-withdrawal-modal>
@@ -111,10 +118,29 @@
 @endsection
 
 @section('script')
+    <x-update-rekening-modal></x-update-rekening-modal>
+    <x-delete-rekening-modal></x-delete-rekening-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            
-        })
+        $(document).on('click', '#deleteRekening', function() {
+            $('#deleteRekeningModal').modal('show')
+            const id = $(this).attr('data-id');
+            let url = `{{ route('dashboard.balance.withdrawal.rekening-numbers.destroy', ':id') }}`.replace(':id',
+                id);
+            $('#deleteRekeningForm').attr('action', url);
+        });
+        $(document).on('click', '#updateRekening', function() {
+            $('#updateRekeningModal').modal('show')
+            const id = $(this).data('id');
+            const name = $(this).attr('data-name');
+            const rekening = $(this).attr('data-rekening');
+            const rekeningNumber = $(this).attr('data-rekening-number');
+            let url = `{{ route('dashboard.balance.withdrawal.rekening-numbers.update', ':id') }}`.replace(':id',
+                id);
+            $('#nameUpdate').val(name);
+            $('#rekeningUpdate').val(rekening);
+            $('#rekening_numberUpdate').val(rekeningNumber);
+            $('#updateRekeningForm').attr('action', url);
+        });
     </script>
 @endsection

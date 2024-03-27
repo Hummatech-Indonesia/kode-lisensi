@@ -23,6 +23,7 @@ use App\Http\Controllers\Dashboard\Products\ProductController;
 use App\Http\Controllers\Dashboard\Products\ProductQuestionController;
 use App\Http\Controllers\Dashboard\ProductTestimonialController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\RekeningNumberController;
 use App\Http\Controllers\Dashboard\ResellerController;
 use App\Http\Controllers\Dashboard\ResellerDashboardController;
 use App\Http\Controllers\Dashboard\RevenueController;
@@ -153,7 +154,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
                 Route::prefix('balance-withdrawal')->group(function () {
                     Route::name('balance.withdrawal.')->group(function () {
-                        Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
+                        Route::resource('rekening-numbers',RekeningNumberController::class);
+                        // Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
                         Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
                         Route::post('balance-withdrawals/{rekening_number}', [BalanceWithdrawalController::class, 'store'])->name('store');
                     });

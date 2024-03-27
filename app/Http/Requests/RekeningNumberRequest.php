@@ -24,12 +24,16 @@ class RekeningNumberRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'name'=>'required',
+            'rekening'=>'required',
+            'rekening_number'=>'required'
         ];
     }
     public function messages():array{
         return [
-
+            'name.required'=>'Nama pemilik tidak boleh kosong',
+            'rekening.required'=>'Nama bank tidak boleh kosong',
+            'rekening_number.required'=>'Nomor rekening tidak boleh kosong'
         ];
     }
 }

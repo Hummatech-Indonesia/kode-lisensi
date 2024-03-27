@@ -9,7 +9,7 @@ use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
-interface RekeningNumberInterface extends GetInterface,StoreInterface,ShowInterface,UpdateInterface,DeleteInterface
+interface RekeningNumberInterface extends BaseInterface
 {
 
 }

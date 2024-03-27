@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\ProfileInterface;
 use App\Contracts\Interfaces\RekeningNumberInterface;
 use App\Models\RekeningNumber;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
 class RekeningNumberRepository extends BaseRepository implements RekeningNumberInterface
@@ -14,7 +15,7 @@ class RekeningNumberRepository extends BaseRepository implements RekeningNumberI
         $this->model=$rekeningNumber;
     }
     public function get():mixed{
-        return $this->model->query()->get();
+        return $this->model->query()->where('user_id',Auth::id())->get();
     }
     public function store(array $data):mixed{
         return $this->model->query()->create($data);
@@ -23,9 +24,9 @@ class RekeningNumberRepository extends BaseRepository implements RekeningNumberI
         return $this->model->query()->findOrFail($id);
     }
     public function update(mixed $id,array $data):mixed{
-        return $this->show($id)->query()->update($data);
+        return $this->show($id)->update($data);
     }
     public function delete(mixed $id):mixed{
-        return $this->show($id)->query()->delete();
+        return $this->show($id)->delete();
     }
 }

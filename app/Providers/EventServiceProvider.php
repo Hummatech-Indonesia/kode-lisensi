@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductEmail;
 use App\Models\ProductFavorite;
 use App\Models\ProductRecommendation;
+use App\Models\RekeningNumber;
 use App\Models\ShareProductReseller;
 use App\Models\TransactionAffiliate;
 use App\Models\User;
@@ -20,6 +21,7 @@ use App\Observers\ProductEmailObserver;
 use App\Observers\ProductFavoriteObserver;
 use App\Observers\ProductObserver;
 use App\Observers\ProductRecommendationObserver;
+use App\Observers\RekeningNumberObserver;
 use App\Observers\ShareProductReselllerObserver;
 use App\Observers\TransactionAffiliateObserver;
 use App\Observers\UserObserver;
@@ -59,6 +61,7 @@ class EventServiceProvider extends ServiceProvider
         ProductRecommendation::observe(ProductRecommendationObserver::class);
         TransactionAffiliate::observe(TransactionAffiliateObserver::class);
         BalanceWithdrawal::observe(BalanceWithdrawalObserver::class);
+        RekeningNumber::observe(RekeningNumberObserver::class);
     }
 
     /**
