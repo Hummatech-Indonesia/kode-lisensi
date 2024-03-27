@@ -4,7 +4,7 @@ namespace App\Base\Interfaces;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-interface RHasUser
+interface HasUser
 {
 
     /**
