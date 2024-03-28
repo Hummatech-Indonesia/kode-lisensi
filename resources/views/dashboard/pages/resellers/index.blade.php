@@ -45,7 +45,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "/dashboard/users/customer",
+                ajax: "/dashboard/users/reseller",
                 columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,

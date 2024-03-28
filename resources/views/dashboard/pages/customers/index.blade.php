@@ -46,7 +46,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('users.customer.index') }}",
+                ajax: "/dashboard/users/customer",
                 columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
