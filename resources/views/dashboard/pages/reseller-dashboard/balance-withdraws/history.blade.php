@@ -128,7 +128,11 @@
                 $('#detailModal').modal('show')
                 const id = $(this).attr('data-id');
                 const proof = $(this).attr('data-proof');
-                $('#proofImage').attr('src', '/storage/' + proof);
+                if (proof) {
+                    $('#proofImage').attr('src', '/storage/' + proof);
+                } else {
+                    $('#proofImage').attr('src', '/image-not-found.jpg');
+                }
                 let url = `{{ route('balance.withdrawal.admin.update', ':id') }}`.replace(':id', id);
                 $('#updateForm').attr('action', url);
             });
