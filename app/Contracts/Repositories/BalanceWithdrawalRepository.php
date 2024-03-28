@@ -38,8 +38,16 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
     public function search(Request $request): mixed
     {
         return $this->BalanceWithdrawalMockup(
-            $this->model->query()->where('status', 0)->with('rekening_number')
+            $this->model->query()
+                ->where('status', 0)
+                ->with('rekening_number')
+                ->when($request->date, function ($query) use ($request) {
+                    $date = explode(' - ', $request->date);
+                    return $query->whereBetween('created_at', [$date[0] . ' 00:00:00', $date[1] . ' 23:59:59']);
+                })
+            ->get()
         );
+
     }
 
     /**
