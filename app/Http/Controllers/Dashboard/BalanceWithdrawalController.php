@@ -26,7 +26,7 @@ class BalanceWithdrawalController extends Controller
 {
     private BalanceWithdrawalInterface $balanceWithdrawal;
     private RekeningNumberInterface $rekeningNumber;
-    private ProofBalanceWithdrawalService  $service;
+    private ProofBalanceWithdrawalService $service;
     public function __construct(BalanceWithdrawalInterface $balanceWithdrawal, RekeningNumberInterface $rekeningNumber, ProofBalanceWithdrawalService $service)
     {
         $this->balanceWithdrawal = $balanceWithdrawal;
@@ -48,7 +48,6 @@ class BalanceWithdrawalController extends Controller
         } else {
             if ($request->ajax())
                 return $this->balanceWithdrawal->search($request);
-
             return view('dashboard.pages.admin-withdrawal.index');
         }
     }
@@ -80,7 +79,7 @@ class BalanceWithdrawalController extends Controller
     public function history(Request $request): View|JsonResponse
     {
         if ($request->ajax())
-            return $this->balanceWithdrawal->get();
+            return $this->balanceWithdrawal->getHistories($request);
         return view('dashboard.pages.reseller-dashboard.balance-withdraws.history');
     }
 

@@ -45,7 +45,7 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
                     $date = explode(' - ', $request->date);
                     return $query->whereBetween('created_at', [$date[0] . ' 00:00:00', $date[1] . ' 23:59:59']);
                 })
-            ->get()
+                ->get()
         );
 
     }
@@ -55,13 +55,18 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
      *
      * @return mixed
      */
-    public function get(): mixed
+    public function getHistories(Request $request): mixed
     {
         return $this->BalanceWithdrawalMockup(
             $this->model->query()
                 ->whereHas('rekening_number', function ($query) {
                     $query->where('user_id', auth()->user()->id);
                 })
+                ->when($request->date, function ($query) use ($request) {
+                    $date = explode(' - ', $request->date);
+                    return $query->whereBetween('created_at', [$date[0] . ' 00:00:00', $date[1] . ' 23:59:59']);
+                })
+                ->get()
         );
     }
     /**
