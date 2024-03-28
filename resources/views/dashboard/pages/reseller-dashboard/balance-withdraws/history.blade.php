@@ -24,6 +24,7 @@
                             <th>Saldo Ditarik</th>
                             <th>Tanggal Penarikan</th>
                             <th>Status</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +36,7 @@
 @endsection
 
 @section('script')
+    <x-detail-withdrawal-modal></x-detail-withdrawal-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -67,10 +69,26 @@
                     },
                     {
                         data: 'status',
-                        name: 'status'
-                    }
+                        name: 'status',
+                        searchable: false,
+                        orderable: false,
+                    },
+                    {
+                        data: 'detail',
+                        name: 'detail',
+                        searchable: false,
+                        orderable: false,
+                    },
                 ]
             });
+        });
+        $(document).on('click', '.detail-withdrawal', function() {
+            $('#detailModal').modal('show')
+            const id = $(this).attr('data-id');
+            const proof = $(this).attr('data-proof');
+            $('#proofImage').attr('src', '/storage/' + proof);
+            let url = `{{ route('balance.withdrawal.admin.update', ':id') }}`.replace(':id', id);
+            $('#updateForm').attr('action', url);
         });
     </script>
 @endsection

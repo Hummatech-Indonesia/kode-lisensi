@@ -51,7 +51,7 @@ class BalanceWithdrawalRepository extends BaseRepository implements BalanceWithd
     {
         return $this->BalanceWithdrawalMockup(
             $this->model->query()
-                ->whereHas('rekeningNumber', function ($query) {
+                ->whereHas('rekening_number', function ($query) {
                     $query->where('user_id', auth()->user()->id);
                 })
         );

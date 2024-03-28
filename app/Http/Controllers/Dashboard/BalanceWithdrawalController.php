@@ -62,10 +62,10 @@ class BalanceWithdrawalController extends Controller
     public function store(BalanceWithdrawalRequest $request, RekeningNumber $rekeningNumber): RedirectResponse
     {
         $data = $request->validated();
-        // $saldo = TransactionAffiliateHelper::profit()['saldo'];
-        // if ($data['balance'] > $saldo) {
-        //     return redirect()->back()->withErrors('Saldo anda tidak cukup');
-        // }
+        $saldo = TransactionAffiliateHelper::profit()['saldo'];
+        if ($data['balance'] > $saldo) {
+            return redirect()->back()->withErrors('Saldo anda tidak cukup');
+        }
         $data['status'] = 0;
         $data['rekening_number_id'] = $rekeningNumber->id;
         $this->balanceWithdrawal->store($data);

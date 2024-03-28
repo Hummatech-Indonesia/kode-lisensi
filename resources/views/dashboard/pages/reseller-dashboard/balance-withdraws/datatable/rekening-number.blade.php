@@ -1,1 +1,1 @@
-<p>{{ $data->rekeningNumber->rekening }}</p>
+<p>{{ $data->rekening_number->rekening }}</p>

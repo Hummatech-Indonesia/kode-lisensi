@@ -33,6 +33,9 @@ trait BalanceWithdrawalDatatable
             ->editColumn('status', function ($data) {
                 return view('dashboard.pages.reseller-dashboard.balance-withdraws.datatable.status', compact('data'));
             })
+            ->editColumn('rekening_number_id', function ($data) {
+                return $data->rekening_number->rekening;
+            })
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.reseller-dashboard.balance-withdraws.datatable.action', compact('data'));
             })
