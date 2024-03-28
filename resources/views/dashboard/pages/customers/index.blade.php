@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('css')
-    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <div class="card card-table">
@@ -12,14 +12,14 @@
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>User</th>
-                        <th>Nama</th>
-                        <th>Nomor Telepon</th>
-                        <th>Email</th>
-                        <th>Tanggal Registrasi</th>
-                    </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>User</th>
+                            <th>Nama</th>
+                            <th>Nomor Telepon</th>
+                            <th>Email</th>
+                            <th>Tanggal Registrasi</th>
+                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
@@ -27,12 +27,11 @@
             </div>
         </div>
     </div>
-
 @endsection
 @section('script')
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 
             // Datatables Responsive
@@ -48,10 +47,10 @@
                 searching: true,
                 ajax: "/dashboard/users/customer",
                 columns: [{
-                    data: 'DT_RowIndex',
-                    orderable: false,
-                    searchable: false
-                },
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
                     {
                         data: 'photo',
                         name: 'photo'
