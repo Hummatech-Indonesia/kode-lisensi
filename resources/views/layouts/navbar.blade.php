@@ -84,11 +84,6 @@
                                     </a>
                                 </li>
 
-                                <li>
-                                    <a href="#" class="header-icon">
-                                        <i class="iconly-Swap icli"></i>
-                                    </a>
-                                </li>
 
                                 <li class="onhover-dropdown">
                                     <a href="{{ route('users.account.my-favorites') }}" class="header-icon swap-icon">
