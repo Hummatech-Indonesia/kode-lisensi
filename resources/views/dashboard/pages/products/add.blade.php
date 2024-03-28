@@ -465,7 +465,7 @@
                 $("#cancel_variant_product").removeAttr("style").css("display", "none");
                 $("#discount_varian_product").removeAttr("style").css("display", "none");
                 $(".varian_product").removeAttr("style").css("display", "none");
-                $("#form").attr("action", "{{ route('products.store') }}");
+                $("#form").attr("action", "{{ route('products.store') }}");k
                 $('#statusSelected').prop('disabled', false);
                 $('#statusSelected option[value="preorder"]').prop('selected', false);
             });
