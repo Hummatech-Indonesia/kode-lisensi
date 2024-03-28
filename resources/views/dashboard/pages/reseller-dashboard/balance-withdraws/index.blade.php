@@ -104,7 +104,7 @@
                                             class="ri-delete-bin-2-line"></i></a></td>
                                 <td><a class="text-warning" id="updateRekening" data-id="{{ $rekeningNumber->id }}"
                                         data-name="{{ $rekeningNumber->name }}"
-                                        data-rekening={{ $rekeningNumber->rekening }}
+                                        data-rekening="{{ $rekeningNumber->rekening }}"
                                         data-rekening-number="{{ $rekeningNumber->rekening_number }}"><i
                                             class="ri-pencil-line"></i></a></td>
                             </tr>

@@ -7,6 +7,7 @@
             </div>
             <form action="" id="deleteRekeningForm" method="POST">
                 @csrf
+                @method('DELETE')
                 <div class="modal-body m-3">
                     <p class="mb-0">Data yang dihapus tidak dapat dikembalikan</p>
                 </div>
