@@ -57,11 +57,11 @@
     </div>
 @endsection
 @section('script')
+    <x-approve-withdrawal-modal></x-approve-withdrawal-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
     <script>
-
         $.ajax({
             type: "method",
             url: "url",
