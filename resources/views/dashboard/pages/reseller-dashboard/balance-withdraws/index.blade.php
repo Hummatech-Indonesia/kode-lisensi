@@ -18,6 +18,12 @@
                     </div>
                 @endif
             </div>
+            <div class="alert alert-warning mt-3">
+                Catatan: <br>
+                <ul>
+                    <li>Anda perlu melakukan konfirmasi dengan email untuk melakukan tambah atau edit rekening</li>
+                </ul>
+            </div>
             <div class="title-header option-title">
                 <h5>Penarikan Saldo</h5>
                 <div class="d-inline-flex">
@@ -76,8 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body mt-5">
-
+        <div class="card-body mt-3">
             <div class="table-responsive">
                 <table class="table variation-table">
                     <thead class="bg-primary">

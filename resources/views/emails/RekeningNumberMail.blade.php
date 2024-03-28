@@ -34,9 +34,9 @@
                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">
                                                         Halo {{ $user->name }}</h1> --}}
                                                     <h1 style="text-align: center;">
-                                                        Konfirmasi Tambah Rekening</h1>
+                                                        Konfirmasi Edit Rekening</h1>
                                                     <p style="font-weight: 500;">Haii..Kami baru saja melihat akun Anda
-                                                        untuk menambah rekening
+                                                        untuk mengedit rekening
                                                         akun
                                                         anda.Kami ingin memastikan bahwa itu memang Anda.
 
@@ -68,12 +68,12 @@
                                                     </table>
 
 
-                                                    <p style="font-weight: 500;">Apakah Anda meminta tambah rekening ?
+                                                    <p style="font-weight: 500;">Apakah Anda meminta edit rekening ?
                                                         jika
                                                         tidak abaikan Pesan
                                                         ini
                                                     </p>
-                                                    <p style="font-weight: 500;">Klik tombol berikut untuk menambah
+                                                    <p style="font-weight: 500;">Klik tombol berikut untuk mengedit
                                                         rekening
                                                         Anda :</p>
                                                     <table align="center" width="100%" cellpadding="0" cellspacing="0"
@@ -103,9 +103,6 @@
                                                                                                         rel="noopener"
                                                                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';border-radius:4px;color:#fff;display:inline-block;overflow:hidden;text-decoration:none;background-color:#2d3748;border-bottom:8px solid #2d3748;border-left:18px solid #2d3748;border-right:18px solid #2d3748;border-top:8px solid #2d3748"
                                                                                                         target="_blank">Konfirmasi</a>
-
-
-
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </tbody>
