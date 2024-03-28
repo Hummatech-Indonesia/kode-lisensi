@@ -98,8 +98,20 @@ class RekeningNumberController extends Controller
      */
     public function update(RekeningNumberRequest $request, RekeningNumber $rekeningNumber): RedirectResponse
     {
-        $this->rekeningNumber->update($rekeningNumber->id, $request->validated());
-        return redirect()->back()->with('success', 'Berhasil memperbarui data rekening');
+        $data = $request->validated();
+        $data['status'] = 0;
+        $rekeningNumbers=$this->rekeningNumber->update($rekeningNumber->id,$data);
+        $email = auth()->user()->email;
+        Mail::to($email)->send(new RekeningNumberMail([
+            'user' => auth()->user(),
+            'id' => $rekeningNumbers->id,
+            'name' => $request->name,
+            'rekening' => $request->rekening,
+            'rekening_number' => $request->rekening_number,
+            'time' => now()
+        ]));
+        return redirect()->back()->with('success', trans('mail.rekening_number'));
+
     }
 
     /**
