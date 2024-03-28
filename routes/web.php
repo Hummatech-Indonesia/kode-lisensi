@@ -154,7 +154,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::prefix('balance-withdrawal')->group(function () {
                     Route::name('balance.withdrawal.')->group(function () {
                         Route::resource('rekening-numbers', RekeningNumberController::class)->except('index');
-                        // Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
+                        Route::get('rekening-numbers/{rekening-number}', [RekeningNumberController::class, 'index'])->name('rekening_numbers.index');
+                        Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
                         Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
                         Route::post('balance-withdrawals/{rekening_number}', [BalanceWithdrawalController::class, 'store'])->name('store');
                     });
