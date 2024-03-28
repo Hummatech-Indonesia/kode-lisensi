@@ -62,23 +62,18 @@ class SummaryService
     }
     public function handleRevenue(): int
     {
-        // Mengambil semua transaksi yang tidak null pada fee_amount
         $transactions = $this->transaction->query()->whereNotNull('amount')->get();
 
         $revenue = 0;
 
-        // Melakukan iterasi pada setiap transaksi untuk menghitung omset
         foreach ($transactions as $transaction) {
-            // Mengambil harga beli produk
             if ($transaction->detail_transaction->varianProduct) {
-                $buyPrice = $transaction->detail_transaction->varianProduct->buy_price;
+                $buyPrice = $transaction->detail_transaction->varianProduct?->buy_price;
             } else {
-                $buyPrice = $transaction->detail_transaction->product->buy_price;
+                $buyPrice = $transaction->detail_transaction->product?->buy_price;
             }
-            // Mengambil biaya transaksi
             $amount = $transaction->amount;
 
-            // Menghitung omset (harga beli produk dikurangi biaya transaksi)
             $revenue += ($amount - $buyPrice);
         }
 
@@ -296,7 +291,7 @@ class SummaryService
             ->orderByDesc('product_ratings_sum_rating')
             ->get();
 
-        return $data->filter(fn($item) => $item->product_ratings_sum_rating != null);
+        return $data->filter(fn ($item) => $item->product_ratings_sum_rating != null);
     }
 
     /**
