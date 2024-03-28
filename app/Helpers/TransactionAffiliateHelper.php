@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Enums\InvoiceStatusEnum;
 use App\Models\TransactionAffiliate;
 
 class TransactionAffiliateHelper
@@ -24,8 +25,10 @@ class TransactionAffiliateHelper
             }
         }
         $transactionAffiliates = TransactionAffiliate::query()
+            ->whereRelation('transaction', 'invoice_status', InvoiceStatusEnum::PAID->value)
             ->where('code_affiliate', $code_affiliate)
             ->get();
+
         $saldo = 0;
         foreach ($transactionAffiliates as $transactionAffiliate) {
             $saldo += $transactionAffiliate->profit;
