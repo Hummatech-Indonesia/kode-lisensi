@@ -221,7 +221,7 @@
                 $.each(response.data, function(index, data) {
                     // $('#test').append('test');
                     $('#listCategory').append('<a href="{{ route('categories.show', '') }}/' + data
-                        .id + '">' + data.name + '</a>');
+                        .slug + '">' + data.name + '</a>');
                 });
 
 

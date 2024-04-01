@@ -61,7 +61,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('categories.show', $category->id) }}",
+                ajax: "{{ route('categories.show', $category->slug) }}",
                 columns: [{
                         data: 'photo',
                         name: 'photo'

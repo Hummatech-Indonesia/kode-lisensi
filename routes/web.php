@@ -96,7 +96,7 @@ Route::name('home.')->group(function () {
         Route::post('contact-us', [ContactController::class, 'store'])->name('store');
     });
 
-    Route::get('categories/{category}', [HomeCategoryController::class, 'show'])->name('category');
+    Route::get('categories/{slug}', [HomeCategoryController::class, 'show'])->name('category');
 
     Route::get('term-and-condition', [TermController::class, 'homepage'])->name('term');
     Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
@@ -208,7 +208,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
 
-            Route::resource('categories', CategoryController::class);
+            Route::resource('categories', CategoryController::class)->except('show');
+            Route::get('categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
             Route::get('categories-ajax', [CategoryController::class, 'getAjax'])->name('categories.ajax');
 
             Route::resources([

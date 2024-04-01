@@ -120,14 +120,15 @@ class CategoryController extends Controller
 
         return back()->with('success', trans('alert.delete_success'));
     }
-    public function show(Category $category, Request $request)
+    public function show(string $slug, Request $request)
     {
+        $category = $this->category->getWhere(['slug' => $slug]);
         if ($request->ajax())
             return $this->product->showCategory($category->id);
 
         return view('dashboard.pages.categories.product', compact('category'));
     }
-    
+
     /**
      * getAjax
      *

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
@@ -14,10 +15,12 @@ use Illuminate\Http\Request;
 class HomeCategoryController extends Controller
 {
     private ProductInterface $product;
+    private CategoryInterface $category;
     private ProductService $productService;
-    public function __construct(ProductInterface $product, ProductService $productService)
+    public function __construct(ProductInterface $product, ProductService $productService, CategoryInterface $category)
     {
         $this->product = $product;
+        $this->category = $category;
         $this->productService = $productService;
     }
 
@@ -27,10 +30,10 @@ class HomeCategoryController extends Controller
      * @param  mixed $category
      * @return View
      */
-    public function show(Category $category, Request $request): View
+    public function show(string $slug, Request $request): View
     {
+        $category = $this->category->getWhere(['slug' => $slug]);
         $request->merge(['category_id' => $category->id]);
-        // dd($request->category_id);
         $service = $this->productService->handleProductFilters($request);
 
         if ($request->ajax()) {
