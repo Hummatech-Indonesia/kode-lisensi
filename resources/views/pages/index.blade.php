@@ -95,14 +95,14 @@
 
                                                 <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
                                                     @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                        <a>
+                                                        <a href="#">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $product->slug }}" id="shareButtonsTrigger"
                                                                 data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                         </a>
                                                     @else
-                                                        <a>
+                                                        <a href="#">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $product->slug }}"
@@ -332,7 +332,7 @@
                                                         <li data-bs-toggle="tooltip"
                                                             data-bs-original-title="Bagikan Produk">
                                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotRecommendations[$i]->slug }}"
@@ -340,7 +340,7 @@
                                                                         data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                                 </a>
                                                             @else
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotRecommendations[$i]->slug }}"
@@ -563,7 +563,7 @@
                                                         <li data-bs-toggle="tooltip"
                                                             data-bs-original-title="Bagikan Produk">
                                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProducts[$i]->slug }}"
@@ -571,7 +571,7 @@
                                                                         data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                                 </a>
                                                             @else
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProducts[$i]->slug }}"
@@ -813,7 +813,7 @@
 
                                                 <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
                                                     @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                        <a>
+                                                        <a href="#" onclick="return false;">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $product->slug }}"
@@ -821,7 +821,7 @@
                                                                 data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                         </a>
                                                     @else
-                                                        <a>
+                                                        <a href="#" onclick="return false;">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $product->slug }}"
@@ -1052,7 +1052,7 @@
                                                         <li data-bs-toggle="tooltip"
                                                             data-bs-original-title="Bagikan Produk">
                                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotBestSellers[$i]->slug }}"
@@ -1060,7 +1060,7 @@
                                                                         data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                                 </a>
                                                             @else
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotBestSellers[$i]->slug }}"
@@ -1282,7 +1282,7 @@
                                                         <li data-bs-toggle="tooltip"
                                                             data-bs-original-title="Bagikan Produk">
                                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotBestSellers[$i]->slug }}"
@@ -1290,7 +1290,7 @@
                                                                         data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                                 </a>
                                                             @else
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotBestSellers[$i]->slug }}"
@@ -1538,7 +1538,7 @@
 
                                                 <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
                                                     @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                        <a>
+                                                        <a href="#" onclick="return false;">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $product->slug }}"
@@ -1546,7 +1546,7 @@
                                                                 data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                         </a>
                                                     @else
-                                                        <a>
+                                                        <a href="#" onclick="return false;">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $product->slug }}"
@@ -1777,7 +1777,7 @@
                                                         <li data-bs-toggle="tooltip"
                                                             data-bs-original-title="Bagikan Produk">
                                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                            <a>
+                                                            <a href="#" onclick="return false;">
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $latestProductNotRatings[$i]->slug }}"
@@ -1785,7 +1785,7 @@
                                                                 data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                             </a>
                                                             @else
-                                                            <a>
+                                                            <a href="#" onclick="return false;">
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
                                                                 data-slug="{{ $latestProductNotRatings[$i]->slug }}"
@@ -2007,7 +2007,7 @@
                                                         <li data-bs-toggle="tooltip"
                                                             data-bs-original-title="Bagikan Produk">
                                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotRatings[$i]->slug }}"
@@ -2015,7 +2015,7 @@
                                                                         data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                                 </a>
                                                             @else
-                                                                <a>
+                                                                <a href="#" onclick="return false;">
                                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                                         data-bs-target="#shareProductModal"
                                                                         data-slug="{{ $latestProductNotRatings[$i]->slug }}"
@@ -2325,14 +2325,14 @@
 
                                         <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                <a>
+                                                <a href="#" onclick="return false;">
                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                         data-bs-target="#shareProductModal"
                                                         data-slug="{{ $product->slug }}" id="shareButtonsTrigger"
                                                         data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                 </a>
                                             @else
-                                                <a>
+                                                <a href="#" onclick="return false;">
                                                     <i data-feather="share-2" data-bs-toggle="modal"
                                                         data-bs-target="#shareProductModal"
                                                         data-slug="{{ $product->slug }}" id="shareButtonsTrigger"></i>

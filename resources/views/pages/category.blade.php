@@ -67,13 +67,25 @@
                                                     </a>
                                                 </li>
 
-                                                <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
-                                                    <a>
-                                                        <i data-feather="share-2" data-bs-toggle="modal"
-                                                            data-bs-target="#shareProductModal"
-                                                            data-slug="{{ $product->slug }}" id="shareButtonsTrigger"></i>
-                                                    </a>
-                                                </li>
+                                                <li data-bs-toggle="tooltip"
+                                                            data-bs-original-title="Bagikan Produk">
+                                                            @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                                <a href="#" onclick="return false;">
+                                                                    <i data-feather="share-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#shareProductModal"
+                                                                        data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                        id="shareButtonsTrigger"
+                                                                        data-code="{{ auth()->user()->code_affiliate }}"></i>
+                                                                </a>
+                                                            @else
+                                                                <a href="#" onclick="return false;">
+                                                                    <i data-feather="share-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#shareProductModal"
+                                                                        data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                        id="shareButtonsTrigger"></i>
+                                                                </a>
+                                                            @endif
+                                                        </li>
                                                 @auth
                                                     @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
                                                         <li data-bs-toggle="tooltip" class="favorite" data-bs-placement="top"
