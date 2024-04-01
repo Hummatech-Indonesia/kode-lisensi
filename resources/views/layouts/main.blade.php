@@ -11,7 +11,7 @@
     <meta name="author" content="{{ $author ?? config('app.name') }}">
     @yield('meta')
     <link rel="icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
-    <title>{{ $title ?? config('app.name') }}</title>
+    <title>{{ $title ?? 'KodeLisensi.com - Pusatnya Lisensi Original' }}</title>
 
     <style>
         .right-side-menu {
