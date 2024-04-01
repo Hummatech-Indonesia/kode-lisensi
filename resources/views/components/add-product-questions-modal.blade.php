@@ -21,8 +21,7 @@
                         <label class="form-label-title col-sm-3 mb-0">Jawaban <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input id="addAnswer" autocomplete="off" name="answer" class="form-control" type="text"
-                                   placeholder="Ya ini legal">
+                                   <textarea name="answer" id="addAnswer" cols="15" rows="5" class="form-control" autocomplete="off" placeholder="Ya ini legal"></textarea>
                         </div>
                     </div>
                 </div>
