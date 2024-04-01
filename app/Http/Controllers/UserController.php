@@ -55,6 +55,8 @@ class UserController extends Controller
             return redirect()->route('users.admin.index')->with('success', trans('alert.add_success'));
         } elseif ($data['role'] == UserRoleEnum::RESELLER->value) {
             return redirect()->route('users.reseller.index');
+        } elseif ($data['role'] == UserRoleEnum::CUSTOMER->value) {
+            return redirect()->route('users.customer.index');
         }
         return redirect()->route('users.author.index')->with('success', trans('alert.add_success'));
     }
@@ -68,7 +70,8 @@ class UserController extends Controller
     {
         $data['role'] = UserRoleEnum::ADMIN->value;
         $data['email_verified_at'] = now();
-        if ($request->ajax()) return $this->user->getWhere($data);
+        if ($request->ajax())
+            return $this->user->getWhere($data);
         return view('dashboard.pages.admin.index');
     }
 
@@ -80,7 +83,8 @@ class UserController extends Controller
     public function author(Request $request): object
     {
         $data['role'] = UserRoleEnum::AUTHOR->value;
-        if ($request->ajax()) return $this->user->getWhere($data);
+        if ($request->ajax())
+            return $this->user->getWhere($data);
         return view('dashboard.pages.author.index');
     }
 
@@ -114,7 +118,7 @@ class UserController extends Controller
         return redirect()->route('users.author.index')->with('success', trans('alert.add_success'));
     }
 
-   
+
     /**
      * delete
      *

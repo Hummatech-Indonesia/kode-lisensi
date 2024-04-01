@@ -49,6 +49,7 @@
                                         <option value="admin">Admin</option>
                                         <option value="author">Author</option>
                                         <option value="reseller">Reseller</option>
+                                        <option value="customer">Customer</option>
                                     </select>
                                 </div>
                             </div>
