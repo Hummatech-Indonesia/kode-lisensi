@@ -8,7 +8,12 @@
 <meta name="author" content="Kode Lisensi">
 <link rel="icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
 <link rel="shortcut icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
+@if (request()->routeIs('articles.create'))
+<title>{{'Tambah Artikel - KodeLisensi.com'}}</title>
+@else
+
 <title>{{ config('app.name') }}</title>
+@endif
 
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
