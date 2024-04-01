@@ -19,6 +19,7 @@
                             <th>Nomor Telepon</th>
                             <th>Email</th>
                             <th>Tanggal Registrasi</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,11 +30,10 @@
     </div>
 @endsection
 @section('script')
+    <x-delete-modal></x-delete-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function() {
-
-
             // Datatables Responsive
             $("#table_id").DataTable({
                 scrollX: false,
@@ -70,8 +70,21 @@
                     {
                         data: 'created_at',
                         name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        searchable: false,
+                        orderable: false,
                     }
                 ]
+            });
+
+            $(document).on('click', '.delete-alert', function() {
+                $('#exampleModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('users.customer.destroy', ':id') }}`.replace(':id', id);
+                $('#deleteForm').attr('action', url);
             });
         });
     </script>

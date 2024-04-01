@@ -33,6 +33,10 @@ trait CustomerDatatable
             ->editColumn('created_at', function ($data) {
                 return Carbon::parse($data->created_at)->translatedFormat('d F Y');
             })
+            ->editColumn('action', function ($data) {
+                return view('dashboard.pages.customers.datatables.action', compact('data'));
+            })
+            ->rawColumns(['action'])
             ->toJson();
     }
 }

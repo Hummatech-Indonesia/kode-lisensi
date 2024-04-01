@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\UserInterface;
 use App\Enums\UserRoleEnum;
+use App\Http\Requests\UserCustomerRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -113,6 +114,7 @@ class UserController extends Controller
         return redirect()->route('users.author.index')->with('success', trans('alert.add_success'));
     }
 
+   
     /**
      * delete
      *
