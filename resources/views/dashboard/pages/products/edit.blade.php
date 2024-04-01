@@ -11,12 +11,16 @@
                         Kembali</a>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit"><i><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M21 7v12q0 .825-.587 1.413T19 21H5q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h12zm-9 11q1.25 0 2.125-.875T15 15q0-1.25-.875-2.125T12 12q-1.25 0-2.125.875T9 15q0 1.25.875 2.125T12 18m-6-8h9V6H6z"/></svg></i>Update
+                    <button class="btn btn-primary" type="submit"><i><svg xmlns="http://www.w3.org/2000/svg" width="17"
+                                height="17" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M21 7v12q0 .825-.587 1.413T19 21H5q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h12zm-9 11q1.25 0 2.125-.875T15 15q0-1.25-.875-2.125T12 12q-1.25 0-2.125.875T9 15q0 1.25.875 2.125T12 18m-6-8h9V6H6z" />
+                            </svg></i>Update
                         Data
                 </div>
                 </button>
             </div>
- 
+
             {{-- <div class="card">
                 <div class="card-body">
                     <div class="ml-3 mb-4 row align-items-center">
@@ -64,9 +68,10 @@
                         <label class="form-label-title col-sm-3 mb-0">Deskripsi singkat <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input value="{{ $product->short_description }}" autocomplete="off" name="short_description"
-                                class="form-control" type="text"
+                            <input id="short_description_input" value="{{ $product->short_description }}" autocomplete="off"
+                                name="short_description" class="form-control" type="text"
                                 placeholder="Lisensi ori windows 10 professional untuk perorangan">
+                            <span id="char_count"></span>
                         </div>
                     </div>
 
@@ -172,7 +177,8 @@
                                 </option>
                                 <option {{ $product->type == 'serial' ? 'selected' : '' }} value="serial">Serial Key
                                 </option>
-                                <option {{ $product->type == 'description' ? 'selected' : '' }} value="description">Deskripsi
+                                <option {{ $product->type == 'description' ? 'selected' : '' }} value="description">
+                                    Deskripsi
                                 </option>
                             </select>
                         </div>
@@ -291,13 +297,13 @@
 
                 if (discount.val() >= 0 && discount.val() <= 100) {
                     $('#customer_label').text(convertRupiah(customer_discount))
-                }else{
+                } else {
                     $('#customer_label').text(convertRupiah($('#sell_price').val()));
                 }
 
                 if (reseller.val() >= 0 && reseller.val() <= 100) {
                     $('#reseller_label').text(convertRupiah(reseller_discount))
-                }else{
+                } else {
                     $('#reseller_label').text(convertRupiah($('#sell_price').val()));
                 }
             }
@@ -319,6 +325,19 @@
             })
 
             initDiscount();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#short_description_input').on('input', function() {
+                var maxLength = 150;
+                var currentLength = $(this).val().length;
+                $('#char_count').text(currentLength + '/' + maxLength);
+
+                if (currentLength >= maxLength) {
+                    alert('Deskripsi singkat sudah mencapai 150 karakter!');
+                }
+            });
         });
     </script>
 @endsection

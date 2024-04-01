@@ -80,38 +80,19 @@
                                         <label for="password">Ulangi Password</label>
                                     </div>
                                 </div>
-
                                 <div class="col-12">
-                                    <h5 class="mb-3">Daftar Sebagai</h5>
-                                    <!--<div class="col-md-4 mb-3">-->
-                                    <!--    <input name="role"-->
-                                    <!--           value="reseller"-->
-                                    <!--           class="checkbox_animated check-box @error('role')
-is-invalid
-@enderror"-->
-                                    <!--           type="radio"-->
-                                    <!--           id="flexCheckDefault"-->
-                                    <!--        {{ old('role') == 'reseller' ? 'checked' : '' }}>-->
-                                    <!--    <label for="role">Reseller</label>-->
-                                    <!--</div>-->
-                                    <div class="col-md-4 mt-3">
-                                        <input name="role" value="customer"
-                                            class="checkbox_animated check-box @error('role') is-invalid @enderror"
-                                            type="radio" id="flexCheckDefault"
-                                            {{ old('role') == 'customer' ? 'checked' : '' }}>
-                                        <label for="role">Pelanggan</label>
+                                    <div class="form-floating theme-form-floating">
+                                        <input value="{{ old('phone_number') }}" autocomplete="off" type="number" name="phone_number"
+                                            class="form-control @error('phone_number') is-invalid @enderror" id="phone_number"
+                                            placeholder="08364729384" autofocus>
+                                        @error('phone_number')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        <label for="phone_number">Nomor HP</label>
                                     </div>
                                 </div>
-
-                                <div class="forgot-box mt-3">
-                                    @error('role')
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-
                                 <div class="col-12 fv-row mb-10">
                                     {!! htmlFormSnippet() !!}
                                 </div>

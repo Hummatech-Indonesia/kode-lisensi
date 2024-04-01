@@ -40,9 +40,10 @@
                         <label class="form-label-title col-sm-3 mb-0">Deskripsi singkat <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input value="{{ old('short_description') }}" autocomplete="off" name="short_description"
+                            <input id="short_description_input" autocomplete="off" name="short_description"
                                 class="form-control" type="text"
                                 placeholder="Lisensi ori windows 10 professional untuk perorangan">
+                            <span id="char_count"></span>
                         </div>
                     </div>
                     <div class="mb-4 row align-items-center justify-content-end">
@@ -508,6 +509,19 @@
             } else {
                 row.find('.reseller_label_varian').text(convertRupiah(sellPrice));
             }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#short_description_input').on('input', function() {
+                var maxLength = 150;
+                var currentLength = $(this).val().length;
+                $('#char_count').text(currentLength + '/' + maxLength);
+
+                if (currentLength >= maxLength) {
+                    alert('Deskripsi singkat sudah mencapai 150 karakter!');
+                }
+            });
         });
     </script>
 @endsection

@@ -31,7 +31,7 @@
             <div class="title-header option-title">
                 <h5>Halaman Produk</h5>
             </div>
-            <div class="title-header option-title">
+            <div class="title-header option-title d-flex justify-between">
                 <div style="width: 200px">
                     <select name="" class="form-select" id="status">
                         <option value="">Tampilkan Semua</option>
@@ -39,6 +39,10 @@
                         <option value="preorder">Preorder</option>
                     </select>
                 </div>
+                <a href="{{ route('products.create') }}" class="align-items-center btn btn-theme d-flex">
+                    <i data-feather="plus-square"></i>
+                    Tambah Produk Baru
+                </a>
             </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">

@@ -19,9 +19,9 @@ class RegisterRequest extends BaseRequest
             'name' => 'required|max:255',
             'email' => ['required', 'max:255', Rule::unique('users', 'email')],
             'password' => 'required|min:6|confirmed',
-            'role' => ['required', new UserRoleRule],
             'g-recaptcha-response' => 'required',
             'checkbox-term' => 'required',
+            'phone_number' => 'required|max:12'
         ];
     }
 

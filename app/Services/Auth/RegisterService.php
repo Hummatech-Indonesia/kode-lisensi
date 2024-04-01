@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Contracts\Interfaces\RegisterInterface;
+use App\Enums\UserRoleEnum;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 
@@ -26,9 +27,11 @@ class RegisterService
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $password,
+            'phone_number' => $data['phone_number'],
+            'role' => UserRoleEnum::CUSTOMER->value
         ]);
 
-        $user->assignRole($data['role']);
+        $user->assignRole(UserRoleEnum::CUSTOMER->value);
 
         event(new Registered($user));
 
