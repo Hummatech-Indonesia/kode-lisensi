@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dashboard;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryRequest extends BaseRequest
 {
@@ -16,7 +17,7 @@ class CategoryRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
+            'name' => ['required', 'max:255', Rule::unique('categories', 'name')->ignore($this->category)],
             'icon' => 'nullable|image|max:2048|mimes:jpg,png,jpeg',
         ];
     }
@@ -31,6 +32,7 @@ class CategoryRequest extends BaseRequest
     {
         return [
             'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama maksimal 255 karakter',
             'icon.image' => 'Icon harus berupa gambar',
             'icon.max' => 'Icon maksimal 2Mb',

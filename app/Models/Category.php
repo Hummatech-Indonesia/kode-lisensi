@@ -12,7 +12,7 @@ class Category extends Model implements HasProducts
     use HasFactory;
 
     public $incrementing = false;
-    public $fillable = ['id', 'name', 'icon'];
+    public $fillable = ['id', 'name', 'icon', 'slug'];
     public $keyType = 'char';
     protected $table = 'categories';
     protected $primaryKey = 'id';

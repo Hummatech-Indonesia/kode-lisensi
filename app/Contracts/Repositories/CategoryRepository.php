@@ -16,6 +16,18 @@ class CategoryRepository extends BaseRepository implements CategoryInterface
     }
 
     /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('slug', $data['slug'])
+            ->first();
+    }
+    /**
      * Handle show method and delete data instantly from models.
      *
      * @param mixed $id
