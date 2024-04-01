@@ -61,7 +61,7 @@ class HomeProductController extends Controller
         }
 
         return view('pages.product', [
-            'title' => trans('title.product'),
+            'title' => 'Products',
             'products' => $service['products'],
             'nextCursor' => $service['nextCursor'],
             'categories' => $this->category->get()

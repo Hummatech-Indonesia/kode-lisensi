@@ -28,7 +28,7 @@ class HomeArticleController extends Controller
     public function index(Request $request): View
     {
         return view('pages.article', [
-            'title' => trans('title.articles'),
+            'title' => 'Artikel',
             'articles' => $this->article->customPaginate($request),
             'categories' => $this->category->get()
         ]);
