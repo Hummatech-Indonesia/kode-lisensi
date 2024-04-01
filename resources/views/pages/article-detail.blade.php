@@ -1,4 +1,7 @@
-@php use App\Helpers\ArticleHelper;use Carbon\Carbon; @endphp
+@php
+    use App\Helpers\ArticleHelper;
+    use Carbon\Carbon;
+@endphp
 @extends('layouts.main')
 @section('content')
     <section class="breadscrumb-section pt-0">
@@ -17,7 +20,7 @@
                                 <li class="breadcrumb-item active" aria-current="page">{{ $article->title }}</li>
                             </ol>
                         </nav>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,14 +33,12 @@
                     <div class="left-sidebar-box">
                         <div class="left-search-box">
                             <div class="search-box">
-                                <form
-                                    method="GET"
-                                    action="{{ route('home.articles.index') }}">
+                                <form method="GET" action="{{ route('home.articles.index') }}">
                                     @csrf
                                     <input name="searchArticle"
-                                           value="{{ request()->input('searchArticle') ?? old('searchArticle') }}"
-                                           type="search" class="form-control" id="exampleFormControlInput4"
-                                           placeholder="Cari Artikel..">
+                                        value="{{ request()->input('searchArticle') ?? old('searchArticle') }}"
+                                        type="search" class="form-control" id="exampleFormControlInput4"
+                                        placeholder="Cari Artikel..">
                                 </form>
                             </div>
                         </div>
@@ -46,25 +47,28 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                                            aria-controls="panelsStayOpen-collapseTwo">
+                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseTwo">
                                         Kategori
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-                                     aria-labelledby="panelsStayOpen-headingTwo">
+                                    aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body p-0">
                                         <div class="category-list-box">
                                             <ul>
-                                                @foreach($categories as $category)
-                                                    <li>
-                                                        <a href="{{ route('home.articles.index') . "?category=" . $category->name  }}">
-                                                            <div class="category-name">
-                                                                <h5>{{ $category->name }}</h5>
-                                                                <span>{{ $category->articles_count }}</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
+                                                @foreach ($categories as $category)
+                                                    @if ($category->articles_count > 0)
+                                                        <li>
+                                                            <a
+                                                                href="{{ route('home.articles.index') . '?category=' . $category->name }}">
+                                                                <div class="category-name">
+                                                                    <h5>{{ $category->name }}</h5>
+                                                                    <span>{{ $category->articles_count }}</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -75,29 +79,30 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                            aria-controls="panelsStayOpen-collapseOne">
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseOne">
                                         Artikel Terbaru
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
-                                     aria-labelledby="panelsStayOpen-headingOne">
+                                    aria-labelledby="panelsStayOpen-headingOne">
                                     <div class="accordion-body pt-0">
                                         <div class="recent-post-box">
-                                            @foreach(ArticleHelper::topArticles() as $article)
+                                            @foreach (ArticleHelper::topArticles() as $article)
                                                 <div class="recent-box">
                                                     <a href="{{ route('home.articles.show', $article->slug) }}"
-                                                       class="recent-image">
+                                                        class="recent-image">
                                                         <img src="{{ asset('storage/' . $article->photo) }}"
-                                                             class="img-fluid blur-up lazyloaded"
-                                                             alt="{{ $article->title }}">
+                                                            class="img-fluid blur-up lazyloaded"
+                                                            alt="{{ $article->title }}">
                                                     </a>
 
                                                     <div class="recent-detail">
                                                         <a href="{{ route('home.articles.show', $article->slug) }}">
                                                             <h5 class="recent-name">{{ $article->title }}</h5>
                                                         </a>
-                                                        <h6>{{ Carbon::parse($article->created_at)->translatedFormat('d F Y') }}</h6>
+                                                        <h6>{{ Carbon::parse($article->created_at)->translatedFormat('d F Y') }}
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -112,8 +117,8 @@
 
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50">
                     <div class="blog-detail-image rounded-3 mb-4 bg-size blur-up lazyloaded">
-                        <img src="{{ asset('storage/'. $article->photo) }}" class="bg-img blur-up lazyloaded" alt=""
-                             style="display: none;">
+                        <img src="{{ asset('storage/' . $article->photo) }}" class="bg-img blur-up lazyloaded"
+                            alt="" style="display: none;">
                         <div class="blog-image-contain">
                             <h2>{{ $article->title }}</h2>
                             <ul class="contain-comment-list">
@@ -136,8 +141,7 @@
 
                     <div class="blog-detail-contain">
                         <div class="col-12 col-md-12">
-                            <h3><span
-                                    class="badge rounded-pill theme-bg-color">{{ $article->category->name }}</span></h3>
+                            <h3><span class="badge rounded-pill theme-bg-color">{{ $article->category->name }}</span></h3>
                         </div>
                         <p>
                             {!! $article->content !!}
@@ -150,7 +154,7 @@
 
                         <div class="row flex-row d-flex">
                             <div class="col-12">
-                                @foreach(explode(',', $article->tags) as $tag)
+                                @foreach (explode(',', $article->tags) as $tag)
                                     <span class="mx-2 mt-2 badge rounded-pill text-bg-dark fs-5">
                                         <h5> {{ $tag }}</h5>
                                     </span>
