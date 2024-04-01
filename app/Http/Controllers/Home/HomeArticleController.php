@@ -30,7 +30,7 @@ class HomeArticleController extends Controller
         return view('pages.article', [
             'title' => 'Artikel',
             'articles' => $this->article->customPaginate($request),
-            'categories' => $this->category->get()
+            'categories' => $this->category->getWhereHas()
         ]);
     }
 

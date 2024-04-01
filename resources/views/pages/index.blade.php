@@ -12,6 +12,14 @@
         .product-box-3 .product-footer .price del {
             margin-left: 0 !important;
         }
+
+        .blog-description {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 3;
+        }
     </style>
 @endsection
 @section('meta')
@@ -160,7 +168,9 @@
                                     </div>
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            <h4><a href="{{route('home.category',$product->category->id)}}">{{ $product->category->name }}</a></h4>
+                                            <h4><a
+                                                    href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                            </h4>
                                             <a href="{{ route('home.products.show', $product->slug) }}">
                                                 <h3 class="name mb-1">{{ $product->name }}</h3>
                                             </a>
@@ -400,7 +410,9 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4><a href="{{route('home.category',$latestPRoductNotRecommendations[$i]->category->id)}}">{{ $latestPRoductNotRecommendations[$i]->category->name }}</a></h4>
+                                                    <h4><a
+                                                            href="{{ route('home.category', $latestPRoductNotRecommendations[$i]->category->id) }}">{{ $latestPRoductNotRecommendations[$i]->category->name }}</a>
+                                                    </h4>
                                                     <a
                                                         href="{{ route('home.products.show', $latestProductNotRecommendations[$i]->slug) }}">
                                                         <h3 class="name mb-1">
@@ -630,7 +642,9 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4><a href="{{route('home.category',$latestProducts[$i]->category->id)}}">{{ $latestProducts[$i]->category->name }}</a></h4>
+                                                    <h4><a
+                                                            href="{{ route('home.category', $latestProducts[$i]->category->id) }}">{{ $latestProducts[$i]->category->name }}</a>
+                                                    </h4>
 
                                                     <a
                                                         href="{{ route('home.products.show', $latestProducts[$i]->slug) }}">
@@ -880,7 +894,9 @@
                                     </div>
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            <h4><a href="{{route('home.category',$product->category->id)}}">{{ $product->category->name }}</a></h4>
+                                            <h4><a
+                                                    href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                            </h4>
                                             <a href="{{ route('home.products.show', $product->slug) }}">
                                                 <h3 class="name mb-1">{{ $product->name }}</h3>
                                             </a>
@@ -1120,7 +1136,9 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4><a href="{{route('home.category',$latestProductNotBestSellers[$i]->category->id)}}">{{ $latestProductNotBestSellers[$i]->category->name }}</a></h4>
+                                                    <h4><a
+                                                            href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->id) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
+                                                    </h4>
                                                     <a
                                                         href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
                                                         <h3 class="name mb-1">
@@ -1351,7 +1369,9 @@
                                             <div class="product-footer">
                                                 <div class="product-detail">
 
-                                                    <h4><a href="{{route('home.category',$latestProductNotBestSellers[$i]->category->id)}}">{{ $latestProductNotBestSellers[$i]->category->name }}</a></h4>
+                                                    <h4><a
+                                                            href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->id) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
+                                                    </h4>
                                                     <a
                                                         href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
                                                         <h3 class="name mb-1">
@@ -1606,7 +1626,9 @@
                                     </div>
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            <h4><a href="{{route('home.category',$product->category->id)}}">{{ $product->category->name }}</a></h4>
+                                            <h4><a
+                                                    href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                            </h4>
                                             <a href="{{ route('home.products.show', $product->slug) }}">
                                                 <h3 class="name mb-1">{{ $product->name }}</h3>
                                             </a>
@@ -1778,21 +1800,20 @@
                                                         <li data-bs-toggle="tooltip"
                                                             data-bs-original-title="Bagikan Produk">
                                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                            <a href="#" onclick="return false;">
-                                                                <i data-feather="share-2" data-bs-toggle="modal"
-                                                                data-bs-target="#shareProductModal"
-                                                                data-slug="{{ $latestProductNotRatings[$i]->slug }}"
-                                                                id="shareButtonsTrigger"
-                                                                data-code="{{ auth()->user()->code_affiliate }}"></i>
-                                                            </a>
+                                                                <a href="#" onclick="return false;">
+                                                                    <i data-feather="share-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#shareProductModal"
+                                                                        data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                        id="shareButtonsTrigger"
+                                                                        data-code="{{ auth()->user()->code_affiliate }}"></i>
+                                                                </a>
                                                             @else
-                                                            <a href="#" onclick="return false;">
-                                                                <i data-feather="share-2" data-bs-toggle="modal"
-                                                                data-bs-target="#shareProductModal"
-                                                                data-slug="{{ $latestProductNotRatings[$i]->slug }}"
-                                                                id="shareButtonsTrigger"></i>
-                                                            </a>
-
+                                                                <a href="#" onclick="return false;">
+                                                                    <i data-feather="share-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#shareProductModal"
+                                                                        data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                        id="shareButtonsTrigger"></i>
+                                                                </a>
                                                             @endif
                                                         </li>
                                                         @auth
@@ -1847,7 +1868,9 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4><a href="{{route('home.category',$latestProductNotRatings[$i]->category->id)}}">{{ $latestProductNotRatings[$i]->category->name }}</a></h4>
+                                                    <h4><a
+                                                            href="{{ route('home.category', $latestProductNotRatings[$i]->category->id) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
+                                                    </h4>
 
                                                     <a
                                                         href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
@@ -2077,7 +2100,9 @@
                                             </div>
                                             <div class="product-footer">
                                                 <div class="product-detail">
-                                                    <h4><a href="{{route('home.category',$latestProductNotRatings[$i]->category->id)}}">{{ $latestProductNotRatings[$i]->category->name }}</a></h4>
+                                                    <h4><a
+                                                            href="{{ route('home.category', $latestProductNotRatings[$i]->category->id) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
+                                                    </h4>
 
                                                     <a
                                                         href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}">
@@ -2390,7 +2415,9 @@
                             </div>
                             <div class="product-footer">
                                 <div class="product-detail">
-                                    <h4><a href="{{route('home.category',$product->category->id)}}">{{ $product->category->name }}</a></h4>
+                                    <h4><a
+                                            href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                    </h4>
                                     <a href="{{ route('home.products.show', $product->slug) }}">
                                         <h3 class="name mb-1">{{ $product->name }}</h3>
                                     </a>
@@ -2569,6 +2596,9 @@
                                 <div class="blog-list">
                                     <span>{{ Carbon::parse($article->created_at)->translatedFormat('d F Y') }}</span>
                                     <span>Oleh : {{ $article->user->name }}</span>
+                                </div>
+                                <div class="blog-description mt-2">
+                                    <p>{!! $article->content !!}</p>
                                 </div>
                             </div>
                         </div>
