@@ -77,7 +77,7 @@
         $(document).ready(function() {
             var table = $("#table_id").DataTable({
                 scrollX: false,
-                scrollY: '500px',z
+                scrollY: '500px',
                 paging: true,
                 ordering: true,
                 responsive: true,
