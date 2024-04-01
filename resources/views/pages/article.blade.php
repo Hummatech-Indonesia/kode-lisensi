@@ -33,11 +33,12 @@
                         <div class="col-12 mb-5" id="searchLabelContainer">
                             <h4 id="searchLabel">Kata Kunci Pencarian : {{ request()->input('searchArticle') }}</h4>
                         </div>
-                    @else
+                    @elseif (request()->get('category'))
                         <div class="col-12 mb-5" id="searchLabelContainer">
                             <h4 id="searchLabel">Filter kategori : {{ request()->get('category') }}</h4>
                         </div>
                     @endif
+
 
                     <div class="row g-4">
                         @forelse($articles as $article)
