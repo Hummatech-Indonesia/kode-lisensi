@@ -31,6 +31,7 @@
 @endsection
 @section('script')
     <x-delete-modal></x-delete-modal>
+    <x-update-user-modal></x-update-user-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -80,6 +81,18 @@
                 ]
             });
 
+            $(document).on('click', '.update-alert', function() {
+                $('#updateUserModal').modal('show')
+                const id = $(this).attr('data-id');
+                const name = $(this).attr('data-name');
+                const phone_number = $(this).attr('data-phone-number');
+                const email = $(this).attr('data-email');
+                let url = `{{ route('users.customer.update', ':id') }}`.replace(':id', id);
+                $('#updateUserForm').attr('action', url);
+                $('#nameUpdate').val(name);
+                $('#phone_numberUpdate').val(phone_number);
+                $('#emailUpdate').val(email);
+            });
             $(document).on('click', '.delete-alert', function() {
                 $('#exampleModal').modal('show')
                 const id = $(this).attr('data-id');
