@@ -46,7 +46,7 @@ class HomeArticleController extends Controller
         $article->update(['view' => $article->view + 1]);
 
         return view('pages.article-detail', [
-            'title' => $article->title,
+            'title' => 'Artikel-' . $article->slug,
             'description' => $article->description,
             'keywords' => $article->tags,
             'author' => $article->user->name,

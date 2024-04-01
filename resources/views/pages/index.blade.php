@@ -509,7 +509,6 @@
                                                                 ulasan)
                                                             </span>
                                                         @endif
-
                                                     </div>
                                                     <h6 class="unit">
                                                         @if ($latestProductNotRecommendations[$i]->status === ProductStatusEnum::AVAILABLE->value)

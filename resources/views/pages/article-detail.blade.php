@@ -125,10 +125,9 @@
                         </div>
                         <div class="blog-image-contain my-2">
                             <h2>{{ $article->title }}</h2>
-
                         </div>
-                        <div class="col-12 col-md-12 mb-2">
-                            <div class="user-list">
+                        <div class="col-12 col-md-12 mb-2 d-flex">
+                            <div class="user-list" style="margin-right:1rem">
                                 <i data-feather="user" style="width: 15"></i>
                                 <span>{{ $article->user->name }}</span>
                             </div>
