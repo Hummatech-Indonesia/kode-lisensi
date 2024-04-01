@@ -517,15 +517,14 @@
                                 <li class="nav-item" role="presentation">
                                     <button style="font-size:15px;" class="nav-link" id="question-tab"
                                         data-bs-toggle="tab" data-bs-target="#question" type="button" role="tab"
-                                        aria-controls="question" aria-selected="false">Pertanyaan
+                                        aria-controls="question" aria-selected="false">FAQ
                                     </button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
                                     <button style="font-size:15px;" class="nav-link" id="care-tab" data-bs-toggle="tab"
                                         data-bs-target="#care" type="button" role="tab" aria-controls="care"
-                                        aria-selected="false">Tata
-                                        Cara Instalasi
+                                        aria-selected="false">Cara Penggunaan
                                     </button>
                                 </li>
 
@@ -938,25 +937,23 @@
                                                 </a>
                                             </li>
 
-                                            <li data-bs-toggle="tooltip"
-                                                            data-bs-original-title="Bagikan Produk">
-                                                            @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                <a href="#" onclick="return false;">
-                                                                    <i data-feather="share-2" data-bs-toggle="modal"
-                                                                        data-bs-target="#shareProductModal"
-                                                                        data-slug="{{ $product->slug }}"
-                                                                        id="shareButtonsTrigger"
-                                                                        data-code="{{ auth()->user()->code_affiliate }}"></i>
-                                                                </a>
-                                                            @else
-                                                                <a href="#" onclick="return false;">
-                                                                    <i data-feather="share-2" data-bs-toggle="modal"
-                                                                        data-bs-target="#shareProductModal"
-                                                                        data-slug="{{ $product->slug }}"
-                                                                        id="shareButtonsTrigger"></i>
-                                                                </a>
-                                                            @endif
-                                                        </li>
+                                            <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
+                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                    <a href="#" onclick="return false;">
+                                                        <i data-feather="share-2" data-bs-toggle="modal"
+                                                            data-bs-target="#shareProductModal"
+                                                            data-slug="{{ $product->slug }}" id="shareButtonsTrigger"
+                                                            data-code="{{ auth()->user()->code_affiliate }}"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="#" onclick="return false;">
+                                                        <i data-feather="share-2" data-bs-toggle="modal"
+                                                            data-bs-target="#shareProductModal"
+                                                            data-slug="{{ $product->slug }}"
+                                                            id="shareButtonsTrigger"></i>
+                                                    </a>
+                                                @endif
+                                            </li>
 
                                             @auth
                                                 @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
@@ -1007,7 +1004,9 @@
 
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <h4><a href="{{route('home.category',$product->category->id)}}">{{ $product->category->name }}</a></h4>
+                                        <h4><a
+                                                href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                        </h4>
                                         <a href="{{ route('home.products.show', $product->slug) }}">
                                             <h3 class="name mb-1">{{ $product->name }}</h3>
                                         </a>
@@ -1200,8 +1199,9 @@
                 var slug = $(this).data('slug');
                 if (code) {
                     $("#buy-product-varian").attr("href",
-                        "{{ route('checkout.products', ['', '', '']) }}/" + product + "/" + code + "/" +slug);
-                    }else{
+                        "{{ route('checkout.products', ['', '', '']) }}/" + product + "/" + code +
+                        "/" + slug);
+                } else {
                     $("#buy-product-varian").attr("href",
                         "{{ route('checkout', ['', '']) }}/" + product + "/" + slug);
 
