@@ -35,7 +35,7 @@ class CurrencyHelper
 
     public static function rupiahCurrency(float $number): string
     {
-        return "Rp " . number_format($number, 2, ',', '.');
+        return "Rp " . number_format($number, 0, ',', '.');
     }
 
     /**
