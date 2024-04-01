@@ -23,6 +23,20 @@ class ArticleCategoryRepository extends BaseRepository implements ArticleCategor
         return $this->model->query()
             ->count();
     }
+
+    /**
+     * getWhereHas
+     *
+     * @return int
+     */
+    public function getWhereHas(): mixed
+    {
+        return $this->model->query()
+            ->withCount('articles')
+            ->whereHas('articles')
+            ->get();
+    }
+
     /**
      * Handle show method and delete data instantly from models.
      *

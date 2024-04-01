@@ -27,7 +27,8 @@ class AboutController extends Controller
     public function index(): View
     {
         $about = $this->about->get();
-        return view('dashboard.pages.about.index', compact('about'));
+        $title = 'Tentang Kami';
+        return view('dashboard.pages.about.index', compact('about', 'title'));
     }
 
     /**
@@ -39,7 +40,7 @@ class AboutController extends Controller
     public function homepage(): View
     {
         return view('pages.about', [
-            'title' => trans('title.about'),
+            'title' => 'Tentang Kami',
             'about' => $this->about->get(),
         ]);
     }

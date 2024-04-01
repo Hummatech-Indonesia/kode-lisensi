@@ -10,5 +10,17 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface ArticleCategoryInterface extends GetInterface, StoreInterface, UpdateInterface, ShowInterface, DeleteInterface
 {
+    /**
+     * count
+     *
+     * @return int
+     */
     public function count(): int;
+
+    /**
+     * getWhereHas
+     *
+     * @return mixed
+     */
+    public function getWhereHas(): mixed;
 }

@@ -36,7 +36,9 @@ class ContactController extends Controller
      */
     public function homepage(): View
     {
-        return view('pages.contact');
+        return view('pages.contact', [
+            'title' => 'Hubungi Kami'
+        ]);
     }
 
     /**
