@@ -281,7 +281,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::delete('/delete/{user}', [UserController::class, 'delete'])->name('delete');
                 Route::name('customer.')->prefix('customer')->group(function () {
                     Route::get('/', [CustomerController::class, 'index'])->name('index');
-                    Route::put('update', [CustomerController::class, 'update'])->name('update');
+                    Route::patch('update/{user}', [CustomerController::class, 'update'])->name('update');
                     Route::delete('delete/{user}', [CustomerController::class, 'delete'])->name('destroy');
                 });
                 Route::name('reseller.')->prefix('reseller')->group(function () {
