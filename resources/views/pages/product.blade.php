@@ -160,7 +160,7 @@
                                                         <a href="#" onclick="return false;">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
-                                                                data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                data-slug="{{ $product->slug }}"
                                                                 id="shareButtonsTrigger"
                                                                 data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                         </a>
@@ -168,7 +168,7 @@
                                                         <a href="#" onclick="return false;">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
-                                                                data-slug="{{ $latestProductNotRatings[$i]->slug }}"
+                                                                data-slug="{{ $product->slug }}"
                                                                 id="shareButtonsTrigger"></i>
                                                         </a>
                                                     @endif
