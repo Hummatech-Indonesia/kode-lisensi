@@ -100,17 +100,19 @@
                                         <div class="accordion-body">
                                             <ul class="category-list custom-padding custom-height">
                                                 @foreach ($categories as $category)
-                                                    <li>
-                                                        <div class="form-check ps-0 m-0 category-list-box">
-                                                            <input value="{{ $category->id }}" name="categoryFilter"
-                                                                class="checkbox_animated" type="checkbox">
-                                                            <label class="form-check-label" for="fruit">
-                                                                <span class="name">{{ $category->name }}</span>
-                                                                <span
-                                                                    class="number">({{ $category->products_count }})</span>
-                                                            </label>
-                                                        </div>
-                                                    </li>
+                                                    @if ($category->products_count > 0)
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input value="{{ $category->id }}" name="categoryFilter"
+                                                                    class="checkbox_animated" type="checkbox">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">{{ $category->name }}</span>
+                                                                    <span
+                                                                        class="number">({{ $category->products_count }})</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                    @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -160,8 +162,7 @@
                                                         <a href="#" onclick="return false;">
                                                             <i data-feather="share-2" data-bs-toggle="modal"
                                                                 data-bs-target="#shareProductModal"
-                                                                data-slug="{{ $product->slug }}"
-                                                                id="shareButtonsTrigger"
+                                                                data-slug="{{ $product->slug }}" id="shareButtonsTrigger"
                                                                 data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                         </a>
                                                     @else
@@ -226,7 +227,9 @@
                                     </div>
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            <h4><a href="{{route('home.category',$product->category->id)}}">{{ $product->category->name }}</a></h4>
+                                            <h4><a
+                                                    href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                            </h4>
                                             <a href="{{ route('home.products.show', $product->slug) }}">
                                                 <h3 class="name mb-1">{{ $product->name }}</h3>
                                             </a>
