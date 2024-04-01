@@ -54,40 +54,7 @@
                             </div>
 
                             <div class="accordion custome-accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <span>Filter</span>
-                                        </button>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse show"
-                                        aria-labelledby="panelsStayOpen-headingTwo">
-                                        <div class="accordion-body">
-                                            <ul class="category-list custom-padding">
-                                                <li>
-                                                    <div class="form-check ps-0 m-0 category-list-box">
-                                                        <input name="productStatusFilter" value="stocking"
-                                                            class="checkbox_animated" type="checkbox" id="stocking">
-                                                        <label class="form-check-label" for="stocking">
-                                                            <span class="name">Tersedia</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="form-check ps-0 m-0 category-list-box">
-                                                        <input name="productStatusFilter" value="preorder"
-                                                            class="checkbox_animated" type="checkbox" id="preorder">
-                                                        <label class="form-check-label" for="preorder">
-                                                            <span class="name">Preorder</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
