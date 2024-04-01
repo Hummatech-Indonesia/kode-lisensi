@@ -70,7 +70,7 @@
             </div>
             <div class="product-footer">
                 <div class="product-detail">
-                    <h4>{{ $product->category->name }}</h4>
+                    <h4><a href="{{route('home.category',$product->category->id)}}">{{ $product->category->name }}</a></h4>
                     <a href="{{ route('home.products.show', $product->slug) }}">
                         <h3 class="name mb-1">{{ $product->name }}</h3>
                     </a>
