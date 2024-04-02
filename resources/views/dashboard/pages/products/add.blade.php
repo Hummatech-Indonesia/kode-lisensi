@@ -96,7 +96,7 @@
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    <input min="0" max="100" id="discount_variant" name="discount_varian"
+                                    <input id="discount_variant" name="discount_varian"
                                         value="{{ old('discount_varian') }}" class="form-control" type="number"
                                         placeholder="0">
                                 </td>
@@ -214,6 +214,22 @@
                                     value="{{ old('sell_price') }}">
                             </div>
                         </div>
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-sm-3 mb-0">Pilih Jenis Diskon <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="d-flex">
+                                    <input type="radio" name="discount_price" value="1"
+                                        style="margin-right: 0.6rem" id="">
+                                    <p>Diskon Berdasarkan Nominal Harga</p>
+                                </div>
+                                <div class="d-flex">
+                                    <input type="radio" name="discount_price" value="0"
+                                        style="margin-right: 0.6rem" id="">
+                                    <p>Diskon Berdasarkan Presentase</p>
+                                </div>
+                            </div>
+                        </div>
 
                         <thead>
                             <tr>
@@ -227,7 +243,7 @@
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    <input min="0" max="100" id="discount" name="discount"
+                                    <input id="discount" name="discount"
                                         value="{{ old('discount') }}" class="form-control" type="number"
                                         placeholder="0">
                                 </td>
@@ -363,14 +379,6 @@
                             <input name="photo" class="form-control form-choose" type="file">
                         </div>
                     </div>
-
-                    {{-- <div class="row align-items-center">
-                        <label class="col-sm-3 col-form-label form-label-title">Berkas Panduan <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <input name="attachment_file" class="form-control form-choose" type="file">
-                        </div>
-                    </div> --}}
                 </div>
             </div>
 
@@ -396,7 +404,33 @@
         $(document).ready(() => {
             CKEDITOR.replace('editor');
             CKEDITOR.replace('installation');
-            CKEDITOR.replace('features');
+            var editor = CKEDITOR.replace('features', {});
+
+            editor.on('paste', function(evt) {
+                var isImage = evt.data.dataValue.match(/<img[^>]+>/);
+                if (isImage) {
+                    var image = $(isImage[0]);
+
+                    var width = parseInt(image.attr('width'));
+                    var height = parseInt(image.attr('height'));
+                    var maxWidth = 690;
+                    var maxHeight = 378;
+
+                    if (width > maxWidth || height > maxHeight) {
+                        if (width > maxWidth) {
+                            height = Math.round((maxWidth / width) * height);
+                            width = maxWidth;
+                        }
+                        if (height > maxHeight) {
+                            width = Math.round((maxHeight / height) * width);
+                            height = maxHeight;
+                        }
+
+                        image.attr('width', width);
+                        image.attr('height', height);
+                    }
+                }
+            });
 
             const calculateDiscount = (price, discount) => {
                 const total = price * (discount / 100)
@@ -411,7 +445,6 @@
                 }).format(number);
             }
 
-
             let discount = $('#discount')
             let reseller = $('#reseller_discount')
 
@@ -420,23 +453,37 @@
             $('#sell_price').change((e) => {
                 seller_price = $('#sell_price').val()
             })
+            let discount_price = 0;
+
+            $('input[name="discount_price"]').change(function() {
+                discount_price = $('input[name="discount_price"]:checked').val();
+
+
+
+            });
 
             $('#convert_button').click((e) => {
-                const customer_discount = calculateDiscount(seller_price, discount.val())
-                const reseller_discount = calculateDiscount(seller_price, reseller.val())
+                if (discount_price == 0) {
+                    const customer_discount = calculateDiscount(seller_price, discount.val())
+                    const reseller_discount = calculateDiscount(seller_price, reseller.val())
 
-                if (discount.val() >= 0 && discount.val() <= 100) {
-                    $('#customer_label').text(convertRupiah(customer_discount))
+                    if (discount.val() >= 0 && discount.val() <= 100) {
+                        $('#customer_label').text(convertRupiah(customer_discount))
+                    } else {
+                        $('#customer_label').text(convertRupiah($('#sell_price').val()));
+                    }
+
+                    if (reseller.val() >= 0 && reseller.val() <= 100) {
+                        $('#reseller_label').text(convertRupiah(reseller_discount))
+                    } else {
+                        $('#reseller_label').text(convertRupiah($('#sell_price').val()));
+                    }
                 } else {
-                    $('#customer_label').text(convertRupiah($('#sell_price').val()));
+                    const customer_discount = seller_price - discount.val();
+                    const reseller_discount = seller_price - reseller.val();
+                    $('#customer_label').text(convertRupiah(customer_discount));
+                    $('#reseller_label').text(convertRupiah(reseller_discount));
                 }
-
-                if (reseller.val() >= 0 && reseller.val() <= 100) {
-                    $('#reseller_label').text(convertRupiah(reseller_discount))
-                } else {
-                    $('#reseller_label').text(convertRupiah($('#sell_price').val()));
-                }
-
             })
 
             discount.on('keyup', function(evt) {

@@ -68,7 +68,7 @@
                                             <td>
                                                 <ul>
                                                     <li>
-                                                        <a target="__blank" href="https://wa.me/+6282131536153">
+                                                        <a target="__blank" href="https://api.whatsapp.com/send/?phone=6282131536153&text=Halo%20admin%20KodeLisensi,%20saya%20mau%20order%20 ">
                                                             <button class="btn setting-button">
                                                                     <i class="ri-whatsapp-line" style="font-size: 20px"></i>
                                                             </button>

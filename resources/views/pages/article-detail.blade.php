@@ -85,20 +85,20 @@
                                     aria-labelledby="panelsStayOpen-headingOne">
                                     <div class="accordion-body pt-0">
                                         <div class="recent-post-box">
-                                            @foreach (ArticleHelper::topArticles() as $article)
+                                            @foreach (ArticleHelper::topArticles() as $articles)
                                                 <div class="recent-box">
-                                                    <a href="{{ route('home.articles.show', $article->slug) }}"
+                                                    <a href="{{ route('home.articles.show', $articles->slug) }}"
                                                         class="recent-image">
-                                                        <img src="{{ asset('storage/' . $article->photo) }}"
+                                                        <img src="{{ asset('storage/' . $articles->photo) }}"
                                                             class="img-fluid blur-up lazyloaded"
-                                                            alt="{{ $article->title }}">
+                                                            alt="{{ $articles->title }}">
                                                     </a>
 
                                                     <div class="recent-detail">
-                                                        <a href="{{ route('home.articles.show', $article->slug) }}">
-                                                            <h5 class="recent-name">{{ $article->title }}</h5>
+                                                        <a href="{{ route('home.articles.show', $articles->slug) }}">
+                                                            <h5 class="recent-name">{{ $articles->title }}</h5>
                                                         </a>
-                                                        <h6>{{ Carbon::parse($article->created_at)->translatedFormat('d F Y') }}
+                                                        <h6>{{ Carbon::parse($articles->created_at)->translatedFormat('d F Y') }}
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -111,7 +111,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50">
                     <div class="blog-detail-image rounded-3 mb-4 bg-size blur-up lazyloaded">
                         <img src="{{ asset('storage/'. $article->photo) }}" class="bg-img blur-up lazyloaded" alt=""

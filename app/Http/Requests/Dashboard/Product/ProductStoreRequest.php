@@ -2,41 +2,59 @@
 
 namespace App\Http\Requests\Dashboard\Product;
 
-use App\Http\Requests\BaseRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class ProductStoreRequest extends BaseRequest
+class ProductStoreRequest extends FormRequest
 {
     /**
-     * Get the validation rules that apply to the request.
+     * Determine if the user is authorized to make this request.
      *
-     * @return array<string, mixed>
+     * @return bool
      */
-    public function rules(): array
+    public function authorize()
     {
-        return [
-            'name' => 'required|max:255|unique:products,name',
-            'category_id' => 'required|exists:categories,id',
-            'short_description' => 'required|max:150',
-            'buy_price' => 'required|regex:/^[0-9]*$/|integer|min:0',
-            'sell_price' => 'required|regex:/^[0-9]*$/|gt:buy_price|integer|min:0',
-            'discount' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
-            'reseller_discount' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
-            'type' => 'required',
-            'status' => 'required',
-            'description' => 'required',
-            'features' => 'required',
-            'installation' => 'required',
-            'photo' => 'required|max:5000|mimes:jpg,png,jpeg',
-
-        ];
+        return true; // Sesuaikan dengan kebijakan otorisasi Anda
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array
      */
-    public function messages(): array
+    public function rules()
+    {
+        $rules = [
+            'name' => 'required|max:255|unique:products,name',
+            'category_id' => 'required|exists:categories,id',
+            'short_description' => 'required|max:150',
+            'buy_price' => 'required|regex:/^[0-9]*$/|integer|min:0',
+            'sell_price' => 'required|regex:/^[0-9]*$/|gt:buy_price|integer|min:0',
+            'type' => 'required',
+            'status' => 'required',
+            'description' => 'required',
+            'features' => 'required',
+            'discount_price' => 'required',
+            'installation' => 'required',
+            'photo' => 'required|max:5000|mimes:jpg,png,jpeg',
+        ];
+
+        if ($this->input('discount_price') == 1) {
+            $rules['discount'] = 'required|regex:/^[0-9]*$/|integer';
+            $rules['reseller_discount'] = 'required|regex:/^[0-9]*$/|integer';
+        } else {
+            $rules['discount'] = 'required|regex:/^[0-9]*$/|integer|between:0,100';
+            $rules['reseller_discount'] = 'required|regex:/^[0-9]*$/|integer|between:0,100';
+        }
+
+        return $rules;
+    }
+
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
     {
         return [
             'name.required' => 'Nama tidak boleh kosong',
@@ -54,9 +72,11 @@ class ProductStoreRequest extends BaseRequest
             'sell_price.gt' => 'Harga jual harus lebih besar dari harga beli',
             'sell_price.min' => 'Harga tidak valid',
             'discount.required' => 'Diskon tidak boleh kosong',
+            'discount.boolean' => 'Diskon harus berupa nilai boolean',
+            'reseller_discount.required' => 'Reseller Diskon tidak boleh kosong',
+            'reseller_discount.boolean' => 'Reseller Diskon harus berupa nilai boolean',
             'discount.regex' => 'Diskon harus berupa angka',
             'discount.between' => 'Diskon harus rentang 1-100 %',
-            'reseller_discount.required' => 'Reseller Diskon tidak boleh kosong',
             'reseller_discount.regex' => 'Reseller Diskon harus berupa angka',
             'reseller_discount.between' => 'Reseller Diskon harus rentang 1-100 %',
             'type.required' => 'Tipe lisensi tidak boleh kosong',

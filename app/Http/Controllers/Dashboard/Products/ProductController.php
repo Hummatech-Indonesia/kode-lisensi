@@ -143,11 +143,7 @@ class ProductController extends Controller
         if ($service == false) {
             return back()->withErrors('Nama Produk Tidak Boleh Sama');
         }
-        $product = $this->product->store($data);
-
-        // if ($product->status == ProductStatusEnum::PREORDER->value) {
-        //     return to_route('preorder-products.index')->with('success', trans('alert.add_success'));
-        // }
+        $this->product->store($data);
 
         return to_route('products.index')->with('success', trans('alert.add_success'));
     }

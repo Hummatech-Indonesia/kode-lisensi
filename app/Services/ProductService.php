@@ -36,10 +36,14 @@ class ProductService implements ShouldHandleFileUpload
     public function store(ProductStoreRequest $request): array|bool
     {
         $data = $request->validated();
-        // $attachment = $request->file('attachment_file');
-        // $exists = UploadDiskEnum::PRODUCT_ATTACHMENTS->value . "/" . $attachment->getClientOriginalName();
+        if ($data['discount_price'] == 1) {
+            $discount = $data['discount'] / $data['sell_price'] * 100;
+            $reseller_discount = $data['reseller_discount'] / $data['sell_price'] * 100;
+            $data['sell_price'];
+            $data['discount'] = $discount;
+            $data['reseller_discount'] = $reseller_discount;
+        }
 
-        // if ($this->exist($exists)) return false;
         return [
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
@@ -52,9 +56,9 @@ class ProductService implements ShouldHandleFileUpload
             'discount' => $data['discount'],
             'reseller_discount' => $data['reseller_discount'],
             'description' => $data['description'],
+            'discount_price' => $data['discount_price'],
             'features' => $data['features'],
             'installation' => $data['installation'],
-            // 'attachment_file' => $this->upload(UploadDiskEnum::PRODUCT_ATTACHMENTS->value, $attachment, true)
         ];
     }
 
@@ -67,10 +71,6 @@ class ProductService implements ShouldHandleFileUpload
     public function varianProductStore(VarianProductStoreRequest $request): array|bool
     {
         $data = $request->validated();
-        // $attachment = $request->file('attachment_file');
-        // $exists = UploadDiskEnum::PRODUCT_ATTACHMENTS->value . "/" . $attachment->getClientOriginalName();
-
-        // if ($this->exist($exists)) return false;
 
         $varian_product = $data['name_varian'];
         $counts = array_count_values($varian_product);
@@ -104,7 +104,6 @@ class ProductService implements ShouldHandleFileUpload
             'description' => $data['description'],
             'features' => $data['features'],
             'installation' => $data['installation'],
-            // 'attachment_file' => $this->upload(UploadDiskEnum::PRODUCT_ATTACHMENTS->value, $attachment, true)
         ];
     }
 
