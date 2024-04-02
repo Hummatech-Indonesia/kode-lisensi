@@ -182,11 +182,11 @@
                     <a href="{{ route('users.create') }}">Tambah Pengguna Baru</a>
                 </li>
                 <li>
-                    <a href="{{ route('users.admin.index') }}">Admin</a>
+                    <a href="{{ route('users.admin.index') }}">Admin & Author</a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('users.author.index') }}">Author</a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('users.customer.index') }}">Pelanggan</a>
                 </li>

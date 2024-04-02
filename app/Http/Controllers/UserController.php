@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function admin(Request $request): object
     {
-        $data['role'] = UserRoleEnum::ADMIN->value;
+        $data['role'] = [UserRoleEnum::ADMIN->value,UserRoleEnum::AUTHOR->value];
         $data['email_verified_at'] = now();
         if ($request->ajax())
             return $this->user->getWhere($data);
