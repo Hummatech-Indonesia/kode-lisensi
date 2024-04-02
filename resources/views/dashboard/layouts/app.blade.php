@@ -217,7 +217,6 @@
                 Accept: "application/json",
             },
             success: function(response) {
-                console.log(response.data);
                 $.each(response.data, function(index, data) {
                     // $('#test').append('test');
                     $('#listCategory').append('<a href="{{ route('categories.show', '') }}/' + data
