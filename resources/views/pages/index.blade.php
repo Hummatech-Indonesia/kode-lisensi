@@ -411,7 +411,7 @@
                                             <div class="product-footer">
                                                 <div class="product-detail">
                                                     <h4><a
-                                                            href="{{ route('home.category', $latestProductNotRecommendations[$i]->category->id) }}">{{ $latestPRoductNotRecommendations[$i]->category->name }}</a>
+                                                            href="{{ route('home.category', $latestProductNotRecommendations[$i]->category->id) }}">{{ $latestProductNotRecommendations[$i]->category->name }}</a>
                                                     </h4>
                                                     <a
                                                         href="{{ route('home.products.show', $latestProductNotRecommendations[$i]->slug) }}">
