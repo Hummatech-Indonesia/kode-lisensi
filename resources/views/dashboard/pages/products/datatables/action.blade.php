@@ -1,29 +1,10 @@
 <ul>
-    @if ($data->product_recommendations->first())
-        @if (request()->routeIs('products.*'))
-            <li>
-                <a href="#" onclick="return false;" data-bs-toggle="modal" data-id="{{ $data->id }}"
-                    data-start-date="{{ $data->product_recommendations->first()->start_date }}"
-                    data-end-date="{{ $data->product_recommendations->first()->end_date }}"
-                    data-bs-target="#addProductReccomendationModal" class="text-primary product-recommendation"
-                    title="setting rekomendasikan produk">
-                    <i class="ri-settings-3-fill"></i> </a>
-            </li>
-        @else
-            <li>
-                <a href="#" onclick="return false;" data-bs-toggle="modal" data-id="{{ $data->product_recommendations->first()->id }}"
-                    data-bs-target="#deleteProductRecommendationModal"
-                    class="text-primary delete-product-recommendation" title="hapus dari rekomendasi produk">
-                    <i class="ri-arrow-down-fill"></i> </a>
-            </li>
-        @endif
-    @else
-        <li>
-            <a href="#" onclick="return false;" data-bs-toggle="modal" data-id="{{ $data->id }}" data-bs-target="#addProductReccomendationModal"
-                class="text-primary product-recommendation" title="rekomendasikan produk">
-                <i class="ri-arrow-up-fill"></i> </a>
-        </li>
-    @endif
+    <li>
+        <a href="#" data-bs-toggle="modal" data-id="{{ $data->id }}"
+            data-bs-target="#addProductReccomendationModal" class="text-primary product-recommendation"
+            title="rekomendasikan produk">
+            <i class="ri-arrow-up-fill"></i> </a>
+    </li>
     <li>
         <a class="text-primary" href="{{ route('products.show', $data->id) }}" title="lihat produk">
             <i class="ri-eye-line"></i>

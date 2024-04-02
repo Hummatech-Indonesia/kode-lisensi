@@ -136,16 +136,11 @@
                 $('#deleteForm').attr('action', url);
             });
 
-            let startDate = null;
-            let endDate = null;
-            let id = null;
-
             $(document).on('click', '.product-recommendation', function() {
-                id = $(this).attr('data-id');
-                startDate = $(this).attr('data-start-date');
-                endDate = $(this).attr('data-end-date');
-                $('#startDate').val(startDate);
-                $('#endDate').val(endDate);
+                $('#addProductReccomendationModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('product.recommendation.update', ':id') }}`.replace(':id', id);
+                $('#productReccomendations').attr('action', url);
             });
 
             const showSweetAlert = (data, table) => {
@@ -157,38 +152,9 @@
                 table.ajax.reload()
             }
 
-            $('#productReccomendations').on('submit', function(e) {
-                e.preventDefault();
-                startDate = $('#startDate').val()
-                endDate = $('#endDate').val()
-                const url = `{{ route('product.recommendations.store', ':id') }}`.replace(':id', id);
-                const urlRecommendationProduct = `{{ route('product.recommendations.index') }}`;
-                $.ajax({
-                    url: url,
-                    method: 'post',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        start_date: startDate,
-                        end_date: endDate
-                    },
-                    success: (data) => {
-                        $('#addProductReccomendationModal').modal('hide')
-                        window.location.href = urlRecommendationProduct;
-                    },
-                    error: (err) => {
-                        $('#addProductReccomendationModal').modal('hide')
-                        $("#validation_errors").removeAttr("style").css("display", "block");
-                        $.each(err.responseJSON.errors, function(index, data) {
-                            $('#alert_message').append(`<li>` + data + `</li>`);
-                        });
-                    }
-                })
-            });
-
             $(document).on('click', '.delete-product-recommendation', function() {
                 $('#deleteProductRecommendationModal').modal('show')
                 const id = $(this).attr('data-id');
-                let url = `{{ route('product.recommendations.delete', ':id') }}`.replace(':id', id);
                 $('#deleteProductRecommendation').attr('action', url);
             });
 

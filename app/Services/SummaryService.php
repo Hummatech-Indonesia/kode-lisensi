@@ -35,10 +35,7 @@ class SummaryService
     public function productRecommendations(): mixed
     {
         return $this->product->query()
-            ->whereHas('product_recommendations', function ($query) {
-                $query->where('start_date', '<=', now()->format('Y-m-d'))
-                    ->where('end_date', '>=', now()->format('Y-m-d'));
-            })
+            ->where('product_recommendation', 1)
             ->withCount([
                 'product_ratings',
                 'licenses' => function ($query) {
@@ -339,7 +336,6 @@ class SummaryService
                     return $query->where('is_purchased', 0);
                 }
             ])
-            ->whereDoesntHave('product_recommendations')
             ->withSum([
                 'product_ratings' => function ($query) {
                     $query->where('status', RatingStatusEnum::APPROVED->value);

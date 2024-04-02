@@ -60,7 +60,6 @@ class EventServiceProvider extends ServiceProvider
         ShareProductReseller::observe(ShareProductReselllerObserver::class);
         VarianProduct::observe(VarianProductObserver::class);
         ProductEmail::observe(ProductEmailObserver::class);
-        ProductRecommendation::observe(ProductRecommendationObserver::class);
         TransactionAffiliate::observe(TransactionAffiliateObserver::class);
         BalanceWithdrawal::observe(BalanceWithdrawalObserver::class);
         RekeningNumber::observe(RekeningNumberObserver::class);

@@ -180,4 +180,28 @@ class ProductController extends Controller
 
         return ResponseHelper::success($data, trans('alert.fetch_success'));
     }
+
+    /**
+     * updateStatus
+     *
+     * @param  mixed $product
+     * @return JsonResponse
+     */
+    public function updateStatus(Product $product): RedirectResponse
+    {
+        $this->product->update($product->id, ['product_recommendation' => 1]);
+        return redirect()->back()->with('success', trans('alert.update_success'));
+    }
+
+    /**
+     * deleteStatus
+     *
+     * @param  mixed $product
+     * @return RedirectResponse
+     */
+    public function deleteStatus(Product $product): RedirectResponse
+    {
+        $this->product->update($product->id, ['product_recommendation' => 0]);
+        return redirect()->back()->with('success', trans('alert.update_success'));
+    }
 }

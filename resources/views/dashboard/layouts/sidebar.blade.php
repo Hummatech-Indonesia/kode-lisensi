@@ -104,7 +104,7 @@
         </li>
 
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title {{ request()->routeIs('products.*') || request()->routeIs('preorder-products.*') || request()->routeIs('archive-products.index') || request()->routeIs('product-recommendation') ? 'active' : '' }}"
+            <a class="sidebar-link sidebar-title {{ request()->routeIs('products.*') || request()->routeIs('preorder-products.*') || request()->routeIs('archive-products.index') }}"
                 href="javascript:void(0)">
                 <i class="ri-store-3-line"></i>
                 <span>Produk</span>
@@ -116,11 +116,8 @@
                 <li>
                     <a href="{{ route('products.index') }}">List Produk</a>
                 </li>
-                <li>
-                    <a href="{{ route('product.recommendations.index') }}">Rekomendasi Produk</a>
-                </li>
                 {{-- <li>
-                    <a href="{{ route('preorder-products.index') }}">Produk Preorder</a>
+                    <a href="{{ route('product.recommendations.index') }}">Rekomendasi Produk</a>
                 </li> --}}
                 <li>
                     <a href="{{ route('archive-products.index') }}">Arsip Produk</a>

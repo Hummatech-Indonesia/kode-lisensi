@@ -106,7 +106,6 @@ class AppServiceProvider extends ServiceProvider
         VarianProductInterface::class => VarianProductRepository::class,
         ProductEmailInterface::class => ProductEmailRepository::class,
         UpdateIdInvoiceInterface::class => UpdateIdInvoiceRepository::class,
-        ProductRecommendationInterface::class => ProductRecommendationRepository::class,
         PinRekeningInterface::class => PinRekeningRepository::class,
         BalanceWithdrawalInterface::class => BalanceWithdrawalRepository::class,
         AdminWithdrawalInterface::class => AdminWithdrawalRepository::class,

@@ -37,12 +37,10 @@ use App\Http\Controllers\Home\ProductFavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductEmailController;
-use App\Http\Controllers\ProductRecommendationController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionAffiliateController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UpdateIdInvoiceController;
-use App\Http\Controllers\User\MyAccountController;
 use App\Http\Controllers\User\MyFavoriteController;
 use App\Http\Controllers\User\MyHistoryController;
 use App\Http\Controllers\UserController;
@@ -200,11 +198,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-
-
     Route::middleware('role:admin')->group(function () {
         Route::prefix('dashboard')->group(function () {
-
+            Route::put('post-product-recommendation/{product}', [ProductController::class, 'updateStatus'])->name('product.recommendation.update');
+            Route::put('delete-product-recommendation/{product}', [ProductController::class, 'deleteStatus'])->name('product.recommendation.delete');
 
             Route::get('modify-ratings/{product_testimonial}', [ProductTestimonialController::class, 'modifyRating'])->name('modify.rating');
 
@@ -218,9 +215,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'product-questions' => ProductQuestionController::class
             ]);
 
-            Route::delete('product-recommendations/{product}', [ProductRecommendationController::class, 'destroy'])->name('product.recommendations.delete');
-            Route::post('product-recommendations/{product}', [ProductRecommendationController::class, 'store'])->name('product.recommendations.store');
-            Route::get('product-recommendations', [ProductRecommendationController::class, 'get'])->name('product.recommendations.index');
 
             Route::name('balance.withdrawal.admin.')->prefix('balance-withdrawal-admin')->group(function () {
                 Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');

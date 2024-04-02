@@ -8,7 +8,6 @@ use App\Base\Interfaces\HasLicenses;
 use App\Base\Interfaces\HasOneProductEmail;
 use App\Base\Interfaces\HasProductFavorites;
 use App\Base\Interfaces\HasProductQuestions;
-use App\Base\Interfaces\HasProductRecommendations;
 use App\Base\Interfaces\HasRatings;
 use App\Base\Interfaces\HasTransactions;
 use App\Base\Interfaces\HasVarianProducts;
@@ -20,12 +19,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts, HasOneProductEmail, HasDetailTransactions, HasProductRecommendations
+class Product extends Model implements HasCategory, HasLicenses, HasProductQuestions, HasRatings, HasTransactions, HasProductFavorites, HasVarianProducts, HasOneProductEmail, HasDetailTransactions
 {
     use HasFactory, SoftDeletes, ScopeSearchTrait;
 
     public $incrementing = false;
-    public $fillable = ['id', 'category_id', 'status', 'type', 'name', 'photo', 'buy_price', 'sell_price', 'discount', 'reseller_discount', 'description', 'short_description', 'features', 'installation', 'attachment_file', 'slug', 'discount_price'];
+    public $fillable = ['id', 'category_id', 'status', 'type', 'name', 'photo', 'buy_price', 'sell_price', 'discount', 'reseller_discount', 'description', 'short_description', 'features', 'installation', 'attachment_file', 'slug', 'discount_price', 'product_recommendation'];
     public $keyType = 'char';
     protected $table = 'products';
     protected $primaryKey = 'id';
@@ -40,15 +39,6 @@ class Product extends Model implements HasCategory, HasLicenses, HasProductQuest
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * product_recommendations
-     *
-     * @return HasMany
-     */
-    public function product_recommendations(): HasMany
-    {
-        return $this->hasMany(ProductRecommendation::class);
-    }
     /**
      * One-to-Many relationship with License Model
      *
