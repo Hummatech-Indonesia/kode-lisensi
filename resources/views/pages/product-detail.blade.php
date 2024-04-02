@@ -566,7 +566,15 @@
 
                                 <div class="tab-pane fade" id="question" role="tabpanel"
                                     aria-labelledby="question-tab">
-                                    <div class="table-responsive">
+                                    @forelse ($product->product_questions as $question) 
+                                    <div class="">
+                                        <h4 class="fw-bold">{{$question->question}}</h4>
+                                        <p>{{$question->answer}}</p>
+                                    </div>
+                                    @empty
+                                        <p>Belum ada pertanyaan.</p>
+                                    @endforelse
+                                    {{-- <div class="table-responsive">
                                         <table class="table info-table">
                                             @if (count($product->product_questions) > 0)
                                                 <thead>
@@ -591,7 +599,7 @@
 
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="tab-pane fade customDivStyle" id="care" role="tabpanel"
@@ -813,7 +821,9 @@
                                 </div>
                             </div>
                         </div>
+                    
                     </div>
+                    
                 </div>
                 <div class="col-xxl-3 col-xl-4 col-lg-5 d-none d-lg-block wow fadeInUp"
                     style="visibility: visible; animation-name: fadeInUp;">
