@@ -63,8 +63,9 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->UserMockup($this->model->query()
             ->whereNot('email', UserHelper::getUserEmail())
-            ->role($data['role'])
-            ->latest());
+            ->role([UserRoleEnum::ADMIN->value, UserRoleEnum::AUTHOR->value])
+            ->latest()
+            ->get());
     }
 
     /**
