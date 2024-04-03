@@ -80,7 +80,13 @@
                     }
                 ]
             });
-
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
+            });
             $(document).on('click', '.update-alert', function() {
                 $('#updateUserModal').modal('show')
                 const id = $(this).attr('data-id');

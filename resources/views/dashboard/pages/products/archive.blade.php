@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('css')
-    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <div class="card card-table">
@@ -10,7 +10,6 @@
                     <x-alert-success></x-alert-success>
                 @elseif(session('error'))
                     <x-alert-failed></x-alert-failed>
-
                 @endif
             </div>
             <div class="title-header option-title">
@@ -20,15 +19,15 @@
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Produk</th>
-                        <th>Kategori</th>
-                        <th>Stok</th>
-                        <th>Harga Beli</th>
-                        <th>Harga Jual</th>
-                        <th>Aksi</th>
-                    </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Produk</th>
+                            <th>Kategori</th>
+                            <th>Stok</th>
+                            <th>Harga Beli</th>
+                            <th>Harga Jual</th>
+                            <th>Aksi</th>
+                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
@@ -44,7 +43,7 @@
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Datatables Responsive
             $("#table_id").DataTable({
                 scrollX: false,
@@ -57,8 +56,7 @@
                 serverSide: false,
                 searching: true,
                 ajax: "{{ route('archive-products.index') }}",
-                columns: [
-                    {
+                columns: [{
                         data: 'photo',
                         name: 'photo'
                     },
@@ -91,15 +89,21 @@
                     }
                 ]
             });
-
-            $(document).on('click', '.delete-alert', function () {
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
+            });
+            $(document).on('click', '.delete-alert', function() {
                 $('#exampleModal').modal('show')
                 const id = $(this).attr('data-id');
                 let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
                 $('#deleteForm').attr('action', url);
             });
 
-            $(document).on('click', '.delete-soft', function () {
+            $(document).on('click', '.delete-soft', function() {
                 $('#restoreModal').modal('show')
                 const id = $(this).attr('data-id');
                 let url = `{{ route('archive-products.update', ':id') }}`.replace(':id', id);

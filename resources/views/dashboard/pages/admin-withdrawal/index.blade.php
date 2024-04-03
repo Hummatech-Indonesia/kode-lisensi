@@ -72,9 +72,6 @@
             }
         });
         document.addEventListener("DOMContentLoaded", function() {
-
-
-
             // Datatables Responsive
             let table = $("#datatables-responsive").DataTable({
                 scrollX: true,
@@ -116,7 +113,13 @@
                     }
                 ]
             });
-
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
+            });
             $('#search-form').submit(function(e) {
                 e.preventDefault()
                 const date = $('input[name="date"]').val()

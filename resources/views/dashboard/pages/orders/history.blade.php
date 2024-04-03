@@ -112,7 +112,7 @@
             url: "url",
             data: "data",
             dataType: "dataType",
-            success: function (response) {
+            success: function(response) {
 
             }
         });
@@ -176,7 +176,13 @@
                     }
                 ]
             });
-
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
+            });
             $('#search-form').submit(function(e) {
                 e.preventDefault()
                 const date = $('input[name="date"]').val()

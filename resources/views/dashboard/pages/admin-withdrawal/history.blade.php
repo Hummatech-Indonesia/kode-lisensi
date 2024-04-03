@@ -84,7 +84,13 @@
                     }
                 ]
             });
-
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
+            });
             $(document).on('click', '.detail-withdrawal', function() {
                 $('#detailModal').modal('show')
                 const id = $(this).attr('data-id');

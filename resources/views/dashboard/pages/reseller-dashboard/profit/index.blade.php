@@ -36,50 +36,56 @@
 @endsection
 
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
-<script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        moment.locale('id'); // Set bahasa ke bahasa Indonesia
-        var table = $("#table_id").DataTable({
-            scrollX: false,
-            scrollY: '500px',
-            paging: true,
-            ordering: true,
-            responsive: true,
-            pageLength: 50,
-            processing: true,
-            serverSide: false,
-            searching: true,
-            ajax: {
-                url: "{{ route('dashboard.profit.transaction') }}",
-            },
-            columns: [{
-                    data: 'product',
-                    name: 'transaction.detail_transaction.product.name',
-                    orderable: false,
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            moment.locale('id'); // Set bahasa ke bahasa Indonesia
+            var table = $("#table_id").DataTable({
+                scrollX: false,
+                scrollY: '500px',
+                paging: true,
+                ordering: true,
+                responsive: true,
+                pageLength: 50,
+                processing: true,
+                serverSide: false,
+                searching: true,
+                ajax: {
+                    url: "{{ route('dashboard.profit.transaction') }}",
                 },
-                {
-                    data: 'customer',
-                    name: 'transaction.user.name'
-                },
-                {
-                    data: 'transaction.created_at',
-                    name: 'transaction.created_at',
-                    render: function(data, type, row) {
-                        // Menggunakan Moment.js untuk memformat tanggal dan waktu
-                        return moment.tz(data, "Asia/Jakarta").format('D MMMM YYYY');
-                    }
-                },
-                {
-                    data: 'profit',
-                    name: 'profit'
-                },
-            ]
+                columns: [{
+                        data: 'product',
+                        name: 'transaction.detail_transaction.product.name',
+                        orderable: false,
+                    },
+                    {
+                        data: 'customer',
+                        name: 'transaction.user.name'
+                    },
+                    {
+                        data: 'transaction.created_at',
+                        name: 'transaction.created_at',
+                        render: function(data, type, row) {
+                            // Menggunakan Moment.js untuk memformat tanggal dan waktu
+                            return moment.tz(data, "Asia/Jakarta").format('D MMMM YYYY');
+                        }
+                    },
+                    {
+                        data: 'profit',
+                        name: 'profit'
+                    },
+                ]
+            });
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
+            });
         });
-    });
-</script>
-
+    </script>
 @endsection

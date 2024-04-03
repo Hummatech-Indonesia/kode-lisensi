@@ -41,9 +41,6 @@
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function() {
-
-
-
             // Datatables Responsive
             $("#table_id").DataTable({
                 scrollX: false,
@@ -92,6 +89,13 @@
                         name: 'action'
                     },
                 ]
+            });
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
             });
             $('#role').on('change', function() {
                 $("#table_id").DataTable().ajax.reload();

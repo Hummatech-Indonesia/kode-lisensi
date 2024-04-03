@@ -172,5 +172,12 @@
                 $('#deleteSoft').attr('action', url);
             });
         });
+        $('.dataTables_scrollBody').css({
+            'position': 'relative',
+            'overflow': 'auto',
+            'max-height': 'none',
+            'height': 'max-content',
+            'width': '100%'
+        });
     </script>
 @endsection

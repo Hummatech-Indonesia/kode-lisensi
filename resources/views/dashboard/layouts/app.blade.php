@@ -210,6 +210,7 @@
     @include('dashboard.layouts.footer')
     @yield('script')
     <script>
+        
         $.ajax({
             url: '{{ route('categories.ajax') }}',
             method: "GET",
