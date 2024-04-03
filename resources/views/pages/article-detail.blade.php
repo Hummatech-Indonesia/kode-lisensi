@@ -57,9 +57,10 @@
                                     <div class="accordion-body p-0">
                                         <div class="category-list-box">
                                             <ul>
-                                                @foreach($categories as $category)
+                                                @foreach ($categories as $category)
                                                     <li>
-                                                        <a href="{{ route('home.articles.index') . "?category=" . $category->name  }}">
+                                                        <a
+                                                            href="{{ route('home.articles.index') . '?category=' . $category->name }}">
                                                             <div class="category-name">
                                                                 <h5>{{ $category->name }}</h5>
                                                                 <span>{{ $category->articles_count }}</span>
@@ -72,7 +73,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -113,8 +113,8 @@
                 </div>
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50">
                     <div class="blog-detail-image rounded-3 mb-4 bg-size blur-up lazyloaded">
-                        <img src="{{ asset('storage/'. $article->photo) }}" class="bg-img blur-up lazyloaded" alt=""
-                             style="display: none;">
+                        <img src="{{ asset('storage/' . $article->photo) }}" class="bg-img blur-up lazyloaded"
+                            alt="" style="display: none;">
                         <div class="blog-image-contain">
                             <h2>{{ $article->title }}</h2>
                             <ul class="contain-comment-list">
@@ -137,8 +137,7 @@
 
                     <div class="blog-detail-contain">
                         <div class="col-12 col-md-12">
-                            <h3><span
-                                    class="badge rounded-pill theme-bg-color">{{ $article->category->name }}</span></h3>
+                            <h3><span class="badge rounded-pill theme-bg-color">{{ $article->category->name }}</span></h3>
                         </div>
                         <p>
                             {!! $article->content !!}
