@@ -44,13 +44,16 @@ class ProductService implements ShouldHandleFileUpload
             $data['reseller_discount'] = $reseller_discount;
         }
 
+        $slug = str_slug($data['name']);
+
         return [
+            'slug' => $slug,
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
             'status' => $data['status'],
             'type' => $data['type'],
             'name' => $data['name'],
-            'photo' => $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo')),
+            'photo' => $this->uploadSlug(UploadDiskEnum::PRODUCTS->value, $request->file('photo'), $slug),
             'buy_price' => $data['buy_price'],
             'sell_price' => $data['sell_price'],
             'discount' => $data['discount'],
@@ -86,14 +89,16 @@ class ProductService implements ShouldHandleFileUpload
         if ($duplicates) {
             return false;
         }
+        $slug = str_slug($data['name']);
 
         return [
+            'slug' => $slug,
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
             'status' => ProductStatusEnum::PREORDER->value,
             'type' => $data['type'],
             'name' => $data['name'],
-            'photo' => $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo')),
+            'photo' => $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo'), $slug),
             'buy_price' => 0,
             'sell_price' => 0,
             'name_varian' => $data['name_varian'],
@@ -123,21 +128,16 @@ class ProductService implements ShouldHandleFileUpload
         $old_photo = $product->photo;
         $old_attachment = $product->attachment_file;
 
-        if ($request->hasFile('attachment_file')) {
-            $attachment = $request->file('attachment_file');
-            $exists = UploadDiskEnum::PRODUCT_ATTACHMENTS->value . "/" . $attachment->getClientOriginalName();
-            if ($this->exist($exists))
-                return false;
-            $this->remove($old_attachment);
-            $old_attachment = $this->upload(UploadDiskEnum::PRODUCT_ATTACHMENTS->value, $attachment, true);
-        }
+        $slug = str_slug($data['name']);
 
         if ($request->hasFile('photo')) {
             $this->remove($old_photo);
-            $old_photo = $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo'));
+            $old_photo = $this->uploadSlug(UploadDiskEnum::PRODUCTS->value, $request->file('photo'), $slug);
         }
 
+
         return [
+            'slug' => $slug,
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
             'status' => $data['status'],
@@ -155,18 +155,28 @@ class ProductService implements ShouldHandleFileUpload
         ];
     }
 
+    /**
+     * varianProductUpdate
+     *
+     * @param  mixed $product
+     * @param  mixed $request
+     * @return void
+     */
     public function varianProductUpdate(Product $product, VarianProductUpdateRequest $request)
     {
         $data = $request->validated();
 
         $old_photo = $product->photo;
 
+        $slug = str_slug($data['name']);
+
         if ($request->hasFile('photo')) {
             $this->remove($old_photo);
-            $old_photo = $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo'));
+            $old_photo = $this->uploadSlug(UploadDiskEnum::PRODUCTS->value, $request->file('photo'), $slug);
         }
 
         return [
+            'slug' => $slug,
             'category_id' => $data['category_id'],
             'short_description' => $data['short_description'],
             'status' => ProductStatusEnum::PREORDER->value,

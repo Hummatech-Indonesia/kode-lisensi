@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 trait UploadTrait
@@ -44,7 +45,27 @@ trait UploadTrait
         if ($originalName) {
             return $file->storeAs($disk, $file->getClientOriginalName());
         }
-        
+
         return Storage::put($disk, $file);
+    }
+
+    /**
+     * uploadSlug
+     *
+     * @param  mixed $disk
+     * @param  mixed $file
+     * @param  mixed $slug
+     * @param  mixed $originalName
+     * @return string
+     */
+    public function uploadSlug(string $disk, UploadedFile $file, string $slug, bool $originalName = false): string
+    {
+        if (!$this->exist($disk)) {
+            Storage::makeDirectory($disk);
+        }
+
+        $fileName = $originalName ? $file->getClientOriginalName() : $slug . '.' . $file->getClientOriginalExtension();
+
+        return $file->storeAs($disk . '/', $fileName);
     }
 }
