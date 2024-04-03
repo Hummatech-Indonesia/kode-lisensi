@@ -13,7 +13,7 @@
                     <label for="name" class="form-label">Nama</label>
                     <input type="text" name="name" id="nameUpdate" class="form-control">
                     <label for="rekening" class="form-label">Nomor Telepon</label>
-                    <input type="number" name="phone_number" id="phone_numberUpdate" class="form-control">
+                    <input type="text" name="phone_number" id="phone_numberUpdate" class="form-control">
                     <label for="email" class="form-label">Email</label>
                     <input type="text" name="email" id="emailUpdate" class="form-control">
 

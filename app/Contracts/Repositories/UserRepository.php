@@ -7,6 +7,7 @@ use App\Enums\UserRoleEnum;
 use App\Helpers\UserHelper;
 use App\Models\User;
 use App\Traits\Datatables\UserDatatable;
+use Illuminate\Http\Request;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
@@ -64,6 +65,17 @@ class UserRepository extends BaseRepository implements UserInterface
         return $this->UserMockup($this->model->query()
             ->whereNot('email', UserHelper::getUserEmail())
             ->role([UserRoleEnum::ADMIN->value, UserRoleEnum::AUTHOR->value])
+            ->latest()
+            ->get());
+    }
+    public function search(Request $request): mixed
+    {
+        return $this->UserMockup($this->model->query()
+            ->whereNot('email', UserHelper::getUserEmail())
+            // ->role([UserRoleEnum::ADMIN->value, UserRoleEnum::AUTHOR->value])
+            ->when($request->role, function ($query) use ($request) {
+                $query->role($request->role);
+            })
             ->latest()
             ->get());
     }

@@ -58,9 +58,9 @@ class UserController extends Controller
         } elseif ($data['role'] == UserRoleEnum::CUSTOMER->value) {
             return redirect()->route('users.customer.index');
         }
-        return redirect()->route('users.author.index')->with('success', trans('alert.add_success'));
+        return redirect()->route('users.admin.index')->with('success', trans('alert.add_success'));
     }
-
+  
     /**
      * admin
      *
@@ -71,7 +71,7 @@ class UserController extends Controller
         $data['role'] = UserRoleEnum::ADMIN->value;
         $data['email_verified_at'] = now();
         if ($request->ajax())
-            return $this->user->getWhere($data);
+            return $this->user->search($request);
         return view('dashboard.pages.admin.index');
     }
 

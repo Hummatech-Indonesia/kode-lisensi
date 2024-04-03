@@ -11,7 +11,13 @@
             <div class="title-header option-title">
                 <h5>Halaman Pengguna Admin dan Author</h5>
             </div>
-
+            <div style="width: 200px" class="mb-4">
+                <select name="" class="form-select" id="role">
+                    <option value="">Tampilkan Semua</option>
+                    <option value="admin">Admin</option>
+                    <option value="author">Author</option>
+                </select>
+            </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
@@ -36,6 +42,8 @@
     <script>
         $(document).ready(function() {
 
+
+
             // Datatables Responsive
             $("#table_id").DataTable({
                 scrollX: false,
@@ -47,7 +55,21 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('users.admin.index') }}",
+                ajax: {
+                    url: "{{ route('users.admin.index') }}",
+                    data: function(d) {
+                        // Memeriksa nilai opsi yang dipilih
+                        var roleValue = $('#role').val();
+                        if (roleValue === '') {
+                            // Jika opsi "Tampilkan Semua" dipilih, kirim data kosong
+                            // ini akan memicu server untuk mengembalikan semua jenis pengguna
+                            d.role = ['admin', 'author'];
+                        } else {
+                            // Jika opsi lain dipilih, kirim nilai role seperti biasa
+                            d.role = roleValue;
+                        }
+                    }
+                },
                 columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,
@@ -70,6 +92,9 @@
                         name: 'action'
                     },
                 ]
+            });
+            $('#role').on('change', function() {
+                $("#table_id").DataTable().ajax.reload();
             });
         });
         $(document).on('click', '.delete-alert', function() {

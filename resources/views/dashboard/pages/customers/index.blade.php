@@ -88,6 +88,7 @@
                 const phone_number = $(this).attr('data-phone-number');
                 const email = $(this).attr('data-email');
                 let url = `{{ route('users.customer.update', ':id') }}`.replace(':id', id);
+                console.log(phone_number);
                 $('#updateUserForm').attr('action', url);
                 $('#nameUpdate').val(name);
                 $('#phone_numberUpdate').val(phone_number);

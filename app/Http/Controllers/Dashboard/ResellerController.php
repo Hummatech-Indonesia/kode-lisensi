@@ -27,4 +27,5 @@ class ResellerController extends Controller
         if ($request->ajax()) return $this->reseller->get();
         return view('dashboard.pages.resellers.index');
     }
+    
 }
