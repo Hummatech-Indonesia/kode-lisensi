@@ -85,7 +85,7 @@
                 'max-height': 'none',
                 'height': 'max-content',
                 'width': '100%'
-            });
+            }); 
         });
     </script>
 @endsection
