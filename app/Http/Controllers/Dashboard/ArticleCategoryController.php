@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\ArticleCategoryInterface;
+use App\Contracts\Interfaces\SubArticleCategoryInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ArticleCategoryRequest;
@@ -14,10 +15,12 @@ use Illuminate\View\View;
 class ArticleCategoryController extends Controller
 {
     private ArticleCategoryInterface $category;
+    private SubArticleCategoryInterface $subCategory;
 
-    public function __construct(ArticleCategoryInterface $category)
+    public function __construct(ArticleCategoryInterface $category,SubArticleCategoryInterface $subCategory)
     {
         $this->category = $category;
+        $this->subCategory = $subCategory;
     }
 
     /**
@@ -40,6 +43,20 @@ class ArticleCategoryController extends Controller
     public function create(): View
     {
         return view('dashboard.pages.article-categories.create');
+    }
+    /**
+     * Method show
+     *
+     * @param ArticleCategory $articleCategory [explicite description]
+     *
+     * @return View
+     */
+    public function show(ArticleCategory $articleCategory): View
+    {
+        $articleName=$articleCategory->name;
+        $articleId=$articleCategory->id;
+        $subCategories = $this->subCategory->getCategory($articleCategory->id);
+        return view('dashboard.pages.article-categories.sub-category', compact('subCategories','articleName','articleId'));
     }
 
     /**

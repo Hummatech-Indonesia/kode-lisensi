@@ -14,9 +14,9 @@
                     @endif
                 </div>
                 <div class="title-header option-title">
-                    <h5>Halaman Kategori Artikel</h5>
+                    <h5>Halaman sub-kategori Artikel {{$articleName}}</h5>
                     <form class="d-inline-flex">
-                        <a href="{{ route('article-categories.create') }}" class="align-items-center btn btn-theme d-flex">
+                        <a href="{{ route('sub-article-categories.create',$articleId) }}" class="align-items-center btn btn-theme d-flex">
                             <i data-feather="plus-square"></i>
                             Tambah Kategori Baru
                         </a>
@@ -38,27 +38,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($subCategories as $category)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $category->name }}</td>
                                         @role('admin')
                                             <td>
                                                 <ul>
+
                                                     <li>
-                                                        <a href="{{ route('article-categories.show',$category->id) }}">
-                                                            <i class="ri-eye-line"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('article-categories.edit', $category->id) }}">
+                                                        <a href="{{ route('sub-article-categories.edit',[$articleId, $category->id]) }}">
                                                             <i class="ri-pencil-line"></i>
                                                         </a>
                                                     </li>
 
                                                     <li>
                                                         <form method="POST"
-                                                            action="{{ route('article-categories.destroy', $category) }}">
+                                                            action="{{ route('sub-article-categories.destroy', $category->id) }}">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn text-danger delete-sweetalert" type="submit">

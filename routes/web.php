@@ -28,6 +28,7 @@ use App\Http\Controllers\Dashboard\ResellerDashboardController;
 use App\Http\Controllers\Dashboard\RevenueController;
 use App\Http\Controllers\Dashboard\SiteSettingController;
 use App\Http\Controllers\Dashboard\SliderController;
+use App\Http\Controllers\Dashboard\SubArticleCategoryController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\Home\HomeArticleController;
 use App\Http\Controllers\Home\HomeCategoryController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionAffiliateController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UpdateIdInvoiceController;
+use App\Http\Controllers\User\MyAccountController;
 use App\Http\Controllers\User\MyFavoriteController;
 use App\Http\Controllers\User\MyHistoryController;
 use App\Http\Controllers\UserController;
@@ -195,6 +197,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resources([
                 'article-categories' => ArticleCategoryController::class,
             ]);
+            Route::resource('sub-article-categories',SubArticleCategoryController::class)->except(['create','store','show','update','edit']);
+            Route::get('sub-article-categories/{article_category}',[SubArticleCategoryController::class,'create'])->name('sub-article-categories.create');
+            Route::post('sub-article-categories/{article_category}',[SubArticleCategoryController::class,'store'])->name('sub-article-categories.store');
+            Route::get('sub-article-categories/{article_category}/{sub_article_category}',[SubArticleCategoryController::class,'edit'])->name('sub-article-categories.edit');
+            Route::patch('sub-article-categories/{article_category}/{sub_article_category}', [SubArticleCategoryController::class, 'update'])->name('sub-article-categories.update');
         });
     });
 

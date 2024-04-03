@@ -30,6 +30,7 @@ use App\Contracts\Interfaces\RekeningNumberInterface;
 use App\Contracts\Interfaces\ResellerInterface;
 use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Interfaces\SliderInterface;
+use App\Contracts\Interfaces\SubArticleCategoryInterface;
 use App\Contracts\Interfaces\TermInterface;
 use App\Contracts\Interfaces\TransactionAffiliateInterface;
 use App\Contracts\Interfaces\TransactionInterface;
@@ -63,6 +64,7 @@ use App\Contracts\Repositories\RekeningNumberRepository;
 use App\Contracts\Repositories\ResellerRepository;
 use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\SliderRepository;
+use App\Contracts\Repositories\SubArticleCategoryRepository;
 use App\Contracts\Repositories\TermRepository;
 use App\Contracts\Repositories\TransactionAffiliateRepository;
 use App\Contracts\Repositories\TransactionRepository;
@@ -109,7 +111,8 @@ class AppServiceProvider extends ServiceProvider
         PinRekeningInterface::class => PinRekeningRepository::class,
         BalanceWithdrawalInterface::class => BalanceWithdrawalRepository::class,
         AdminWithdrawalInterface::class => AdminWithdrawalRepository::class,
-        RekeningNumberInterface::class => RekeningNumberRepository::class
+        RekeningNumberInterface::class => RekeningNumberRepository::class,
+        SubArticleCategoryInterface::class => SubArticleCategoryRepository::class
     ];
 
     /**
