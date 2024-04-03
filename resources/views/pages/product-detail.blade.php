@@ -450,19 +450,19 @@
                                             @if ($product->varianProducts->first())
                                                 <a id="buy-product-varian"
                                                     href="{{ route('checkout.products', [$product->slug, $user->code_affiliate, $product->varianProducts[0]->slug]) }}"
-                                                    class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                    class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                             @else
                                                 <a href="{{ route('checkout.products', [$product->slug, $user->code_affiliate]) }}"
-                                                    class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                    class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                             @endif
                                         @else
                                             @if ($product->varianProducts->first())
                                                 <a id="buy-product-varian"
                                                     href="{{ route('checkout', [$product->slug, $product->varianProducts[0]->slug]) }}"
-                                                    class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                    class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                             @else
                                                 <a href="{{ route('checkout', $product->slug) }}"
-                                                    class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                    class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                             @endif
                                         @endif
                                     @else
@@ -475,19 +475,19 @@
                                         @if ($product->varianProducts->first())
                                             <a id="buy-product-varian"
                                                 href="{{ route('checkout.products', [$product->slug, $user->code_affiliate, $product->varianProducts[0]->slug]) }}"
-                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                         @else
                                             <a href="{{ route('checkout.products', [$product->slug, $user->code_affiliate]) }}"
-                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                         @endif
                                     @else
                                         @if ($product->varianProducts->first())
                                             <a id="buy-product-varian"
                                                 href="{{ route('checkout', [$product->slug, $product->varianProducts[0]->slug]) }}"
-                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                         @else
                                             <a href="{{ route('checkout', $product->slug) }}"
-                                                class="btn btn-md bg-dark cart-button text-white w-50">Beli Produk</a>
+                                                class="btn btn-md theme-bg-color cart-button text-white w-50">Beli Produk</a>
                                         @endif
                                     @endif
 
@@ -566,7 +566,15 @@
 
                                 <div class="tab-pane fade" id="question" role="tabpanel"
                                     aria-labelledby="question-tab">
-                                    <div class="table-responsive">
+                                    @forelse ($product->product_questions as $question) 
+                                    <div class="">
+                                        <h4 class="fw-bold">{{$question->question}}</h4>
+                                        <p>{{$question->answer}}</p>
+                                    </div>
+                                    @empty
+                                        <p>Belum ada pertanyaan.</p>
+                                    @endforelse
+                                    {{-- <div class="table-responsive">
                                         <table class="table info-table">
                                             @if (count($product->product_questions) > 0)
                                                 <thead>
@@ -591,7 +599,7 @@
 
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="tab-pane fade customDivStyle" id="care" role="tabpanel"
@@ -664,7 +672,7 @@
                                                                         <div class="col-md-6">
                                                                             <div class="form-floating theme-form-floating">
                                                                                 <button type="submit" name="submit"
-                                                                                    class="btn btn-md bg-dark cart-button text-white w-50">
+                                                                                    class="btn btn-md theme-bg-color cart-button text-white w-50">
                                                                                     Update Ulasan
                                                                                 </button>
                                                                             </div>
@@ -730,7 +738,7 @@
                                                                     <div class="col-md-6">
                                                                         <div class="form-floating theme-form-floating">
                                                                             <button type="submit" name="submit"
-                                                                                class="btn btn-md bg-dark cart-button text-white w-50">
+                                                                                class="btn btn-md theme-bg-color cart-button text-white w-50">
                                                                                 Tambah ulasan baru
                                                                             </button>
                                                                         </div>
@@ -813,7 +821,9 @@
                                 </div>
                             </div>
                         </div>
+                    
                     </div>
+                    
                 </div>
                 <div class="col-xxl-3 col-xl-4 col-lg-5 d-none d-lg-block wow fadeInUp"
                     style="visibility: visible; animation-name: fadeInUp;">
