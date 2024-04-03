@@ -68,7 +68,7 @@
                 responsive: true,
                 pageLength: 50,
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 searching: true,
                 ajax: "{{ route('preorder-products.index') }}",
                 columns: [{

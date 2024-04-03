@@ -659,7 +659,7 @@
                         responsive: true,
                         pageLength: 25,
                         processing: true,
-                        serverSide: true,
+                        serverSide: false,
                         searching: true,
                         ajax: `{{ route('licenses.show', ':id') }}`.replace(':id', id),
                         columns: columns
@@ -681,7 +681,7 @@
                     responsive: true,
                     pageLength: 25,
                     processing: true,
-                    serverSide: true,
+                    serverSide: false,
                     searching: true,
                     ajax: "{{ route('product-questions.index') }}",
                     columns: [{

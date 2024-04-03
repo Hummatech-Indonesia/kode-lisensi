@@ -146,7 +146,7 @@
                 pageLength: 100,
                 responsive: true,
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 searching: true,
                 ajax: "{{ route('orders.fetch-histories') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}",
                 columns: [{

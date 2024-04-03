@@ -144,9 +144,6 @@
                                                             </a>
                                                         @endif
                                                     </li>
-
-
-
                                                     @auth
                                                         @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
                                                             <li data-bs-toggle="tooltip" class="favorite"

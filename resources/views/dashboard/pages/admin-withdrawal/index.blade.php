@@ -84,7 +84,7 @@
                 pageLength: 100,
                 responsive: true,
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 searching: true,
                 ajax: "{{ route('balance.withdrawal.admin.index') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}",
                 columns: [{

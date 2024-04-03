@@ -59,7 +59,7 @@
                 responsive: true,
                 pageLength: 50,
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 searching: true,
                 ajax: "{{ route('categories.show', $category->slug) }}",
                 columns: [{

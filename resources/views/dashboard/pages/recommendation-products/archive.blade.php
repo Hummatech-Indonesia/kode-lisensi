@@ -11,7 +11,7 @@
                 @elseif(session('error'))
                     <x-alert-failed></x-alert-failed>
 
-                @endif 
+                @endif
             </div>
             <div class="title-header option-title">
                 <h5>Halaman Arsip Produk</h5>
@@ -54,7 +54,7 @@
                 responsive: true,
                 pageLength: 50,
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 searching: true,
                 ajax: "{{ route('archive-products.index') }}",
                 columns: [
