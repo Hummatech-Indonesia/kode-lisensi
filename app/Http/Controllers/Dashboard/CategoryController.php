@@ -69,11 +69,14 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
         $data = $request->validated();
+        $slug = str_slug($data['name']);
+
         if ($request->hasFile('icon')) {
-            $upload = $this->categoryService->validateAndUpload(UploadDiskEnum::CATEGORIES->value, $request->file('icon'), $category->icon);
+            $upload = $this->categoryService->validateAndUpload(UploadDiskEnum::CATEGORIES->value, $request->file('icon'), $category->icon, $slug);
         }
 
         $this->category->update($category->id, [
+            'slug' => $slug,
             'name' => $data['name'],
             'icon' => $upload ?? $category->icon
         ]);
@@ -91,12 +94,14 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
 
+        $slug = str_slug($data['name']);
         if ($request->hasFile('icon')) {
-            $upload = $this->categoryService->upload(UploadDiskEnum::CATEGORIES->value, $request->file('icon'));
+            $upload = $this->categoryService->uploadSlug(UploadDiskEnum::CATEGORIES->value, $request->file('icon'), $slug);
         }
 
         $this->category->store([
             'name' => $data['name'],
+            'slug' => $slug,
             'icon' => $upload ?? null
         ]);
 
@@ -120,6 +125,14 @@ class CategoryController extends Controller
 
         return back()->with('success', trans('alert.delete_success'));
     }
+
+    /**
+     * show
+     *
+     * @param  mixed $slug
+     * @param  mixed $request
+     * @return void
+     */
     public function show(string $slug, Request $request)
     {
         $category = $this->category->getWhere(['slug' => $slug]);

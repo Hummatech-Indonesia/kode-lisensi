@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use App\Base\Interfaces\uploads\CustomUploadValidation;
 use App\Base\Interfaces\uploads\ShouldHandleFileUpload;
 use App\Traits\UploadTrait;
 
-class CategoryService implements ShouldHandleFileUpload, CustomUploadValidation
+class CategoryService implements ShouldHandleFileUpload
 {
     use UploadTrait;
 
@@ -18,10 +17,10 @@ class CategoryService implements ShouldHandleFileUpload, CustomUploadValidation
      * @param string|null $old_file
      * @return string
      */
-    public function validateAndUpload(string $disk, object $file, string $old_file = null): string
+    public function validateAndUpload(string $disk, object $file, string $slug, string $old_file = null): string
     {
         if ($old_file) $this->remove($old_file);
 
-        return $this->upload($disk, $file);
+        return $this->uploadSlug($disk, $file, $slug);
     }
 }

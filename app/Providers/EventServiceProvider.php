@@ -63,7 +63,6 @@ class EventServiceProvider extends ServiceProvider
         TransactionAffiliate::observe(TransactionAffiliateObserver::class);
         BalanceWithdrawal::observe(BalanceWithdrawalObserver::class);
         RekeningNumber::observe(RekeningNumberObserver::class);
-        Category::observe(CategoryObserver::class);
     }
 
     /**
