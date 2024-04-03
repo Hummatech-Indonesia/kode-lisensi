@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_category_id')->constrained();
+            $table->foreignId('sub_article_category_id')->constrained();
             $table->string('title', 150);
             $table->text('description');
             $table->text('photo');

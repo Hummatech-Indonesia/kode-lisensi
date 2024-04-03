@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sub_article_categories', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('article_category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->id();
+            $table->foreignId('article_category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->timestamps();
         });

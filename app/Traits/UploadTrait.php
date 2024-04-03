@@ -44,7 +44,7 @@ trait UploadTrait
         if ($originalName) {
             return $file->storeAs($disk, $file->getClientOriginalName());
         }
-
+        
         return Storage::put($disk, $file);
     }
 }
