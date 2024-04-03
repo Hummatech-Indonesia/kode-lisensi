@@ -124,6 +124,13 @@
                     }
                 ]
             });
+            $('.dataTables_scrollBody').css({
+                'position': 'relative',
+                'overflow': 'auto',
+                'max-height': 'none',
+                'height': 'max-content',
+                'width': '100%'
+            });
 
             $('#status').on('change', function() {
                 table.ajax.reload();
