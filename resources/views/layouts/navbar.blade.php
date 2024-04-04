@@ -1,6 +1,7 @@
 @php
     use App\Enums\UserRoleEnum;
     use App\Helpers\UserHelper;
+    use App\Helpers\CategoryHelper;
 @endphp
 <div class="top-nav top-header sticky-header sticky-header-3">
     <div class="container-fluid-lg">
@@ -152,7 +153,6 @@
                         <i class="iconly-Category icli"></i>
                         <span>Semua Kategori</span>
                     </button>
-
                     <div class="category-dropdown">
                         <div class="category-title">
                             <h5>Categories</h5>
@@ -212,9 +212,27 @@
                                     <a class="nav-link {{ request()->routeIs('home.about') ? 'active' : '' }}"
                                         href="{{ route('home.about') }}">Tentang Kami</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('home.articles.index') ? 'active' : '' }}"
-                                        href="{{ route('home.articles.index') }}">Artikel</a>
+                                <li class="nav-item dropdown new-nav-item">
+                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                        data-bs-toggle="dropdown">Artikel</a>
+                                    <ul class="dropdown-menu">
+                                        @foreach (CategoryHelper::articleCategory() as $articleCategory)
+                                            <li class="sub-dropdown-hover">
+                                                <a class="dropdown-item"
+                                                    href="javascript:void(0)">{{ $articleCategory->name }}</a>
+                                                <ul class="sub-menu">
+                                                    @forelse ($articleCategory->sub_article_categories as $sub_article_category)
+                                                        <li>
+                                                            <a href="#">{{ $sub_article_category->name }}</a>
+                                                        </li>
+                                                    @empty
+                                                        <p style="font-size: 13px">Belum mempunyai Sub-Kategori</p>
+                                                    @endforelse
+                                                </ul>
+                                            </li>
+                                        @endforeach
+
+                                    </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('home.contact.index') ? 'active' : '' }}"

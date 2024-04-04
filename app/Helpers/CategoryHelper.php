@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\ArticleCategory;
 use App\Models\Category;
 
 class CategoryHelper
@@ -19,6 +20,18 @@ class CategoryHelper
             ->withCount('products')
             ->take($take)
             ->orderByDesc('products_count')
+            ->get();
+    }
+
+    /**
+     * articleCategory
+     *
+     * @return object
+     */
+    public static function articleCategory(): object
+    {
+        return ArticleCategory::query()
+            ->with('sub_article_categories')
             ->get();
     }
 }
