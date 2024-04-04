@@ -41,7 +41,7 @@ class ArticleService implements ShouldHandleFileUpload, CustomUploadValidation
         $data = $request->validated();
 
         return [
-            'article_category_id' => $data['article_category_id'],
+            'sub_article_category_id' => $data['sub_article_category_id'],
             'title' => $data['title'],
             'description' => $data['description'],
             'photo' => $this->upload(UploadDiskEnum::ARTICLES->value, $request->file('photo')),
@@ -72,7 +72,7 @@ class ArticleService implements ShouldHandleFileUpload, CustomUploadValidation
         }
 
         return [
-            'article_category_id' => $data['article_category_id'],
+            'sub_article_category_id' => $data['sub_article_category_id'],
             'title' => $data['title'],
             'description' => $data['description'],
             'photo' => $old_photo,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\ArticleCategoryInterface;
 use App\Contracts\Interfaces\ArticleInterface;
+use App\Contracts\Interfaces\SubArticleCategoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Article\StoreRequest;
 use App\Http\Requests\Dashboard\Article\UpdateRequest;
@@ -19,12 +20,14 @@ class ArticleController extends Controller
     private ArticleInterface $article;
     private ArticleCategoryInterface $category;
     private ArticleService $service;
+    private SubArticleCategoryInterface $subArticleCategory;
 
-    public function __construct(ArticleInterface $article, ArticleCategoryInterface $category, ArticleService $service)
+    public function __construct(ArticleInterface $article, ArticleCategoryInterface $category, ArticleService $service, SubArticleCategoryInterface $subArticleCategory)
     {
         $this->article = $article;
         $this->category = $category;
         $this->service = $service;
+        $this->subArticleCategory = $subArticleCategory;
     }
 
     /**
@@ -48,9 +51,9 @@ class ArticleController extends Controller
      */
     public function create(): View
     {
-        $categories = $this->category->get();
+        $subCategories = $this->subArticleCategory->get();
 
-        return view('dashboard.pages.articles.create', compact('categories'));
+        return view('dashboard.pages.articles.create', compact('subCategories'));
     }
 
     /**
@@ -61,9 +64,9 @@ class ArticleController extends Controller
      */
     public function edit(Article $article): View
     {
-        $categories = $this->category->get();
+        $subCategories = $this->subArticleCategory->get();
 
-        return view('dashboard.pages.articles.edit', compact('categories', 'article'));
+        return view('dashboard.pages.articles.edit', compact('subCategories', 'article'));
     }
 
     /**

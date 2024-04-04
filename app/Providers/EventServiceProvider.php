@@ -12,6 +12,7 @@ use App\Models\ProductFavorite;
 use App\Models\ProductRecommendation;
 use App\Models\RekeningNumber;
 use App\Models\ShareProductReseller;
+use App\Models\SubArticleCategory;
 use App\Models\TransactionAffiliate;
 use App\Models\User;
 use App\Models\VarianProduct;
@@ -25,6 +26,7 @@ use App\Observers\ProductObserver;
 use App\Observers\ProductRecommendationObserver;
 use App\Observers\RekeningNumberObserver;
 use App\Observers\ShareProductReselllerObserver;
+use App\Observers\SubArticleCategoryObserver;
 use App\Observers\TransactionAffiliateObserver;
 use App\Observers\UserObserver;
 use App\Observers\VarianProductObserver;
@@ -63,6 +65,7 @@ class EventServiceProvider extends ServiceProvider
         TransactionAffiliate::observe(TransactionAffiliateObserver::class);
         BalanceWithdrawal::observe(BalanceWithdrawalObserver::class);
         RekeningNumber::observe(RekeningNumberObserver::class);
+        SubArticleCategory::observe(SubArticleCategoryObserver::class);
     }
 
     /**

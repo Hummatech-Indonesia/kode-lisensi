@@ -42,7 +42,7 @@
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
         $(document).ready(function() {
-            moment.locale('id'); // Set bahasa ke bahasa Indonesia
+            moment.locale('id');
             var table = $("#table_id").DataTable({
                 scrollX: false,
                 scrollY: '500px',
@@ -85,7 +85,7 @@
                 'max-height': 'none',
                 'height': 'max-content',
                 'width': '100%'
-            }); 
+            });
         });
     </script>
 @endsection

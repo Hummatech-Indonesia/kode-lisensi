@@ -2174,7 +2174,7 @@
                             </div>
 
                             <div class="blog-detail">
-                                <label>{{ $article->category->name }}</label>
+                                <label>{{ $article->sub_article_category->name }}</label>
                                 <a href="{{ route('home.articles.show', $article->slug) }}" tabindex="-1">
                                     <h2>{{ strlen($article->title) > 25 ? substr($article->title, 0, 30) . '...' : $article->title }}
                                     </h2>

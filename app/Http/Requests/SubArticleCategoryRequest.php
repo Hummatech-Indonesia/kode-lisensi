@@ -36,7 +36,7 @@ class SubArticleCategoryRequest extends FormRequest
     {
         return [
             'name.required' => 'Kolom nama sub kategori harus diisi',
-            'name.unique'=>'Nama sub-kategori sudah ada',
+            'name.unique' => 'Nama sub-kategori sudah ada',
         ];
     }
 }

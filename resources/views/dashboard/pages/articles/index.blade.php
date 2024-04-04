@@ -69,8 +69,8 @@
                         orderable: false
                     },
                     {
-                        data: 'category.name',
-                        name: 'category.name'
+                        data: 'sub_article_category.name',
+                        name: 'sub_article_category.name'
                     },
                     {
                         data: 'title',

@@ -16,7 +16,7 @@ class UpdateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'article_category_id' => 'required|exists:article_categories,id',
+            'sub_article_category_id' => 'required|exists:sub_article_categories,id',
             'title' => ['required', 'max:150', Rule::unique('articles', 'title')->ignore($this->article->id)],
             'description' => 'required',
             'photo' => 'nullable|max:5000|mimes:jpg,png,jpeg',

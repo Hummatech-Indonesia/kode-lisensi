@@ -78,7 +78,7 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
     public function get(): mixed
     {
         return $this->ArticleMockup($this->model->query()
-            ->with(['category', 'user']));
+            ->with(['sub_article_category', 'user']));
     }
 
     /**
@@ -117,7 +117,7 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
     {
         return $this->model->query()
             ->where(['slug' => $slug, 'status' => ArticleStatusEnum::PUBLISHED->value])
-            ->with(['category', 'user'])
+            ->with(['sub_article_category', 'user'])
             ->firstOrFail();
     }
 

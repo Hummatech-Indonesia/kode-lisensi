@@ -84,6 +84,22 @@
                         <h5>Tambahkan Diskon Pengguna</h5>
                     </div>
 
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">Pilih Jenis Diskon <span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <div class="d-flex">
+                                <input type="radio" name="discount_price_varian" value="1"
+                                    style="margin-right: 0.6rem" id="">
+                                <p>Diskon Berdasarkan Nominal Harga</p>
+                            </div>
+                            <div class="d-flex">
+                                <input type="radio" name="discount_price_varian" value="0"
+                                    style="margin-right: 0.6rem" id="">
+                                <p>Diskon Berdasarkan Presentase</p>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table variation-table table-responsive-sm">
                         <thead>
                             <tr>
@@ -96,9 +112,8 @@
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    <input id="discount_variant" name="discount_varian"
-                                        value="{{ old('discount_varian') }}" class="form-control" type="number"
-                                        placeholder="0">
+                                    <input id="discount_variant" name="discount_varian" value="{{ old('discount_varian') }}"
+                                        class="form-control" type="number" placeholder="0">
                                 </td>
                             </tr>
                             <tr>
@@ -243,9 +258,8 @@
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    <input id="discount" name="discount"
-                                        value="{{ old('discount') }}" class="form-control" type="number"
-                                        placeholder="0">
+                                    <input id="discount" name="discount" value="{{ old('discount') }}"
+                                        class="form-control" type="number" placeholder="0">
                                 </td>
                                 <td>
                                     <span id="customer_label">Rp. 0</span>
@@ -457,11 +471,7 @@
 
             $('input[name="discount_price"]').change(function() {
                 discount_price = $('input[name="discount_price"]:checked').val();
-
-
-
             });
-
             $('#convert_button').click((e) => {
                 if (discount_price == 0) {
                     const customer_discount = calculateDiscount(seller_price, discount.val())
@@ -531,7 +541,14 @@
                 $(".varian_product:last").remove();
             });
         });
+        let discount_price_varian = 0;
+
+        $('input[name="discount_price_varian"]').change(function() {
+            discount_price_varian = $('input[name="discount_price_varian"]:checked').val();
+        });
+
         $(document).on('click', '.convert_button_varian', function() {
+
             const convertRupiah = (number) => {
                 return new Intl.NumberFormat("id-ID", {
                     style: "currency",
@@ -544,18 +561,27 @@
             let reseller_discount = $('#reseller_discount_varian').val();
             let discount = $('#discount_variant').val();
 
-            let result_discount = sellPrice - (discount / 100 * sellPrice);
-            let result_reseller_discount = sellPrice - (reseller_discount / 100 * sellPrice);
-            if (discount >= 0 & discount <= 100) {
+            if (discount_price_varian == 0) {
+                let result_discount = sellPrice - (discount / 100 * sellPrice);
+                let result_reseller_discount = sellPrice - (reseller_discount / 100 * sellPrice);
+                if (discount >= 0 & discount <= 100) {
+                    row.find('.customer_label_varian').text(convertRupiah(result_discount));
+                } else {
+                    row.find('.customer_label_varian').text(convertRupiah(sellPrice));
+                }
+                if (reseller_discount >= 0 && reseller_discount <= 100) {
+                    row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
+                } else {
+                    row.find('.reseller_label_varian').text(convertRupiah(sellPrice));
+                }
+            } else {
+                let result_discount = sellPrice - discount;
+                let result_reseller_discount = sellPrice - reseller_discount;
                 row.find('.customer_label_varian').text(convertRupiah(result_discount));
-            } else {
-                row.find('.customer_label_varian').text(convertRupiah(sellPrice));
-            }
-            if (reseller_discount >= 0 && reseller_discount <= 100) {
                 row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
-            } else {
-                row.find('.reseller_label_varian').text(convertRupiah(sellPrice));
+
             }
+
         });
     </script>
     <script>

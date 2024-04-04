@@ -137,7 +137,7 @@
 
                     <div class="blog-detail-contain">
                         <div class="col-12 col-md-12">
-                            <h3><span class="badge rounded-pill theme-bg-color">{{ $article->category->name }}</span></h3>
+                            <h3><span class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span></h3>
                         </div>
                         <p>
                             {!! $article->content !!}

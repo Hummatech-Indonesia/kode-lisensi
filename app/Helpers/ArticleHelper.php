@@ -18,7 +18,7 @@ class ArticleHelper
     {
         return Article::query()
             ->where('status', ArticleStatusEnum::PUBLISHED->value)
-            ->with(['category', 'user'])
+            ->with(['sub_article_category', 'user'])
             ->take($take)
             ->latest()
             ->get();
