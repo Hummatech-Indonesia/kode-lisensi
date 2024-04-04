@@ -3,6 +3,20 @@
     use Carbon\Carbon;
 @endphp
 @extends('layouts.main')
+@section('asset')
+    <style>
+        ol {
+            display: block !important;
+            list-style-type: decimal !important;
+            margin-block-start: 1em !important;
+            margin-block-end: 1em !important;
+            margin-inline-start: 0px !important;
+            margin-inline-end: 0px !important;
+            padding-inline-start: 40px !important;
+            unicode-bidi: isolate !important;
+        }
+    </style>
+@endsection
 @section('content')
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
@@ -140,9 +154,12 @@
                                 </li>
                             </ul>
                         </div>
-                        <p>
+                        <p data-style="no-styling">
                             {!! $article->content !!}
                         </p>
+                        <ol>
+                            <li>huahahaha</li>
+                        </ol>
                     </div>
                     <div class="comment-box overflow-hidden">
                         <div class="leave-title">

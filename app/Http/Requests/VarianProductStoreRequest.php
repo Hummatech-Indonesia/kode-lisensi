@@ -22,6 +22,7 @@ class VarianProductStoreRequest extends FormRequest
             'buy_price_varian' => 'required|array',
             'buy_price_varian.*' => 'required|regex:/^[0-9]*$/|integer|min:0',
             'sell_price_varian' => 'required|array',
+            'discount_price_varian' => 'required',
             'sell_price_varian.*' => 'required',
             'discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
             'reseller_discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',

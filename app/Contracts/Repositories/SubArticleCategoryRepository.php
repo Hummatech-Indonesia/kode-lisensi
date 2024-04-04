@@ -34,7 +34,7 @@ class SubArticleCategoryRepository extends BaseRepository implements SubArticleC
     {
         return $this->model->query()
             ->where('article_category_id', $id)
-            ->with('articleCategory')
+            ->with('category')
             ->get();
     }
     /**

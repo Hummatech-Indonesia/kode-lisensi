@@ -75,6 +75,14 @@ class ProductService implements ShouldHandleFileUpload
     {
         $data = $request->validated();
 
+        if ($data['discount_price_varian'] == 1) {
+            $discount = $data['discount_varian'] / $data['sell_price_varian'] * 100;
+            $reseller_discount = $data['reseller_discount_varian'] / $data['sell_price_varian'] * 100;
+            $data['sell_price_varian'];
+            $data['discount_varian'] = $discount;
+            $data['reseller_discount_varian'] = $reseller_discount;
+        }
+
         $varian_product = $data['name_varian'];
         $counts = array_count_values($varian_product);
 
