@@ -169,7 +169,7 @@
                                     <div class="product-footer">
                                         <div class="product-detail">
                                             <h4><a
-                                                    href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                                    href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                             </h4>
                                             <a href="{{ route('home.products.show', $product->slug) }}">
                                                 <h3 class="name mb-1">{{ $product->name }}</h3>
@@ -437,7 +437,7 @@
                                         <div class="product-footer">
                                             <div class="product-detail">
                                                 <h4><a
-                                                        href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                                        href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                                 </h4>
                                                 <a href="{{ route('home.products.show', $product->slug) }}">
                                                     <h3 class="name mb-1">{{ $product->name }}</h3>
@@ -685,7 +685,7 @@
                                             <div class="product-detail">
 
                                                 <h4><a
-                                                        href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->id) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
+                                                        href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->slug) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
                                                 </h4>
                                                 <a
                                                     href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
@@ -922,7 +922,7 @@
                                             <div class="product-detail">
 
                                                 <h4><a
-                                                        href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->id) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
+                                                        href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->slug) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
                                                 </h4>
                                                 <a
                                                     href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}">
@@ -1181,7 +1181,7 @@
                                         <div class="product-footer">
                                             <div class="product-detail">
                                                 <h4><a
-                                                        href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                                        href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                                 </h4>
                                                 <a href="{{ route('home.products.show', $product->slug) }}">
                                                     <h3 class="name mb-1">{{ $product->name }}</h3>
@@ -1433,7 +1433,7 @@
                                                 <div class="product-footer">
                                                     <div class="product-detail">
                                                         <h4><a
-                                                                href="{{ route('home.category', $latestProductNotRatings[$i]->category->id) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
+                                                                href="{{ route('home.category', $latestProductNotRatings[$i]->category->slug) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
                                                         </h4>
 
                                                         <a
@@ -1676,7 +1676,7 @@
                                                 <div class="product-footer">
                                                     <div class="product-detail">
                                                         <h4><a
-                                                                href="{{ route('home.category', $latestProductNotRatings[$i]->category->id) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
+                                                                href="{{ route('home.category', $latestProductNotRatings[$i]->category->slug) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
                                                         </h4>
 
                                                         <a
@@ -1999,7 +1999,7 @@
                                 <div class="product-footer">
                                     <div class="product-detail">
                                         <h4><a
-                                                href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
+                                                href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                         </h4>
                                         <a href="{{ route('home.products.show', $product->slug) }}">
                                             <h3 class="name mb-1">{{ $product->name }}</h3>
