@@ -566,7 +566,7 @@
 
                                 <div class="tab-pane fade" id="question" role="tabpanel"
                                     aria-labelledby="question-tab">
-                                    @forelse ($product->product_questions as $question) 
+                                    @forelse ($product->product_questions as $question)
                                     <div class="">
                                         <h4 class="fw-bold">{{$question->question}}</h4>
                                         <p>{{$question->answer}}</p>
@@ -821,9 +821,9 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                     </div>
-                    
+
                 </div>
                 <div class="col-xxl-3 col-xl-4 col-lg-5 d-none d-lg-block wow fadeInUp"
                     style="visibility: visible; animation-name: fadeInUp;">
@@ -1139,24 +1139,13 @@
 
                                         </div>
                                         <h6 class="unit">
-                                            @if ($product->status === ProductStatusEnum::AVAILABLE->value)
-                                                @if ($product->licenses_count > 0)
-                                                    <h4>
-                                                        <span class="badge rounded-pill text-bg-success"> Tersedia:
-                                                            {{ $product->licenses_count }} Stok</span>
-                                                    </h4>
-                                                @else
-                                                    <h4>
-                                                        <span class="badge rounded-pill text-bg-danger">Produk telah
-                                                            habis</span>
-                                                    </h4>
-                                                @endif
-                                            @else
-                                                <h4>
-                                                    <span
-                                                        class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                </h4>
-                                            @endif
+                                            <h4>
+
+                                                <a href="{{ route('home.products.show', $product->slug) }}"
+                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                    Beli Sekarang
+                                                </a>
+                                            </h4>
                                         </h6>
                                     </div>
                                 </div>
