@@ -58,7 +58,7 @@ class ProductController extends Controller
         return view('dashboard.pages.products.add', compact('categories'));
     }
 
-    public function shareButtons(String $slug)
+    public function shareButtons(string $slug)
     {
         $shareProduct = ProductHelper::shareButtons($slug);
         return ResponseHelper::success($shareProduct);
@@ -108,26 +108,6 @@ class ProductController extends Controller
     }
 
     /**
-     * varianProductUpdate
-     *
-     * @param  mixed $request
-     * @param  mixed $product
-     * @return RedirectResponse
-     */
-    public function varianProductUpdate(VarianProductUpdateRequest $request, Product $product): RedirectResponse
-    {
-        if (!$data = $this->productService->varianProductUpdate($product, $request)) {
-            return back()->with('error', trans('alert.file_exist'));
-        }
-
-        $this->product->update($product->id, $data);
-        return to_route('products.show', $product->id)->with('success', trans('alert.update_success'));
-    }
-
-
-
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param ProductStoreRequest $request
@@ -147,6 +127,28 @@ class ProductController extends Controller
 
         return to_route('products.index')->with('success', trans('alert.add_success'));
     }
+
+    /**
+     * varianProductUpdate
+     *
+     * @param  mixed $request
+     * @param  mixed $product
+     * @return RedirectResponse
+     */
+    public function varianProductUpdate(VarianProductUpdateRequest $request, Product $product): RedirectResponse
+    {
+        if (!$data = $this->productService->varianProductUpdate($product, $request)) {
+            return back()->with('error', trans('alert.file_exist'));
+        }
+
+        $this->product->update($product->id, $data);
+        return to_route('products.show', $product->id)->with('success', trans('alert.update_success'));
+    }
+
+
+
+
+
 
     /**
      * store

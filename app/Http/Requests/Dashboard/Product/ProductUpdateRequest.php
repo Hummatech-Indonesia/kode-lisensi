@@ -15,22 +15,32 @@ class ProductUpdateRequest extends BaseRequest
      */
     public function rules(): array
     {
-        return [
+
+
+        $rules = [
             'name' => ['required', 'max:255', Rule::unique('products', 'name')->ignore($this->product->id)],
             'category_id' => 'required|exists:categories,id',
             'short_description' => 'required|max:150',
             'buy_price' => 'required|regex:/^[0-9]*$/|integer|min:0',
             'sell_price' => 'required|regex:/^[0-9]*$/|gt:buy_price|integer|min:0',
-            'discount' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
-            'reseller_discount' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
             'type' => 'required',
             'status' => 'required',
             'description' => 'required',
             'features' => 'required',
+            'discount_price' => 'required',
             'installation' => 'required',
             'photo' => 'nullable|max:5000|mimes:jpg,png,jpeg',
-            // 'attachment_file' => 'nullable|max:20000|mimes:pdf'
         ];
+
+        if ($this->input('discount_price') == 1) {
+            $rules['discount'] = 'required|regex:/^[0-9]*$/|integer';
+            $rules['reseller_discount'] = 'required|regex:/^[0-9]*$/|integer';
+        } else {
+            $rules['discount'] = 'required|regex:/^[0-9]*$/|integer|between:0,100';
+            $rules['reseller_discount'] = 'required|regex:/^[0-9]*$/|integer|between:0,100';
+        }
+
+        return $rules;
     }
 
     /**

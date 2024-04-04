@@ -83,7 +83,22 @@
                     <div class="card-header-2">
                         <h5>Tambahkan Diskon Pengguna</h5>
                     </div>
-
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">Pilih Jenis Diskon <span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <div class="d-flex">
+                                <input type="radio" name="discount_price_varian" value="1"
+                                    style="margin-right: 0.6rem" id="">
+                                <p>Diskon Berdasarkan Nominal Harga</p>
+                            </div>
+                            <div class="d-flex">
+                                <input type="radio" name="discount_price_varian" value="0"
+                                    style="margin-right: 0.6rem" id="">
+                                <p>Diskon Berdasarkan Presentase</p>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table variation-table table-responsive-sm">
                         <thead>
                             <tr>
@@ -96,7 +111,7 @@
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    <input min="0" max="100" id="discount_variant" name="discount_varian"
+                                    <input min="0" id="discount_variant" name="discount_varian"
                                         value="{{ old('discount_varian', $product->discount) }}" class="form-control"
                                         type="number" placeholder="0">
                                 </td>
@@ -219,7 +234,22 @@
                                     value="{{ old('sell_price') }}">
                             </div>
                         </div>
-
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-sm-3 mb-0">Pilih Jenis Diskon <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="d-flex">
+                                    <input type="radio" name="discount_price" value="1"
+                                        style="margin-right: 0.6rem" id="">
+                                    <p>Diskon Berdasarkan Nominal Harga</p>
+                                </div>
+                                <div class="d-flex">
+                                    <input type="radio" name="discount_price" value="0"
+                                        style="margin-right: 0.6rem" id="">
+                                    <p>Diskon Berdasarkan Presentase</p>
+                                </div>
+                            </div>
+                        </div>
                         <thead>
                             <tr>
                                 <th scope="col">Jenis Pengguna</th>
@@ -404,10 +434,35 @@
 @section('script')
     <script>
         $(document).ready(() => {
-
             CKEDITOR.replace('editor');
             CKEDITOR.replace('installation');
-            CKEDITOR.replace('features');
+            var editor = CKEDITOR.replace('features', {});
+
+            editor.on('paste', function(evt) {
+                var isImage = evt.data.dataValue.match(/<img[^>]+>/);
+                if (isImage) {
+                    var image = $(isImage[0]);
+
+                    var width = parseInt(image.attr('width'));
+                    var height = parseInt(image.attr('height'));
+                    var maxWidth = 690;
+                    var maxHeight = 378;
+
+                    if (width > maxWidth || height > maxHeight) {
+                        if (width > maxWidth) {
+                            height = Math.round((maxWidth / width) * height);
+                            width = maxWidth;
+                        }
+                        if (height > maxHeight) {
+                            width = Math.round((maxHeight / height) * width);
+                            height = maxHeight;
+                        }
+
+                        image.attr('width', width);
+                        image.attr('height', height);
+                    }
+                }
+            });
 
             const calculateDiscount = (price, discount) => {
                 const total = price * (discount / 100)
@@ -422,34 +477,41 @@
                 }).format(number);
             }
 
-
             let discount = $('#discount')
             let reseller = $('#reseller_discount')
 
             let seller_price = null
 
-            $('#sell_price').change((e) => {
-                seller_price = $('#sell_price').val()
-            })
+            // $('#sell_price').change((e) => {
+            seller_price = $('#sell_price').val()
+            // })
+            let discount_price = 0;
 
+            $('input[name="discount_price"]').change(function() {
+                discount_price = $('input[name="discount_price"]:checked').val();
+            });
             $('#convert_button').click((e) => {
-                const customer_discount = calculateDiscount(seller_price, discount.val())
-                const reseller_discount = calculateDiscount(seller_price, reseller.val())
+                if (discount_price == 0) {
+                    const customer_discount = calculateDiscount(seller_price, discount.val())
+                    const reseller_discount = calculateDiscount(seller_price, reseller.val())
 
-                if (discount.val() >= 0 && discount.val() <= 100) {
-                    $('#customer_label').text(convertRupiah(customer_discount))
+                    if (discount.val() >= 0 && discount.val() <= 100) {
+                        $('#customer_label').text(convertRupiah(customer_discount))
+                    } else {
+                        $('#customer_label').text(convertRupiah($('#sell_price').val()));
+                    }
+
+                    if (reseller.val() >= 0 && reseller.val() <= 100) {
+                        $('#reseller_label').text(convertRupiah(reseller_discount))
+                    } else {
+                        $('#reseller_label').text(convertRupiah($('#sell_price').val()));
+                    }
                 } else {
-
-                    $('#customer_label').text(convertRupiah(seller_price))
+                    const customer_discount = seller_price - discount.val();
+                    const reseller_discount = seller_price - reseller.val();
+                    $('#customer_label').text(convertRupiah(customer_discount));
+                    $('#reseller_label').text(convertRupiah(reseller_discount));
                 }
-
-                if (reseller.val() >= 0 && reseller.val() <= 100) {
-                    $('#reseller_label').text(convertRupiah(reseller_discount))
-                } else {
-
-                    $('#reseller_label').text(convertRupiah(seller_price))
-                }
-
             })
 
             discount.on('keyup', function(evt) {
@@ -470,6 +532,8 @@
                 $("#discount_varian_product").removeAttr("style").css("display", "block");
                 $(".varian_product").removeAttr("style").css("display", "block");
                 $("#form").attr("action", "{{ route('varian.products.store') }}");
+                $('#statusSelected').prop('disabled', true);
+                $('#statusSelected option[value="preorder"]').prop('selected', true);
             });
             $("#cancel_variant_product").click(function() {
                 $("#price").show();
@@ -478,6 +542,8 @@
                 $("#discount_varian_product").removeAttr("style").css("display", "none");
                 $(".varian_product").removeAttr("style").css("display", "none");
                 $("#form").attr("action", "{{ route('products.store') }}");
+                $('#statusSelected').prop('disabled', false);
+                $('#statusSelected option[value="preorder"]').prop('selected', false);
             });
         });
 
@@ -488,13 +554,19 @@
                 $(".delete_varian:last").removeAttr("style").css("display", "block");
             });
         });
-
         $(document).ready(function() {
             $(document).on("click", ".delete_varian", function() {
                 $(".varian_product:last").remove();
             });
         });
+        let discount_price_varian = 0;
+
+        $('input[name="discount_price_varian"]').change(function() {
+            discount_price_varian = $('input[name="discount_price_varian"]:checked').val();
+        });
+
         $(document).on('click', '.convert_button_varian', function() {
+
             const convertRupiah = (number) => {
                 return new Intl.NumberFormat("id-ID", {
                     style: "currency",
@@ -507,21 +579,40 @@
             let reseller_discount = $('#reseller_discount_varian').val();
             let discount = $('#discount_variant').val();
 
-            let result_discount = sellPrice - (discount / 100 * sellPrice);
-            let result_reseller_discount = sellPrice - (reseller_discount / 100 * sellPrice);
-            if (reseller_discount >= 0 && reseller_discount <= 100) {
-                row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
+            if (discount_price_varian == 0) {
+                let result_discount = sellPrice - (discount / 100 * sellPrice);
+                let result_reseller_discount = sellPrice - (reseller_discount / 100 * sellPrice);
+                if (discount >= 0 & discount <= 100) {
+                    row.find('.customer_label_varian').text(convertRupiah(result_discount));
+                } else {
+                    row.find('.customer_label_varian').text(convertRupiah(sellPrice));
+                }
+                if (reseller_discount >= 0 && reseller_discount <= 100) {
+                    row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
+                } else {
+                    row.find('.reseller_label_varian').text(convertRupiah(sellPrice));
+                }
             } else {
-                row.find('.reseller_label_varian').text(convertRupiah(sellPrice));
-            }
-
-            if (discount >= 0 && discount <= 100) {
-
+                let result_discount = sellPrice - discount;
+                let result_reseller_discount = sellPrice - reseller_discount;
                 row.find('.customer_label_varian').text(convertRupiah(result_discount));
-            } else {
-                row.find('.customer_label_varian').text(convertRupiah(sellPrice));
+                row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
 
             }
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#short_description_input').on('input', function() {
+                var maxLength = 150;
+                var currentLength = $(this).val().length;
+                $('#char_count').text(currentLength + '/' + maxLength);
+
+                if (currentLength >= maxLength) {
+                    alert('Deskripsi singkat sudah mencapai 150 karakter!');
+                }
+            });
         });
     </script>
 @endsection
