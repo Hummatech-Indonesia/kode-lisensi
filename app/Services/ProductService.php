@@ -98,7 +98,7 @@ class ProductService implements ShouldHandleFileUpload
             'status' => ProductStatusEnum::PREORDER->value,
             'type' => $data['type'],
             'name' => $data['name'],
-            'photo' => $this->upload(UploadDiskEnum::PRODUCTS->value, $request->file('photo'), $slug),
+            'photo' => $this->uploadSlug(UploadDiskEnum::PRODUCTS->value, $request->file('photo'), $slug),
             'buy_price' => 0,
             'sell_price' => 0,
             'name_varian' => $data['name_varian'],

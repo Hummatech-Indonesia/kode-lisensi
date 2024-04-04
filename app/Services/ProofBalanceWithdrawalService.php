@@ -22,7 +22,7 @@ class ProofBalanceWithdrawalService implements ShouldHandleFileUpload
     public function store(ProofBalanceWithdrawalRequest $request): array|bool
     {
         $data = $request->validated();
-        $data['proof'] = $this->upload(UploadDiskEnum::PROOF->value, $request->file('proof'));
+        $data['proof'] = $this->uploadSlug(UploadDiskEnum::PROOF->value, $request->file('proof'), "proof-balance-kodelisensi-" . now());
         $data['status'] = 1;
         return $data;
     }

@@ -38,12 +38,12 @@ class BannerService implements ShouldHandleFileUpload
 
         if ($request->hasFile('first_image')) {
             $this->remove($first_image);
-            $first_image = $this->upload(UploadDiskEnum::BANNERS->value, $request->file('first_image'));
+            $first_image = $this->uploadSlug(UploadDiskEnum::BANNERS->value, $request->file('first_image'), "banner-kodelisensi-" . now());
         }
 
         if ($request->hasFile('second_image')) {
             $this->remove($second_image);
-            $second_image = $this->upload(UploadDiskEnum::BANNERS->value, $request->file('second_image'));
+            $second_image = $this->uploadSlug(UploadDiskEnum::BANNERS->value, $request->file('second_image'), "banner-kodelisensi-" . now());
         }
 
         return [

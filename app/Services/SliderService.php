@@ -37,7 +37,7 @@ class SliderService implements ShouldHandleFileUpload
 
         if ($request->hasFile('image')) {
             $this->remove($old_photo);
-            $old_photo = $this->upload(UploadDiskEnum::SLIDERS->value, $request->file('image'));
+            $old_photo = $this->uploadSlug(UploadDiskEnum::SLIDERS->value, $request->file('image'), "slider-kodelisensi-" . now());
         }
 
         return [
