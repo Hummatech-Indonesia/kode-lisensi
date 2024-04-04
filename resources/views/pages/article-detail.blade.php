@@ -115,16 +115,23 @@
                     <div class="blog-detail-image rounded-3 mb-4 bg-size blur-up lazyloaded">
                         <img src="{{ asset('storage/' . $article->photo) }}" class="bg-img blur-up lazyloaded"
                             alt="" style="display: none;">
+                    </div>
+
+                    <div class="blog-detail-contain">
+                        <div class="col-12 col-md-12">
+                            <h3><span
+                                    class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span>
+                            </h3>
+                        </div>
                         <div class="blog-image-contain">
-                            <h2>{{ $article->title }}</h2>
+                            <h2 class="my-3">{{ $article->title }}</h2>
                             <ul class="contain-comment-list">
-                                <li>
+                                <li style="margin-right: 1rem">
                                     <div class="user-list">
                                         <i data-feather="user"></i>
                                         <span>{{ $article->user->name }}</span>
                                     </div>
                                 </li>
-
                                 <li>
                                     <div class="user-list">
                                         <i data-feather="calendar"></i>
@@ -132,12 +139,6 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-
-                    <div class="blog-detail-contain">
-                        <div class="col-12 col-md-12">
-                            <h3><span class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span></h3>
                         </div>
                         <p>
                             {!! $article->content !!}

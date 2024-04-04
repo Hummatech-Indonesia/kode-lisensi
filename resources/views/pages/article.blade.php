@@ -59,7 +59,7 @@
                                                 <span>{{ $article->user->name }}</span></span>
                                         </div>
                                         <h5 class="mt-3"><span
-                                                class="badge rounded-pill theme-bg-color">{{ $article->category->name }}</span>
+                                                class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span>
                                         </h5>
                                         <a href="{{ route('home.articles.show', $article->slug) }}">
                                             <h3>{{ $article->title }}</h3>
@@ -168,17 +168,23 @@
                                     <div class="category-list-box">
                                         <ul>
                                             @foreach ($categories as $category)
-                                                @if ($category->articles_count > 0)
-                                                    <li>
-                                                        <a
-                                                            href="{{ route('home.articles.index') . '?category=' . $category->name }}">
-                                                            <div class="category-name">
-                                                                <h5>{{ $category->name }}</h5>
-                                                                <span>{{ $category->articles_count }}</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                @endif
+                                                <li>
+                                                    <a href="#">
+                                                        <h5 style="font-weight:500;">{{ $category->name }}
+                                                            <span>({{ $category->sub_article_categories_count }})</span>
+                                                        </h5>
+                                                    </a>
+                                                    <div class="my-2">
+                                                        @foreach ($category->sub_article_categories as $sub_article_category)
+                                                            <a href="{{ route('home.articles.index') . '?sub_category=' . $sub_article_category->name }}"
+                                                                style="margin-left: 1.5rem" href="#">
+                                                                <p>{{ $sub_article_category->name }}
+                                                                    <span>({{ $sub_article_category->articles->count() }})</span>
+                                                                </p>
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                </li>
                                             @endforeach
 
                                         </ul>

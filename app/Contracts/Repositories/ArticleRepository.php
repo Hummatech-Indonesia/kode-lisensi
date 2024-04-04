@@ -133,13 +133,13 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
     {
         return $this->model->query()
             ->where('status', ArticleStatusEnum::PUBLISHED->value)
-            ->when($request->category, function ($query) use ($request) {
-                return $query->whereRelation('category', 'name', '=', $request->category);
+            ->when($request->sub_category, function ($query) use ($request) {
+                return $query->whereRelation('sub_article_category', 'name', '=', $request->sub_category);
             })
             ->when($request->searchArticle, function ($query) use ($request) {
                 return $query->whereLike('title', $request->searchArticle);
             })
-            ->with(['category', 'user'])
+            ->with(['sub_article_category', 'user'])
             ->latest()
             ->paginate($pagination);
     }

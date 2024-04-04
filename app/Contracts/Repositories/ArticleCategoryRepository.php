@@ -32,8 +32,8 @@ class ArticleCategoryRepository extends BaseRepository implements ArticleCategor
     public function getWhereHas(): mixed
     {
         return $this->model->query()
-            ->withCount('articles')
-            ->whereHas('articles')
+            ->withCount('sub_article_categories')
+            ->whereHas('sub_article_categories')
             ->get();
     }
 
