@@ -32,6 +32,7 @@ class CategoryHelper
     {
         return ArticleCategory::query()
             ->with('sub_article_categories')
+            ->whereHas('sub_article_categories')
             ->get();
     }
 }

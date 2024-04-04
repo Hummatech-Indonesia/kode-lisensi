@@ -223,7 +223,8 @@
                                                 <ul class="sub-menu">
                                                     @forelse ($articleCategory->sub_article_categories as $sub_article_category)
                                                         <li>
-                                                            <a href="#">{{ $sub_article_category->name }}</a>
+                                                            <a
+                                                                href="{{ route('home.articles.index') . '?sub_category=' . $sub_article_category->name }}">{{ $sub_article_category->name }}</a>
                                                         </li>
                                                     @empty
                                                         <p style="font-size: 13px">Belum mempunyai Sub-Kategori</p>
