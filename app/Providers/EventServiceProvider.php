@@ -57,7 +57,6 @@ class EventServiceProvider extends ServiceProvider
         Product::observe(ProductObserver::class);
         License::observe(LicenseObserver::class);
         User::observe(UserObserver::class);
-        Article::observe(ArticleObserver::class);
         ProductFavorite::observe(ProductFavoriteObserver::class);
         ShareProductReseller::observe(ShareProductReselllerObserver::class);
         VarianProduct::observe(VarianProductObserver::class);

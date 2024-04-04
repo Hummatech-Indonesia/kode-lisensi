@@ -40,11 +40,14 @@ class ArticleService implements ShouldHandleFileUpload, CustomUploadValidation
     {
         $data = $request->validated();
 
+        $slug = str_slug($data['title']);
+
         return [
+            'slug' => $slug,
             'sub_article_category_id' => $data['sub_article_category_id'],
             'title' => $data['title'],
             'description' => $data['description'],
-            'photo' => $this->upload(UploadDiskEnum::ARTICLES->value, $request->file('photo')),
+            'photo' => $this->uploadSlug(UploadDiskEnum::ARTICLES->value, $request->file('photo'), $slug),
             'content' => $data['content'],
             'tags' => str_replace(', ', ',', $data['tags']),
             'status' => $data['status'],
@@ -66,12 +69,15 @@ class ArticleService implements ShouldHandleFileUpload, CustomUploadValidation
 
         $old_photo = $article->photo;
 
+        $slug = str_slug($data['title']);
+
         if ($request->hasFile('photo')) {
             $this->remove($old_photo);
-            $old_photo = $this->upload(UploadDiskEnum::ARTICLES->value, $request->file('photo'));
+            $old_photo = $this->uploadSlug(UploadDiskEnum::ARTICLES->value, $request->file('photo'), $slug);
         }
 
         return [
+            'slug' => $slug,
             'sub_article_category_id' => $data['sub_article_category_id'],
             'title' => $data['title'],
             'description' => $data['description'],
