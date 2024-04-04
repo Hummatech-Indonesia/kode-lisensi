@@ -293,24 +293,13 @@
 
                                             </div>
                                             <h6 class="unit">
-                                                @if ($product->status === ProductStatusEnum::AVAILABLE->value)
-                                                    @if ($product->licenses_count > 0)
-                                                        <h4>
-                                                            <span class="badge rounded-pill text-bg-success"> Tersedia:
-                                                                {{ $product->licenses_count }} Stok</span>
-                                                        </h4>
-                                                    @else
-                                                        <h4>
-                                                            <span class="badge rounded-pill text-bg-danger">Produk telah
-                                                                habis</span>
-                                                        </h4>
-                                                    @endif
-                                                @else
-                                                    <h4>
-                                                        <span
-                                                            class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                    </h4>
-                                                @endif
+                                                <h4>
+
+                                                    <a href="{{ route('home.products.show', $product->slug) }}"
+                                                        class="badge rounded p-1 text-bg-info text-white">
+                                                        Beli Sekarang
+                                                    </a>
+                                                </h4>
                                             </h6>
                                         </div>
                                     </div>
@@ -562,25 +551,13 @@
 
                                                 </div>
                                                 <h6 class="unit">
-                                                    @if ($product->status === ProductStatusEnum::AVAILABLE->value)
-                                                        @if ($product->licenses_count > 0)
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-success"> Tersedia:
-                                                                    {{ $product->licenses_count }} Stok</span>
-                                                            </h4>
-                                                        @else
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-danger">Produk
-                                                                    telah
-                                                                    habis</span>
-                                                            </h4>
-                                                        @endif
-                                                    @else
-                                                        <h4>
-                                                            <span
-                                                                class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                        </h4>
-                                                    @endif
+                                                    <h4>
+
+                                                        <a href="{{ route('home.products.show', $product->slug) }}"
+                                                            class="badge rounded p-1 text-bg-info text-white">
+                                                            Beli Sekarang
+                                                        </a>
+                                                    </h4>
                                                 </h6>
                                             </div>
                                         </div>
@@ -798,27 +775,13 @@
 
                                                 </div>
                                                 <h6 class="unit">
-                                                    @if ($latestProductNotBestSellers[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                        @if ($latestProductNotBestSellers[$i]->licenses_count > 0)
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-success">
-                                                                    Tersedia:
-                                                                    {{ $latestProductNotBestSellers[$i]->licenses_count }}
-                                                                    Stok</span>
-                                                            </h4>
-                                                        @else
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-danger">Produk
-                                                                    telah
-                                                                    habis</span>
-                                                            </h4>
-                                                        @endif
-                                                    @else
-                                                        <h4>
-                                                            <span
-                                                                class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                        </h4>
-                                                    @endif
+                                                    <h4>
+
+                                                        <a href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}"
+                                                            class="badge rounded p-1 text-bg-info text-white">
+                                                            Beli Sekarang
+                                                        </a>
+                                                    </h4>
                                                 </h6>
                                             </div>
                                         </div>
@@ -1035,27 +998,13 @@
 
                                                 </div>
                                                 <h6 class="unit">
-                                                    @if ($latestProductNotBestSellers[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                        @if ($latestProductNotBestSellers[$i]->licenses_count > 0)
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-success">
-                                                                    Tersedia:
-                                                                    {{ $latestProductNotBestSellers[$i]->licenses_count }}
-                                                                    Stok</span>
-                                                            </h4>
-                                                        @else
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-danger">Produk
-                                                                    telah
-                                                                    habis</span>
-                                                            </h4>
-                                                        @endif
-                                                    @else
-                                                        <h4>
-                                                            <span
-                                                                class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                        </h4>
-                                                    @endif
+                                                    <h4>
+
+                                                        <a href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}"
+                                                            class="badge rounded p-1 text-bg-info text-white">
+                                                            Beli Sekarang
+                                                        </a>
+                                                    </h4>
                                                 </h6>
                                             </div>
                                         </div>
@@ -1307,25 +1256,13 @@
 
                                                 </div>
                                                 <h6 class="unit">
-                                                    @if ($product->status === ProductStatusEnum::AVAILABLE->value)
-                                                        @if ($product->licenses_count > 0)
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-success"> Tersedia:
-                                                                    {{ $product->licenses_count }} Stok</span>
-                                                            </h4>
-                                                        @else
-                                                            <h4>
-                                                                <span class="badge rounded-pill text-bg-danger">Produk
-                                                                    telah
-                                                                    habis</span>
-                                                            </h4>
-                                                        @endif
-                                                    @else
-                                                        <h4>
-                                                            <span
-                                                                class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                        </h4>
-                                                    @endif
+                                                    <h4>
+
+                                                        <a href="{{ route('home.products.show', $product->slug) }}"
+                                                            class="badge rounded p-1 text-bg-info text-white">
+                                                            Beli Sekarang
+                                                        </a>
+                                                    </h4>
                                                 </h6>
                                             </div>
                                         </div>
@@ -1548,28 +1485,13 @@
 
                                                         </div>
                                                         <h6 class="unit">
-                                                            @if ($latestProductNotRatings[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                                @if ($latestProductNotRatings[$i]->licenses_count > 0)
-                                                                    <h4>
-                                                                        <span class="badge rounded-pill text-bg-success">
-                                                                            Tersedia:
-                                                                            {{ $latestProductNotRatings[$i]->licenses_count }}
-                                                                            Stok</span>
-                                                                    </h4>
-                                                                @else
-                                                                    <h4>
-                                                                        <span
-                                                                            class="badge rounded-pill text-bg-danger">Produk
-                                                                            telah
-                                                                            habis</span>
-                                                                    </h4>
-                                                                @endif
-                                                            @else
-                                                                <h4>
-                                                                    <span
-                                                                        class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                                </h4>
-                                                            @endif
+                                                            <h4>
+
+                                                                <a href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}"
+                                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                                    Beli Sekarang
+                                                                </a>
+                                                            </h4>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -1791,28 +1713,13 @@
 
                                                         </div>
                                                         <h6 class="unit">
-                                                            @if ($latestProductNotRatings[$i]->status === ProductStatusEnum::AVAILABLE->value)
-                                                                @if ($latestProductNotRatings[$i]->licenses_count > 0)
-                                                                    <h4>
-                                                                        <span class="badge rounded-pill text-bg-success">
-                                                                            Tersedia:
-                                                                            {{ $latestProductNotRatings[$i]->licenses_count }}
-                                                                            Stok</span>
-                                                                    </h4>
-                                                                @else
-                                                                    <h4>
-                                                                        <span
-                                                                            class="badge rounded-pill text-bg-danger">Produk
-                                                                            telah
-                                                                            habis</span>
-                                                                    </h4>
-                                                                @endif
-                                                            @else
-                                                                <h4>
-                                                                    <span
-                                                                        class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                                </h4>
-                                                            @endif
+                                                            <h4>
+
+                                                                <a href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}"
+                                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                                    Beli Sekarang
+                                                                </a>
+                                                            </h4>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -2122,24 +2029,13 @@
 
                                         </div>
                                         <h6 class="unit">
-                                            @if ($product->status === ProductStatusEnum::AVAILABLE->value)
-                                                @if ($product->licenses_count > 0)
-                                                    <h4>
-                                                        <span class="badge rounded-pill text-bg-success"> Tersedia:
-                                                            {{ $product->licenses_count }} Stok</span>
-                                                    </h4>
-                                                @else
-                                                    <h4>
-                                                        <span class="badge rounded-pill text-bg-danger">Produk telah
-                                                            habis</span>
-                                                    </h4>
-                                                @endif
-                                            @else
-                                                <h4>
-                                                    <span
-                                                        class="badge rounded-pill text-bg-info text-white">Preorder</span>
-                                                </h4>
-                                            @endif
+                                            <h4>
+
+                                                <a href="{{ route('home.products.show', $product->slug) }}"
+                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                    Beli Sekarang
+                                                </a>
+                                            </h4>
                                         </h6>
                                     </div>
                                 </div>
