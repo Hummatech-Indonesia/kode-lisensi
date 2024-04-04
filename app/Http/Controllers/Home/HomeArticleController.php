@@ -28,7 +28,7 @@ class HomeArticleController extends Controller
     public function index(Request $request): View
     {
         return view('pages.article', [
-            'title' => 'Artikel',
+            'title' => 'Artikel - KodeLisensi.com',
             'articles' => $this->article->customPaginate($request),
             'categories' => $this->category->getWhereHas()
         ]);
@@ -46,7 +46,7 @@ class HomeArticleController extends Controller
         $article->update(['view' => $article->view + 1]);
 
         return view('pages.article-detail', [
-            'title' => 'Artikel-' . $article->slug,
+            'title' => 'Artikel-' . $article->slug . ' - KodeLisensi.com',
             'description' => $article->description,
             'keywords' => $article->tags,
             'author' => $article->user->name,

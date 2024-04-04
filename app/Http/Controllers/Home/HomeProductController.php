@@ -61,7 +61,7 @@ class HomeProductController extends Controller
         }
 
         return view('pages.product', [
-            'title' => 'Products',
+            'title' => 'Product Unggulan Kami - KodeLisensi.com',
             'products' => $service['products'],
             'nextCursor' => $service['nextCursor'],
             'categories' => $this->category->get()

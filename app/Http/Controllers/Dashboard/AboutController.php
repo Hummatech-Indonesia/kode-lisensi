@@ -40,7 +40,7 @@ class AboutController extends Controller
     public function homepage(): View
     {
         return view('pages.about', [
-            'title' => 'Tentang Kami',
+            'title' => 'Tentang Kami - KodeLisensi.com',
             'about' => $this->about->get(),
         ]);
     }

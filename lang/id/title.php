@@ -13,14 +13,14 @@ return [
     |
     */
 
-    'login' => 'Masuk untuk mengakses akun anda. ',
-    'register' => 'Bergabung dengan kami dan daftarkan akun anda.',
-    'product' => 'Produk Unggulan kami',
-    'product_detail' => 'Produk :product',
-    'about' => 'Tentang ' . config('app.name'),
-    'term' => 'Syarat Dan Ketentuan ' . config('app.name'),
-    'privacy' => 'Kebijakan Penggunaan ' . config('app.name'),
-    'faq' => 'Bantuan Penggunaan ' . config('app.name'),
-    'checkout' => 'Pesan produk :product',
-    'articles' => 'Artikel Terbaik dari kami'
+    'login' => 'Masuk untuk mengakses akun anda. ' . ' - KodeLisensi.com',
+    'register' => 'Bergabung dengan kami dan daftarkan akun anda.' . ' - KodeLisensi.com',
+    'product' => 'Produk Unggulan kami' . ' - KodeLisensi.com',
+    'product_detail' => 'Produk :product' . ' - KodeLisensi.com',
+    'about' => 'Tentang ' . config('app.name') . ' - KodeLisensi.com',
+    'term' => 'Syarat Dan Ketentuan ' . config('app.name') . ' - KodeLisensi.com',
+    'privacy' => 'Kebijakan Penggunaan ' . config('app.name') . ' - KodeLisensi.com',
+    'faq' => 'Bantuan Penggunaan ' . config('app.name') . ' - KodeLisensi.com',
+    'checkout' => 'Pesan produk :product' . ' - KodeLisensi.com',
+    'articles' => 'Artikel Terbaik dari kami' . ' - KodeLisensi.com',
 ];

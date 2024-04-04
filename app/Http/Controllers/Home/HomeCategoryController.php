@@ -46,7 +46,7 @@ class HomeCategoryController extends Controller
         }
 
         return view('pages.category', [
-            'title' => 'Kategori ' . $slug . ' - Kodelisensi.com',
+            'title' => 'Kategori ' . $slug . ' - KodeLisensi.com',
             'products' => $service['products'],
             'nextCursor' => $service['nextCursor'],
         ]);
