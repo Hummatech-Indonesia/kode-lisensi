@@ -1,9 +1,16 @@
 <ul>
     <li>
-        <a href="#" data-bs-toggle="modal" data-id="{{ $data->id }}"
-            data-bs-target="#addProductReccomendationModal" class="text-primary product-recommendation"
-            title="rekomendasikan produk">
-            <i class="ri-arrow-up-fill"></i> </a>
+        @if ($data->product_recommendation == 0)
+            <a href="#" data-bs-toggle="modal" data-id="{{ $data->id }}"
+                data-bs-target="#addProductReccomendationModal" class="text-primary product-recommendation"
+                title="rekomendasikan produk">
+                <i class="ri-arrow-up-fill"></i> </a>
+        @else
+            <a href="#" data-bs-toggle="modal" data-id="{{ $data->id }}"
+                data-bs-target="#addProductReccomendationModal" class="text-primary delete-product-recommendation"
+                title="rekomendasikan produk">
+                <i class="ri-arrow-down-fill"></i> </a>
+        @endif
     </li>
     <li>
         <a class="text-primary" href="{{ route('products.show', $data->id) }}" title="lihat produk">

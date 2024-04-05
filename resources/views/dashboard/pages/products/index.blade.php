@@ -165,5 +165,26 @@
             'height': 'max-content',
             'width': '100%'
         });
+
+        $(document).on('click', '.delete-alert', function() {
+            $('#exampleModal').modal('show')
+            const id = $(this).attr('data-id');
+            let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
+            $('#deleteForm').attr('action', url);
+        });
+
+        $(document).on('click', '.product-recommendation', function() {
+            $('#addProductReccomendationModal').modal('show')
+            const id = $(this).attr('data-id');
+            let url = `{{ route('product.recommendation.update', ':id') }}`.replace(':id', id);
+            $('#productReccomendations').attr('action', url);
+        });
+
+        $(document).on('click', '.delete-product-recommendation', function() {
+            $('#deleteProductReccomendationModal').modal('show')
+            const id = $(this).attr('data-id');
+            let url = `{{ route('product.recommendation.delete', ':id') }}`.replace(':id', id);
+            $('#deleteProductReccomendations').attr('action', url);
+        });
     </script>
 @endsection
