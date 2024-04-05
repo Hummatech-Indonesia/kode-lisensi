@@ -60,12 +60,16 @@ trait UploadTrait
      */
     public function uploadSlug(string $disk, UploadedFile $file, string $slug, bool $originalName = false): string
     {
-        if (!$this->exist($disk)) {
+        if (!Storage::exists($disk)) {
             Storage::makeDirectory($disk);
         }
 
+        $slug = str_replace(' ', '-', $slug);
         $fileName = $originalName ? $file->getClientOriginalName() : $slug . '.' . $file->getClientOriginalExtension();
 
-        return $file->storeAs($disk . '/', $fileName);
+        // $fileName = $originalName ? $file->getClientOriginalName() : $slug . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs($disk . '/', $fileName);
+        return $fileName;
     }
 }
