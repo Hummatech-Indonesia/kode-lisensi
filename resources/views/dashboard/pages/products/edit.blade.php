@@ -107,12 +107,12 @@
                             <div class="col-sm-9">
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="1" style="margin-right: 0.6rem"
-                                        id="">
+                                        id=""  {{$product->discount_price == 1 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Nominal Harga</p>
                                 </div>
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="0" style="margin-right: 0.6rem"
-                                        id="">
+                                        id="" {{$product->discount_price == 0 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Presentase</p>
                                 </div>
                             </div>

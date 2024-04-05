@@ -8,7 +8,7 @@
         @else
             <a href="#" data-bs-toggle="modal" data-id="{{ $data->id }}"
                 data-bs-target="#addProductReccomendationModal" class="text-primary delete-product-recommendation"
-                title="rekomendasikan produk">
+                title="turunkan rekomendasi produk">
                 <i class="ri-arrow-down-fill"></i> </a>
         @endif
     </li>

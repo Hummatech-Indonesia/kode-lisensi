@@ -89,12 +89,14 @@
                         <div class="col-sm-9">
                             <div class="d-flex">
                                 <input type="radio" name="discount_price_varian" value="1"
-                                    style="margin-right: 0.6rem" id="">
+                                    style="margin-right: 0.6rem" id=""
+                                    {{ $product->discount_price == 1 ? 'checked' : '' }}>
                                 <p>Diskon Berdasarkan Nominal Harga</p>
                             </div>
                             <div class="d-flex">
                                 <input type="radio" name="discount_price_varian" value="0"
-                                    style="margin-right: 0.6rem" id="">
+                                    style="margin-right: 0.6rem" id=""
+                                    {{ $product->discount_price == 0 ? 'checked' : '' }}>
                                 <p>Diskon Berdasarkan Presentase</p>
                             </div>
                         </div>
@@ -240,12 +242,14 @@
                             <div class="col-sm-9">
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="1"
-                                        style="margin-right: 0.6rem" id="">
+                                        style="margin-right: 0.6rem" id=""
+                                        {{ $product->discount_price == 1 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Nominal Harga</p>
                                 </div>
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="0"
-                                        style="margin-right: 0.6rem" id="">
+                                        style="margin-right: 0.6rem" id=""
+                                        {{ $product->discount_price == 0 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Presentase</p>
                                 </div>
                             </div>
@@ -303,7 +307,7 @@
                         <label class="form-label-title col-sm-3 mb-0">Tipe Lisensi <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="status">
+                            <select class="form-control" name="status" {{ $product->varianProducts ? 'disabled' : '' }}>
                                 <option>--Pilih--</option>
                                 <option {{ old('status', $product->status) == 'stocking' ? 'selected' : '' }}
                                     value="stocking">Stock
