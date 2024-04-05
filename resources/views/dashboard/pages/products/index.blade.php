@@ -136,20 +136,6 @@
                 table.ajax.reload();
             });
 
-            $(document).on('click', '.delete-alert', function() {
-                $('#exampleModal').modal('show')
-                const id = $(this).attr('data-id');
-                let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
-                $('#deleteForm').attr('action', url);
-            });
-
-            $(document).on('click', '.product-recommendation', function() {
-                $('#addProductReccomendationModal').modal('show')
-                const id = $(this).attr('data-id');
-                let url = `{{ route('product.recommendation.update', ':id') }}`.replace(':id', id);
-                $('#productReccomendations').attr('action', url);
-            });
-
             const showSweetAlert = (data, table) => {
                 swal({
                     title: "Berhasil",

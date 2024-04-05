@@ -65,11 +65,9 @@ trait UploadTrait
         }
 
         $slug = str_replace(' ', '-', $slug);
+
         $fileName = $originalName ? $file->getClientOriginalName() : $slug . '.' . $file->getClientOriginalExtension();
 
-        // $fileName = $originalName ? $file->getClientOriginalName() : $slug . '.' . $file->getClientOriginalExtension();
-
-        $file->storeAs($disk . '/', $fileName);
-        return $fileName;
+        return $file->storeAs($disk . '/', $fileName);
     }
 }
