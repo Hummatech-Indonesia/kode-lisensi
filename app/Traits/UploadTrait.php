@@ -69,6 +69,6 @@ trait UploadTrait
 
         $fileName = $originalName ? $file->getClientOriginalName() : $slug . '.' . $file->getClientOriginalExtension();
 
-        return $file->storeAs($disk . '/', $fileName);
+        return $file->storeAs($disk, $fileName);
     }
 }
