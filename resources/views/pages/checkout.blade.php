@@ -381,9 +381,21 @@
                                         <li>
                                             <h4>Discount</h4>
                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                <h4 class="price">{{ $product->reseller_discount . '%' }}</h4>
+                                                @if ($product->discount_price == 1)
+                                                    <h4 class="price">
+                                                        {{ CurrencyHelper::rupiahCurrency($product->reseller_discount) }}
+                                                    </h4>
+                                                @else
+                                                    <h4 class="price">{{ $product->reseller_discount . '%' }}</h4>
+                                                @endif
                                             @else
-                                                <h4 class="price">{{ $product->discount . '%' }}</h4>
+                                                @if ($product->discount_price == 1)
+                                                    <h4 class="price">
+                                                        {{ CurrencyHelper::rupiahCurrency($product->discount) }}
+                                                    </h4>
+                                                @else
+                                                    <h4 class="price">{{ $product->discount . '%' }}</h4>
+                                                @endif
                                             @endif
                                         </li>
                                         <li>
@@ -398,6 +410,8 @@
                                                     $subtotal = CurrencyHelper::countPriceAfterDiscount(
                                                         $product->sell_price,
                                                         $discount,
+                                                        false,
+                                                        $product->discount_price,
                                                     );
                                                 } else {
                                                     $discount =
@@ -408,6 +422,8 @@
                                                     $subtotal = CurrencyHelper::countPriceAfterDiscount(
                                                         $product->varianProducts[0]->sell_price,
                                                         $discount,
+                                                        false,
+                                                        $product->discount_price,
                                                     );
                                                 }
                                             @endphp
@@ -470,6 +486,8 @@
                                                 $subtotal = CurrencyHelper::countPriceAfterDiscount(
                                                     $product->sell_price,
                                                     $discount,
+                                                    false,
+                                                    $product->discount_price,
                                                 );
                                             @endphp
                                             <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>

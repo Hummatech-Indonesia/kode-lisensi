@@ -90,14 +90,14 @@ class TransactionService
         if ($slug_varian) {
             $varianProduct = $this->varianProduct->getWhere(['product_id' => $product->id, 'slug_varian' => $slug_varian]);
             $varianProductId = $varianProduct->id;
-            $price = CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $discount);
+            $price = CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $discount, false, $product->discount_price);
         } else {
             $varianProductId = null;
             $varianProduct = null;
-            $price = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount);
+            $price = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $discount, false, $product->discount_price);
         }
 
-        $fee = CurrencyHelper::countProductTax($price, 10);
+        $fee = CurrencyHelper::countProductTax($price, 10, $product->discount_price);
         $amount = CurrencyHelper::countPriceAfterTax($price, 10);
 
         $signature = $this->service->handleGenerateSignature($external_id, $amount);
@@ -129,7 +129,6 @@ class TransactionService
         if ($license = $this->license->getOldest($product->id)) {
             $license_id = ($product->status === ProductStatusEnum::PREORDER->value) ? null : $license->id;
         }
-
         $transaction = $this->transaction->store([
             'id' => $createInvoice['data']['reference'],
             'invoice_id' => $createInvoice['data']['merchant_ref'],

@@ -13,7 +13,7 @@ class VarianProductStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|max:255|unique:products,name',
             'category_id' => 'required|exists:categories,id',
             'short_description' => 'required|max:150',
@@ -24,15 +24,21 @@ class VarianProductStoreRequest extends FormRequest
             'sell_price_varian' => 'required|array',
             'discount_price_varian' => 'required',
             'sell_price_varian.*' => 'required',
-            'discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
-            'reseller_discount_varian' => 'required|regex:/^[0-9]*$/|integer|between:0,100',
             'type' => 'required',
             'description' => 'required',
             'features' => 'required',
             'installation' => 'required',
             'photo' => 'required|max:5000|mimes:jpg,png,jpeg',
-
         ];
+        if ($this->input('discount_price_varian') == 1) {
+            $rules['discount_varian'] = 'required|regex:/^[0-9]*$/|integer';
+            $rules['reseller_discount_varian'] = 'required|regex:/^[0-9]*$/|integer';
+        } else {
+            $rules['discount_varian'] = 'required|regex:/^[0-9]*$/|integer|between:0,100';
+            $rules['reseller_discount_varian'] = 'required|regex:/^[0-9]*$/|integer|between:0,100';
+        }
+
+        return $rules;
     }
 
     /**
@@ -44,14 +50,14 @@ class VarianProductStoreRequest extends FormRequest
     {
         return [
             // start varian
-            'discount_varian.required'=>'Diskon varian tidak boleh kosong',
-            'reseller_discount_varian.required'=>'Diskon varian reseller tidak boleh kosong',
-            'name_varian.required'=>'Nama varian tidak boleh kosong',
+            'discount_varian.required' => 'Diskon varian tidak boleh kosong',
+            'reseller_discount_varian.required' => 'Diskon varian reseller tidak boleh kosong',
+            'name_varian.required' => 'Nama varian tidak boleh kosong',
             'name_varian.*.required' => 'Nama varian pada index ke: :index tidak boleh kosong',
-            'buy_price_varian.required'=>'Harga beli varian tidak boleh kosong',
-            'buy_price_varian.*.required'=>'Harga beli varian pada index ke: :index tidak boleh kosong',
-            'sell_price_varian.required'=>'Harga jual varian tidak boleh kosong',
-            'sell_price_varian.*.required'=>'Harga jual varian pada index ke: :index tidak boleh kosong',
+            'buy_price_varian.required' => 'Harga beli varian tidak boleh kosong',
+            'buy_price_varian.*.required' => 'Harga beli varian pada index ke: :index tidak boleh kosong',
+            'sell_price_varian.required' => 'Harga jual varian tidak boleh kosong',
+            'sell_price_varian.*.required' => 'Harga jual varian pada index ke: :index tidak boleh kosong',
             // end varian
             'name.required' => 'Nama tidak boleh kosong',
             'name.max' => 'Nama maksimal 255 karakter',

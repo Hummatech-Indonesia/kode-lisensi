@@ -14,9 +14,13 @@ class CurrencyHelper
      * @return float|string
      */
 
-    public static function countPriceAfterDiscount(float $price, float $discount, bool $formatted = false): float|string
+    public static function countPriceAfterDiscount(float $price, float $discount, bool $formatted = false, int $discount_price = null): float|string
     {
-        $total = $price - ($price * ($discount / 100));
+        if ($discount_price == 1) {
+            $total = $price - $discount;
+        } else {
+            $total = $price - ($price * ($discount / 100));
+        }
 
         if ($formatted) {
             return self::rupiahCurrency($total);
@@ -72,16 +76,18 @@ class CurrencyHelper
         return ($price * ($tax / 100));
     }
 
-    public static function varianPrice(mixed $varianProducts){
+    public static function varianPrice(mixed $varianProducts)
+    {
         $minSellPrice = PHP_INT_MAX; // Inisialisasi dengan nilai maksimum PHP_INT_MAX
 
-    foreach ($varianProducts as $varianProduct) {
-        $minSellPrice = min($minSellPrice, $varianProduct->sell_price);
-    }
+        foreach ($varianProducts as $varianProduct) {
+            $minSellPrice = min($minSellPrice, $varianProduct->sell_price);
+        }
 
-    return $minSellPrice;
+        return $minSellPrice;
     }
-    public static function varianPriceMax(mixed $varianProducts){
+    public static function varianPriceMax(mixed $varianProducts)
+    {
         $maxSellPrice = PHP_INT_MIN; // Inisialisasi dengan nilai minimum PHP_INT_MIN
 
         foreach ($varianProducts as $varianProduct) {

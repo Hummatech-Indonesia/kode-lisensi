@@ -248,15 +248,6 @@
                                     <textarea readonly id="installation" cols="30" rows="10">{!! $product->installation !!}</textarea>
                                 </div>
                             </div>
-
-                            {{-- <div class="row align-items-center">
-                                <label class="form-label-title col-lg-2 col-md-3 mb-0">Buku Panduan</label>
-                                <div class="col-md-9 col-lg-10">
-                                    <a style="width: 20%;" target="_blank"
-                                        href="{{ asset('storage/' . $product->attachment_file) }}"
-                                        class="btn btn-danger">Lihat File</a>
-                                </div>
-                            </div> --}}
                         </div>
                     </form>
                 </div>
