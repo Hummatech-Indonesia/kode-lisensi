@@ -107,14 +107,17 @@
                             <div class="col-sm-9">
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="1" style="margin-right: 0.6rem"
-                                        id=""  {{$product->discount_price == 1 ? 'checked' : '' }}>
+                                        id=""
+                                        {{ old('discount_price', $product->discount_price) == 1 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Nominal Harga</p>
                                 </div>
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="0" style="margin-right: 0.6rem"
-                                        id="" {{$product->discount_price == 0 ? 'checked' : '' }}>
+                                        id=""
+                                        {{ old('discount_price', $product->discount_price) == 0 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Presentase</p>
                                 </div>
+
                             </div>
                         </div>
                         <thead>
@@ -129,8 +132,8 @@
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    <input min="0" id="discount" name="discount"
-                                        value="{{ $product->discount }}" class="form-control" type="number">
+                                    <input min="0" id="discount" name="discount" value="{{ $product->discount }}"
+                                        class="form-control" type="number">
                                 </td>
                                 <td>
                                     <span id="customer_label">Rp. 0</span>

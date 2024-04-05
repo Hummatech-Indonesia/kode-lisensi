@@ -90,15 +90,16 @@
                             <div class="d-flex">
                                 <input type="radio" name="discount_price_varian" value="1"
                                     style="margin-right: 0.6rem" id=""
-                                    {{ $product->discount_price == 1 ? 'checked' : '' }}>
+                                    {{ old('discount_price_varian', $product->discount_price) == 1 ? 'checked' : '' }}>
                                 <p>Diskon Berdasarkan Nominal Harga</p>
                             </div>
                             <div class="d-flex">
                                 <input type="radio" name="discount_price_varian" value="0"
                                     style="margin-right: 0.6rem" id=""
-                                    {{ $product->discount_price == 0 ? 'checked' : '' }}>
+                                    {{ old('discount_price_varian', $product->discount_price) == 0 ? 'checked' : '' }}>
                                 <p>Diskon Berdasarkan Presentase</p>
                             </div>
+
                         </div>
                     </div>
                     <table class="table variation-table table-responsive-sm">
@@ -243,15 +244,16 @@
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="1"
                                         style="margin-right: 0.6rem" id=""
-                                        {{ $product->discount_price == 1 ? 'checked' : '' }}>
+                                        {{ old('discount_price', $product->discount_price) == 1 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Nominal Harga</p>
                                 </div>
                                 <div class="d-flex">
                                     <input type="radio" name="discount_price" value="0"
                                         style="margin-right: 0.6rem" id=""
-                                        {{ $product->discount_price == 0 ? 'checked' : '' }}>
+                                        {{ old('discount_price', $product->discount_price) == 0 ? 'checked' : '' }}>
                                     <p>Diskon Berdasarkan Presentase</p>
                                 </div>
+
                             </div>
                         </div>
                         <thead>
