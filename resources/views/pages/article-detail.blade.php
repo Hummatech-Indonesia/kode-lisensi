@@ -5,15 +5,10 @@
 @extends('layouts.main')
 @section('asset')
     <style>
-        ol {
-            display: block !important;
-            list-style-type: decimal !important;
-            margin-block-start: 1em !important;
-            margin-block-end: 1em !important;
-            margin-inline-start: 0px !important;
-            margin-inline-end: 0px !important;
-            padding-inline-start: 40px !important;
-            unicode-bidi: isolate !important;
+        table,
+        th,
+        td {
+            border: 1px solid black;
         }
     </style>
 @endsection
@@ -157,9 +152,6 @@
                         <p data-style="no-styling">
                             {!! $article->content !!}
                         </p>
-                        <ol>
-                            <li>huahahaha</li>
-                        </ol>
                     </div>
                     <div class="comment-box overflow-hidden">
                         <div class="leave-title">

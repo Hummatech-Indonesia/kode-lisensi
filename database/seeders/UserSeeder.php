@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             $role = Role::create([
                 'name' => $user
             ]);
+            
             if ($user == 'reseller') {
                 $code = strtolower(str_random(7));
             } else {
