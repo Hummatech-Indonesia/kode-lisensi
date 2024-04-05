@@ -46,7 +46,7 @@ class SiteSettingController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('logo')) {
-            $upload = $this->siteSettingService->validateAndUpload(UploadDiskEnum::SITE_SETTING->value, $request->file('logo'), $site_setting->logo);
+            $upload = $this->siteSettingService->validateAndUpload(UploadDiskEnum::SITE_SETTING->value, $request->file('logo'), $site_setting->logo, "profil-kodelisensi-" . now());
         }
 
         $this->setting->update($site_setting->id, [
@@ -63,5 +63,4 @@ class SiteSettingController extends Controller
 
         return back()->with('success', trans('alert.update_success'));
     }
-
 }
