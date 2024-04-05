@@ -65,6 +65,7 @@ trait UploadTrait
         }
 
         $slug = str_replace(' ', '-', $slug);
+        $slug = str_replace(':', '-', $slug);
 
         $fileName = $originalName ? $file->getClientOriginalName() : $slug . '.' . $file->getClientOriginalExtension();
 
