@@ -250,6 +250,7 @@
                                                                     data-name="{{ $varianProduct->name }}"
                                                                     data-product = "{{ $product->slug }}"
                                                                     data-discount="{{ $product->reseller_discount }}"
+                                                                    data-discount-price="{{ $product->discount_price }}"
                                                                     id="varian-product-{{ $varianProduct->id }}"
                                                                     class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                             </li>
@@ -262,6 +263,7 @@
                                                                     data-product = "{{ $product->slug }}"
                                                                     data-name="{{ $varianProduct->name }}"
                                                                     data-discount="{{ $product->discount }}"
+                                                                    data-discount-price="{{ $product->discount_price }}"
                                                                     id="varian-product-{{ $varianProduct->id }}"
                                                                     class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                             </li>
@@ -276,6 +278,7 @@
                                                                 data-slug="{{ $varianProduct->slug }}"
                                                                 data-name="{{ $varianProduct->name }}"
                                                                 data-discount="{{ $product->discount }}"
+                                                                data-discount-price="{{ $product->discount_price }}"
                                                                 id="varian-product-{{ $varianProduct->id }}"
                                                                 class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                         </li>
@@ -293,6 +296,7 @@
                                                                     data-name="{{ $varianProduct->name }}"
                                                                     data-product = "{{ $product->slug }}"
                                                                     data-discount="{{ $product->reseller_discount }}"
+                                                                    data-discount-price="{{ $product->discount_price }}"
                                                                     id="varian-product-{{ $varianProduct->id }}"
                                                                     class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                             </li>
@@ -305,6 +309,7 @@
                                                                     data-product = "{{ $product->slug }}"
                                                                     data-name="{{ $varianProduct->name }}"
                                                                     data-discount="{{ $product->discount }}"
+                                                                    data-discount-price="{{ $product->discount_price }}"
                                                                     id="varian-product-{{ $varianProduct->id }}"
                                                                     class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                             </li>
@@ -318,6 +323,7 @@
                                                                 data-slug="{{ $varianProduct->slug }}"
                                                                 data-name="{{ $varianProduct->name }}"
                                                                 data-discount="{{ $product->discount }}"
+                                                                data-discount-price="{{ $product->discount_price }}"
                                                                 id="varian-product-{{ $varianProduct->id }}"
                                                                 class="varian-product{{ $index == 0 ? ' active' : '' }}">{{ $varianProduct->name }}</a>
                                                         </li>
@@ -1214,9 +1220,10 @@
                 var sellPrice = parseFloat($(this).data(
                     'sell-price'));
                 var discount = parseFloat($(this).data('discount'));
+                var discount_price = parseInt($(this).data('discount-price'));
                 var code = $(this).data('user');
                 var formattedPrice = formatCurrency(sellPrice);
-                var discountPrice = discountCurrency(sellPrice, discount);
+                var discountPrice = discountCurrency(sellPrice, discount, discount_price);
                 var product = $(this).data("product");
                 var slug = $(this).data('slug');
                 if (code) {
@@ -1230,6 +1237,7 @@
                 }
 
                 $('#discount-price').text(formatCurrency(discountPrice));
+                // $('#discount-price').text(formatCurrency(discountPrice));
                 $('#price-product').text(formattedPrice);
             });
 
@@ -1239,8 +1247,15 @@
                 });
             }
 
-            function discountCurrency(price, discount) {
-                let total = price - (price * (discount / 100));
+            function discountCurrency(price, discount, discount_price) {
+                // let total = price - (price * (discount / 100));
+                let total;
+                console.log(discount_price)
+                if (discount_price == 1) {
+                    total = price - discount;
+                } else {
+                    total = price - (price * (discount / 100));
+                }
                 return total;
             }
         });
