@@ -14,9 +14,10 @@
                     @endif
                 </div>
                 <div class="title-header option-title">
-                    <h5>Halaman sub-kategori Artikel {{$articleName}}</h5>
+                    <h5>Halaman sub-kategori Artikel {{ $articleName }}</h5>
                     <form class="d-inline-flex">
-                        <a href="{{ route('sub-article-categories.create',$articleId) }}" class="align-items-center btn btn-theme d-flex">
+                        <a href="{{ route('sub-article-categories.create', $articleId) }}"
+                            class="align-items-center btn btn-theme d-flex">
                             <i data-feather="plus-square"></i>
                             Tambah Kategori Baru
                         </a>
@@ -47,7 +48,8 @@
                                                 <ul>
 
                                                     <li>
-                                                        <a href="{{ route('sub-article-categories.edit',[$articleId, $category->id]) }}">
+                                                        <a
+                                                            href="{{ route('sub-article-categories.edit', [$articleId, $category->id]) }}">
                                                             <i class="ri-pencil-line"></i>
                                                         </a>
                                                     </li>

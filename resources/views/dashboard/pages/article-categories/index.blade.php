@@ -61,7 +61,7 @@
                                                             action="{{ route('article-categories.destroy', $category) }}">
                                                             @method('DELETE')
                                                             @csrf
-                                                            <button class="btn text-danger delete-sweetalert" type="submit">
+                                                            <button class="btn p-0 text-danger delete-sweetalert" type="submit">
                                                                 <i class="ri-delete-bin-line"></i>
                                                             </button>
                                                         </form>
