@@ -388,9 +388,6 @@
                                                             </a>
                                                         @endif
                                                     </li>
-
-
-
                                                     @auth
                                                         @if ($product->product_favorites->where('user_id', auth()->user()->id)->first())
                                                             <li data-bs-toggle="tooltip" class="favorite"
@@ -448,6 +445,7 @@
                                                 <a href="{{ route('home.products.show', $product->slug) }}">
                                                     <h3 class="name mb-1">{{ $product->name }}</h3>
                                                 </a>
+                                                @dd($product->discount_price)
                                                 @if ($product->discount_price == 0)
                                                     @auth
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
