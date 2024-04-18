@@ -411,7 +411,7 @@ class SummaryService
     {
         return $this->product->query()
             ->whereNot('slug', $product->slug)
-            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at','discount_price')
             ->with('category')
             ->withCount(['product_ratings', 'licenses'])
             ->withSum([
@@ -435,7 +435,7 @@ class SummaryService
     public function handleSameCategoryProducts(string $product_id, int $category_id, int $take = 15): object
     {
         return $this->product->query()
-            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at', 'discount_price')
             ->where('category_id', $category_id)
             ->whereNot('id', $product_id)
             ->with('category')
