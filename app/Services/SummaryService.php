@@ -354,7 +354,7 @@ class SummaryService
     public function handleLatestProductNotBestSeller(int $take = 15): object
     {
         return $this->product->query()
-            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at')
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at', 'discount_price')
             ->with(['category', 'varianProducts'])
             ->withCount([
                 'product_ratings',
