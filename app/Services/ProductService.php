@@ -36,13 +36,13 @@ class ProductService implements ShouldHandleFileUpload
     public function store(ProductStoreRequest $request): array|bool
     {
         $data = $request->validated();
-        if ($data['discount_price'] == 1) {
-            $discount = $data['discount'] / $data['sell_price'] * 100;
-            $reseller_discount = $data['reseller_discount'] / $data['sell_price'] * 100;
-            $data['sell_price'];
-            $data['discount'] = $discount;
-            $data['reseller_discount'] = $reseller_discount;
-        }
+        // if ($data['discount_price'] == 1) {
+        //     $discount = $data['discount'] / $data['sell_price'] * 100;
+        //     $reseller_discount = $data['reseller_discount'] / $data['sell_price'] * 100;
+        //     $data['sell_price'];
+        //     $data['discount'] = $discount;
+        //     $data['reseller_discount'] = $reseller_discount;
+        // }
 
         $slug = str_slug($data['name']);
 
@@ -125,13 +125,13 @@ class ProductService implements ShouldHandleFileUpload
     public function update(Product $product, ProductUpdateRequest $request): array|bool
     {
         $data = $request->validated();
-        if ($data['discount_price'] == 1) {
-            $discount = $data['discount'] / $data['sell_price'] * 100;
-            $reseller_discount = $data['reseller_discount'] / $data['sell_price'] * 100;
-            $data['sell_price'];
-            $data['discount'] = $discount;
-            $data['reseller_discount'] = $reseller_discount;
-        }
+        // if ($data['discount_price'] == 1) {
+        //     $discount = $data['discount'] / $data['sell_price'] * 100;
+        //     $reseller_discount = $data['reseller_discount'] / $data['sell_price'] * 100;
+        //     $data['sell_price'];
+        //     $data['discount'] = $discount;
+        //     $data['reseller_discount'] = $reseller_discount;
+        // }
         $old_photo = $product->photo;
         $old_attachment = $product->attachment_file;
 
@@ -172,20 +172,20 @@ class ProductService implements ShouldHandleFileUpload
     public function varianProductUpdate(Product $product, VarianProductUpdateRequest $request)
     {
         $data = $request->validated();
-        if ($data['discount_price_varian'] == 1) {
-            $discounts = [];
-            $reseller_discounts = [];
+        // if ($data['discount_price_varian'] == 1) {
+        //     $discounts = [];
+        //     $reseller_discounts = [];
 
-            foreach ($data['sell_price_varian'] as $sellPrice) {
-                $discount = intval($data['discount_varian']) / intval($sellPrice) * 100;
-                $reseller_discount = intval($data['reseller_discount_varian']) / intval($sellPrice) * 100;
+        //     foreach ($data['sell_price_varian'] as $sellPrice) {
+        //         $discount = intval($data['discount_varian']) / intval($sellPrice) * 100;
+        //         $reseller_discount = intval($data['reseller_discount_varian']) / intval($sellPrice) * 100;
 
-                $discounts[] = $discount;
-                $reseller_discounts[] = $reseller_discount;
-            }
-            $data['discount_varian'] = $discounts[0];
-            $data['reseller_discount_varian'] = $reseller_discounts[0];
-        }
+        //         $discounts[] = $discount;
+        //         $reseller_discounts[] = $reseller_discount;
+        //     }
+        //     $data['discount_varian'] = $discounts[0];
+        //     $data['reseller_discount_varian'] = $reseller_discounts[0];
+        // }
         $old_photo = $product->photo;
 
         $slug = str_slug($data['name']);

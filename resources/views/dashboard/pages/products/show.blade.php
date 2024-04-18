@@ -121,24 +121,34 @@
                                             </tr>
                                             <tr>
                                                 <th scope="col">Customer</th>
-                                                <td>
-                                                    {{ $product->discount . '%' }}
-                                                </td>
+                                                @if ($product->discount_price == 1)
+                                                    <td>{{ 'Rp ' . number_format($product->discount, 0, ',', '.') }}</td>
+                                                @else
+                                                    <td>
+                                                        {{ $product->discount . '%' }}
+                                                    </td>
+                                                @endif
+                                                {{-- <td>{{CurrencyHelper::countPriceAfterDiscount($product->sell_price)}}</td> --}}
                                                 @if ($product->varianProducts->isEmpty())
                                                     <td>
-                                                        {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true) }}
+                                                        {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true, $product->discount_price) }}
                                                     </td>
                                                 @endif
                                             </tr>
                                             <tr>
                                                 <th scope="col">Reseller</th>
-                                                <td>
-                                                    {{ $product->reseller_discount . '%' }}
-                                                </td>
+                                                @if ($product->discount_price == 1)
+                                                    <td>{{ 'Rp ' . number_format($product->reseller_discount, 0, ',', '.') }}
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        {{ $product->reseller_discount . '%' }}
+                                                    </td>
+                                                @endif
                                                 @if ($product->varianProducts->isEmpty())
                                                     <td>
                                                         <span
-                                                            id="reseller_label">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true) }}</span>
+                                                            id="reseller_label">{{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true, $product->discount_price) }}</span>
                                                     </td>
                                                 @endif
                                             </tr>
@@ -408,16 +418,29 @@
                                         <th scope="col">Diskon</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Customer</td>
-                                        <td>{{ $product->discount . '%' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Reseller</td>
-                                        <td>{{ $product->reseller_discount . '%' }}</td>
-                                    </tr>
-                                </tbody>
+                                @if ($product->discount_price == 1)
+                                    <tbody>
+                                        <tr>
+                                            <td>Customer</td>
+                                            <td>{{ 'Rp ' . number_format($product->discount, 0, ',', '.') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reseller</td>
+                                            <td>{{ 'Rp ' . number_format($product->reseller_discount, 0, ',', '.') }}</td>
+                                        </tr>
+                                    </tbody>
+                                @else
+                                    <tbody>
+                                        <tr>
+                                            <td>Customer</td>
+                                            <td>{{ $product->discount . '%' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reseller</td>
+                                            <td>{{ $product->reseller_discount . '%' }}</td>
+                                        </tr>
+                                    </tbody>
+                                @endif
                             </table>
                         </div>
                     </div>
@@ -443,9 +466,9 @@
                                                 <td>{{ $varianProduct->name }}</td>
                                                 <td>{{ CurrencyHelper::rupiahCurrency($varianProduct->buy_price) }}</td>
                                                 <td>{{ CurrencyHelper::rupiahCurrency($varianProduct->sell_price) }}</td>
-                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->discount)) }}
+                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->discount, false, $product->discount_price)) }}
                                                 </td>
-                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->reseller_discount)) }}
+                                                <td>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($varianProduct->sell_price, $product->reseller_discount, false, $product->discount_price)) }}
                                                 </td>
                                                 <td>
                                                     <div class="" style="display: flex">
