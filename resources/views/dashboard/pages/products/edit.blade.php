@@ -453,6 +453,7 @@
 
         });
     </script>
+    
     <script>
         $(document).ready(function() {
             $('#short_description_input').on('input', function() {

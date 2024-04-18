@@ -41,9 +41,10 @@
                         <label class="form-label-title col-sm-3 mb-0">Deskripsi singkat <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input value="{{ old('short_description', $product->short_description) }}" autocomplete="off"
+                            <input id="short_description_input" value="{{ $product->short_description }}" autocomplete="off"
                                 name="short_description" class="form-control" type="text"
                                 placeholder="Lisensi ori windows 10 professional untuk perorangan">
+                            <span id="char_count"></span>
                         </div>
                     </div>
                     <div class="mb-4 row align-items-center justify-content-end" style="display: none;">
@@ -605,10 +606,7 @@
                 row.find('.reseller_label_varian').text(convertRupiah(result_reseller_discount));
 
             }
-
         });
-    </script>
-    <script>
         $(document).ready(function() {
             $('#short_description_input').on('input', function() {
                 var maxLength = 150;
