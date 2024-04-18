@@ -448,19 +448,37 @@
                                                 <a href="{{ route('home.products.show', $product->slug) }}">
                                                     <h3 class="name mb-1">{{ $product->name }}</h3>
                                                 </a>
-                                                @auth
-                                                    @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                        <h4 class="badge bg-warning">Discount:
-                                                            {{ $product->reseller_discount }}%</h4>
+                                                @if ($product->discount_price == 0)
+                                                    @auth
+                                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                            <h4 class="badge bg-warning">Discount:
+                                                                {{ $product->reseller_discount }}%</h4>
+                                                        @else
+                                                            <h4><span class="badge bg-warning">Discount:
+                                                                    {{ $product->discount }}%</span></h4>
+                                                        @endif
                                                     @else
                                                         <h4><span class="badge bg-warning">Discount:
-                                                                {{ $product->discount }}%</span></h4>
-                                                    @endif
+                                                                {{ $product->discount }}%</span>
+                                                        </h4>
+                                                    @endauth
+                                                @else
+                                                @auth
+                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                    <h4><span class="badge bg-warning">Discount:
+                                                            {{ CurrencyHelper::rupiahCurrency($product->reseller_discount) }}</span>
+                                                    </h4>
                                                 @else
                                                     <h4><span class="badge bg-warning">Discount:
-                                                            {{ $product->discount }}%</span>
+                                                            {{ CurrencyHelper::rupiahCurrency($product->discount) }}</span>
                                                     </h4>
-                                                @endauth
+                                                @endif
+                                            @else
+                                                <h4><span class="badge bg-warning">Discount:
+                                                        {{ CurrencyHelper::rupiahCurrency($product->discount) }}</span>
+                                                </h4>
+                                            @endauth
+                                                @endif
 
 
                                                 <h5 class="price">
