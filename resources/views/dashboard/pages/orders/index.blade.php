@@ -25,7 +25,6 @@
                             <th>Produk</th>
                             <th>Bayar</th>
                             <th>Metode</th>
-                            <th>Catatan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -74,18 +73,6 @@
                     {
                         data: 'payment_method',
                         name: 'payment_method'
-                    },
-                    {
-                        data: 'detail_transaction.note',
-                        name: 'detail_transaction.note',
-                        render: function(data, type, row) {
-                            // Jika panjang catatan lebih dari 50 karakter, potong dan tambahkan titik-titik
-                            if (data.length > 50) {
-                                return data.substr(0, 50) + '...';
-                            } else {
-                                return data;
-                            }
-                        }
                     },
                     {
                         data: 'action',
