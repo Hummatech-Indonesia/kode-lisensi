@@ -17,7 +17,7 @@ class NotificationHelper extends NotificationContainer implements CountInterface
     public static function count(): int
     {
         return count(self::baseNotification());
-    }
+    }   
 
     /**
      * Get all notifications with provided parameter

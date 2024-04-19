@@ -265,7 +265,7 @@
                                                         <h4 class="theme-color fw-bold">
                                                             {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, false, $product->discount_price)) }}
                                                             -
-                                                            {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true,$product->discount_price) }}
+                                                            {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true, $product->discount_price) }}
                                                         </h4>
                                                     @endauth
                                                 @endif
@@ -703,7 +703,7 @@
                                                             <h3 class="name mb-1">
                                                                 {{ $latestProductNotBestSellers[$i]->name }}</h3>
                                                         </a>
-                                                        @if ($latestProductNotBestSellers[$i]->discount_price == 0)
+                                                        @if ($latestProductNotBestSellers[$i]->discount_price == 1)
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                                     <h4><span class="badge bg-warning">Discount:
@@ -720,6 +720,19 @@
                                                                 </h4>
                                                             @endauth
                                                         @else
+                                                            @auth
+                                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                                    <h4 class="badge bg-warning">Discount:
+                                                                        {{ $product->reseller_discount }}%</h4>
+                                                                @else
+                                                                    <h4><span class="badge bg-warning">Discount:
+                                                                            {{ $product->discount }}%</span></h4>
+                                                                @endif
+                                                            @else
+                                                                <h4><span class="badge bg-warning">Discount:
+                                                                        {{ $product->discount }}%</span>
+                                                                </h4>
+                                                            @endauth
                                                         @endif
 
                                                         <h5 class="price">
@@ -935,36 +948,38 @@
                                                         </a>
 
                                                         @if ($latestProductNotBestSellers[$i]->discount_price == 0)
-                                                    @auth
-                                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                            <h4 class="badge bg-warning">Discount:
-                                                                {{ $latestProductNotBestSellers[$i]->reseller_discount }}%</h4>
+                                                            @auth
+                                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                                    <h4 class="badge bg-warning">Discount:
+                                                                        {{ $latestProductNotBestSellers[$i]->reseller_discount }}%
+                                                                    </h4>
+                                                                @else
+                                                                    <h4><span class="badge bg-warning">Discount:
+                                                                            {{ $latestProductNotBestSellers[$i]->discount }}%</span>
+                                                                    </h4>
+                                                                @endif
+                                                            @else
+                                                                <h4><span class="badge bg-warning">Discount:
+                                                                        {{ $latestProductNotBestSellers[$i]->discount }}%</span>
+                                                                </h4>
+                                                            @endauth
                                                         @else
-                                                            <h4><span class="badge bg-warning">Discount:
-                                                                    {{ $latestProductNotBestSellers[$i]->discount }}%</span></h4>
+                                                            @auth
+                                                                @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
+                                                                    <h4><span class="badge bg-warning">Discount:
+                                                                            {{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->reseller_discount) }}</span>
+                                                                    </h4>
+                                                                @else
+                                                                    <h4><span class="badge bg-warning">Discount:
+                                                                            {{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->discount) }}</span>
+                                                                    </h4>
+                                                                @endif
+                                                            @else
+                                                                <h4><span class="badge bg-warning">Discount:
+                                                                        {{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->discount) }}</span>
+                                                                </h4>
+                                                            @endauth
                                                         @endif
-                                                    @else
-                                                        <h4><span class="badge bg-warning">Discount:
-                                                                {{ $latestProductNotBestSellers[$i]->discount }}%</span>
-                                                        </h4>
-                                                    @endauth
-                                                @else
-                                                    @auth
-                                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                            <h4><span class="badge bg-warning">Discount:
-                                                                    {{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->reseller_discount) }}</span>
-                                                            </h4>
-                                                        @else
-                                                            <h4><span class="badge bg-warning">Discount:
-                                                                    {{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->discount) }}</span>
-                                                            </h4>
-                                                        @endif
-                                                    @else
-                                                        <h4><span class="badge bg-warning">Discount:
-                                                                {{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->discount) }}</span>
-                                                        </h4>
-                                                    @endauth
-                                                @endif
 
 
                                                         <h5 class="price">
@@ -975,14 +990,14 @@
                                                                             <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                         @endif
                                                                         <h4 class="theme-color fw-bold">
-                                                                            {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->reseller_discount, true,$latestProductNotBestSellers[$i]->discount_price) }}
+                                                                            {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->reseller_discount, true, $latestProductNotBestSellers[$i]->discount_price) }}
                                                                         </h4>
                                                                     @else
                                                                         @if ($latestProductNotBestSellers[$i]->discount)
                                                                             <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                         @endif
                                                                         <h4 class="theme-color fw-bold">
-                                                                            {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true,$latestProductNotBestSellers[$i]->discount_price) }}
+                                                                            {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true, $latestProductNotBestSellers[$i]->discount_price) }}
                                                                         </h4>
                                                                     @endif
                                                                 @else
@@ -990,7 +1005,7 @@
                                                                         <del>{{ CurrencyHelper::rupiahCurrency($latestProductNotBestSellers[$i]->sell_price) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true,$latestProductNotBestSellers[$i]->discount_price) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount($latestProductNotBestSellers[$i]->sell_price, $latestProductNotBestSellers[$i]->discount, true, $latestProductNotBestSellers[$i]->discount_price) }}
                                                                     </h4>
                                                                 @endauth
                                                             @else
@@ -1013,9 +1028,9 @@
                                                                                 {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                         @endif
                                                                         <h4 class="theme-color fw-bold">
-                                                                            {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true,$latestProductNotBestSellers[$i]->discount_price) }}
+                                                                            {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true, $latestProductNotBestSellers[$i]->discount_price) }}
                                                                             -
-                                                                            {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true,$latestProductNotBestSellers[$i]->discount_price) }}
+                                                                            {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true, $latestProductNotBestSellers[$i]->discount_price) }}
                                                                         </h4>
                                                                     @endif
                                                                 @else
@@ -1025,9 +1040,9 @@
                                                                             {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount,false,$latestProductNotBestSellers[$i]->discount_price)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, false, $latestProductNotBestSellers[$i]->discount_price)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true,$latestProductNotBestSellers[$i]->discount_price) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotBestSellers[$i]->varianProducts), $latestProductNotBestSellers[$i]->discount, true, $latestProductNotBestSellers[$i]->discount_price) }}
                                                                     </h4>
                                                                 @endauth
                                                             @endif
@@ -1234,14 +1249,14 @@
                                                                     <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true,$product->discount_price) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount, true, $product->discount_price) }}
                                                                 </h4>
                                                             @else
                                                                 @if ($product->discount)
                                                                     <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true,$product->discount_price) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true, $product->discount_price) }}
                                                                 </h4>
                                                             @endif
                                                         @else
@@ -1249,7 +1264,7 @@
                                                                 <del>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}</del>
                                                             @endif
                                                             <h4 class="theme-color fw-bold">
-                                                                {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true,$product->discount_price) }}
+                                                                {{ CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount, true, $product->discount_price) }}
                                                             </h4>
                                                         @endauth
                                                     @else
@@ -1272,9 +1287,9 @@
                                                                         {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($product->varianProducts)) }}</del>
                                                                 @endif
                                                                 <h4 class="theme-color fw-bold">
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, true,$product->discount_price) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, true, $product->discount_price) }}
                                                                     -
-                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true,$product->discount_price) }}
+                                                                    {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true, $product->discount_price) }}
                                                                 </h4>
                                                             @endif
                                                         @else
@@ -1284,9 +1299,9 @@
                                                                     {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($product->varianProducts)) }}</del>
                                                             @endif
                                                             <h4 class="theme-color fw-bold">
-                                                                {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount,$product->discount_price)) }}
+                                                                {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, $product->discount_price)) }}
                                                                 -
-                                                                {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true,$product->discount_price) }}
+                                                                {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true, $product->discount_price) }}
                                                             </h4>
                                                         @endauth
                                                     @endif
@@ -1545,9 +1560,9 @@
                                                                             {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount,false,$latestProductNotRatings[$i]->discount_price)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, false, $latestProductNotRatings[$i]->discount_price)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true,$latestProductNotRatings[$i]->discount_price) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true, $latestProductNotRatings[$i]->discount_price) }}
                                                                     </h4>
                                                                 @endauth
                                                             @endif
@@ -1790,9 +1805,9 @@
                                                                             {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts)) }}</del>
                                                                     @endif
                                                                     <h4 class="theme-color fw-bold">
-                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount,false,$latestProductNotRatings[$i]->discount_price)) }}
+                                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, false, $latestProductNotRatings[$i]->discount_price)) }}
                                                                         -
-                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true,$latestProductNotRatings[$i]->discount_price) }}
+                                                                        {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($latestProductNotRatings[$i]->varianProducts), $latestProductNotRatings[$i]->discount, true, $latestProductNotRatings[$i]->discount_price) }}
                                                                     </h4>
                                                                 @endauth
                                                             @endif
@@ -2108,7 +2123,7 @@
                                                             {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($product->varianProducts)) }}</del>
                                                     @endif
                                                     <h4 class="theme-color fw-bold">
-                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount,false,$product->discount_price)) }}
+                                                        {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, false, $product->discount_price)) }}
                                                         -
                                                         {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true, $product->discount_price) }}
                                                     </h4>
