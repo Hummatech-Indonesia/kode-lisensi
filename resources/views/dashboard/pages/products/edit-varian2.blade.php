@@ -507,7 +507,7 @@
                     } else {
                         $('#customer_label').text(convertRupiah($('#sell_price').val()));
                     }
-                    
+
                     if (reseller.val() >= 0 && reseller.val() <= 100) {
                         $('#reseller_label').text(convertRupiah(reseller_discount))
                     } else {
@@ -528,6 +528,7 @@
             reseller.on('keyup', function(evt) {
                 ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault();
             })
+
         });
 
         $(document).ready(function() {
@@ -565,7 +566,6 @@
                 $(".varian_product:last").remove();
             });
         });
-
         let discount_price_varian = 0;
 
         $('input[name="discount_price_varian"]').change(function() {
