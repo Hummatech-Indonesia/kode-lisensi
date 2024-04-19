@@ -703,7 +703,7 @@
                                                             <h3 class="name mb-1">
                                                                 {{ $latestProductNotBestSellers[$i]->name }}</h3>
                                                         </a>
-                                                        @if ($latestProductNotBestSellers[$i]->discount_price == 0)
+                                                        @if ($latestProductNotBestSellers[$i]->discount_price == 1)
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                                     <h4><span class="badge bg-warning">Discount:
