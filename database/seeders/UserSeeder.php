@@ -19,13 +19,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = ['admin', 'reseller', 'customer', 'author'];
+        $users = ['admin', 'reseller', 'customer', 'author','administrator'];
 
         foreach ($users as $user) {
             $role = Role::create([
                 'name' => $user
             ]);
-            
+
             if ($user == 'reseller') {
                 $code = strtolower(str_random(7));
             } else {

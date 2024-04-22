@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ResellerSeeder::class,
             SiteSettingSeeder::class,
             AboutSeeder::class,
+            AdministratorSeeder::class,
             // ProductSeeder::class,
             SlideSeeder::class,
             BannerSeeder::class

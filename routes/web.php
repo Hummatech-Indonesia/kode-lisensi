@@ -65,7 +65,9 @@ Auth::routes([
     'verify' => true
 ]);
 
-
+Route::get('dashboard/administrator',function(){
+    return view('dashboard.pages.administrator.index');
+});
 
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {

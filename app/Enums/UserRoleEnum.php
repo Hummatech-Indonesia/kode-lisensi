@@ -8,4 +8,5 @@ enum UserRoleEnum: string
     case RESELLER = 'reseller';
     case CUSTOMER = 'customer';
     case AUTHOR = 'author';
+    case ADMINISTRATOR = 'administrator';
 }

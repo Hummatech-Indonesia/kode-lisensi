@@ -21,6 +21,15 @@
             </a>
         </li>
     @endrole --}}
+    @role('administrator')
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
+                href="{{ route('dashboard.index') }}">
+                <i class="ri-home-line"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+    @endrole
     @role('author')
         <li class="sidebar-list">
             <a
