@@ -106,4 +106,16 @@ class UserRepository extends BaseRepository implements UserInterface
             ->findOrFail($id)
             ->delete();
     }
+
+    /**
+     * searchByEmail
+     *
+     * @return mixed
+     */
+    public function searchByEmail(mixed $email): mixed
+    {
+        return $this->model->query()
+            ->where('email', $email)
+            ->first();
+    }
 }

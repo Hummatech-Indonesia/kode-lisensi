@@ -10,6 +10,16 @@ use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
-interface UserInterface extends StoreInterface, GetInterface, GetWhereInterface, UpdateInterface, DeleteInterface, ShowInterface,SearchInterface
+interface UserInterface extends StoreInterface, GetInterface, GetWhereInterface, UpdateInterface, DeleteInterface, ShowInterface, SearchInterface
 {
+
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     */
+
+    public function searchByEmail(mixed $email): mixed;
 }

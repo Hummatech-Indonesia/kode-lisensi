@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->char('invoice_id', 50);
             $table->foreignUuid('user_id')->constrained();
             $table->integer('fee_amount')->nullable();
-            $table->integer('amount');
+            $table->integer('amount');  
             $table->text('invoice_url')->nullable();
             $table->timestamp('expiry_date')->nullable();
             $table->integer('paid_amount')->nullable();
