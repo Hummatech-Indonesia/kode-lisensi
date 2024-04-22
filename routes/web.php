@@ -1,6 +1,7 @@
 <?php
 
 use App\Contracts\Interfaces\TransactionAffiliateInterface;
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdminWithdrawalController;
 use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\ContactController;
@@ -65,15 +66,20 @@ Auth::routes([
     'verify' => true
 ]);
 
-Route::get('dashboard/administrator',function(){
-    return view('dashboard.pages.administrator.index');
+Route::middleware('role:administrator')->group(function(){
+    Route::prefix('administrator')->group(function(){
+        Route::name('administrator.')->group(function(){
+            Route::get('/',[AdministratorController::class,'index'])->name('index');
+            Route::get('order',[AdministratorController::class,'create'])->name('create');
+        });
+    });
 });
+
 
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
         Route::prefix('dashboard')->group(function () {
-
             Route::name('pin.rekening.')->group(function () {
                 Route::get('pin-rekening/{pin}/{id}', [PinRekeningController::class, 'index'])->name('index');
             });

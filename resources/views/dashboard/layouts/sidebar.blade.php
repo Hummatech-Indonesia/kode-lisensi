@@ -23,11 +23,18 @@
     @endrole --}}
     @role('administrator')
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
-                href="{{ route('dashboard.index') }}">
-                <i class="ri-home-line"></i>
-                <span>Dashboard</span>
+            <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <i class="ri-archive-line"></i>
+                <span>Pesanan</span>
             </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{route('administrator.create')}}">Order Via Whatsapp</a>
+                </li>
+                <li>
+                    <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
+                </li>
+            </ul>
         </li>
     @endrole
     @role('author')
