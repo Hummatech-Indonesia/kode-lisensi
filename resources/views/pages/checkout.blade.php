@@ -31,11 +31,7 @@
             </div>
         </div>
     </section>
-    @if ($errors->any())
-        <x-validation-errors :errors="$errors"></x-validation-errors>
-    @elseif(session('error'))
-        <x-alert-failed></x-alert-failed>
-    @endif
+
     @if (UserHelper::getUserRole() === UserRoleEnum::ADMINISTRATOR->value)
         <section class="checkout-section-2 section-b-space">
             <form method="POST" action="{{ route('transaction.whatsapp.checkout', [$product->slug, $varian]) }}">

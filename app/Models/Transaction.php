@@ -30,7 +30,7 @@ class Transaction extends Model implements HasOneLicense, HasDetailTransaction, 
      */
     public function detail_transaction(): HasOne
     {
-        return $this->hasOne(DetailTransaction::class);k
+        return $this->hasOne(DetailTransaction::class);
     }
 
     /**

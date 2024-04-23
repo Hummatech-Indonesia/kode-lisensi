@@ -55,7 +55,7 @@ class SummaryService
     {
         return $this->transaction->query()
             ->whereNotNull('paid_at')
-            ->sum('paid_amount');
+            ->sum('amount');
     }
     public function handleRevenue(): int
     {
@@ -66,13 +66,17 @@ class SummaryService
         foreach ($transactions as $transaction) {
             if ($transaction->detail_transaction->varianProduct) {
                 $buyPrice = $transaction->detail_transaction->varianProduct?->buy_price;
+
             } else {
                 $buyPrice = $transaction->detail_transaction->product?->buy_price;
             }
+
             $amount = $transaction->amount;
 
             $revenue += ($amount - $buyPrice);
         }
+
+
 
         return $revenue;
     }
@@ -288,7 +292,7 @@ class SummaryService
             ->orderByDesc('product_ratings_sum_rating')
             ->get();
 
-        return $data->filter(fn ($item) => $item->product_ratings_sum_rating != null);
+        return $data->filter(fn($item) => $item->product_ratings_sum_rating != null);
     }
 
     /**
@@ -411,7 +415,7 @@ class SummaryService
     {
         return $this->product->query()
             ->whereNot('slug', $product->slug)
-            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at','discount_price')
+            ->select('id', 'category_id', 'status', 'type', 'name', 'photo', 'sell_price', 'discount', 'reseller_discount', 'slug', 'created_at', 'discount_price')
             ->with('category')
             ->withCount(['product_ratings', 'licenses'])
             ->withSum([
