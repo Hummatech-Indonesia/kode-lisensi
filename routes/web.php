@@ -42,6 +42,7 @@ use App\Http\Controllers\ProductEmailController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TransactionAffiliateController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionWhatsappController;
 use App\Http\Controllers\UpdateIdInvoiceController;
 use App\Http\Controllers\User\MyAccountController;
 use App\Http\Controllers\User\MyFavoriteController;
@@ -174,7 +175,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
         });
     });
-    Route::middleware('role:reseller|customer|administrator')->group(function () {
+
+    Route::middleware('role:administrator|reseller|customer')->group(function(){
+        Route::prefix('checkout')->group(function(){
+            Route::get('{slug}/{slug_varian?}', [TransactionController::class, 'index'])->name('checkout');
+        });
+    });
+    Route::middleware('role:administrator')->group(function(){
+        Route::prefix('transaction-whatsapp')->group(function(){
+            ROute::name('transaction.whatsapp.')->group(function(){
+                Route::post('{slug}/{slug_varian?}', [TransactionWhatsappController::class, 'store'])->name('checkout');
+            });
+        });
+    });
+
+    Route::middleware('role:reseller|customer')->group(function () {
         Route::name('users.account.')->prefix('my-account')->group(function () {
             Route::get('/', [MyAccountController::class, 'index'])->name('index');
             Route::get('favorites', [ProductFavoriteController::class, 'index'])->name('my-favorites');
@@ -187,7 +202,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         Route::prefix('checkout')->group(function () {
-            Route::get('{slug}/{slug_varian?}', [TransactionController::class, 'index'])->name('checkout');
             Route::post('{slug}/{slug_varian?}', [TransactionController::class, 'store'])->name('doCheckout');
         });
         Route::prefix('checkout-products')->group(function () {
