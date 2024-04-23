@@ -47,8 +47,9 @@ class DashboardController extends Controller
                 'bestSeller' => $this->service->handleBestSeller()
             ]);
         } elseif (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) {
-
             return view('dashboard.pages.reseller-dashboard.index');
+        } else if (UserHelper::getUserRole() === UserRoleEnum::ADMINISTRATOR->value) {
+            return view('dashboard.pages.administrator.index');
         } else {
             $totalArticle = $this->article->count();
             $totalArticleCategory = $this->articleCategory->count();

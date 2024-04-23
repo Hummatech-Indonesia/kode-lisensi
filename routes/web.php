@@ -67,16 +67,6 @@ Auth::routes([
     'verify' => true
 ]);
 
-Route::middleware('role:administrator')->group(function(){
-    Route::prefix('administrator')->group(function(){
-        Route::name('administrator.')->group(function(){
-            Route::get('/',[AdministratorController::class,'index'])->name('index');
-            Route::get('order',[AdministratorController::class,'create'])->name('create');
-        });
-    });
-});
-
-
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
@@ -137,7 +127,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::name('notification.')->prefix('notification')->group(function () {
         Route::post('mark-as-read/{take}', [NotificationController::class, 'index'])->name('markAsRead');
     });
-    Route::middleware('role:admin|author|reseller')->group(function () {
+    Route::middleware('role:admin|author|reseller|administrator')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
@@ -219,10 +209,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resources([
                 'article-categories' => ArticleCategoryController::class,
             ]);
-            Route::resource('sub-article-categories',SubArticleCategoryController::class)->except(['create','store','show','update','edit']);
-            Route::get('sub-article-categories/{article_category}',[SubArticleCategoryController::class,'create'])->name('sub-article-categories.create');
-            Route::post('sub-article-categories/{article_category}',[SubArticleCategoryController::class,'store'])->name('sub-article-categories.store');
-            Route::get('sub-article-categories/{article_category}/{sub_article_category}',[SubArticleCategoryController::class,'edit'])->name('sub-article-categories.edit');
+            Route::resource('sub-article-categories', SubArticleCategoryController::class)->except(['create', 'store', 'show', 'update', 'edit']);
+            Route::get('sub-article-categories/{article_category}', [SubArticleCategoryController::class, 'create'])->name('sub-article-categories.create');
+            Route::post('sub-article-categories/{article_category}', [SubArticleCategoryController::class, 'store'])->name('sub-article-categories.store');
+            Route::get('sub-article-categories/{article_category}/{sub_article_category}', [SubArticleCategoryController::class, 'edit'])->name('sub-article-categories.edit');
             Route::patch('sub-article-categories/{article_category}/{sub_article_category}', [SubArticleCategoryController::class, 'update'])->name('sub-article-categories.update');
         });
     });
@@ -272,21 +262,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::delete('soft-delete/{product}', [DestroyProductController::class, 'softDestroy'])->name('soft.delete');
             });
 
-            Route::name('revenues.')->prefix('revenues')->group(function () {
-                Route::get('totalAmount', [RevenueController::class, 'totalAmount'])->name('totalAmount');
-                Route::get('/', [RevenueController::class, 'index'])->name('index');
-                Route::get('print', [RevenueController::class, 'printRevenue'])->name('print');
-            });
 
             // order
             Route::name('orders.')->group(function () {
                 Route::prefix('orders')->group(function () {
                     Route::get('/', [OrderController::class, 'index'])->name('index');
-                    Route::get('/get-all-histories', [OrderController::class, 'fetchHistories'])->name('fetch-histories');
                     Route::get('{invoice_id}', [OrderController::class, 'show'])->name('detail');
                     Route::post('{invoice_id}', [OrderController::class, 'update'])->name('update');
                 });
-                Route::get('order-histories', [OrderController::class, 'history'])->name('history');
             });
 
             Route::name('update.id.invoice.')->group(function () {
@@ -331,6 +314,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'slider' => SliderController::class,
                     'banners' => BannerController::class
                 ], ['only' => ['index', 'update']]);
+            });
+        });
+    });
+    Route::middleware('role:admin|administrator')->group(function () {
+        Route::prefix('dashboard')->group(function () {
+            Route::name('orders.')->group(function () {
+                Route::get('order-histories', [OrderController::class, 'history'])->name('history');
+                Route::get('/get-all-histories', [OrderController::class, 'fetchHistories'])->name('fetch-histories');
+            });
+            Route::name('revenues.')->prefix('revenues')->group(function () {
+                Route::get('totalAmount', [RevenueController::class, 'totalAmount'])->name('totalAmount');
+                Route::get('/', [RevenueController::class, 'index'])->name('index');
+                Route::get('print', [RevenueController::class, 'printRevenue'])->name('print');
             });
         });
     });

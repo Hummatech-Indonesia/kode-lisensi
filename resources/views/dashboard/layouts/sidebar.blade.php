@@ -28,7 +28,6 @@
                 <span>Pesanan</span>
             </a>
             <ul class="sidebar-submenu">
-                
                 <li>
                     <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
                 </li>

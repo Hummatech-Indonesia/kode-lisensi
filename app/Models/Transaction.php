@@ -20,7 +20,7 @@ class Transaction extends Model implements HasOneLicense, HasDetailTransaction, 
     public $incrementing = false;
     protected $table = 'transactions';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'invoice_id', 'user_id', 'fee_amount', 'amount', 'invoice_url', 'expiry_date', 'paid_amount', 'paid_at', 'payment_channel', 'payment_method', 'license_status', 'invoice_status', 'license_id'];
+    protected $fillable = ['id', 'invoice_id', 'user_id', 'fee_amount', 'amount', 'invoice_url', 'expiry_date', 'paid_amount', 'paid_at', 'payment_channel', 'payment_method', 'license_status', 'invoice_status', 'license_id', 'order_via_whatsapp'];
     protected $keyType = 'char';
 
     /**
@@ -30,7 +30,7 @@ class Transaction extends Model implements HasOneLicense, HasDetailTransaction, 
      */
     public function detail_transaction(): HasOne
     {
-        return $this->hasOne(DetailTransaction::class);
+        return $this->hasOne(DetailTransaction::class);k
     }
 
     /**
