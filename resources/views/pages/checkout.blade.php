@@ -55,7 +55,6 @@
                                     </div>
                                 </div>
                             @endif
-
                             <div class="left-sidebar-checkout">
                                 <div class="checkout-detail-box">
                                     <ul>
@@ -210,7 +209,6 @@
                                                 <div class="checkout-title">
                                                     <h4>Pilih Metode Pembayaran</h4>
                                                 </div>
-
                                                 <div class="checkout-detail">
                                                     <div class="accordion accordion-flush custom-accordion"
                                                         id="accordionFlushExample">
@@ -250,7 +248,7 @@
                                                                                                     <input
                                                                                                         class="form-check-input"
                                                                                                         type="radio"
-                                                                                                        name="payment_code"
+                                                                                                        name="payment_method"
                                                                                                         id="standard"
                                                                                                         value="{{ $channels['code'] }}">
                                                                                                     <label
@@ -306,7 +304,7 @@
                                                                                                     <input
                                                                                                         class="form-check-input"
                                                                                                         type="radio"
-                                                                                                        name="payment_code"
+                                                                                                        name="payment_method"
                                                                                                         id="standard"
                                                                                                         value="{{ $channels['code'] }}">
                                                                                                     <label
@@ -362,7 +360,7 @@
                                                                                                     <input
                                                                                                         class="form-check-input"
                                                                                                         type="radio"
-                                                                                                        name="payment_code"
+                                                                                                        name="payment_method"
                                                                                                         id="standard"
                                                                                                         value="{{ $channels['code'] }}">
                                                                                                     <label

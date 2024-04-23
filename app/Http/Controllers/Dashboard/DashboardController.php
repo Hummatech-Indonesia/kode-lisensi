@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Contracts\Interfaces\ArticleCategoryInterface;
 use App\Contracts\Interfaces\ArticleInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
 use App\Helpers\UserHelper;
@@ -18,9 +19,11 @@ class DashboardController extends Controller
     private SummaryService $service;
     private ArticleInterface $article;
     private ArticleCategoryInterface $articleCategory;
+    private UserInterface $user;
 
-    public function __construct(SummaryService $service, ArticleInterface $article, ArticleCategoryInterface $articleCategory)
+    public function __construct(SummaryService $service, ArticleInterface $article, ArticleCategoryInterface $articleCategory, UserInterface $user)
     {
+        $this->user = $user;
         $this->service = $service;
         $this->article = $article;
         $this->articleCategory = $articleCategory;
@@ -47,9 +50,11 @@ class DashboardController extends Controller
                 'bestSeller' => $this->service->handleBestSeller()
             ]);
         } elseif (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) {
+
             return view('dashboard.pages.reseller-dashboard.index');
         } else if (UserHelper::getUserRole() === UserRoleEnum::ADMINISTRATOR->value) {
-            return view('dashboard.pages.administrator.index');
+            $users = $this->user->userTransaction();
+            return view('dashboard.pages.administrator.index', compact('users'));
         } else {
             $totalArticle = $this->article->count();
             $totalArticleCategory = $this->articleCategory->count();

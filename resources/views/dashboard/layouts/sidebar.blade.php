@@ -3,8 +3,8 @@
     <li class="back-btn"></li>
 
     <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('administrator.index') ? 'active' : '' }}"
-            href="{{ route('administrator.index') }}">
+        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
+            href="{{ route('dashboard.index') }}">
             <i class="ri-home-line"></i>
             <span>Dashboard</span>
         </a>

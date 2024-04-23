@@ -20,7 +20,7 @@ class TransactionWhatsappRequest extends FormRequest
             'phone_number' => 'required|max:255',
             'email' => 'required|max:255|email',
             'role' => ['required', new UserRoleRule],
-            'payment_code'=>'required',
+            'payment_method'=>'required',
         ];
     }
 
@@ -43,7 +43,7 @@ class TransactionWhatsappRequest extends FormRequest
             'product_id.exists' => 'ID produk yang dipilih tidak valid.',
             'varian_product_id.required' => 'ID varian produk harus diisi.',
             'varian_product_id.exists' => 'ID varian produk yang dipilih tidak valid.',
-            'payment_code.required'=>'Pilih metode pembayaran yang valid',
+            'payment_method.required'=>'Pilih metode pembayaran',
         ];
     }
 }

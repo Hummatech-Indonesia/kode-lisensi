@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\Administrator\TransactionWhatsappInterface;
 use App\Contracts\Repositories\BaseRepository;
 use App\Enums\ArticleStatusEnum;
 use App\Models\Article;
+use App\Models\Transaction;
 use App\Models\TransactionWhatsapp;
 use App\Traits\Datatables\ArticleDatatable;
 use Exception;
@@ -15,9 +16,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class TransactionWhatsappRepository extends BaseRepository implements TransactionWhatsappInterface
 {
 
-    public function __construct(TransactionWhatsapp $transactionWhatsapp)
+    public function __construct(Transaction $transaction)
     {
-        $this->model = $transactionWhatsapp;
+        $this->model = $transaction;
     }
 
     /**
@@ -39,8 +40,11 @@ class TransactionWhatsappRepository extends BaseRepository implements Transactio
      */
     public function store(array $data): mixed
     {
-        return $this->model->query()
+        $transaction = $this->model->query()
             ->create($data);
+        $transaction->detail_transaction()->create($data);
+
+        return $transaction;
     }
 
 
