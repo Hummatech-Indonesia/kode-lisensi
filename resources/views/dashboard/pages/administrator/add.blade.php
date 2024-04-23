@@ -7,7 +7,7 @@
                 <label for="exampleFormControlInput" class="form-label">Nama
                     Lengkap</label>
                 <div class="custom-input">
-                    <input autofocus value="{{ auth()->user()->name }}" type="text" name="name"
+                    <input autofocus value="" type="text" name="name"
                         class="form-control @error('name') is-invalid @enderror" autocomplete="off" placeholder="John Doe">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -23,7 +23,7 @@
                 <label for="exampleFormControlInput2" class="form-label">Email</label>
                 <div class="custom-input">
                     <input autocomplete="off" type="email" class="form-control @error('email') is-invalid @enderror"
-                        value="{{ auth()->user()->email }}" name="email" placeholder="johndoe@gmail.com">
+                        value="" name="email" placeholder="johndoe@gmail.com">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -37,7 +37,7 @@
             <div class="mb-md-4 mb-3 custom-form">
                 <label for="exampleFormControlInput3" class="form-label">Nomor telepon</label>
                 <div class="custom-input">
-                    <input autocomplete="off" value="{{ old('phone_number', auth()->user()->phone_number) }}"
+                    <input autocomplete="off" value="{{ old('phone_number') }}"
                         name="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror"
                         id="exampleFormControlInput3" placeholder="0812648321">
                     @error('phone_number')

@@ -57,10 +57,12 @@ class UserController extends Controller
             return redirect()->route('users.reseller.index');
         } elseif ($data['role'] == UserRoleEnum::CUSTOMER->value) {
             return redirect()->route('users.customer.index');
+        } elseif ($data['role'] == UserRoleEnum::ADMINISTRATOR->value) {
+            return redirect()->route('administrator.index');
         }
         return redirect()->route('users.admin.index')->with('success', trans('alert.add_success'));
     }
-  
+
     /**
      * admin
      *

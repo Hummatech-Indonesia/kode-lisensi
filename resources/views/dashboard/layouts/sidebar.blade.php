@@ -3,8 +3,8 @@
     <li class="back-btn"></li>
 
     <li class="sidebar-list">
-        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
-            href="{{ route('dashboard.index') }}">
+        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('administrator.index') ? 'active' : '' }}"
+            href="{{ route('administrator.index') }}">
             <i class="ri-home-line"></i>
             <span>Dashboard</span>
         </a>
@@ -28,9 +28,7 @@
                 <span>Pesanan</span>
             </a>
             <ul class="sidebar-submenu">
-                <li>
-                    <a href="{{route('administrator.create')}}">Order Via Whatsapp</a>
-                </li>
+                
                 <li>
                     <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
                 </li>

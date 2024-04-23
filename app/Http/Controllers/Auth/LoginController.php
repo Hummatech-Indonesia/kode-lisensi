@@ -81,6 +81,8 @@ class LoginController extends Controller
 
         if (UserHelper::getUserRole() === UserRoleEnum::CUSTOMER->value) {
             return to_route('home.index');
+        }elseif(UserHelper::getUserRole() === UserROleEnum::ADMINISTRATOR->value){
+            return to_route('administrator.index');
         }
         return to_route('dashboard.index');
     }

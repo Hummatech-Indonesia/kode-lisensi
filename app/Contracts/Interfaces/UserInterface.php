@@ -22,4 +22,13 @@ interface UserInterface extends StoreInterface, GetInterface, GetWhereInterface,
      */
 
     public function searchByEmail(mixed $email): mixed;
+
+    
+    /**
+     * Method userTransaction
+     *
+     * @return mixed
+     */
+    public function userTransaction():mixed;
+    
 }

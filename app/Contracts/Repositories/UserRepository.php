@@ -40,6 +40,14 @@ class UserRepository extends BaseRepository implements UserInterface
             ->get();
     }
 
+    public function userTransaction(): mixed
+    {
+        return $this->model->query()
+            ->whereHas('transactions')
+            ->withCount('transactions')
+            ->get();
+    }
+
     /**
      * show
      *

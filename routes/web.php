@@ -174,7 +174,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
         });
     });
-    Route::middleware('role:reseller|customer')->group(function () {
+    Route::middleware('role:reseller|customer|administrator')->group(function () {
         Route::name('users.account.')->prefix('my-account')->group(function () {
             Route::get('/', [MyAccountController::class, 'index'])->name('index');
             Route::get('favorites', [ProductFavoriteController::class, 'index'])->name('my-favorites');
@@ -213,7 +213,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:admin|administrator')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::put('post-product-recommendation/{product}', [ProductController::class, 'updateStatus'])->name('product.recommendation.update');
             Route::put('delete-product-recommendation/{product}', [ProductController::class, 'deleteStatus'])->name('product.recommendation.delete');
