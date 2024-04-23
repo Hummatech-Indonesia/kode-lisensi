@@ -63,8 +63,8 @@ class TransactionController extends Controller
         }
 
         $this->service->handleCheckout($request, $product, $slug_varian);
-
-        return back()->with('success', trans('alert.checkout_success'));
+        return to_route('users.account.index')->with('success',trans('alert.checkout_success'));
+        // return back()->with('success', trans('alert.checkout_success'));
     }
 
     /**

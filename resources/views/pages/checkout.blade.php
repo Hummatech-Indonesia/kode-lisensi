@@ -44,7 +44,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                     <div class="alert-message">
-                                        <strong>Perlu diingat!administrator</strong><br> Produk preorder akan diproses
+                                        <strong>Perlu diingat!</strong><br> Produk preorder akan diproses
                                         secara manual
                                         oleh
                                         admin dengan waktu maksimal 2 hari.
