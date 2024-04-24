@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\UpdateIdInvoiceInterface;
 use App\Contracts\Interfaces\UserInterface;
+use App\Contracts\Interfaces\VarianProductInterface;
 use App\Enums\InvoiceStatusEnum;
 use App\Enums\LicenseStatusEnum;
 use App\Enums\UserRoleEnum;
@@ -24,12 +25,14 @@ class TransactionWhatsappController extends Controller
     private TransactionInterface $transaction;
     private UserInterface $user;
     private UpdateIdInvoiceInterface $updateIdInvoice;
+    private VarianProductInterface $varianProduct;
 
 
-    public function __construct(TransactionWhatsappInterface $transactionWhatsapp, UserInterface $user, ProductInterface $product, UpdateIdInvoiceInterface $updateIdInvoice, TransactionInterface $transaction)
+    public function __construct(TransactionWhatsappInterface $transactionWhatsapp, UserInterface $user, ProductInterface $product, UpdateIdInvoiceInterface $updateIdInvoice, TransactionInterface $transaction, VarianProductInterface $varianProduct)
     {
         $this->transactionWhatsapp = $transactionWhatsapp;
         $this->product = $product;
+        $this->varianProduct = $varianProduct;
         $this->user = $user;
         $this->transaction = $transaction;
         $this->updateIdInvoice = $updateIdInvoice;
@@ -92,7 +95,6 @@ class TransactionWhatsappController extends Controller
             } else {
                 $amount = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount);
             }
-
             $data['amount'] = $amount;
         } else {
             if ($slug_varian) {
@@ -102,6 +104,12 @@ class TransactionWhatsappController extends Controller
             }
             $data['amount'] = $amount;
         }
+        if ($slug_varian) {
+            $varianProduct = $this->varianProduct->getWhere(['product_id' => $product->id, 'slug_varian' => $slug_varian]);
+        } else {
+            $varianProduct = null;
+        }
+        $data['varian_product_id'] = $varianProduct->id;
         $data['paid_amount'] = $amount + $amount * 0.1;
         $this->transactionWhatsapp->store($data);
         return to_route('orders.history')->with('success', trans('alert.add_success'));
