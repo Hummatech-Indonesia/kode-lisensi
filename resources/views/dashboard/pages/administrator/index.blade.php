@@ -71,8 +71,9 @@
             </div>
         </div>
     </div>
-    <table class="table variation-table table-hover">
-        <thead>
+    <h3 class="fw-bold mb-3">Top 5 Pelanggan dengan Frekuensi Pembelian Tertinggi</h3>
+    <table class="table variation-table table-hover table-responsive-sm">
+        <thead class="bg-primary">
             <tr>
                 <th>#</th>
                 <th>Nama Pelanggan</th>
@@ -81,7 +82,7 @@
             </tr>
         </thead>
         @foreach ($users as $user)
-            <tbody>
+            <tbody class="bg-white">
                 <tr>
                     <td>{{ $user->iteration }}</td>
                     <td>{{ $user->name }}</td>

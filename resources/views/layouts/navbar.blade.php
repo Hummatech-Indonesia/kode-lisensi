@@ -56,7 +56,8 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li>
                                             <a id="usd" class="dropdown-item"
-                                                href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value || UserHelper::getUserRole() === UserRoleEnum::AUTHOR->value || UserHelper::getUserRole() === UserRoleEnum::RESELLER->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard</a>
+                                                href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value || UserHelper::getUserRole() === UserRoleEnum::AUTHOR->value || UserHelper::getUserRole() === UserRoleEnum::RESELLER->value || UserHelper::getUserRole() === UserRoleEnum::ADMINISTRATOR->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard
+                                            </a>
                                         </li>
                                         <li>
                                             <a id="inr" class="dropdown-item" href="{{ route('logout') }}"
@@ -119,7 +120,7 @@
                                     @else
                                         <li class="product-box-contain">
                                             <a
-                                                href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard</a>
+                                                href="{{ UserHelper::getUserRole() === UserRoleEnum::ADMIN->value || UserHelper::getUserRole() === UserROleEnum::ADMINISTRATOR->value ? route('dashboard.index') : route('users.account.index') }}">Dashboard</a>
                                         </li>
                                         <li class="product-box-contain">
                                             <a id="inr" class="dropdown-item" href="{{ route('logout') }}"
