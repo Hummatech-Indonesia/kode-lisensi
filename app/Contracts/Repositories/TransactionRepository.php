@@ -46,6 +46,19 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ->with(['user', 'detail_transaction.product'])
             ->oldest());
     }
+    /**
+     * Method getAll
+     *
+     * @return mixed
+     */
+    public function getPending(): mixed
+    {
+        return $this->PendingTransactionMockup($this->model->query()
+            ->whereIn('license_status', [LicenseStatusEnum::PROCESSED->value])
+            ->whereHas('detail_transaction.product')
+            ->with(['user', 'detail_transaction.product'])
+            ->oldest());
+    }
 
     /**
      * apiGet

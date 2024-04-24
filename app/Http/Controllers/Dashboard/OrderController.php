@@ -11,6 +11,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+// use Illuminate\View\View;
+
 class OrderController extends Controller
 {
     private TransactionInterface $transaction;
@@ -30,7 +32,8 @@ class OrderController extends Controller
      */
     public function index(Request $request): View|JsonResponse
     {
-        if ($request->ajax()) return $this->transaction->get();
+        if ($request->ajax())
+            return $this->transaction->get();
         return view('dashboard.pages.orders.index');
     }
 
@@ -55,10 +58,25 @@ class OrderController extends Controller
      */
     public function fetchHistories(Request $request): View|JsonResponse
     {
-        if ($request->ajax()) return $this->transaction->getAll();
+        if ($request->ajax())
+            return $this->transaction->getAll();
 
         return view('dashboard.pages.orders.index');
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return View|JsonResponse
+     */
+    public function fetchPendingHistories(Request $request): View|JsonResponse
+    {
+        if ($request->ajax())
+            return $this->transaction->getPending();
+
+        return view('dashboard.pages.orders.pending');
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -102,5 +120,20 @@ class OrderController extends Controller
             $invoice_id = null;
         }
         return view('dashboard.pages.orders.history', ['invoice_id' => $invoice_id]);
+    }
+    /**
+     * Method pendingHistories
+     *
+     * @return View
+     */
+    public function pendingHistories(): View
+    {
+        $get_invoice_id = $this->transaction->getInvoice();
+        if ($get_invoice_id) {
+            $invoice_id = substr($get_invoice_id->invoice_id, -4);
+        } else {
+            $invoice_id = null;
+        }
+        return view('dashboard.pages.orders.pending', ['invoice_id' => $invoice_id]);
     }
 }

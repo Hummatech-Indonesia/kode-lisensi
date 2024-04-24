@@ -148,6 +148,9 @@
                     <a href="{{ route('orders.index') }}">Preorder</a>
                 </li>
                 <li>
+                    <a href="{{ route('orders.pending') }}">Pending Transaction</a>
+                </li>
+                <li>
                     <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
                 </li>
             </ul>

@@ -32,4 +32,10 @@ interface TransactionInterface extends GetInterface, StoreInterface, ShowInterfa
      * @return mixed
      */
     public function getInvoice(): mixed;
+    /**
+     * Method getPending
+     *
+     * @return mixed
+     */
+    public function getPending():mixed;
 }
