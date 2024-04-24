@@ -115,7 +115,6 @@
             success: function(response) {}
         });
         document.addEventListener("DOMContentLoaded", function() {
-
             const firstUrl =
                 `{{ route('revenues.totalAmount') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}`;
 

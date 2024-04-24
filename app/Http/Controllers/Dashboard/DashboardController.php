@@ -50,11 +50,18 @@ class DashboardController extends Controller
                 'bestSeller' => $this->service->handleBestSeller()
             ]);
         } elseif (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) {
-
             return view('dashboard.pages.reseller-dashboard.index');
         } else if (UserHelper::getUserRole() === UserRoleEnum::ADMINISTRATOR->value) {
+            
             $users = $this->user->userTransaction();
-            return view('dashboard.pages.administrator.index', compact('users'));
+
+            return view('dashboard.pages.administrator.index', [
+                'users' => $users,
+                'balance' => $this->service->handleBalance(),
+                'revenue' => $this->service->handleRevenue(),
+                'order' => $this->service->handleCountOrders(),
+                'customer' => $this->service->handleCountCustomers(),
+            ]);
         } else {
             $totalArticle = $this->article->count();
             $totalArticleCategory = $this->articleCategory->count();

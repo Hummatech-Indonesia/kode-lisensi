@@ -54,24 +54,23 @@ class SummaryService
     public function handleBalance(): int
     {
         return $this->transaction->query()
-            ->whereNotNull('paid_at')
-            ->sum('amount');
+            ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->sum('paid_amount');
     }
     public function handleRevenue(): int
     {
-        $transactions = $this->transaction->query()->whereNotNull('paid_at')->get();
+        $transactions = $this->transaction->query()->where('invoice_status', InvoiceStatusEnum::PAID->value)->get();
 
         $revenue = 0;
 
         foreach ($transactions as $transaction) {
             if ($transaction->detail_transaction->varianProduct) {
-                $buyPrice = $transaction->detail_transaction->varianProduct?->buy_price;
-
+                $buyPrice = $transaction->detail_transaction->varianProduct->buy_price;
             } else {
                 $buyPrice = $transaction->detail_transaction->product?->buy_price;
             }
 
-            $amount = $transaction->amount;
+            $amount = $transaction->paid_amount;
 
             $revenue += ($amount - $buyPrice);
         }
@@ -292,7 +291,7 @@ class SummaryService
             ->orderByDesc('product_ratings_sum_rating')
             ->get();
 
-        return $data->filter(fn($item) => $item->product_ratings_sum_rating != null);
+        return $data->filter(fn ($item) => $item->product_ratings_sum_rating != null);
     }
 
     /**

@@ -37,7 +37,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-sm-6 col-xxl-3 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0 card o-hidden">
             <div class="custome-2-bg b-r-4 card-body">
@@ -55,7 +54,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-sm-6 col-xxl-3 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0  card o-hidden">
             <div class="custome-3-bg b-r-4 card-body">
@@ -73,6 +71,8 @@
             </div>
         </div>
     </div>
+
+    
     <!-- Best Selling Product Start -->
     <div class="col-xl-12 col-md-12">
         <div class="card o-hidden card-hover">
