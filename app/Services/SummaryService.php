@@ -59,7 +59,7 @@ class SummaryService
     }
     public function handleRevenue(): int
     {
-        $transactions = $this->transaction->query()->whereNotNull('amount')->get();
+        $transactions = $this->transaction->query()->whereNotNull('paid_at')->get();
 
         $revenue = 0;
 
