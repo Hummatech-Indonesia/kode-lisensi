@@ -8,8 +8,52 @@
 @section('captcha')
     {!! ReCaptcha::htmlScriptTagJsApi() !!}
 @endsection
-@section('content')
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function rupiahCurrency(number) {
+                return "Rp " + number.toLocaleString('id-ID');
+            }
 
+            function calculatePriceAfterDiscount(price, discount, formatted, discount_price) {
+                if (discount_price == 1) {
+                    var total = price - discount;
+                } else {
+                    var discountPercentage = parseFloat(discount) / 100;
+                    var total = price - (price * discountPercentage);
+                }
+                if (formatted) {
+                    return rupiahCurrency(total);
+                }
+                return total;
+            }
+
+            function countPriceAfterTax(price, tax) {
+                var total = price + (price * (tax / 100));
+                return rupiahCurrency(total);
+            }
+
+            $('input[name="role"]').change(function() {
+                var discount = $(this).data('discount');
+                var sell_price = $(this).data('sell-price');
+                var discount_price = $(this).data('discount-price');
+                var pure_discount = $(this).data('pure-discount');
+                console.log(discount);
+                console.log(sell_price);
+                console.log(discount_price);
+                var subtotal = calculatePriceAfterDiscount(sell_price, discount, false,
+                    discount_price);
+                var subtotal_show = rupiahCurrency(subtotal);
+                var total = countPriceAfterTax(subtotal, 10)
+                $('#discount_whatsapp').text(discount);
+                $('#subtotal_whatsapp').text(subtotal_show);
+                $('#total_whatsapp').text(total);
+            });
+        });
+    </script>
+@endsection
+@section('content')
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
             <div class="row">
@@ -140,10 +184,13 @@
                                                                         class="form-label">Role Pembeli</label>
                                                                     <div class="custom-input">
                                                                         <div class="d-flex gap-2">
-
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input"
                                                                                     type="radio" name="role"
+                                                                                    data-discount="{{ $product->discount . '%' }}"
+                                                                                    data-pure-discount="{{ $product->discount }}"
+                                                                                    data-sell-price="{{ $product->sell_price }}"
+                                                                                    data-discount-price="{{ $product->discount_price }}"
                                                                                     id="role" value="customer">
                                                                                 <label class="form-check-label"
                                                                                     for="role">
@@ -153,6 +200,10 @@
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input"
                                                                                     type="radio" name="role"
+                                                                                    data-discount="{{ $product->reseller_discount . '%' }}"
+                                                                                    data-pure-discount="{{ $product->reseller_discount }}"
+                                                                                    data-sell-price="{{ $product->sell_price }}"
+                                                                                    data-discount-price="{{ $product->discount_price }}"
                                                                                     id="role" value="reseller">
                                                                                 <label class="form-check-label"
                                                                                     for="role">
@@ -168,7 +219,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                             <div class="col-xxl-12 col-lg-12 col-sm-12">
                                                                 <div class="mb-md-4 mb-3 custom-form">
                                                                     <label for="exampleFormControlInput4"
@@ -434,15 +484,17 @@
                                                             {{ CurrencyHelper::rupiahCurrency($product->reseller_discount) }}
                                                         </h4>
                                                     @else
-                                                        <h4 class="price">{{ $product->reseller_discount . '%' }}</h4>
+                                                        <h4 class="price">
+                                                            {{ $product->reseller_discount . '%' }}</h4>
                                                     @endif
                                                 @else
                                                     @if ($product->discount_price == 1)
-                                                        <h4 class="price">
+                                                        <h4 class="price" id="discount_whatsapp">
                                                             {{ CurrencyHelper::rupiahCurrency($product->discount) }}
                                                         </h4>
                                                     @else
-                                                        <h4 class="price">{{ $product->discount . '%' }}</h4>
+                                                        <h4 class="price" id="discount_whatsapp">
+                                                            {{ $product->discount . '%' }}</h4>
                                                     @endif
                                                 @endif
                                             </li>
@@ -476,7 +528,8 @@
                                                     }
                                                 @endphp
                                                 {{-- @if ($product->varianProducts->isEmpty()) --}}
-                                                <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
+                                                <h4 class="price" id="subtotal_whatsapp">
+                                                    {{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
                                                 {{-- @else
                                             <h4 class="price">{{CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price,$product->discount))}}</h4>
                                             @endif --}}
@@ -490,7 +543,7 @@
                                             <li class="list-total">
                                                 <h4>Total</h4>
                                                 {{-- @if ($product->varianProducts->isEmpty()) --}}
-                                                <h4 class="price">
+                                                <h4 class="price" id="total_whatsapp">
                                                     {{ CurrencyHelper::countPriceAfterTax($subtotal, 10, true) }}
                                                 </h4>
                                                 {{-- @else
@@ -519,9 +572,23 @@
                                             <li>
                                                 <h4>Discount</h4>
                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                    <h4 class="price">{{ $product->reseller_discount . '%' }}</h4>
+                                                    @if ($product->discount_price == 1)
+                                                        <h4 class="price">
+                                                            {{ CurrencyHelper::rupiahCurrency($product->reseller_discount) }}
+                                                        </h4>
+                                                    @else
+                                                        <h4 class="price">
+                                                            {{ $product->reseller_discount . '%' }}</h4>
+                                                    @endif
                                                 @else
-                                                    <h4 class="price">{{ $product->discount . '%' }}</h4>
+                                                    @if ($product->discount_price == 1)
+                                                        <h4 class="price" id="discount_whatsapp">
+                                                            {{ CurrencyHelper::rupiahCurrency($product->discount) }}
+                                                        </h4>
+                                                    @else
+                                                        <h4 class="price" id="discount_whatsapp">
+                                                            {{ $product->discount . '%' }}</h4>
+                                                    @endif
                                                 @endif
                                             </li>
                                             <li>
@@ -539,7 +606,8 @@
                                                         $product->discount_price,
                                                     );
                                                 @endphp
-                                                <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
+                                                <h4 class="price" id="subtotal_whatsapp">
+                                                    {{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
                                             </li>
 
                                             <li>
@@ -549,7 +617,7 @@
 
                                             <li class="list-total">
                                                 <h4>Total</h4>
-                                                <h4 class="price">
+                                                <h4 class="price" id="total_whatsapp">
                                                     {{ CurrencyHelper::countPriceAfterTax($subtotal, 10, true) }}
                                                 </h4>
                                             </li>
@@ -1095,5 +1163,4 @@
             </form>
         </section>
     @endif
-
 @endsection

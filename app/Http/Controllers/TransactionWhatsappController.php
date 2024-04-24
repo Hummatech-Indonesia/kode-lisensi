@@ -83,13 +83,16 @@ class TransactionWhatsappController extends Controller
         $data['id'] = Uuid::uuid();
         $data['invoice_id'] = $external_id;
         $data['invoice_status'] = InvoiceStatusEnum::PAID->value;
+        $data['order_via_whatsapp'] = 1;
         $data['license_status'] = LicenseStatusEnum::COMPLETED->value;
         if ($data['role'] == UserRoleEnum::CUSTOMER->value) {
-            $data['amount'] = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount);
+            $amount = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount);
+            $data['amount'] = $amount;
         } else {
-            $data['amount'] = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount);
+            $amount =  CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount);
+            $data['amount'] = $amount;
         }
-        $data['paid_amount'] = $product->sell_price + $product->sell_price * 0.1;
+        $data['paid_amount'] = $amount + $amount * 0.1;
         $this->transactionWhatsapp->store($data);
         return redirect()->back()->with('success', trans('alert.add_success'));
     }
