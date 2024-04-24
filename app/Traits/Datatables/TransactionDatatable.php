@@ -24,6 +24,17 @@ trait TransactionDatatable
         return DataTables::of($collection)
             ->addIndexColumn()
             ->setFilteredRecords(250)
+            ->addColumn('revenue', function ($data) {
+                if ($data->detail_transaction->varianProduct) {
+                    $buyPrice = $data->detail_transaction->varianProduct?->buy_price;
+
+                } else {
+                    $buyPrice = $data->detail_transaction->product?->buy_price;
+                }
+                $amount = $data->amount;
+
+                return CurrencyHelper::rupiahCurrency($amount - $buyPrice);
+            })
             ->editColumn('paid_amount', function ($data) {
                 return CurrencyHelper::rupiahCurrency($data->paid_amount);
             })
@@ -35,7 +46,7 @@ trait TransactionDatatable
             })
             ->rawColumns(['action'])
             ->toJson();
-    }    
+    }
     /**
      * Method TransactionMockup
      *
@@ -48,7 +59,7 @@ trait TransactionDatatable
         return DataTables::of($collection)
             ->addIndexColumn()
             ->setFilteredRecords(250)
-            
+
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.orders.datatables.action', compact('data'));
             })

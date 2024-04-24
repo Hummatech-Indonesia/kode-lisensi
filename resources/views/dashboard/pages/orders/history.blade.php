@@ -60,6 +60,7 @@
                                     <th>Paket dibeli</th>
                                     <th>Bayar</th>
                                     <th>Metode</th>
+                                    <th>Laba</th>
                                     <th>Tanggal Transaksi</th>
                                 </tr>
                             </thead>
@@ -111,8 +112,7 @@
             url: "url",
             data: "data",
             dataType: "dataType",
-            success: function(response) {
-            }
+            success: function(response) {}
         });
         document.addEventListener("DOMContentLoaded", function() {
 
@@ -166,6 +166,10 @@
                     {
                         data: 'payment_method',
                         name: 'payment_method'
+                    },
+                    {
+                        data: 'revenue',
+                        name: 'revenue'
                     },
 
                     {
