@@ -23,6 +23,15 @@ trait RevenueDatatable
     {
         return DataTables::of($collection)
             ->addIndexColumn()
+            ->addColumn('revenue', function ($data) {
+                if ($data->detail_transaction->varianProduct) {
+                    $buyPrice = $data->detail_transaction->varianProduct->buy_price;
+                } else {
+                    $buyPrice = $data->detail_transaction->product->buy_price;
+                }
+                $amount = $data->paid_amount;
+                return CurrencyHelper::rupiahCurrency($amount - $buyPrice);
+            })
             ->editColumn('created_at', function ($data) {
                 return Carbon::parse($data->created_at)->format('d M Y h:i');
             })
