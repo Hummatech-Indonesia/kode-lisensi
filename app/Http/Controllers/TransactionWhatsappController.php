@@ -85,11 +85,21 @@ class TransactionWhatsappController extends Controller
         $data['invoice_status'] = InvoiceStatusEnum::PAID->value;
         $data['order_via_whatsapp'] = 1;
         $data['license_status'] = LicenseStatusEnum::COMPLETED->value;
+
         if ($data['role'] == UserRoleEnum::CUSTOMER->value) {
-            $amount = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount);
+            if ($slug_varian) {
+                $amount = CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->discount);
+            } else {
+                $amount = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount);
+            }
+
             $data['amount'] = $amount;
         } else {
-            $amount =  CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount);
+            if ($slug_varian) {
+                $amount =  CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->reseller_discount);
+            } else {
+                $amount =  CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount);
+            }
             $data['amount'] = $amount;
         }
         $data['paid_amount'] = $amount + $amount * 0.1;
