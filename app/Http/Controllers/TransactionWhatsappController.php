@@ -94,6 +94,6 @@ class TransactionWhatsappController extends Controller
         }
         $data['paid_amount'] = $amount + $amount * 0.1;
         $this->transactionWhatsapp->store($data);
-        return redirect()->back()->with('success', trans('alert.add_success'));
+        return to_route('orders.history')->with('success', trans('alert.add_success'));
     }
 }

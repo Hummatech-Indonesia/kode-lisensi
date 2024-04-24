@@ -1,6 +1,6 @@
 <div class="logo-wrapper logo-wrapper-center">
 
-    @role('reseller')
+    @role(['reseller','administrator'])
         <a href="{{ route('home.index') }}" data-bs-original-title="" title="">
             <h2 class="text-white">{{ config('app.name') }}</h2>
         </a>

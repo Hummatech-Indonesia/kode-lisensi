@@ -25,7 +25,7 @@
                 <div class="col-xxl-12">
                     <div class="col-sm-6 mb-3">
                         @if (session('success'))
-                            <x-alert-success></x-alert-success>
+                            <x-sweet-alert-success></x-alert-success>
                         @elseif($errors->any())
                             <x-validation-errors :errors="$errors"></x-validation-errors>
                         @endif
