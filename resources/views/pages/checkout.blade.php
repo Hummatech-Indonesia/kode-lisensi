@@ -48,11 +48,11 @@
                     discount_price);
                 var subtotal_show = rupiahCurrency(subtotal);
                 var total = countPriceAfterTax(subtotal, 10)
-                if(discount_price == 1){
+                if (discount_price == 1) {
                     $('#discount_whatsapp').text(rupiahCurrency(discount));
-                }else{
+                } else {
 
-                    $('#discount_whatsapp').text(discount+ '%');
+                    $('#discount_whatsapp').text(discount + '%');
                 }
                 $('#subtotal_whatsapp').text(subtotal_show);
                 $('#total_whatsapp').text(total);
@@ -195,7 +195,7 @@
                                                                                 <div class="form-check">
                                                                                     <input class="form-check-input"
                                                                                         type="radio" name="role"
-                                                                                        data-discount="{{ $product->discount}}"
+                                                                                        data-discount="{{ $product->discount }}"
                                                                                         data-pure-discount="{{ $product->discount }}"
                                                                                         data-sell-price="{{ $product->varianProducts[0]->sell_price }}"
                                                                                         data-discount-price="{{ $product->discount_price }}"
@@ -208,7 +208,7 @@
                                                                                 <div class="form-check">
                                                                                     <input class="form-check-input"
                                                                                         type="radio" name="role"
-                                                                                        data-discount="{{ $product->reseller_discount}}"
+                                                                                        data-discount="{{ $product->reseller_discount }}"
                                                                                         data-pure-discount="{{ $product->reseller_discount }}"
                                                                                         data-sell-price="{{ $product->varianProducts[0]->sell_price }}"
                                                                                         data-discount-price="{{ $product->discount_price }}"
@@ -224,7 +224,7 @@
                                                                                 <div class="form-check">
                                                                                     <input class="form-check-input"
                                                                                         type="radio" name="role"
-                                                                                        data-discount="{{ $product->discount}}"
+                                                                                        data-discount="{{ $product->discount }}"
                                                                                         data-pure-discount="{{ $product->discount }}"
                                                                                         data-sell-price="{{ $product->sell_price }}"
                                                                                         data-discount-price="{{ $product->discount_price }}"
@@ -237,7 +237,7 @@
                                                                                 <div class="form-check">
                                                                                     <input class="form-check-input"
                                                                                         type="radio" name="role"
-                                                                                        data-discount="{{ $product->reseller_discount}}"
+                                                                                        data-discount="{{ $product->reseller_discount }}"
                                                                                         data-pure-discount="{{ $product->reseller_discount }}"
                                                                                         data-sell-price="{{ $product->sell_price }}"
                                                                                         data-discount-price="{{ $product->discount_price }}"
@@ -533,7 +533,7 @@
                                                         </h4>
                                                     @else
                                                         <h4 class="price">
-                                                            {{ $product->reseller_discount}}</h4>
+                                                            {{ $product->reseller_discount }}%</h4>
                                                     @endif
                                                 @else
                                                     @if ($product->discount_price == 1)
@@ -542,7 +542,7 @@
                                                         </h4>
                                                     @else
                                                         <h4 class="price" id="discount_whatsapp">
-                                                            {{ $product->discount}}</h4>
+                                                            {{ $product->discount }}%</h4>
                                                     @endif
                                                 @endif
                                             </li>
@@ -626,7 +626,7 @@
                                                         </h4>
                                                     @else
                                                         <h4 class="price">
-                                                            {{ $product->reseller_discount}}</h4>
+                                                            {{ $product->reseller_discount }}%</h4>
                                                     @endif
                                                 @else
                                                     @if ($product->discount_price == 1)
@@ -635,7 +635,7 @@
                                                         </h4>
                                                     @else
                                                         <h4 class="price" id="discount_whatsapp">
-                                                            {{ $product->discount}}%</h4>
+                                                            {{ $product->discount }}%</h4>
                                                     @endif
                                                 @endif
                                             </li>
@@ -1065,7 +1065,7 @@
                                                             {{ CurrencyHelper::rupiahCurrency($product->reseller_discount) }}
                                                         </h4>
                                                     @else
-                                                        <h4 class="price">{{ $product->reseller_discount}}</h4>
+                                                        <h4 class="price">{{ $product->reseller_discount }}$</h4>
                                                     @endif
                                                 @else
                                                     @if ($product->discount_price == 1)
@@ -1073,7 +1073,7 @@
                                                             {{ CurrencyHelper::rupiahCurrency($product->discount) }}
                                                         </h4>
                                                     @else
-                                                        <h4 class="price">{{ $product->discount}}</h4>
+                                                        <h4 class="price">{{ $product->discount }}$</h4>
                                                     @endif
                                                 @endif
                                             </li>
@@ -1150,14 +1150,26 @@
                                             <li>
                                                 <h4>Discount</h4>
                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                    <h4 class="price">{{ $product->reseller_discount}}</h4>
+                                                    @if ($product->discount_price == 1)
+                                                        <h4 class="price">
+                                                            {{ currencyHelper::rupiahCurrency($product->reseller_discount) }}
+                                                        </h4>
+                                                    @else
+                                                        <h4 class="price">{{ $product->reseller_discount }}%</h4>
+                                                    @endif
                                                 @else
-                                                    <h4 class="price">{{ $product->discount}}</h4>
+                                                    @if ($product->discount_price == 1)
+                                                        <h4 class="price">
+                                                            {{ CurrencyHelper::rupiahCurrency($product->discount) }}</h4>
+                                                    @else
+                                                        <h4 class="price">{{ $product->discount }}%</h4>
+                                                    @endif
                                                 @endif
                                             </li>
                                             <li>
                                                 <h4>Subtotal</h4>
                                                 @php
+
                                                     $discount =
                                                         UserHelper::getUserRole() == UserRoleEnum::RESELLER->value
                                                             ? $product->reseller_discount
@@ -1168,6 +1180,7 @@
                                                         $discount,
                                                         false,
                                                         $product->discount_price,
+                                                        
                                                     );
                                                 @endphp
                                                 <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
