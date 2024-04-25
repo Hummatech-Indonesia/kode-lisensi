@@ -34,6 +34,17 @@
             </ul>
         </li>
         <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <i class="ri-archive-line"></i>
+                <span>Pengeluaran</span>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{ route('dashboard.expenditure.index') }}">Riwayat Pengeluaran</a>
+                </li>
+            </ul>
+        </li>
+        <li class="sidebar-list">
             <a
                 class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.balance.withdrawal.index') || request()->routeIs('dashboard.balance.withdrawal.history') ? 'active' : '' }}">
                 <i class="ri-wallet-line"></i>
@@ -90,6 +101,7 @@
                 <span>Notifikasi</span>
             </a>
         </li>
+        
         <li class="sidebar-list">
             <a
                 class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.balance.withdrawal.index') || request()->routeIs('dashboard.balance.withdrawal.history') ? 'active' : '' }}">

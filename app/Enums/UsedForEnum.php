@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum UsedForEnum: string
 {
-    case BUYPRODUK = 'buy_produk';
+    case BUYPRODUCT = 'buy_product';
     case PAYRESELLER = 'pay_reseller';
     case OTHERS = 'others';
 }

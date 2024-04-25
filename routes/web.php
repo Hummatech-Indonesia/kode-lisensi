@@ -30,6 +30,7 @@ use App\Http\Controllers\Dashboard\RevenueController;
 use App\Http\Controllers\Dashboard\SiteSettingController;
 use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\SubArticleCategoryController;
+use App\Http\Controllers\ExpenditureController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\Home\HomeArticleController;
 use App\Http\Controllers\Home\HomeCategoryController;
@@ -183,6 +184,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
     Route::middleware('role:administrator')->group(function(){
+        Route::prefix('dashboard')->group(function(){
+            Route::name('dashboard.')->group(function(){
+                Route::resource('expenditure',ExpenditureController::class);
+            });
+        });
+
         Route::prefix('transaction-whatsapp')->group(function(){
             ROute::name('transaction.whatsapp.')->group(function(){
                 Route::post('{slug}/{slug_varian?}', [TransactionWhatsappController::class, 'store'])->name('checkout');

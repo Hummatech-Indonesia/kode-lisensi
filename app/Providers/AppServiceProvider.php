@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\Interfaces\AboutInterface;
+use App\Contracts\Interfaces\Administrator\ExpenditureInterface;
 use App\Contracts\Interfaces\Administrator\TransactionWhatsappInterface;
 use App\Contracts\Interfaces\AdminWithdrawalInterface;
 use App\Contracts\Interfaces\ArticleCategoryInterface;
@@ -39,6 +40,7 @@ use App\Contracts\Interfaces\UpdateIdInvoiceInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Interfaces\VarianProductInterface;
 use App\Contracts\Repositories\AboutRepository;
+use App\Contracts\Repositories\Administrator\ExpenditureRepository;
 use App\Contracts\Repositories\Administrator\TransactionWhatsappRepository;
 use App\Contracts\Repositories\AdminWithdrawalRepository;
 use App\Contracts\Repositories\ArticleCategoryRepository;
@@ -115,7 +117,8 @@ class AppServiceProvider extends ServiceProvider
         AdminWithdrawalInterface::class => AdminWithdrawalRepository::class,
         RekeningNumberInterface::class => RekeningNumberRepository::class,
         SubArticleCategoryInterface::class => SubArticleCategoryRepository::class,
-        TransactionWhatsappInterface::class => TransactionWhatsappRepository::class
+        TransactionWhatsappInterface::class => TransactionWhatsappRepository::class,
+        ExpenditureInterface::class=>ExpenditureRepository::class
     ];
 
     /**

@@ -17,8 +17,9 @@ return new class extends Migration
     {
         Schema::create('expenditures', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->enum('used_for', [UsedForEnum::BUYPRODUK->value, UsedForEnum::OTHERS->value, UsedForEnum::PAYRESELLER->value]);
+            $table->enum('used_for', [UsedForEnum::BUYPRODUCT->value, UsedForEnum::OTHERS->value, UsedForEnum::PAYRESELLER->value]);
             $table->enum('balance_used', [BalanceUsedEnum::TRIPAY->value, BalanceUsedEnum::REKENING->value]);
+            $table->integer('balance_withdrawn');
             $table->string('description');
             $table->timestamps();
         });
