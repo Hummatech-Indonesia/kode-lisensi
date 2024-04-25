@@ -13,10 +13,9 @@ use App\Enums\LicenseStatusEnum;
 use App\Enums\UserRoleEnum;
 use App\Helpers\CurrencyHelper;
 use App\Http\Requests\TransactionWhatsappRequest;
-use App\Models\Product;
+use App\Services\TransactionWhatsappService;
 use Faker\Provider\Uuid;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class TransactionWhatsappController extends Controller
 {
@@ -26,15 +25,17 @@ class TransactionWhatsappController extends Controller
     private UserInterface $user;
     private UpdateIdInvoiceInterface $updateIdInvoice;
     private VarianProductInterface $varianProduct;
+    private TransactionWhatsappService $transactionWhatsappService;
 
 
-    public function __construct(TransactionWhatsappInterface $transactionWhatsapp, UserInterface $user, ProductInterface $product, UpdateIdInvoiceInterface $updateIdInvoice, TransactionInterface $transaction, VarianProductInterface $varianProduct)
+    public function __construct(TransactionWhatsappInterface $transactionWhatsapp, UserInterface $user, ProductInterface $product, UpdateIdInvoiceInterface $updateIdInvoice, TransactionInterface $transaction, VarianProductInterface $varianProduct, TransactionWhatsappService $transactionWhatsappService)
     {
         $this->transactionWhatsapp = $transactionWhatsapp;
         $this->product = $product;
         $this->varianProduct = $varianProduct;
         $this->user = $user;
         $this->transaction = $transaction;
+        $this->transactionWhatsappService = $transactionWhatsappService;
         $this->updateIdInvoice = $updateIdInvoice;
     }
 
@@ -48,6 +49,7 @@ class TransactionWhatsappController extends Controller
     {
         $data = $request->validated();
         $user = $this->user->searchByEmail($data['email']);
+
         if ($user == null) {
             $user = $this->user->store([
                 'name' => $data['name'],
@@ -95,14 +97,14 @@ class TransactionWhatsappController extends Controller
             } else {
                 $amount = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount);
             }
-            $data['amount'] = $amount;
+            $data['amount'] = $amount + $amount * 0.1;
         } else {
             if ($slug_varian) {
                 $amount =  CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->reseller_discount);
             } else {
                 $amount =  CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount);
             }
-            $data['amount'] = $amount;
+            $data['amount'] = $amount + $amount * 0.1;
         }
         if ($slug_varian) {
             $varianProduct = $this->varianProduct->getWhere(['product_id' => $product->id, 'slug_varian' => $slug_varian]);
@@ -111,7 +113,11 @@ class TransactionWhatsappController extends Controller
         }
         $data['varian_product_id'] = $varianProduct->id;
         $data['paid_amount'] = $amount + $amount * 0.1;
-        $this->transactionWhatsapp->store($data);
+
+        $transaction = $this->transactionWhatsapp->store($data);
+
+        $this->transactionWhatsappService->sendEmail($data, $product, $transaction, $request);
+
         return to_route('orders.history')->with('success', trans('alert.add_success'));
     }
 }

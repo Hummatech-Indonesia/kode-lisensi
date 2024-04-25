@@ -219,6 +219,7 @@ class TransactionService
 
         $signature = $this->service->handleGenerateSignature($external_id, $amount);
 
+     
         $pay = [
             'method' => $data['payment_code'],
             'merchant_ref' => $external_id,
