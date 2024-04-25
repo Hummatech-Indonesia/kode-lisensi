@@ -155,7 +155,9 @@ class TransactionService
         $user = $this->fcmToken->get();
         $user->notify(new OrderNotification($product, $transaction));
 
-        if ($license_id) $this->license->update($license->id, ['is_purchased' => 1]);
+        if ($license_id) {
+            $this->license->update($license->id, ['is_purchased' => 1, 'transaction_id' => $transaction->id]);
+        }
 
         dispatch(new TransactionJob([
             'name' => $data['name'],
@@ -219,7 +221,7 @@ class TransactionService
 
         $signature = $this->service->handleGenerateSignature($external_id, $amount);
 
-     
+
         $pay = [
             'method' => $data['payment_code'],
             'merchant_ref' => $external_id,

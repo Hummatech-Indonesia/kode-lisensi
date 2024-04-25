@@ -12,7 +12,7 @@ class License extends Model implements HasOneProduct
     use HasFactory;
 
     public $incrementing = false;
-    public $fillable = ['id', 'product_id', 'username', 'password', 'serial_key','description', 'is_purchased'];
+    public $fillable = ['id', 'product_id', 'username', 'password', 'serial_key','description', 'is_purchased', 'transaction_id'];
     public $keyType = 'char';
     protected $table = 'licenses';
     protected $primaryKey = 'id';
