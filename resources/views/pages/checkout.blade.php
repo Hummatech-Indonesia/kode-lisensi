@@ -1,5 +1,6 @@
 @php
     use App\Enums\ProductStatusEnum;
+    use App\Enums\ProductTypeEnum;
     use App\Enums\UserRoleEnum;
     use App\Helpers\CurrencyHelper;
     use App\Helpers\UserHelper;
@@ -257,18 +258,30 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-xxl-12 col-lg-12 col-sm-12">
-                                                                <div class="mb-md-4 mb-3 custom-form">
-                                                                    <label for="exampleFormControlInput4"
-                                                                        class="form-label">Catatan (opsional)</label>
-                                                                    <div class="custom-input">
-                                                                        <textarea name="note" id="exampleFormControlInput4" cols="15" rows="5"
-                                                                            class="form-control @error('note') is-invalid @enderror" placeholder="catatan pemesanan">{{ old('note') }}</textarea>
-                                                                        @error('note')
-                                                                            <span class="invalid-feedback" role="alert">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </span>
-                                                                        @enderror
-                                                                    </div>
+                                                                <label for="" class="form-label">Tambahkan
+                                                                    Lisensi</label>
+                                                                <div class=""
+                                                                    style="border: 1px solid rgb(55, 55, 55); padding:1rem; border-radius:0.5rem; background-color:rgb(199, 199, 199)">
+                                                                    @if ($product->type == ProductTypeEnum::SERIAL->value)
+                                                                        <input type="text" name="serial_key"
+                                                                            class="form-control" id="serial_key">
+                                                                    @elseif ($product->type == ProductTypeEnum::CREDENTIAL->value)
+                                                                        <label for="username" class="form-label">Username
+                                                                        </label>
+                                                                        <div class="custom-input">
+                                                                            <input type="text" name="username"
+                                                                                class="form-control" id="">
+                                                                            <label for="password"
+                                                                                class="form-label">Password</label>
+                                                                            <input type="password" name="password"
+                                                                                class="form-control" id="">
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="custom-input">
+                                                                            <textarea name="description" id="" cols="15" rows="5"
+                                                                                class="form-control @error('description') is-invalid @enderror" placeholder="catatan pemesanan">{{ old('description') }}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
 
@@ -469,7 +482,6 @@
                             </div>
 
                         </div>
-
                         <div class="col-lg-4">
                             <div class="right-side-summery-box">
                                 <div class="summery-box-2">

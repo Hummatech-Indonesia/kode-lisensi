@@ -45,6 +45,8 @@ class UserRepository extends BaseRepository implements UserInterface
         return $this->model->query()
             ->whereHas('transactions')
             ->withCount('transactions')
+            ->orderByDesc('transactions_count')
+            ->take(5)
             ->get();
     }
 
