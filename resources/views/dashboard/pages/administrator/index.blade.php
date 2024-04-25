@@ -38,17 +38,16 @@
         </div>
     </div>
     <div class="col-sm-6 col-xxl-3 col-lg-6">
-        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
-            <div class="custome-2-bg b-r-4 card-body">
-                <div class="media static-top-widget">
+        <div class="main-tiles border-5 border-0  card-hover card o-hidden">
+            <div class="custome-1-bg b-r-4 card-body">
+                <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
-                        <span class="m-0">Total produk terjual</span>
-                        <h4 class="mb-0 counter">
-                            {{ $order }}
+                        <span class="m-0">Pendapatan Via Whatsapp</span>
+                        <h4 class="mb-0 counter">{{ CurrencyHelper::rupiahCurrency($whatsappBalance) }}
                         </h4>
                     </div>
                     <div class="align-self-center text-center">
-                        <i class="ri-shopping-bag-3-line"></i>
+                        <i class="ri-exchange-dollar-fill"></i>
                     </div>
                 </div>
             </div>
@@ -59,7 +58,7 @@
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
-                        <span class="m-0">Pendapatan Non Tripay</span>
+                        <span class="m-0">Laba Non Tripay</span>
                         <h4 class="mb-0 counter">{{ CurrencyHelper::rupiahCurrency($whatsappRevenue) }}
                         </h4>
                     </div>

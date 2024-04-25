@@ -33,6 +33,17 @@
                 </li>
             </ul>
         </li>
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <i class="ri-archive-line"></i>
+                <span>Data Reseller</span>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{ route('dashboard.balance.withdrawal.history') }}">Riwayat Penarikan</a>
+                </li>
+            </ul>
+        </li>
     @endrole
     @role('author')
         <li class="sidebar-list">

@@ -59,7 +59,7 @@ class DashboardController extends Controller
                 'users' => $users,
                 'balance' => $this->service->handleBalance(),
                 'revenue' => $this->service->handleRevenue(),
-                'order' => $this->service->handleCountOrders(),
+                'whatsappBalance' => $this->service->handleWhatsappBalance(),
                 'whatsappRevenue' => $this->service->handleWhatsappRevenue(),
             ]);
         } else {

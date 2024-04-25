@@ -55,7 +55,14 @@ class SummaryService
     {
         return $this->transaction->query()
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
-            ->sum('paid_amount');
+            ->sum('amount');
+    }
+    public function handleWhatsappBalance(): int
+    {
+        return $this->transaction->query()
+            ->where('order_via_whatsapp', 1)
+            ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->sum('amount');
     }
     public function handleRevenue(): int
     {
@@ -70,7 +77,7 @@ class SummaryService
                 $buyPrice = $transaction->detail_transaction->product?->buy_price;
             }
 
-            $amount = $transaction->paid_amount;
+            $amount = $transaction->amount;
 
             $revenue += ($amount - $buyPrice);
         }
