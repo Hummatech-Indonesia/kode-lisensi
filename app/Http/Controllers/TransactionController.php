@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Enums\UserRoleEnum;
 use App\Helpers\ResponseHelper;
+use App\Helpers\UserHelper;
 use App\Http\Requests\TransactionRequest;
 use App\Http\Resources\TransactionResource;
 use App\Services\TransactionService;
@@ -63,8 +65,11 @@ class TransactionController extends Controller
         }
 
         $this->service->handleCheckout($request, $product, $slug_varian);
-        return to_route('users.account.index')->with('success',trans('alert.checkout_success'));
-        // return back()->with('success', trans('alert.checkout_success'));
+        if(UserHelper::getUserRole() == UserRoleEnum::RESELLER->value){
+            return to_route('dashboard.index')->with('success',trans('alert.checkout_success'));
+        }else{
+            return to_route('users.account.index')->with('success',trans('alert.checkout_success'));
+        }
     }
 
     /**

@@ -64,9 +64,38 @@ class SummaryService
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
             ->sum('amount');
     }
+    public function handleTripayBalance(): int
+    {
+        return $this->transaction->query()
+            ->where('order_via_whatsapp', 0)
+            ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->sum('amount');
+    }
     public function handleRevenue(): int
     {
         $transactions = $this->transaction->query()->where('invoice_status', InvoiceStatusEnum::PAID->value)->get();
+
+        $revenue = 0;
+
+        foreach ($transactions as $transaction) {
+            if ($transaction->detail_transaction->varianProduct) {
+                $buyPrice = $transaction->detail_transaction->varianProduct->buy_price;
+            } else {
+                $buyPrice = $transaction->detail_transaction->product?->buy_price;
+            }
+
+            $amount = $transaction->amount;
+
+            $revenue += ($amount - $buyPrice);
+        }
+
+
+
+        return $revenue;
+    }
+    public function handleTripayRevenue(): int
+    {
+        $transactions = $this->transaction->query()->where('order_via_whatsapp',0)->where('invoice_status', InvoiceStatusEnum::PAID->value)->get();
 
         $revenue = 0;
 

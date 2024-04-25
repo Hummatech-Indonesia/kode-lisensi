@@ -59,6 +59,8 @@ class DashboardController extends Controller
                 'users' => $users,
                 'balance' => $this->service->handleBalance(),
                 'revenue' => $this->service->handleRevenue(),
+                'tripayBalance' => $this->service->handleTripayBalance(),
+                'tripayRevenue' => $this->service->handleTripayRevenue(),
                 'whatsappBalance' => $this->service->handleWhatsappBalance(),
                 'whatsappRevenue' => $this->service->handleWhatsappRevenue(),
             ]);

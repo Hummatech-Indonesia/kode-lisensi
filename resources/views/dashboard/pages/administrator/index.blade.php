@@ -5,7 +5,7 @@
 @endphp
 @extends('dashboard.layouts.app')
 @section('content')
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-6 col-lg-6">
         <div class="main-tiles border-5 border-0  card-hover card o-hidden">
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-6 col-lg-6">
         <div class="main-tiles border-5 border-0  card-hover card o-hidden">
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
@@ -37,7 +37,39 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-6 col-lg-6">
+        <div class="main-tiles border-5 border-0  card-hover card o-hidden">
+            <div class="custome-1-bg b-r-4 card-body">
+                <div class="media align-items-center static-top-widget">
+                    <div class="media-body p-0">
+                        <span class="m-0">Total Pendapatan Tripay</span>
+                        <h4 class="mb-0 counter">{{ CurrencyHelper::rupiahCurrency($tripayBalance) }}
+                        </h4>
+                    </div>
+                    <div class="align-self-center text-center">
+                        <i class="ri-exchange-dollar-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl-6 col-lg-6">
+        <div class="main-tiles border-5 border-0  card-hover card o-hidden">
+            <div class="custome-1-bg b-r-4 card-body">
+                <div class="media align-items-center static-top-widget">
+                    <div class="media-body p-0">
+                        <span class="m-0">Total Laba Penjualan</span>
+                        <h4 class="mb-0 counter">{{ CurrencyHelper::rupiahCurrency($tripayRevenue) }}
+                        </h4>
+                    </div>
+                    <div class="align-self-center text-center">
+                        <i class="ri-money-dollar-circle-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl-6 col-lg-6">
         <div class="main-tiles border-5 border-0  card-hover card o-hidden">
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
@@ -53,7 +85,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-6 col-lg-6">
         <div class="main-tiles border-5 border-0  card-hover card o-hidden">
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
