@@ -79,6 +79,31 @@ class SummaryService
 
         return $revenue;
     }
+    public function handleWhatsappRevenue(): int
+    {
+        $transactions = $this->transaction
+            ->query()
+            ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where('order_via_whatsapp', 1)
+            ->get();
+
+        $revenue = 0;
+
+        foreach ($transactions as $transaction) {
+            if ($transaction->detail_transaction->varianProduct) {
+                $buyPrice = $transaction->detail_transaction->varianProduct->buy_price;
+            } else {
+                $buyPrice = $transaction->detail_transaction->product?->buy_price;
+            }
+
+            $amount = $transaction->amount;
+
+            $revenue += ($amount - $buyPrice);
+        }
+
+        return $revenue;
+    }
+
 
 
     /**
@@ -115,6 +140,7 @@ class SummaryService
     {
         return UserHelper::countCustomers() + UserHelper::countResellers();
     }
+
 
     /**
      * Handle get the lowest stock products
@@ -291,7 +317,7 @@ class SummaryService
             ->orderByDesc('product_ratings_sum_rating')
             ->get();
 
-        return $data->filter(fn ($item) => $item->product_ratings_sum_rating != null);
+        return $data->filter(fn($item) => $item->product_ratings_sum_rating != null);
     }
 
     /**

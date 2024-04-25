@@ -52,7 +52,7 @@ class DashboardController extends Controller
         } elseif (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) {
             return view('dashboard.pages.reseller-dashboard.index');
         } else if (UserHelper::getUserRole() === UserRoleEnum::ADMINISTRATOR->value) {
-            
+
             $users = $this->user->userTransaction();
 
             return view('dashboard.pages.administrator.index', [
@@ -60,7 +60,7 @@ class DashboardController extends Controller
                 'balance' => $this->service->handleBalance(),
                 'revenue' => $this->service->handleRevenue(),
                 'order' => $this->service->handleCountOrders(),
-                'customer' => $this->service->handleCountCustomers(),
+                'whatsappRevenue' => $this->service->handleWhatsappRevenue(),
             ]);
         } else {
             $totalArticle = $this->article->count();

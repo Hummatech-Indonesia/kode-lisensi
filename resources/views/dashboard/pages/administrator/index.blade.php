@@ -55,17 +55,16 @@
         </div>
     </div>
     <div class="col-sm-6 col-xxl-3 col-lg-6">
-        <div class="main-tiles border-5 card-hover border-0  card o-hidden">
-            <div class="custome-3-bg b-r-4 card-body">
-                <div class="media static-top-widget">
+        <div class="main-tiles border-5 border-0  card-hover card o-hidden">
+            <div class="custome-1-bg b-r-4 card-body">
+                <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
-                        <span class="m-0">Total Pengguna</span>
-                        <h4 class="mb-0 counter">{{ $customer }}
+                        <span class="m-0">Pendapatan Non Tripay</span>
+                        <h4 class="mb-0 counter">{{ CurrencyHelper::rupiahCurrency($whatsappRevenue) }}
                         </h4>
                     </div>
-
                     <div class="align-self-center text-center">
-                        <i class="ri-user-add-line"></i>
+                        <i class="ri-money-dollar-circle-line"></i>
                     </div>
                 </div>
             </div>
