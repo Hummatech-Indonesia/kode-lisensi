@@ -34,13 +34,17 @@
             </ul>
         </li>
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                <i class="ri-archive-line"></i>
-                <span>Data Reseller</span>
+            <a
+                class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.balance.withdrawal.index') || request()->routeIs('dashboard.balance.withdrawal.history') ? 'active' : '' }}">
+                <i class="ri-wallet-line"></i>
+                <span>Penarikan Saldo</span>
             </a>
             <ul class="sidebar-submenu">
                 <li>
-                    <a href="{{ route('dashboard.balance.withdrawal.history') }}">Riwayat Penarikan</a>
+                    <a href="{{ route('balance.withdrawal.admin.index') }}">Permintaaan penarikan</a>
+                </li>
+                <li>
+                    <a href="{{ route('balance.withdrawal.admin.history') }}">Riwayat Penarikan</a>
                 </li>
             </ul>
         </li>
@@ -94,7 +98,7 @@
             </a>
             <ul class="sidebar-submenu">
                 <li>
-                    <a href="{{ route('dashboard.balance.withdrawal.index') }}">Tarik Saldo</a>
+                    <a href="{{ route('dashboard.balance.withdrawal.index') }}">permintaan penarikan</a>
                 </li>
                 <li>
                     <a href="{{ route('dashboard.balance.withdrawal.history') }}">Riwayat Penarikan</a>

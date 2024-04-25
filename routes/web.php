@@ -146,17 +146,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
         });
     });
-    route::middleware('role:administrator|reseller')->group(function(){
-        route::prefix('dashboard')->group(function(){
-            route::name('dashboard.')->group(function(){
-                route::prefix('balance-withdrawal')->group(function(){
-                    route::name('balance.withdrawal.')->group(function(){
-                        route::get('history',[BalanceWithdrawalController::class,'history'])->name('history');
-                    });
-                });
-            });
-        });
-    });
+    // route::middleware('role:administrator|reseller')->group(function(){
+    //     route::prefix('dashboard')->group(function(){
+    //         route::name('dashboard.')->group(function(){
+    //             route::prefix('balance-withdrawal')->group(function(){
+    //                 route::name('balance.withdrawal.')->group(function(){
+    //                     route::get('history',[BalanceWithdrawalController::class,'history'])->name('history');
+    //                 });
+    //             });
+    //         });
+    //     });
+    // });
     Route::middleware('role:reseller')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
@@ -166,7 +166,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                         Route::resource('rekening-numbers', RekeningNumberController::class)->except('index');
                         Route::get('rekening-numbers/{rekening_number}', [RekeningNumberController::class, 'index'])->name('rekening-numbers.index');
                         Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
-                        // Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
+                        Route::get('history', [BalanceWithdrawalController::class, 'history'])->name('history');
                         Route::post('balance-withdrawals/{rekening_number}', [BalanceWithdrawalController::class, 'store'])->name('store');
                     });
                     Route::name('pin.rekening.')->group(function () {
