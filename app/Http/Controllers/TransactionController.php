@@ -65,6 +65,7 @@ class TransactionController extends Controller
         }
 
         $this->service->handleCheckout($request, $product, $slug_varian);
+        
         if(UserHelper::getUserRole() == UserRoleEnum::RESELLER->value){
             return to_route('dashboard.index')->with('success',trans('alert.checkout_success'));
         }else{
