@@ -6,13 +6,13 @@ use App\Contracts\Interfaces\ArticleCategoryInterface;
 use App\Contracts\Interfaces\ArticleInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Enums\UserRoleEnum;
+use App\Helpers\BalanceHelper;
 use App\Helpers\ResponseHelper;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Services\SummaryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
-use Xendit\Exceptions\ApiException;
 
 class DashboardController extends Controller
 {
@@ -38,8 +38,8 @@ class DashboardController extends Controller
     {
         if (UserHelper::getUserRole() === UserRoleEnum::ADMIN->value) {
             return view('dashboard.pages.index', [
-                'balance' => $this->service->handleBalance(),
-                'revenue' => $this->service->handleRevenue(),
+                'balance' => BalanceHelper::handleBalance(),
+                'revenue' => BalanceHelper::handleRevenue(),
                 'order' => $this->service->handleCountOrders(),
                 'product' => $this->service->handleCountProducts(),
                 'customer' => $this->service->handleCountCustomers(),
@@ -50,6 +50,7 @@ class DashboardController extends Controller
                 'bestSeller' => $this->service->handleBestSeller()
             ]);
         } elseif (UserHelper::getUserRole() === UserRoleEnum::RESELLER->value) {
+
             return view('dashboard.pages.reseller-dashboard.index');
         } else if (UserHelper::getUserRole() === UserRoleEnum::ADMINISTRATOR->value) {
 
@@ -57,12 +58,15 @@ class DashboardController extends Controller
 
             return view('dashboard.pages.administrator.index', [
                 'users' => $users,
-                'balance' => $this->service->handleBalance(),
-                'revenue' => $this->service->handleRevenue(),
-                'tripayBalance' => $this->service->handleTripayBalance(),
-                'tripayRevenue' => $this->service->handleTripayRevenue(),
-                'whatsappBalance' => $this->service->handleWhatsappBalance(),
-                'whatsappRevenue' => $this->service->handleWhatsappRevenue(),
+                'balance' => BalanceHelper::handleBalance(),
+                'expenditure' => BalanceHelper::overallExpenditure(),
+                'tripayExpenditure' => BalanceHelper::tripayExpenditure(),
+                'rekeningExpenditure' => BalanceHelper::rekeningExpenditure(),
+                'revenue' => BalanceHelper::handleRevenue(),
+                'tripayBalance' => BalanceHelper::handleTripayBalance(),
+                'tripayRevenue' => BalanceHelper::handleTripayRevenue(),
+                'whatsappBalance' => BalanceHelper::handleWhatsappBalance(),
+                'whatsappRevenue' => BalanceHelper::handleWhatsappRevenue(),
             ]);
         } else {
             $totalArticle = $this->article->count();
@@ -83,7 +87,7 @@ class DashboardController extends Controller
      */
     public function apiDashboard(): JsonResponse
     {
-        $balance = $this->service->handleBalance();
+        $balance = BalanceHelper::handleBalance();
         $balance = strval($balance);
         $order = $this->service->handleCountOrders();
         $order = strval($order);
