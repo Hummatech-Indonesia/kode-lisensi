@@ -79,8 +79,6 @@
                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                         Regards,<br>
                                                         {{ config('app.name') }}</p>
-
-
                                                     <table width="100%" cellpadding="0" cellspacing="0"
                                                         role="presentation"
                                                         style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';border-top:1px solid #e8e5ef;margin-top:25px;padding-top:25px">
@@ -96,7 +94,6 @@
                                                                                 style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';color:#3869d4"
                                                                                 target="_blank">{{ config('app.site_support') }}</a></span>
                                                                     </p>
-
                                                                 </td>
                                                             </tr>
                                                         </tbody>
