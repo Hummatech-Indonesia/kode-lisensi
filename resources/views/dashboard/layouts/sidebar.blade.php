@@ -40,7 +40,7 @@
             </a>
             <ul class="sidebar-submenu">
                 <li>
-                    <a href="{{ route('dashboard.expenditure.index') }}">Riwayat Pengeluaran</a>
+                    <a href="{{ route('dashboard.fetch.expenditure') }}">Riwayat Pengeluaran</a>
                 </li>
             </ul>
         </li>
@@ -101,7 +101,7 @@
                 <span>Notifikasi</span>
             </a>
         </li>
-        
+
         <li class="sidebar-list">
             <a
                 class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.balance.withdrawal.index') || request()->routeIs('dashboard.balance.withdrawal.history') ? 'active' : '' }}">

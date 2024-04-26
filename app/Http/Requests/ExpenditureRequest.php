@@ -26,7 +26,7 @@ class ExpenditureRequest extends FormRequest
         return [
             'used_for'=>'required',
             'balance_used'=>'required',
-            'balance_withdrawn'=>'required',
+            'balance_withdrawn'=>'required|integer|min:0',
             'description'=>'required',
         ];
     }
@@ -35,7 +35,10 @@ class ExpenditureRequest extends FormRequest
             'used_for.required'=>'Tujuan pengeluaran harus terisi',
             'balance_used.required'=>'Tentukan rekening yang akan anda gunakan',
             'balance_withdrawn.required'=>'Nominal pengeluaran harus terisi',
+            'balance_Withdrawn.integer'=>'Nominal pengeluaran harus berupa angka',
+            'balance_withdrawn.min'=>'Pengeluaran tidak valid',
             'description.required'=>'Kolom Deskripsi tidak boleh kosong',
+
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\GetAllnterface;
 use App\Contracts\Interfaces\Eloquent\GetWhereInterface;
+use App\Traits\Datatables\ExpenditureDatatable;
 
 interface TransactionInterface extends GetInterface, StoreInterface, ShowInterface, GetAllnterface
 {

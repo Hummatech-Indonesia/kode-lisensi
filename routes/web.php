@@ -187,6 +187,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('dashboard')->group(function(){
             Route::name('dashboard.')->group(function(){
                 Route::resource('expenditure',ExpenditureController::class);
+                Route::get('expenditure',[ExpenditureController::class,'fetchExpenditure'])->name('fetch.expenditure');
             });
         });
 

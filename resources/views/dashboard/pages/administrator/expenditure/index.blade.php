@@ -4,39 +4,49 @@
 @endsection
 @section('content')
     <div class="card card-table">
+        <div class="col-sm-6 mb-3">
+            @if (session('success'))
+                <x-alert-success></x-alert-success>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert-message">
+                        <strong>Terjadi Kesalahan!</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+        </div>
+
         <div class="card-body">
-            <div class="col-sm-6 mb-3">
-                @if (session('success'))
-                    <x-alert-success></x-alert-success>
-                @elseif(session('error'))
-                    <x-alert-failed></x-alert-failed>
-                @endif
-            </div>
-            
+
             <div class="title-header option-title">
                 <h5>Halaman Pengeluaran Administrator</h5>
             </div>
-            {{-- <div class="title-header option-title d-flex justify-between">
-                <div style="width: 200px">
-                    <select name="" class="form-select" id="status">
-                        <option value="">Tampilkan Semua</option>
-                        <option value="stocking">Stok</option>
-                        <option value="preorder">Preorder</option>
-                    </select>
-                </div>
-                <a href="{{ route('products.create') }}" class="align-items-center btn btn-theme d-flex">
-                    <i data-feather="plus-square"></i>
-                    Tambah Produk Baru
-                </a>
-            </div> --}}
+            <div class="d-flex justify-content-end mb-3">
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addExpenditureModal">
+                    Tambah Data
+                </button>
+            </div>
+
+
+            <div class="title-header option-title d-flex justify-between">
+
+            </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Penggunaan</th>
                             <th>Penarikan Melalui</th>
-                            <th>Nomnial Penarikan</th>
+                            <th>Nominal Penarikan</th>
                             <th>Deskripsi</th>
                             <th>Aksi</th>
                         </tr>
@@ -50,11 +60,9 @@
 @endsection
 
 @section('script')
-    <x-product-recommendation></x-product-recommendation>
-    <x-delete-product-recommendation></x-delete-product-recommendation>
-    <x-product-recommendation></x-product-recommendation>
-    <x-delete-modal></x-delete-modal>
-    <x-soft-delete-modal></x-soft-delete-modal>
+    <x-add-expenditure-modal></x-add-expenditure-modal>
+    <x-delete-expenditure-modal></x-delete-expenditure-modal>
+    <x-update-expenditure-modal></x-update-expenditure-modal>
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
@@ -71,36 +79,36 @@
                 processing: true,
                 serverSide: false,
                 searching: true,
-                ajax: {
-                    url: "{{ route('products.index') }}",
-                    data: function(d) {
-                        d.status = $('#status').val();
-                    }
-                },
+                ajax: "{{ route('dashboard.fetch.expenditure') }}",
+
                 columns: [{
-                        data: 'photo',
-                        name: 'photo'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name',
+                        data: 'used_for',
+                        name: 'used_for',
                         render: function(data, type, row) {
-                            return '<a href="{{ route('home.products.show', ':slug') }}'.replace(
-                                ':slug', row.slug) + '" target="_blank">' + data + '</a>';
+                            if (data === 'buy_product') {
+                                return 'Beli Produk';
+                            } else if (data === 'pay_reseller') {
+                                return 'Bayar Reseller';
+                            } else if (data === 'others') {
+                                return 'Lainnya';
+                            } else {
+                                return data; // fallback to original value if not matched
+                            }
                         }
                     },
                     {
-                        data: 'category.name',
-                        name: 'category.name',
-                        render: function(data, type, row) {
-                            return '<a href="{{ route('home.category', ':category.id') }}'
-                                .replace(':category.id', row.category.id) + '" target="_blank">' +
-                                data + '</a>';
-                        }
+                        data: 'balance_used',
+                        name: 'balance_used',
+
                     },
                     {
-                        data: 'sell_price',
-                        name: 'sell_price'
+                        data: 'balance_withdrawn',
+                        name: 'balance_withdrawn',
+
+                    },
+                    {
+                        data: 'description',
+                        name: 'description'
                     },
                     {
                         data: 'action',
@@ -131,12 +139,7 @@
                 table.ajax.reload()
             }
 
-            $(document).on('click', '.delete-soft', function() {
-                $('#softModal').modal('show')
-                const id = $(this).attr('data-id');
-                let url = `{{ route('product.soft.delete', ':id') }}`.replace(':id', id);
-                $('#deleteSoft').attr('action', url);
-            });
+
         });
         $('.dataTables_scrollBody').css({
             'position': 'relative',
@@ -146,12 +149,34 @@
             'width': '100%'
         });
 
+        $(document).on('click', '.update-alert', function() {
+            $('#updateExpenditureModal').modal('show')
+            const id = $(this).data('id');
+            const usedFor = $(this).data('used-for');
+            const balanceUsed = $(this).data('balance-used');
+            const balanceWithdrawn = $(this).data('balance-withdrawn');
+            const description = $(this).data('description');
+            let url = `{{ route('dashboard.expenditure.update', ':id') }}`.replace(':id',
+                id);
+            console.log(id);
+            console.log(usedFor);
+            console.log(balanceUsed);
+            console.log(balanceWithdrawn);
+            console.log(description);
+            $('#usedFor').val(usedFor);
+            $('#balanceUsed').val(balanceUsed);
+            $('#balanceWithdrawn').val(balanceWithdrawn);
+            $('#description').val(description);
+            $('#updateForm').attr('action', url);
+            console.log(url);
+        });
         $(document).on('click', '.delete-alert', function() {
-            $('#exampleModal').modal('show')
+            $('#deleteExpenditureModal').modal('show')
             const id = $(this).attr('data-id');
-            let url = `{{ route('product.destroy', ':id') }}`.replace(':id', id);
+            console.log(id);
+            let url = `{{ route('dashboard.expenditure.destroy', ':id') }}`.replace(':id', id);
+            console.log(url);
             $('#deleteForm').attr('action', url);
         });
-
     </script>
 @endsection

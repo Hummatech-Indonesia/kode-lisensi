@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Article;
 use App\Models\BalanceWithdrawal;
 use App\Models\Category;
+use App\Models\Expenditure;
 use App\Models\License;
 use App\Models\Product;
 use App\Models\ProductEmail;
@@ -19,6 +20,7 @@ use App\Models\VarianProduct;
 use App\Observers\ArticleObserver;
 use App\Observers\BalanceWithdrawalObserver;
 use App\Observers\CategoryObserver;
+use App\Observers\ExpenditureObserver;
 use App\Observers\LicenseObserver;
 use App\Observers\ProductEmailObserver;
 use App\Observers\ProductFavoriteObserver;
@@ -65,6 +67,7 @@ class EventServiceProvider extends ServiceProvider
         BalanceWithdrawal::observe(BalanceWithdrawalObserver::class);
         RekeningNumber::observe(RekeningNumberObserver::class);
         SubArticleCategory::observe(SubArticleCategoryObserver::class);
+        Expenditure::observe(ExpenditureObserver::class);
     }
 
     /**

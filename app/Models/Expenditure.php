@@ -10,9 +10,9 @@ class Expenditure extends Model
     use HasFactory;
 
     public $incrementing = false;
-    public $fillable = ['id', 'used_for', 'balance_used', 'description'];
+    public $fillable = ['id', 'used_for', 'balance_used','balance_withdrawn', 'description'];
     public $keyType = 'char';
-    
+
     protected $table = 'expenditures';
     protected $primaryKey = 'id';
 }
