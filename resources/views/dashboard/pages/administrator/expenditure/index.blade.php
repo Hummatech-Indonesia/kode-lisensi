@@ -69,6 +69,11 @@
         let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
         $(document).ready(function() {
+
+            function rupiahCurrency(number) {
+                return "Rp " + number.toLocaleString('id-ID');
+            }
+
             var table = $("#table_id").DataTable({
                 scrollX: false,
                 scrollY: '500px',

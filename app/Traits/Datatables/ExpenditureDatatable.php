@@ -27,6 +27,9 @@ trait ExpenditureDatatable
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.administrator.expenditure.datatable.action', compact('data'));
             })
+            ->editColumn('balance_withdrawn', function ($data) {
+                return view('dashboard.pages.administrator.expenditure.datatable.balance-withdrawn', compact('data'));
+            })
             ->rawColumns(['action'])
             ->toJson();
     }
