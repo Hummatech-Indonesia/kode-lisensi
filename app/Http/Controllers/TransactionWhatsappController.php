@@ -93,25 +93,25 @@ class TransactionWhatsappController extends Controller
 
         if ($data['role'] == UserRoleEnum::CUSTOMER->value) {
             if ($slug_varian) {
-                $amount = CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->discount);
+                $amount = CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->discount,false,$product->discount_price);
             } else {
-                $amount = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount);
+                $amount = CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->discount,false,$product->discount_price);
             }
             $data['amount'] = $amount + $amount * 0.1;
         } else {
             if ($slug_varian) {
-                $amount =  CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->reseller_discount);
+                $amount =  CurrencyHelper::countPriceAfterDiscount($product->varianProducts[0]->sell_price, $product->reseller_discount,false,$product->discount_price);
             } else {
-                $amount =  CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount);
+                $amount =  CurrencyHelper::countPriceAfterDiscount($product->sell_price, $product->reseller_discount,false,$product->discount_price);
             }
             $data['amount'] = $amount + $amount * 0.1;
         }
         if ($slug_varian) {
             $varianProduct = $this->varianProduct->getWhere(['product_id' => $product->id, 'slug_varian' => $slug_varian]);
+            $data['varian_product_id'] = $varianProduct->id;
         } else {
             $varianProduct = null;
         }
-        $data['varian_product_id'] = $varianProduct->id;
         $data['paid_amount'] = $amount + $amount * 0.1;
 
         $transaction = $this->transactionWhatsapp->store($data);
