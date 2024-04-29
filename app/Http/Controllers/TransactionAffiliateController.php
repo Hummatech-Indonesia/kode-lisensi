@@ -69,7 +69,8 @@ class TransactionAffiliateController extends Controller
 
         $this->service->handleCheckoutAffiliate($request, $product, $slug_varian, $code_affiliate);
 
+        
+        return to_route('users.account.index')->with('success',trans('alert.checkout_success'));
 
-        return back()->with('success', trans('alert.checkout_success'));
     }
 }

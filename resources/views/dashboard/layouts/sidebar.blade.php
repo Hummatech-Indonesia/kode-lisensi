@@ -22,28 +22,22 @@
         </li>
     @endrole --}}
     @role('administrator')
-        <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                <i class="ri-archive-line"></i>
-                <span>Pesanan</span>
-            </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
-                </li>
-            </ul>
-        </li>
-        <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                <i class="ri-archive-line"></i>
-                <span>Pengeluaran</span>
-            </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="{{ route('dashboard.fetch.expenditure') }}">Riwayat Pengeluaran</a>
-                </li>
-            </ul>
-        </li>
+    <li class="sidebar-list">
+        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('order.history') ? 'active' : '' }}"
+            href="{{ route('orders.history') }}">
+            <i class="ri-wallet-2-line"></i>
+            <span>Transaksi</span>
+        </a>
+    </li>
+    <li class="sidebar-list">
+        <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.fetch.expenditure') ? 'active' : '' }}"
+            href="{{ route('dashboard.fetch.expenditure') }}">
+            <i class="ri-money-dollar-circle-line"></i>
+            <span>Pengeluaran</span>
+        </a>
+    </li>
+
+
         <li class="sidebar-list">
             <a
                 class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.balance.withdrawal.index') || request()->routeIs('dashboard.balance.withdrawal.history') ? 'active' : '' }}">

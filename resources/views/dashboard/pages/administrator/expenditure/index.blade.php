@@ -109,7 +109,7 @@
                     {
                         data: 'balance_withdrawn',
                         name: 'balance_withdrawn',
-
+                        
                     },
                     {
                         data: 'description',
