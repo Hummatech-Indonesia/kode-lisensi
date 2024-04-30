@@ -22,6 +22,7 @@
                 Catatan: <br>
                 <ul>
                     <li>Anda perlu melakukan konfirmasi dengan email untuk melakukan tambah atau edit rekening</li>
+                    <li>Minimal pernarikan dana adalah Rp 50.000</li>
                 </ul>
             </div>
             <div class="title-header option-title">

@@ -169,7 +169,7 @@
                     <a href="{{ route('orders.index') }}">Preorder</a>
                 </li>
                 <li>
-                    <a href="{{ route('orders.pending') }}">Pending Transaction</a>
+                    <a href="{{ route('orders.pending') }}">Transaksi yang Belum dibayar</a>
                 </li>
                 <li>
                     <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
@@ -187,21 +187,6 @@
                 </li>
                 <li>
                     <a href="{{ route('articles.index') }}">List</a>
-                </li>
-            </ul>
-        </li>
-        <li class="sidebar-list">
-            <a
-                class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.balance.withdrawal.index') || request()->routeIs('dashboard.balance.withdrawal.history') ? 'active' : '' }}">
-                <i class="ri-wallet-line"></i>
-                <span>Penarikan Saldo</span>
-            </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="{{ route('balance.withdrawal.admin.index') }}">Tarik Saldo</a>
-                </li>
-                <li>
-                    <a href="{{ route('balance.withdrawal.admin.history') }}">Riwayat Penarikan</a>
                 </li>
             </ul>
         </li>
