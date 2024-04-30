@@ -32,13 +32,11 @@ class ExpenditureRepository extends BaseRepository implements ExpenditureInterfa
     {
         return $this->ExpenditureMockup($this->model->query()
             ->when($request->balanceUsed, function ($query) use ($request) {
-                return $query->whereIn('balance_used', $request->balanceUsed);
+                return $query->where('balance_used', $request->balanceUsed);
             })
             ->oldest()
-        
-        ->when($request->filter, function ($query) use ($request) {
-            return $query->whereIn('status', $request->filter);
-        })    );
+
+           );
     }
     /**
      * Method store
