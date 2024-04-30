@@ -39,7 +39,7 @@ class ExpenditureController extends Controller
     public function fetchExpenditure(Request $request): View|JsonResponse
     {
         if ($request->ajax())
-            return $this->expenditure->getAll();
+            return $this->expenditure->search($request);
         return view('dashboard.pages.administrator.expenditure.index');
     }
     /**

@@ -8,6 +8,8 @@ use App\Enums\BalanceUsedEnum;
 use App\Helpers\BalanceHelper;
 use App\Traits\Datatables\ExpenditureDatatable;
 use App\Models\Expenditure;
+use Illuminate\Http\Request;
+
 
 class ExpenditureRepository extends BaseRepository implements ExpenditureInterface
 {
@@ -26,9 +28,17 @@ class ExpenditureRepository extends BaseRepository implements ExpenditureInterfa
     {
         return $this->model->query()->get();
     }
-    public function getAll(): mixed
+    public function search(Request $request): mixed
     {
-        return $this->ExpenditureMockup($this->model->query()->oldest());
+        return $this->ExpenditureMockup($this->model->query()
+            ->when($request->balanceUsed, function ($query) use ($request) {
+                return $query->whereIn('balance_used', $request->balanceUsed);
+            })
+            ->oldest()
+        
+        ->when($request->filter, function ($query) use ($request) {
+            return $query->whereIn('status', $request->filter);
+        })    );
     }
     /**
      * Method store
@@ -39,7 +49,7 @@ class ExpenditureRepository extends BaseRepository implements ExpenditureInterfa
      */
     public function store(array $data): mixed
     {
-        
+
         return $this->model->query()->create($data);
     }
     /**
