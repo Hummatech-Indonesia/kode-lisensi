@@ -199,7 +199,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::name('refund.')->prefix('refund')->group(function () {
                     Route::get('/', [RefundController::class, 'index'])->name('index');
-                    Route::post('/', [RefundController::class, 'store'])->name('store');
+                    Route::post('{transaction}', [RefundController::class, 'store'])->name('store');
                     Route::put('{refund}', [RefundController::class, 'update'])->name('update');
                     Route::delete('{refund}', [RefundController::class, 'destroy'])->name('destroy');
                 });

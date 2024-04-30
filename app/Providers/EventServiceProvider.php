@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductEmail;
 use App\Models\ProductFavorite;
 use App\Models\ProductRecommendation;
+use App\Models\Refund;
 use App\Models\RekeningNumber;
 use App\Models\ShareProductReseller;
 use App\Models\SubArticleCategory;
@@ -26,6 +27,7 @@ use App\Observers\ProductEmailObserver;
 use App\Observers\ProductFavoriteObserver;
 use App\Observers\ProductObserver;
 use App\Observers\ProductRecommendationObserver;
+use App\Observers\RefundObserver;
 use App\Observers\RekeningNumberObserver;
 use App\Observers\ShareProductReselllerObserver;
 use App\Observers\SubArticleCategoryObserver;
@@ -68,6 +70,7 @@ class EventServiceProvider extends ServiceProvider
         RekeningNumber::observe(RekeningNumberObserver::class);
         SubArticleCategory::observe(SubArticleCategoryObserver::class);
         Expenditure::observe(ExpenditureObserver::class);
+        Refund::observe(RefundObserver::class);
     }
 
     /**

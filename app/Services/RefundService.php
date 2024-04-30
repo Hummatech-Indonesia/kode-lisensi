@@ -10,6 +10,8 @@ use App\Http\Requests\Dashboard\Article\StoreRequest;
 use App\Http\Requests\Dashboard\Article\UpdateRequest;
 use App\Http\Requests\RefundRequest;
 use App\Models\Article;
+use App\Models\Refund;
+use App\Models\Transaction;
 use App\Traits\UploadTrait;
 
 class RefundService implements ShouldHandleFileUpload, CustomUploadValidation
@@ -38,12 +40,12 @@ class RefundService implements ShouldHandleFileUpload, CustomUploadValidation
      *
      * @return array|bool
      */
-    public function store(RefundRequest $request): array|bool
+    public function store(RefundRequest $request, Transaction $transaction): array|bool
     {
         $data = $request->validated();
 
         return [
-            'transaction_id' => $data['transaction_id'],
+            'transaction_id' => $transaction->id,
             'status' => StatusRefundEnum::PENDING->value,
             'description' => $data['description'],
             'proof' => $this->upload(UploadDiskEnum::PROOF->value, $request->file('proof')),

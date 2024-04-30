@@ -15,7 +15,6 @@ class RefundRequest extends FormRequest
     public function rules()
     {
         return [
-            'transaction_id' => 'required|exists:transactions,id',
             'description' => 'required|max:225',
             'proof' => 'required|mimes:png,jpg,jpeg',
             'bank' => 'required|max:225',

@@ -8,7 +8,7 @@
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('dashboard.refund.store') }}" method="post" enctype="multipart/form-data">
+            <form action="" method="post" id="addRefund" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Ajukan Pengembalian Dana</h5>

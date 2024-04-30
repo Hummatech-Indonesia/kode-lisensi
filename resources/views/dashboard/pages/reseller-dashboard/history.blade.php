@@ -52,16 +52,16 @@
 
                                         @if (
                                             $trans->invoice_status == InvoiceStatusEnum::FAILED->value ||
-                                            $trans->invoice_status == InvoiceStatusEnum::EXPIRED->value)
+                                                $trans->invoice_status == InvoiceStatusEnum::EXPIRED->value)
                                             <span class="badge bg-danger">Dibatalkan</span>
-                                            @elseif(
-                                                $trans->invoice_status == InvoiceStatusEnum::PAID->value ||
+                                        @elseif(
+                                            $trans->invoice_status == InvoiceStatusEnum::PAID->value ||
                                                 $trans->invoice_status == InvoiceStatusEnum::SETTLED->value)
                                             <span class="badge bg-primary">Lunas</span>
-                                            @else
+                                        @else
                                             <span class="badge bg-warning text-dark">Pending</span>
-                                            @endif
-                                        </h4>
+                                        @endif
+                                    </h4>
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">
@@ -120,10 +120,22 @@
                                             Cek Ulasan Saya
                                         </a>
                                     @else
-                                        <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                            class="btn btn-primary btn-sm text-white mt-3">
-                                            Tambah ulasan baru
-                                        </a>
+                                        <div class="d-flex justify-content-between">
+                                            <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
+                                                class="btn btn-primary btn-sm text-white mt-3">
+                                                Tambah ulasan baru
+                                            </a>
+                                            @if ($trans->refund->first())
+                                                <a class="btn-warning btn-sm text-white mt-3">
+                                                    Proses Mengajukan Pengembalian
+                                                </a>
+                                            @else
+                                                <a id="return" data-id="{{ $trans->id }}"
+                                                    class="btn btn-primary btn-sm text-white mt-3">
+                                                    Ajukan Pengembalian
+                                                </a>
+                                            @endif
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -137,4 +149,15 @@
     </div>
 @endsection
 @section('script')
+    <x-add-refund-modal></x-add-refund-modal>
+
+    <script>
+        $(document).on('click', '#return', function() {
+            $('#addRefundModal').modal('show')
+            const id = $(this).attr('data-id');
+            console.log(id);
+            let url = `{{ route('dashboard.refund.store', ':id') }}`.replace(':id', id);
+            $('#addRefund').attr('action', url);
+        });
+    </script>
 @endsection
