@@ -3,6 +3,7 @@
 namespace App\Traits\Datatables;
 
 use App\Helpers\CurrencyHelper;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\DataTables;
@@ -29,6 +30,9 @@ trait ExpenditureDatatable
             })
             ->editColumn('balance_withdrawn', function ($data) {
                 return view('dashboard.pages.administrator.expenditure.datatable.balance-withdrawn', compact('data'));
+            })
+            ->editColumn('created_at', function ($data) {
+                return Carbon::parse($data->created_at)->format('Y-m-d H:i:s');
             })
             ->rawColumns(['action'])
             ->toJson();

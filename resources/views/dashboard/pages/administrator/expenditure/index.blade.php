@@ -1,6 +1,7 @@
 @extends('dashboard.layouts.app')
 @section('css')
     <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard_assets/css/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <div class="card card-table">
@@ -23,14 +24,20 @@
                 </div>
             @endif
         </div>
-
         <div class="card-body">
-
             <div class="title-header option-title">
                 <h5>Halaman Pengeluaran Administrator</h5>
             </div>
-            <div class="d-flex justify-content-end mb-3">
-
+            <div class="col-12 d-flex justify-content-between mb-3">
+                <div class="">
+                    <form id="search-form" class="row justify-content-end" action="" method="GET">
+                        <div class="col-8"><input type="text" name="date"
+                                value="{{ date('Y-m-d') . ' - ' . date('Y-m-d') }}" class="form-control"></div>
+                        <div class="col-4 d-flex flex-row">
+                            <button class="btn btn-primary me-2" type="submit">Cari</button>
+                        </div>
+                    </form>
+                </div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addExpenditureModal">
                     Tambah Data
                 </button>
@@ -48,6 +55,7 @@
                             <th>Penarikan Melalui</th>
                             <th>Nominal Penarikan</th>
                             <th>Deskripsi</th>
+                            <th>Tanggal Penarikan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -59,22 +67,44 @@
     </div>
 @endsection
 
+
 @section('script')
     <x-add-expenditure-modal></x-add-expenditure-modal>
     <x-delete-expenditure-modal></x-delete-expenditure-modal>
     <x-update-expenditure-modal></x-update-expenditure-modal>
-
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
     <script>
-        let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "method",
+            url: "url",
+            data: "data",
+            dataType: "dataType",
+            success: function(response) {}
+        });
 
-        $(document).ready(function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            const firstUrl =
+                `{{ route('revenues.totalAmount') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}`;
 
-            function rupiahCurrency(number) {
-                return "Rp " + number.toLocaleString('id-ID');
+            const fetchTotalAmount = (url) => {
+                $.ajax({
+                    url: url,
+                    method: 'get',
+                    success: (data) => {
+                        document.getElementById('totalAmount').innerHTML = data
+                        console.log(data)
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
             }
 
-            var table = $("#table_id").DataTable({
+            fetchTotalAmount(firstUrl)
+
+            let table = $("#table_id").DataTable({
                 scrollX: false,
                 scrollY: '500px',
                 paging: true,
@@ -84,8 +114,7 @@
                 processing: true,
                 serverSide: false,
                 searching: true,
-                ajax: "{{ route('dashboard.fetch.expenditure') }}",
-
+                ajax: "{{ route('dashboard.fetch.expenditure') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}",
                 columns: [{
                         data: 'used_for',
                         name: 'used_for',
@@ -104,16 +133,18 @@
                     {
                         data: 'balance_used',
                         name: 'balance_used',
-
                     },
                     {
                         data: 'balance_withdrawn',
                         name: 'balance_withdrawn',
-                        
                     },
                     {
                         data: 'description',
                         name: 'description'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
                     },
                     {
                         data: 'action',
@@ -123,6 +154,7 @@
                     }
                 ]
             });
+
             $('.dataTables_scrollBody').css({
                 'position': 'relative',
                 'overflow': 'auto',
@@ -131,57 +163,26 @@
                 'width': '100%'
             });
 
-            $('#status').on('change', function() {
-                table.ajax.reload();
-            });
-
-            const showSweetAlert = (data, table) => {
-                swal({
-                    title: "Berhasil",
-                    text: data.meta.message,
-                    icon: data.meta.status,
-                })
+            $('#search-form').submit(function(e) {
+                e.preventDefault()
+                const date = $('input[name="date"]').val()
+                table.ajax.url("{{ route('revenues.index') . '?date=:date' }}".replace(':date', date))
                 table.ajax.reload()
-            }
 
+                const url = "{{ route('revenues.totalAmount') . '?date=:date' }}".replace(':date', date)
+                fetchTotalAmount(url)
+            })
 
+            // Daterangepicker
+            $("input[name=\"date\"]").daterangepicker({
+                opens: "left",
+                locale: {
+                    format: 'Y-M-D'
+                }
+            });
         });
-        $('.dataTables_scrollBody').css({
-            'position': 'relative',
-            'overflow': 'auto',
-            'max-height': 'none',
-            'height': 'max-content',
-            'width': '100%'
-        });
-
-        $(document).on('click', '.update-alert', function() {
-            $('#updateExpenditureModal').modal('show')
-            const id = $(this).data('id');
-            const usedFor = $(this).data('used-for');
-            const balanceUsed = $(this).data('balance-used');
-            const balanceWithdrawn = $(this).data('balance-withdrawn');
-            const description = $(this).data('description');
-            let url = `{{ route('dashboard.expenditure.update', ':id') }}`.replace(':id',
-                id);
-            console.log(id);
-            console.log(usedFor);
-            console.log(balanceUsed);
-            console.log(balanceWithdrawn);
-            console.log(description);
-            $('#usedFor').val(usedFor);
-            $('#balanceUsed').val(balanceUsed);
-            $('#balanceWithdrawn').val(balanceWithdrawn);
-            $('#description').val(description);
-            $('#updateForm').attr('action', url);
-            console.log(url);
-        });
-        $(document).on('click', '.delete-alert', function() {
-            $('#deleteExpenditureModal').modal('show')
-            const id = $(this).attr('data-id');
-            console.log(id);
-            let url = `{{ route('dashboard.expenditure.destroy', ':id') }}`.replace(':id', id);
-            console.log(url);
-            $('#deleteForm').attr('action', url);
-        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 @endsection
