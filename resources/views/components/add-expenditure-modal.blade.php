@@ -11,7 +11,7 @@
             <form action="{{ route('dashboard.expenditure.store') }}" method="post">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal Tambah Data Pengeluaran</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

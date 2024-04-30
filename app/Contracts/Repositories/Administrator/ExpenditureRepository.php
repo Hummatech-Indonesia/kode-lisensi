@@ -4,6 +4,8 @@ namespace App\Contracts\Repositories\Administrator;
 
 use App\Contracts\Interfaces\Administrator\ExpenditureInterface;
 use App\Contracts\Repositories\BaseRepository;
+use App\Enums\BalanceUsedEnum;
+use App\Helpers\BalanceHelper;
 use App\Traits\Datatables\ExpenditureDatatable;
 use App\Models\Expenditure;
 
@@ -37,6 +39,7 @@ class ExpenditureRepository extends BaseRepository implements ExpenditureInterfa
      */
     public function store(array $data): mixed
     {
+        
         return $this->model->query()->create($data);
     }
     /**
@@ -60,7 +63,7 @@ class ExpenditureRepository extends BaseRepository implements ExpenditureInterfa
      */
     public function update(mixed $id, array $data): mixed
     {
-        
+
         return $this->show($id)->update($data);
     }
     /**

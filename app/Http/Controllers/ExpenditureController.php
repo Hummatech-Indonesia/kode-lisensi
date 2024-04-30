@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\Administrator\ExpenditureInterface;
+use App\Enums\BalanceUsedEnum;
+use App\Helpers\BalanceHelper;
 use App\Http\Requests\ExpenditureRequest;
 use App\Models\Expenditure;
 use Illuminate\Http\JsonResponse;
@@ -49,8 +51,16 @@ class ExpenditureController extends Controller
      */
     public function store(ExpenditureRequest $request): RedirectResponse
     {
+
         $data = $request->validated();
         $data['balance_withdrawn'] = intval($data['balance_withdrawn']);
+        $tripayBalance = BalanceHelper::handleTripayBalance();
+        $whatsappBalance = BalanceHelper::handleWhatsappBalance();
+        if ($data['balance_used'] == BalanceUsedEnum::TRIPAY->value && $data['balance_withdrawn'] > $tripayBalance) {
+            return back()->with('error', 'Saldo tidak mencukupi');
+        } elseif ($data['balance_used'] == BalanceUsedEnum::REKENING->value && $data['balance_withdrawn'] > $whatsappBalance) {
+            return back()->with('error', 'Saldo tidak mencukupi');
+        }
         $this->expenditure->store($data);
         return back()->with('success', 'Berhasil menambah data');
     }
@@ -64,7 +74,16 @@ class ExpenditureController extends Controller
      */
     public function update(ExpenditureRequest $request, Expenditure $expenditure): RedirectResponse
     {
-        $this->expenditure->update($expenditure->id, $request->validated());
+        $data = $request->validated();
+        $data['balance_withdrawn'] = intval($data['balance_withdrawn']);
+        $tripayBalance = BalanceHelper::handleTripayBalance();
+        $whatsappBalance = BalanceHelper::handleWhatsappBalance();
+        if ($data['balance_used'] == BalanceUsedEnum::TRIPAY->value && $data['balance_withdrawn'] > $tripayBalance) {
+            return back()->with('error', 'Saldo tidak mencukupi');
+        } elseif ($data['balance_used'] == BalanceUsedEnum::REKENING->value && $data['balance_withdrawn'] > $whatsappBalance) {
+            return back()->with('error', 'Saldo tidak mencukupi');
+        }
+        $this->expenditure->update($expenditure->id,$data);
         return back()->with('success', 'Berhasil mengubah data');
     }
     /**

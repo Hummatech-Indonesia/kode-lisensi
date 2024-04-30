@@ -8,6 +8,8 @@
         <div class="col-sm-6 mb-3">
             @if (session('success'))
                 <x-alert-success></x-alert-success>
+            @elseif(session('error'))
+                <x-alert-failed></x-alert-failed>
             @endif
 
             @if ($errors->any())
@@ -70,7 +72,7 @@
 
 @section('script')
     <x-add-expenditure-modal></x-add-expenditure-modal>
-    <x-delete-expenditure-modal></x-delete-expenditure-modal>
+    <x-update-expenditure-modal></x-delete-expenditure-modal>
     <x-update-expenditure-modal></x-update-expenditure-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
@@ -172,6 +174,26 @@
                 const url = "{{ route('revenues.totalAmount') . '?date=:date' }}".replace(':date', date)
                 fetchTotalAmount(url)
             })
+            $(document).on('click', '.delete-alert', function() {
+                $('#deleteExpeneditureModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('dashboard.expenditure.destroy', ':id') }}`.replace(':id', id);
+                $('#deleteForm').attr('action', url);
+            });
+            $(document).on('click', '.update-alert', function() {
+                $('#updateExpenditureModal').modal('show')
+                const id = $(this).data('id');
+                const usedFor = $(this).data('used-for');
+                const balanceUsed = $(this).data('balance-used');
+                const balanceWithdrawn = $(this).data('balance-withdrawn');
+                const description = $(this).data('description');
+                $('#usedFor').val(usedFor)
+                $('#balanceUsed').val(balanceUsed)
+                $('#balanceWithdrawn').val(balanceWithdrawn)
+                $('#description').val(description)
+                let url = `{{ route('dashboard.expenditure.update', ':id') }}`.replace(':id', id);
+                $('#updateForm').attr('action', url);
+            });
 
             // Daterangepicker
             $("input[name=\"date\"]").daterangepicker({
