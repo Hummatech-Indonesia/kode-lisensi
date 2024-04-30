@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\Administrator\RefundInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RefundRequest;
 use App\Models\Refund;
+use App\Services\RefundService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -15,9 +16,11 @@ class RefundController extends Controller
 {
 
     private RefundInterface $refund;
-    public function __construct(RefundInterface $refund)
+    private RefundService $service;
+    public function __construct(RefundInterface $refund, RefundService $service)
     {
         $this->refund = $refund;
+        $this->service = $service;
     }
 
     /**
@@ -40,7 +43,7 @@ class RefundController extends Controller
      */
     public function store(RefundRequest $request): RedirectResponse
     {
-        $this->refund->store($request->validated());
+        $this->refund->store($this->service->store($request));
         return redirect()->back()->with('success', trans('alert.add_success'));
     }
 

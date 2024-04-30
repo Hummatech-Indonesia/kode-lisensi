@@ -6,15 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RefundRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +15,11 @@ class RefundRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'transaction_id' => 'required|exists:transactions,id',
+            'description' => 'required|max:225',
+            'proof' => 'required|mimes:png,jpg,jpeg',
+            'bank' => 'required|max:225',
+            'rekening_number' => 'required|max:225'
         ];
     }
 }

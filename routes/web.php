@@ -200,8 +200,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::name('refund.')->prefix('refund')->group(function () {
                     Route::get('/', [RefundController::class, 'index'])->name('index');
                     Route::post('/', [RefundController::class, 'store'])->name('store');
-                    Route::put('/', [RefundController::class, 'update'])->name('update');
-                    Route::delete('/', [RefundController::class, 'delete'])->name('destroy');
+                    Route::put('{refund}', [RefundController::class, 'update'])->name('update');
+                    Route::delete('{refund}', [RefundController::class, 'destroy'])->name('destroy');
                 });
             });
         });

@@ -59,7 +59,7 @@
 
 @section('script')
     <x-add-refund-modal></x-add-refund-modal>
-    <x-delete-expenditure-modal></x-delete-expenditure-modal>
+    <x-delete-refund-modal></x-delete-refund-modal>
     <x-update-expenditure-modal></x-update-expenditure-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
@@ -93,6 +93,13 @@
                     searchable: false
                 }
             ]
+        });
+
+        $(document).on('click', '.delete-alert', function() {
+            $('#deleteRefundModal').modal('show')
+            const id = $(this).attr('data-id');
+            let url = `{{ route('dashboard.refund.destroy', ':id') }}`.replace(':id', id);
+            $('#deleteForm').attr('action', url);
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

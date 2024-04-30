@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Base\Interfaces\uploads\CustomUploadValidation;
 use App\Base\Interfaces\uploads\ShouldHandleFileUpload;
+use App\Enums\StatusRefundEnum;
 use App\Enums\UploadDiskEnum;
 use App\Http\Requests\Dashboard\Article\StoreRequest;
 use App\Http\Requests\Dashboard\Article\UpdateRequest;
@@ -42,14 +43,12 @@ class RefundService implements ShouldHandleFileUpload, CustomUploadValidation
         $data = $request->validated();
 
         return [
-            'sub_article_category_id' => $data['sub_article_category_id'],
-            'title' => $data['title'],
+            'transaction_id' => $data['transaction_id'],
+            'status' => StatusRefundEnum::PENDING->value,
             'description' => $data['description'],
             'proof' => $this->upload(UploadDiskEnum::PROOF->value, $request->file('proof')),
-            'content' => $data['content'],
-            'tags' => str_replace(', ', ',', $data['tags']),
-            'status' => $data['status'],
-            'user_id' => auth()->id()
+            'bank' => $data['bank'],
+            'rekening_number' => $data['rekening_number'],
         ];
     }
 

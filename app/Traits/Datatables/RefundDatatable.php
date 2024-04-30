@@ -25,7 +25,7 @@ trait RefundDatatable
             ->addIndexColumn()
             ->setFilteredRecords(250)
             ->editColumn('action', function ($data) {
-                return view('dashboard.pages.administrator.expenditure.datatable.action', compact('data'));
+                return view('dashboard.pages.administrator.refund.datatable.action', compact('data'));
             })
             ->rawColumns(['action'])
             ->toJson();
