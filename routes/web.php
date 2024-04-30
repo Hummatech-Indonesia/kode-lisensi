@@ -1,6 +1,7 @@
 <?php
 
 use App\Contracts\Interfaces\TransactionAffiliateInterface;
+use App\Http\Controllers\Administrator\RefundController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdminWithdrawalController;
 use App\Http\Controllers\CallbackController;
@@ -147,17 +148,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
         });
     });
-    // route::middleware('role:administrator|reseller')->group(function(){
-    //     route::prefix('dashboard')->group(function(){
-    //         route::name('dashboard.')->group(function(){
-    //             route::prefix('balance-withdrawal')->group(function(){
-    //                 route::name('balance.withdrawal.')->group(function(){
-    //                     route::get('history',[BalanceWithdrawalController::class,'history'])->name('history');
-    //                 });
-    //             });
-    //         });
-    //     });
-    // });
+
     Route::middleware('role:reseller')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
@@ -178,21 +169,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    Route::middleware('role:administrator|reseller|customer')->group(function(){
-        Route::prefix('checkout')->group(function(){
+    Route::middleware('role:administrator|reseller|customer')->group(function () {
+        Route::prefix('checkout')->group(function () {
             Route::get('{slug}/{slug_varian?}', [TransactionController::class, 'index'])->name('checkout');
         });
     });
-    Route::middleware('role:administrator')->group(function(){
-        Route::prefix('dashboard')->group(function(){
-            Route::name('dashboard.')->group(function(){
-                Route::resource('expenditure',ExpenditureController::class);
-                Route::get('expenditure',[ExpenditureController::class,'fetchExpenditure'])->name('fetch.expenditure');
+    Route::middleware('role:administrator')->group(function () {
+        Route::prefix('dashboard')->group(function () {
+            Route::name('dashboard.')->group(function () {
+                Route::resource('expenditure', ExpenditureController::class);
+                Route::get('expenditure', [ExpenditureController::class, 'fetchExpenditure'])->name('fetch.expenditure');
             });
         });
 
-        Route::prefix('transaction-whatsapp')->group(function(){
-            ROute::name('transaction.whatsapp.')->group(function(){
+        Route::prefix('transaction-whatsapp')->group(function () {
+            ROute::name('transaction.whatsapp.')->group(function () {
                 Route::post('{slug}/{slug_varian?}', [TransactionWhatsappController::class, 'store'])->name('checkout');
             });
         });
@@ -203,6 +194,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', [MyAccountController::class, 'index'])->name('index');
             Route::get('favorites', [ProductFavoriteController::class, 'index'])->name('my-favorites');
             Route::resource('histories', MyHistoryController::class)->only('index', 'show');
+        });
+        Route::prefix('dashboard')->group(function () {
+            Route::name('dashboard.')->group(function () {
+                Route::name('refund.')->prefix('refund')->group(function () {
+                    Route::get('/', [RefundController::class, 'index'])->name('index');
+                    Route::post('/', [RefundController::class, 'store'])->name('store');
+                    Route::put('/', [RefundController::class, 'update'])->name('update');
+                    Route::delete('/', [RefundController::class, 'delete'])->name('destroy');
+                });
+            });
         });
         Route::name('product.favorite.')->prefix('product-favorites')->group(function () {
             Route::get('{product}', [ProductFavoriteController::class, 'show'])->name('index');
@@ -340,7 +341,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('orders.')->group(function () {
                 Route::get('order-histories', [OrderController::class, 'history'])->name('history');
-                ROute::get('pending-histories',[OrderController::class,'pendingHistories'])->name('pending');
+                ROute::get('pending-histories', [OrderController::class, 'pendingHistories'])->name('pending');
                 Route::get('/get-pending-histories', [OrderController::class, 'fetchPendingHistories'])->name('fetch-pending-histories');
                 Route::get('/get-all-histories', [OrderController::class, 'fetchHistories'])->name('fetch-histories');
             });
