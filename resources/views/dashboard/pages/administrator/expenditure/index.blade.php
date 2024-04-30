@@ -90,24 +90,9 @@
         <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                const firstUrl =
-                    `{{ route('revenues.totalAmount') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}`;
 
-                const fetchTotalAmount = (url) => {
-                    $.ajax({
-                        url: url,
-                        method: 'get',
-                        success: (data) => {
-                            document.getElementById('totalAmount').innerHTML = data
-                            console.log(data)
-                        },
-                        error: (err) => {
-                            console.log(err)
-                        }
-                    })
-                }
 
-                fetchTotalAmount(firstUrl)
+
 
                 let table = $("#table_id").DataTable({
                     scrollX: false,
@@ -182,10 +167,9 @@
                 $('#search-form').submit(function(e) {
                     e.preventDefault()
                     const date = $('input[name="date"]').val()
-                    table.ajax.url("{{ route('revenues.index') . '?date=:date' }}".replace(':date', date))
+                    table.ajax.url("{{ route('dashboard.fetch.expenditure') . '?date=:date' }}".replace(':date', date))
                     table.ajax.reload()
 
-                    const url = "{{ route('revenues.totalAmount') . '?date=:date' }}".replace(':date', date)
                     fetchTotalAmount(url)
                 })
                 $(document).on('click', '.delete-alert', function() {
