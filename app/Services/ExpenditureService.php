@@ -4,20 +4,20 @@ namespace App\Services;
 
 use App\Enums\InvoiceStatusEnum;
 use App\Helpers\CurrencyHelper;
-use App\Models\Transaction;
-use App\Traits\Datatables\RevenueDatatable;
+use App\Models\Expenditure;
+use App\Traits\Datatables\ExpenditureDatatable;
 use Exception;
 use Illuminate\Http\Request;
 
 class ExpenditureService
 {
-    use RevenueDatatable;
+    use ExpenditureDatatable;
 
-    private Transaction $transaction;
+    private Expenditure $expenditure;
 
-    public function __construct(Transaction $transaction)
+    public function __construct(Expenditure $expenditure)
     {
-        $this->transaction = $transaction;
+        $this->expenditure = $expenditure;
     }
 
     /**
@@ -31,11 +31,9 @@ class ExpenditureService
 
     public function handleGetAll(Request $request): object
     {
-        return $this->RevenueMockup($this->transaction->query()
-            ->select('id', 'invoice_id', 'created_at', 'invoice_status', 'paid_amount', 'payment_method', 'user_id')
-            ->with(['user' => function ($query) {
-                return $query->select('id', 'name');
-            }, 'detail_transaction.product'])
+        return $this->ExpenditureMockup($this->expenditure->query()
+            ->select('id', 'used_for','balance_used','balance_withdrawn','description')
+            
             ->when($request->date, function ($query) use ($request) {
                 $date = explode(' - ', $request->date);
                 return $query->whereBetween('created_at', [$date[0] . ' 00:00:00', $date[1] . ' 23:59:59']);
