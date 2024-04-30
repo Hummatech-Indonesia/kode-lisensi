@@ -17,7 +17,7 @@
     @endif
 
     <div class="row">
-        
+
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -43,9 +43,12 @@
                                 <tr>
                                     <th>ID Invoice</th>
                                     <th>Nama pengguna</th>
+                                    <th>Email pengguna</th>
+                                    <th>Nomor pengguna</th>
                                     <th>Paket dibeli</th>
                                     <th>Metode</th>
                                     <th>Tanggal Transaksi</th>
+                                    <th>Hubungi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,8 +99,7 @@
             url: "url",
             data: "data",
             dataType: "dataType",
-            success: function(response) {
-            }
+            success: function(response) {}
         });
         document.addEventListener("DOMContentLoaded", function() {
 
@@ -141,10 +143,18 @@
                         name: 'user.name'
                     },
                     {
+                        data: 'user.email',
+                        name: 'user.email'
+                    },
+                    {
+                        data: 'user.phone_number',
+                        name: 'user.phone_number'
+                    },
+                    {
                         data: 'detail_transaction.product.name',
                         name: 'detail_transaction.product.name'
                     },
-                    
+
                     {
                         data: 'payment_method',
                         name: 'payment_method'
@@ -153,6 +163,10 @@
                     {
                         data: 'created_at',
                         name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
                     }
                 ]
             });

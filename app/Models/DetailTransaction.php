@@ -19,6 +19,17 @@ class DetailTransaction extends Model implements HasOneProduct, HasOneTransactio
     protected $fillable = ['id', 'transaction_id', 'varian_product_id', 'product_id', 'name', 'phone_number', 'email','note'];
     protected $keyType = 'char';
 
+
+
+    /**
+     * Get the user that owns the DetailTransaction
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
     /**
      * One-to-Many relationship with Product Model
      *

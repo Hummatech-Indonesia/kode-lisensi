@@ -59,7 +59,7 @@ trait TransactionDatatable
             ->setFilteredRecords(250)
 
             ->editColumn('action', function ($data) {
-                return view('dashboard.pages.orders.datatables.action', compact('data'));
+                return view('dashboard.pages.orders.datatables.pending-action', compact('data'));
             })
             ->editColumn('created_at', function ($data) {
                 return view('dashboard.pages.orders.datatables.created_at', compact('data'));
