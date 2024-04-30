@@ -37,8 +37,8 @@
                 <div style="width: 200px">
                     <select name="" class="form-select" id="balanceUsed">
                         <option value="">Tampilkan Semua</option>
-                        <option value="{{BalanceUsedEnum::TRIPAY->value}}">Tripay</option>
-                        <option value="{{BalanceUsedEnum::REKENING->value}}">Rekening</option>
+                        <option value="{{ BalanceUsedEnum::TRIPAY->value }}">Tripay</option>
+                        <option value="{{ BalanceUsedEnum::REKENING->value }}">Rekening</option>
                     </select>
                 </div>
                 <div class="d-flex justify-content-end gap-3">
@@ -89,14 +89,6 @@
         <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
         <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
         <script>
-            $.ajax({
-                type: "method",
-                url: "url",
-                data: "data",
-                dataType: "dataType",
-                success: function(response) {}
-            });
-
             document.addEventListener("DOMContentLoaded", function() {
                 const firstUrl =
                     `{{ route('revenues.totalAmount') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}`;
