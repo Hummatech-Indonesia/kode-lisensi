@@ -56,10 +56,15 @@
         $(document).on('click', '#approveRefund', function() {
             $('#approveRefundModal').modal('show')
             const id = $(this).attr('data-id');
-            console.log(id);
-            console.log('test');
             let url = `{{ route('dashboard.refund.approve', ':id') }}`.replace(':id', id);
             $('#formApprove').attr('action', url);
+        });
+        $(document).on('click', '#rejectRefund', function() {
+            $('#rejectRefundModal').modal('show')
+            console.log('test');
+            const id = $(this).attr('data-id');
+            let url = `{{ route('dashboard.refund.reject', ':id') }}`.replace(':id', id);
+            $('#rejectRefundForm').attr('action', url);
         });
 
         $.ajax({

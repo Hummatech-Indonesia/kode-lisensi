@@ -1,11 +1,11 @@
 <!-- Modal -->
-<div class="modal fade" id="rejectRefund" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="rejectRefundModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="" method="post" id="deleteForm">
+            <form action="" method="post" id="rejectRefundForm">
                 @csrf
-                @method('DELETE')
+                @method('PUT')
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi penolakan permintaan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

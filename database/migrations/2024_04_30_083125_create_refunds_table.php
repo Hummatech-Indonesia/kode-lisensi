@@ -21,9 +21,9 @@ return new class extends Migration
             $table->enum('status', [StatusRefundEnum::ACCEPTED->value, StatusRefundEnum::REJECT->value, StatusRefundEnum::PENDING->value]);
             $table->string('description');
             $table->string('proof');
-            $table->string('proof_admin');
             $table->string('bank');
             $table->string('rekening_number');
+            $table->string('proof_admin')->nullable();
             $table->string('rejected')->nullable();
             $table->timestamps();
         });

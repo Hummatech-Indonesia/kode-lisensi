@@ -9,6 +9,7 @@ use App\Enums\UsedForEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApproveRefundRequest;
 use App\Http\Requests\RefundRequest;
+use App\Http\Requests\RejectRequest;
 use App\Models\Refund;
 use App\Models\Transaction;
 use App\Services\RefundService;
@@ -84,5 +85,19 @@ class RefundController extends Controller
         $service = $this->service->approve($request);
         $this->refund->update($refund->id, ['status' => StatusRefundEnum::ACCEPTED->value, 'proof_admin' => $service['proof_admin']]);
         return redirect()->back()->with('success', 'Berhasil menyetujui permintaan');
+    }
+
+    /**
+     * reject
+     *
+     * @param  mixed $request
+     * @param  mixed $refund
+     * @return RedirectResponse
+     */
+    public function reject(RejectRequest $request, Refund $refund): RedirectResponse
+    {
+        $data = $request->validated();
+        $this->refund->update($refund->id, ['status' => StatusRefundEnum::REJECT->value, 'rejected' => $data['rejected']]);
+        return redirect()->back()->with('success', 'Berhasil menolak permintaan');
     }
 }

@@ -182,6 +182,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::name('refund.')->prefix('refund')->group(function () {
                     Route::get('/', [RefundController::class, 'index'])->name('index');
                     Route::post('approve/{refund}', [RefundController::class, 'approve'])->name('approve');
+                    Route::put('reject/{refund}', [RefundController::class, 'reject'])->name('reject');
                 });
             });
         });
