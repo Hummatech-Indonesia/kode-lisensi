@@ -17,7 +17,7 @@
     @endif
 
     <div class="row">
-        <div class="col-sm-6 col-xxl-6 col-lg-6">
+        {{-- <div class="col-sm-6 col-xxl-6 col-lg-6">
             <div class="main-tiles border-5 border-0  card-hover card o-hidden">
                 <div class="custome-1-bg b-r-4 card-body">
                     <div class="media align-items-center static-top-widget">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
