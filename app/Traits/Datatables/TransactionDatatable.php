@@ -30,11 +30,11 @@ trait TransactionDatatable
                 } else {
                     $buyPrice = $data->detail_transaction->product->buy_price;
                 }
-                $amount = $data->paid_amount;
+                $amount = $data->amount;
                 return CurrencyHelper::rupiahCurrency($amount - $buyPrice);
             })
-            ->editColumn('paid_amount', function ($data) {
-                return CurrencyHelper::rupiahCurrency($data->paid_amount);
+            ->editColumn('amount', function ($data) {
+                return CurrencyHelper::rupiahCurrency($data->amount);
             })
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.orders.datatables.action', compact('data'));
