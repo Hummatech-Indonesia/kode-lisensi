@@ -55,7 +55,7 @@ class BalanceHelper
         $handleBalance = Transaction::query()
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
             ->where('license_status', LicenseStatusEnum::COMPLETED->value)
-            ->sum('amount');
+            ->sum('paid_amount');
         $overallExpenditure = BalanceHelper::overallExpenditure();
         return $handleBalance - $overallExpenditure;
     }
@@ -71,7 +71,7 @@ class BalanceHelper
             ->where('order_via_whatsapp', 1)
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
             ->where('license_status', LicenseStatusEnum::COMPLETED->value)
-            ->sum('amount');
+            ->sum('paid_amount');
         $rekeningExpenditure = BalanceHelper::rekeningExpenditure();
         return $whatsappBalance - $rekeningExpenditure;
     }
@@ -87,7 +87,7 @@ class BalanceHelper
             ->where('order_via_whatsapp', 0)
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
             ->where('license_status', LicenseStatusEnum::COMPLETED->value)
-            ->sum('amount');
+            ->sum('paid_amount');
         $tripayExpenditure = BalanceHelper::tripayExpenditure();
         return $tripayBalance - $tripayExpenditure;
     }
@@ -112,7 +112,7 @@ class BalanceHelper
                 $buyPrice = $transaction->detail_transaction->product?->buy_price;
             }
 
-            $amount = $transaction->amount;
+            $amount = $transaction->paid_amount;
 
             $revenue += ($amount - $buyPrice);
         }
@@ -142,7 +142,7 @@ class BalanceHelper
                 $buyPrice = $transaction->detail_transaction->product?->buy_price;
             }
 
-            $amount = $transaction->amount;
+            $amount = $transaction->paid_amount;
 
             $revenue += ($amount - $buyPrice);
         }
@@ -171,7 +171,7 @@ class BalanceHelper
                 $buyPrice = $transaction->detail_transaction->product?->buy_price;
             }
 
-            $amount = $transaction->amount;
+            $amount = $transaction->paid_amount;
 
             $revenue += ($amount - $buyPrice);
         }
