@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Contracts\Interfaces\Administrator\ExpenditureInterface;
 use App\Contracts\Interfaces\Administrator\RefundInterface;
+use App\Contracts\Interfaces\TransactionAffiliateInterface;
+use App\Contracts\Interfaces\TransactionInterface;
+use App\Enums\LicenseStatusEnum;
 use App\Enums\StatusRefundEnum;
 use App\Enums\UsedForEnum;
 use App\Http\Controllers\Controller;
@@ -24,9 +27,13 @@ class RefundController extends Controller
     private RefundInterface $refund;
     private RefundService $service;
     private ExpenditureInterface $expenditure;
-    public function __construct(RefundInterface $refund, RefundService $service, ExpenditureInterface $expenditure)
+    private TransactionInterface $transaction;
+    private TransactionAffiliateInterface $transaction_affiliate;
+    public function __construct(RefundInterface $refund, RefundService $service, ExpenditureInterface $expenditure, TransactionInterface $transaction, TransactionAffiliateInterface $transaction_affiliate)
     {
         $this->refund = $refund;
+        $this->transaction_affiliate = $transaction_affiliate;
+        $this->transaction = $transaction;
         $this->service = $service;
         $this->expenditure = $expenditure;
     }
@@ -75,6 +82,15 @@ class RefundController extends Controller
     public function approve(Refund $refund, ApproveRefundRequest $request): RedirectResponse
     {
         $data = $request->validated();
+
+        $transaction = $this->transaction->findNow($refund->transaction_id);
+
+        $transaction_affiliate = $this->transaction_affiliate->getWhere(['created_at' => $transaction->created_at]);
+
+        $this->transaction_affiliate->delete($transaction_affiliate->id);
+
+        $transaction->update(['license_status' => LicenseStatusEnum::CANCELED->value]);
+
         $this->expenditure->store([
             'balance_used' => $data['balance_used'],
             'used_for' => UsedForEnum::REFUND->value,

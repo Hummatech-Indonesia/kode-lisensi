@@ -40,4 +40,30 @@ class TransactionAffiliateRepository extends BaseRepository implements Transacti
                 ->where('code_affiliate', auth()->user()->code_affiliate)
         );
     }
+
+    /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('created_at', $data['created_at'])
+            ->first();
+    }
+
+    /**
+     * delete
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function delete(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->findOrFail($id)
+            ->delete();
+    }
 }

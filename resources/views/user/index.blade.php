@@ -26,8 +26,8 @@
                     <div class="col-sm-6 mb-3">
                         @if (session('success'))
                             <x-sweet-alert-success></x-alert-success>
-                        @elseif($errors->any())
-                            <x-validation-errors :errors="$errors"></x-validation-errors>
+                            @elseif($errors->any())
+                                <x-validation-errors :errors="$errors"></x-validation-errors>
                         @endif
                     </div>
                 </div>
@@ -306,7 +306,6 @@
                                                     <div class="order-icon">
                                                         <i data-feather="box"></i>
                                                     </div>
-
                                                     <div class="order-detail">
                                                         <h4> {{ $trans->invoice_id }}
                                                             @if (
@@ -337,10 +336,26 @@
                                                     </a>
 
                                                     <div class="order-wrap">
-                                                        <a
-                                                            href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}">
-                                                            <h3>{{ $trans->detail_transaction->product->name }}</h3>
-                                                        </a>
+                                                        <div class="d-flex justify-content-between">
+                                                            <a
+                                                                href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}">
+                                                                <h3>{{ $trans->detail_transaction->product->name }}</h3>
+                                                            </a>
+                                                            @if (
+                                                                $trans->invoice_status == InvoiceStatusEnum::PAID->value ||
+                                                                    $trans->invoice_status == InvoiceStatusEnum::SETTLED->value)
+                                                                <a title="Ajukan Pengembalian Dana" id="return" data-id="{{$trans->id}}"
+                                                                    class="btn btn-warning btn-sm text-white">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
+                                                                    </svg> </a>
+                                                            @else
+                                                                <div class=""></div>
+                                                            @endif
+                                                        </div>
                                                         <p class="text-content">
                                                             {{ $trans->detail_transaction->product->short_description }}
                                                         </p>
@@ -414,12 +429,12 @@
                                                                 <div class="size-box">
                                                                     @if (RatingHelper::checkUserHasRating($trans->detail_transaction->product->id))
                                                                         <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                                                            class="btn btn-success btn-sm text-white">
+                                                                            class="btn btn-warning btn-sm text-white">
                                                                             Cek Ulasan Saya
                                                                         </a>
                                                                     @else
                                                                         <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                                                            class="btn btn-danger btn-sm text-white">
+                                                                            class="btn btn-success btn-sm text-white">
                                                                             Tambah ulasan baru
                                                                         </a>
                                                                     @endif
@@ -427,6 +442,7 @@
                                                             </li>
                                                         </ul>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         @empty
@@ -435,7 +451,7 @@
                                     </div>
                                 </div>
                             </div>
-{{-- profil saya --}}
+                            {{-- profil saya --}}
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                 aria-labelledby="pills-profile-tab">
                                 <div class="dashboard-profile">
@@ -577,4 +593,17 @@
     </section>
 
     <x-edit-profile-modal></x-edit-profile-modal>
+@endsection
+@section('script')
+    <x-add-refund-modal></x-add-refund-modal>
+
+    <script>
+        $(document).on('click', '#return', function() {
+            $('#addRefundModal').modal('show')
+            const id = $(this).attr('data-id');
+            console.log(id);
+            let url = `{{ route('dashboard.refund.store', ':id') }}`.replace(':id', id);
+            $('#addRefund').attr('action', url);
+        });
+    </script>
 @endsection

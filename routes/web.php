@@ -188,7 +188,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         Route::prefix('transaction-whatsapp')->group(function () {
-            ROute::name('transaction.whatsapp.')->group(function () {
+            Route::name('transaction.whatsapp.')->group(function () {
                 Route::post('{slug}/{slug_varian?}', [TransactionWhatsappController::class, 'store'])->name('checkout');
             });
         });
