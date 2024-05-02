@@ -24,11 +24,15 @@ trait RefundDatatable
         return DataTables::of($collection)
             ->addIndexColumn()
             ->setFilteredRecords(250)
-            ->editColumn('product',function($data){
-                return view('dashboard.pages.administrator.refund.datatable.product',compact('data'));
+           
+            ->editColumn('user', function ($data) {
+                return view('dashboard.pages.administrator.refund.datatable.user', compact('data'));
             })
-            ->editColumn('balance',function($data){
-                return view('dashboard.pages.administrator.refund.datatable.balance',compact('data'));
+            ->editColumn('product', function ($data) {
+                return view('dashboard.pages.administrator.refund.datatable.product', compact('data'));
+            })
+            ->editColumn('balance', function ($data) {
+                return view('dashboard.pages.administrator.refund.datatable.balance', compact('data'));
             })
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.administrator.refund.datatable.action', compact('data'));
@@ -42,7 +46,7 @@ trait RefundDatatable
             ->editColumn('created_at', function ($data) {
                 return Carbon::parse($data->created_at)->locale('id_ID')->isoFormat('DD MMMM Y');
             })
-            ->rawColumns(['action','balance','product'])
+            ->rawColumns(['action', 'balance', 'product', 'user', 'rekening'])
             ->toJson();
     }
 }

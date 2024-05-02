@@ -181,6 +181,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('expenditure', [ExpenditureController::class, 'fetchExpenditure'])->name('fetch.expenditure');
                 Route::name('refund.')->prefix('refund')->group(function () {
                     Route::get('/', [RefundController::class, 'index'])->name('index');
+                    Route::get('/histories', [RefundController::class, 'getRefundHistories'])->name('histories');
                     Route::post('approve/{refund}', [RefundController::class, 'approve'])->name('approve');
                     Route::put('reject/{refund}', [RefundController::class, 'reject'])->name('reject');
                 });

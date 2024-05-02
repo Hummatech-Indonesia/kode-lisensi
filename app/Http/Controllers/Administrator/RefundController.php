@@ -61,6 +61,11 @@ class RefundController extends Controller
             return $this->refund->search($request);
         return view('dashboard.pages.administrator.refund.my-refund');
     }
+    public function getRefundHistories(Request $request):View|JsonResponse
+    {
+        if($request->ajax())return $this->refund->getRefundHistories($request);
+        return view('dashboard.pages.administrator.refund.histories');
+    }
     /**
      * store
      *

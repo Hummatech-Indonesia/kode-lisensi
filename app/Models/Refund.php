@@ -25,4 +25,13 @@ class Refund extends Model implements HasTransaction
     {
         return $this->belongsTo(Transaction::class);
     }
+    /**
+     * Get the user that owns the Refund
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

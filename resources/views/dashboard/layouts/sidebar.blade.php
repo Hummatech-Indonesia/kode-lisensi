@@ -36,12 +36,21 @@
                 <span>Pengeluaran</span>
             </a>
         </li>
+
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.refund.index') ? 'active' : '' }}"
-                href="{{ route('dashboard.refund.index') }}" style="color:white">
+            <a
+                class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.refund.index') || request()->routeIs('dashboard.refund.histories') ? 'active' : '' }}">
                 <i class="ri-money-dollar-box-line"></i>
-                <span>Pengembalian Dana</span>
+                <span>Pengembalian dana</span>
             </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{ route('dashboard.refund.index') }}">Permintaan Pengembalian</a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.refund.histories') }}">Riwayat Pengembalian</a>
+                </li>
+            </ul>
         </li>
         <li class="sidebar-list">
             <a

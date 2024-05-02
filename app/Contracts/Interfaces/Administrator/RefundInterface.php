@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\Eloquent\SearchInterface;
 use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
+use Illuminate\Http\Request;
 
 interface RefundInterface extends StoreInterface, GetInterface, UpdateInterface, DeleteInterface, ShowInterface,SearchInterface
 {
@@ -18,5 +19,11 @@ interface RefundInterface extends StoreInterface, GetInterface, UpdateInterface,
      * @return mixed
      */
 
-    public function getMyRefund(): mixed;
+    public function getMyRefund(): mixed;    
+    /**
+     * Method getRefundHistories
+     *
+     * @return mixed
+     */
+    public function getRefundHistories(Request $request):mixed;
 }

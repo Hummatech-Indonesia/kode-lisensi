@@ -8,6 +8,7 @@ use App\Enums\StatusRefundEnum;
 use App\Models\Refund;
 use App\Traits\Datatables\RefundDatatable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RefundRepository extends BaseRepository implements RefundInterface
 {
@@ -30,9 +31,10 @@ class RefundRepository extends BaseRepository implements RefundInterface
      *
      * @return mixed
      */
-public function search(Request $request): mixed
+    public function search(Request $request): mixed
     {
-        return $this->RefundMockup($this->model->query()
+        return $this->RefundMockup($this->model->query()->where('user_id', Auth::id())
+
             ->when($request->status, function ($query) use ($request) {
                 return $query->where('status', $request->status);
             })
@@ -46,6 +48,17 @@ public function search(Request $request): mixed
     public function getMyRefund(): mixed
     {
         return $this->RefundMockup($this->model->query()->where('user_id', auth()->user()->id)->oldest());
+    }    
+    /**
+     * Method getRefundHistories
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return mixed
+     */
+    public function getRefundHistories(Request $request): mixed
+    {
+        return $this->RefundMockup($this->model->query()->whereNot('status', StatusRefundEnum::PENDING->value)->oldest());
     }
 
     /**
