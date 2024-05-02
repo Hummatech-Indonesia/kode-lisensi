@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('refunds', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('transaction_id')->constrained();
             $table->enum('status', [StatusRefundEnum::ACCEPTED->value, StatusRefundEnum::REJECT->value, StatusRefundEnum::PENDING->value]);
             $table->string('description');

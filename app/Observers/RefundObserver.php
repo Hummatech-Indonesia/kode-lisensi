@@ -16,6 +16,7 @@ class RefundObserver
     public function creating(Refund $refund)
     {
         $refund->id = Uuid::uuid();
+        $refund->user_id = auth()->user()->id;
     }
 
     /**

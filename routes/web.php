@@ -180,6 +180,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::resource('expenditure', ExpenditureController::class);
                 Route::get('expenditure', [ExpenditureController::class, 'fetchExpenditure'])->name('fetch.expenditure');
                 Route::name('refund.')->prefix('refund')->group(function () {
+                    Route::get('/', [RefundController::class, 'index'])->name('index');
                     Route::post('approve/{refund}', [RefundController::class, 'approve'])->name('approve');
                 });
             });
@@ -353,11 +354,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    Route::middleware('role:administrator|reseller|customer')->group(function () {
+    Route::middleware('role:reseller|customer')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::name('refund.')->prefix('refund')->group(function () {
-                    Route::get('/', [RefundController::class, 'index'])->name('index');
+                    Route::get('my-refund', [RefundController::class, 'getMyRefund'])->name('my.refund');
                 });
             });
         });

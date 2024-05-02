@@ -11,7 +11,7 @@ class Refund extends Model implements HasTransaction
 {
     use HasFactory;
     public $incrementing = false;
-    public $fillable = ['id', 'transaction_id', 'status', 'description', 'proof', 'bank', 'rekening_number', 'rejected'];
+    public $fillable = ['id', 'user_id', 'transaction_id', 'status', 'description', 'proof', 'bank', 'rekening_number', 'rejected'];
     public $keyType = 'char';
     protected $table = 'refunds';
     protected $primaryKey = 'id';

@@ -10,4 +10,11 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface RefundInterface extends StoreInterface, GetInterface, UpdateInterface, DeleteInterface, ShowInterface
 {
+    /**
+     * Handle the Get all data event from models.
+     *
+     * @return mixed
+     */
+
+    public function getMyRefund(): mixed;
 }

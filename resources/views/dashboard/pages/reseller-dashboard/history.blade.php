@@ -126,9 +126,15 @@
                                                 Tambah ulasan baru
                                             </a>
                                             @if ($trans->refund)
-                                                <a class="btn-warning btn-sm text-white mt-3">
-                                                    Proses Mengajukan Pengembalian
-                                                </a>
+                                                @if ($trans->refund->status == 'accepted')
+                                                    <a class="btn-primary btn-sm text-white mt-3">
+                                                        Pengajuan Pengembalian Diterima
+                                                    </a>
+                                                @else
+                                                    <a class="btn-warning btn-sm text-white mt-3">
+                                                        Proses Mengajukan Pengembalian
+                                                    </a>
+                                                @endif
                                             @else
                                                 <a id="return" data-id="{{ $trans->id }}"
                                                     class="btn btn-primary btn-sm text-white mt-3">
