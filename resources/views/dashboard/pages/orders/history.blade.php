@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-12 mt-3">
                         <table id="datatables-responsive" class="table table-striped" style="width:100%">
-                            <thead>
+                            <thead class="bg-primary">
                                 <tr>
                                     <th>ID Invoice</th>
                                     <th>Nama pengguna</th>

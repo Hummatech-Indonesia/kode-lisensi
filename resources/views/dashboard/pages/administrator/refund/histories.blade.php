@@ -24,7 +24,7 @@
         </div>
         <div class="card-body">
             <div class="title-header option-title">
-                <h5>Halaman Permintaan Pengajuan Dana Kembali</h5>
+                <h5>Riwayat Permintaan Pengajuan Dana Kembali</h5>
             </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
@@ -112,7 +112,7 @@
             processing: true,
             serverSide: false,
             searching: true,
-            ajax: "{{ route('dashboard.refund.index') }}",
+            ajax: "{{ route('dashboard.refund.histories') }}",
             columns: [{
                     data: 'user',
                     name: 'user'

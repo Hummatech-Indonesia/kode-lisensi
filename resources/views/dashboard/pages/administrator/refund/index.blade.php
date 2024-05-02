@@ -30,10 +30,10 @@
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
-                            {{-- <th>Penggunaan</th>
-                            <th>Penarikan Melalui</th> --}}
-                            <th>Bukti</th>
-                            <th>Deskripsi</th>
+                            <th>Nama Pengguna</th>
+                            <th>No Rekening</th>
+                            <th>Nama Bank</th>
+                            <th>Produk</th>
                             <th>Tanggal Penarikan</th>
                             <th>Aksi</th>
                         </tr>
@@ -49,6 +49,7 @@
 
 @section('script')
     <x-reject-refund-modal></x-reject-refund-modal>
+    <x-detail-refund-modal></x-detail-refund-modal>
     <x-approve-refund-modal></x-approve-refund-modal>
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
@@ -65,6 +66,32 @@
             const id = $(this).attr('data-id');
             let url = `{{ route('dashboard.refund.reject', ':id') }}`.replace(':id', id);
             $('#rejectRefundForm').attr('action', url);
+        });
+        $(document).on('click', '#detailRefund', function() {
+            $('#detailRefundModal').modal('show')
+            console.log('test');
+            const id = $(this).attr('data-id');
+            const username = $(this).data('username');
+            const rekening = $(this).data('rekening');
+            const bank = $(this).data('bank');
+            const product = $(this).data('product');
+            const created_at = $(this).data('created-at');
+            const description = $(this).data('description');
+            const proof = $(this).data('proof');
+            console.log(username);
+            console.log(rekening);
+            console.log(bank);
+            console.log(product);
+            console.log(created_at);
+            console.log(description);
+            $('#username').val(username);
+            $('#rekening').val(rekening);
+            $('#bank').val(bank);
+            $('#product').val(product);
+            $('#created_at').val(created_at);
+            $('#description').val(description);
+            $('#proof').attr('src', '/storage/' + proof);
+
         });
 
         $.ajax({
@@ -87,12 +114,20 @@
             searching: true,
             ajax: "{{ route('dashboard.refund.index') }}",
             columns: [{
-                    data: 'proof',
-                    name: 'proof'
+                    data: 'user',
+                    name: 'user'
                 },
                 {
-                    data: 'description',
-                    name: 'description'
+                    data: 'rekening_number',
+                    name: 'rekening_number'
+                },
+                {
+                    data: 'bank',
+                    name: 'bank'
+                },
+                {
+                    data: 'product',
+                    name: 'product'
                 },
                 {
                     data: 'created_at',
