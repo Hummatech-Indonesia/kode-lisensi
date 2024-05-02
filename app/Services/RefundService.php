@@ -6,6 +6,7 @@ use App\Base\Interfaces\uploads\CustomUploadValidation;
 use App\Base\Interfaces\uploads\ShouldHandleFileUpload;
 use App\Enums\StatusRefundEnum;
 use App\Enums\UploadDiskEnum;
+use App\Http\Requests\ApproveRefundRequest;
 use App\Http\Requests\Dashboard\Article\StoreRequest;
 use App\Http\Requests\Dashboard\Article\UpdateRequest;
 use App\Http\Requests\RefundRequest;
@@ -55,36 +56,15 @@ class RefundService implements ShouldHandleFileUpload, CustomUploadValidation
     }
 
     /**
-     * Handle update data event to models.
+     * approve
      *
-     * @param UpdateRequest $request
-     * @param Article $article
-     * @return array|bool
+     * @param  mixed $request
+     * @return array
      */
-
-    public function update(UpdateRequest $request, Article $article): array|bool
+    public function approve(ApproveRefundRequest $request): array|bool
     {
-        $data = $request->validated();
-
-        $old_photo = $article->photo;
-
-        $slug = str_slug($data['title']);
-
-        if ($request->hasFile('photo')) {
-            $this->remove($old_photo);
-            $old_photo = $this->uploadSlug(UploadDiskEnum::ARTICLES->value, $request->file('photo'), $slug);
-        }
-
         return [
-            'slug' => $slug,
-            'sub_article_category_id' => $data['sub_article_category_id'],
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'photo' => $old_photo,
-            'content' => $data['content'],
-            'tags' => str_replace(', ', ',', $data['tags']),
-            'status' => $data['status'],
-            'user_id' => auth()->id()
+            'proof_admin' => $this->upload(UploadDiskEnum::PROOF->value, $request->file('proof_admin')),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories\Administrator;
 
 use App\Contracts\Interfaces\Administrator\RefundInterface;
 use App\Contracts\Repositories\BaseRepository;
+use App\Enums\StatusRefundEnum;
 use App\Models\Refund;
 use App\Traits\Datatables\RefundDatatable;
 
@@ -21,7 +22,7 @@ class RefundRepository extends BaseRepository implements RefundInterface
      */
     public function get(): mixed
     {
-        return $this->RefundMockup($this->model->query()->oldest());
+        return $this->RefundMockup($this->model->query()->where('status', StatusRefundEnum::PENDING->value)->oldest());
     }
 
     /**

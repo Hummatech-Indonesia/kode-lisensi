@@ -26,24 +26,14 @@
             <div class="title-header option-title">
                 <h5>Halaman Permintaan Pengajuan Dana Kembali</h5>
             </div>
-            <div class="col-12 d-flex justify-content-between mb-3">
-                <div class=""></div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRefundModal">
-                    Tambah Data
-                </button>
-            </div>
-
-            <div class="title-header option-title d-flex justify-between">
-
-            </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
                     <thead>
                         <tr>
                             {{-- <th>Penggunaan</th>
-                            <th>Penarikan Melalui</th>
-                            <th>Nominal Penarikan</th>
-                            <th>Deskripsi</th> --}}
+                            <th>Penarikan Melalui</th> --}}
+                            <th>Bukti</th>
+                            <th>Deskripsi</th>
                             <th>Tanggal Penarikan</th>
                             <th>Aksi</th>
                         </tr>
@@ -58,11 +48,20 @@
 
 
 @section('script')
-    <x-add-refund-modal></x-add-refund-modal>
-    <x-delete-refund-modal></x-delete-refund-modal>
-    <x-update-expenditure-modal></x-update-expenditure-modal>
+    <x-reject-refund-modal></x-reject-refund-modal>
+    <x-approve-refund-modal></x-approve-refund-modal>
+
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
+        $(document).on('click', '#approveRefund', function() {
+            $('#approveRefundModal').modal('show')
+            const id = $(this).attr('data-id');
+            console.log(id);
+            console.log('test');
+            let url = `{{ route('dashboard.refund.approve', ':id') }}`.replace(':id', id);
+            $('#formApprove').attr('action', url);
+        });
+
         $.ajax({
             type: "method",
             url: "url",
@@ -83,6 +82,14 @@
             searching: true,
             ajax: "{{ route('dashboard.refund.index') }}",
             columns: [{
+                    data: 'proof',
+                    name: 'proof'
+                },
+                {
+                    data: 'description',
+                    name: 'description'
+                },
+                {
                     data: 'created_at',
                     name: 'created_at'
                 },
@@ -93,13 +100,6 @@
                     searchable: false
                 }
             ]
-        });
-
-        $(document).on('click', '.delete-alert', function() {
-            $('#deleteRefundModal').modal('show')
-            const id = $(this).attr('data-id');
-            let url = `{{ route('dashboard.refund.destroy', ':id') }}`.replace(':id', id);
-            $('#deleteForm').attr('action', url);
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

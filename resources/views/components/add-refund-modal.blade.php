@@ -16,17 +16,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-2">
-                        <label for="" class="form-label">Pilih Transaksi Yang Ingin Anda Tarik Saldonya</label>
-                        <select name="transaction_id" id="transaction_id" class="form-select">
-                            <option value="">Pilih Transaksi</option>
-                            @foreach (RefundHelper::getMyTransaction() as $transaction)
-                                <option value="{{ $transaction->id }}">
-                                    {{ $transaction->detail_transaction->product->name }} |
-                                    {{ CurrencyHelper::rupiahCurrency($transaction->paid_amount) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-2">
                         <label for="rekening_number" class="form-label">Nomor Rekening</label>
                         <input type="number" name="rekening_number" id="rekening_number" class="form-control"
                             placeholder="3928428xxx">

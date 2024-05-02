@@ -27,6 +27,12 @@ trait RefundDatatable
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.administrator.refund.datatable.action', compact('data'));
             })
+            ->editColumn('proof', function ($data) {
+                return view('dashboard.pages.administrator.refund.datatable.proof', compact('data'));
+            })
+            ->editColumn('created_at', function ($data) {
+                return Carbon::parse($data->created_at)->locale('id_ID')->isoFormat('DD MMMM Y');
+            })
             ->rawColumns(['action'])
             ->toJson();
     }

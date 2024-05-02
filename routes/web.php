@@ -179,6 +179,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::resource('expenditure', ExpenditureController::class);
                 Route::get('expenditure', [ExpenditureController::class, 'fetchExpenditure'])->name('fetch.expenditure');
+                Route::name('refund.')->prefix('refund')->group(function () {
+                    Route::post('approve/{refund}', [RefundController::class, 'approve'])->name('approve');
+                });
             });
         });
 
@@ -198,10 +201,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
                 Route::name('refund.')->prefix('refund')->group(function () {
-                    Route::get('/', [RefundController::class, 'index'])->name('index');
                     Route::post('{transaction}', [RefundController::class, 'store'])->name('store');
-                    Route::put('{refund}', [RefundController::class, 'update'])->name('update');
-                    Route::delete('{refund}', [RefundController::class, 'destroy'])->name('destroy');
                 });
             });
         });
@@ -349,6 +349,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('totalAmount', [RevenueController::class, 'totalAmount'])->name('totalAmount');
                 Route::get('/', [RevenueController::class, 'index'])->name('index');
                 Route::get('print', [RevenueController::class, 'printRevenue'])->name('print');
+            });
+        });
+    });
+
+    Route::middleware('role:administrator|reseller|customer')->group(function () {
+        Route::prefix('dashboard')->group(function () {
+            Route::name('dashboard.')->group(function () {
+                Route::name('refund.')->prefix('refund')->group(function () {
+                    Route::get('/', [RefundController::class, 'index'])->name('index');
+                });
             });
         });
     });

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Administrator;
 
+use App\Contracts\Interfaces\Administrator\ExpenditureInterface;
 use App\Contracts\Interfaces\Administrator\RefundInterface;
+use App\Enums\StatusRefundEnum;
+use App\Enums\UsedForEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApproveRefundRequest;
 use App\Http\Requests\RefundRequest;
 use App\Models\Refund;
 use App\Models\Transaction;
@@ -18,10 +22,12 @@ class RefundController extends Controller
 
     private RefundInterface $refund;
     private RefundService $service;
-    public function __construct(RefundInterface $refund, RefundService $service)
+    private ExpenditureInterface $expenditure;
+    public function __construct(RefundInterface $refund, RefundService $service, ExpenditureInterface $expenditure)
     {
         $this->refund = $refund;
         $this->service = $service;
+        $this->expenditure = $expenditure;
     }
 
     /**
@@ -49,27 +55,23 @@ class RefundController extends Controller
     }
 
     /**
-     * update
+     * approve
      *
      * @param  mixed $refund
-     * @param  mixed $request
      * @return RedirectResponse
      */
-    public function update(Refund $refund, RefundRequest $request): RedirectResponse
+    public function approve(Refund $refund, ApproveRefundRequest $request): RedirectResponse
     {
-        $this->refund->update($refund->id, $request->validated);
-        return redirect()->back()->with('success', trans('alert.update_success'));
-    }
+        $data = $request->validated();
+        $this->expenditure->store([
+            'balance_used' => $data['balance_used'],
+            'used_for' => UsedForEnum::REFUND->value,
+            'balance_withdrawn' => $refund->transaction->paid_amount,
+            'description' => $data['description']
+        ]);
 
-    /**
-     * destroy
-     *
-     * @param  mixed $refund
-     * @return RedirectResponse
-     */
-    public function destroy(Refund $refund): RedirectResponse
-    {
-        $this->delete($refund->id);
-        return redirect()->back()->with('success', trans('alert.delete_success'));
+        $service = $this->service->approve($request);
+        $this->refund->update($refund->id, ['status' => StatusRefundEnum::ACCEPTED->value, 'proof_admin' => $service['proof_admin']]);
+        return redirect()->back()->with('success', 'Berhasil menyetujui permintaan');
     }
 }

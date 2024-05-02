@@ -125,7 +125,7 @@
                                                 class="btn btn-primary btn-sm text-white mt-3">
                                                 Tambah ulasan baru
                                             </a>
-                                            @if ($trans->refund->first())
+                                            @if ($trans->refund)
                                                 <a class="btn-warning btn-sm text-white mt-3">
                                                     Proses Mengajukan Pengembalian
                                                 </a>
