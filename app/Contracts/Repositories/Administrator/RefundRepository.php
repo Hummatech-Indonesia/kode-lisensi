@@ -25,6 +25,16 @@ class RefundRepository extends BaseRepository implements RefundInterface
         return $this->RefundMockup($this->model->query()->where('status', StatusRefundEnum::PENDING->value)->oldest());
     }
     /**
+     * Method getAll
+     *
+     * @return mixed
+     */
+    public function getAll(): mixed
+    {
+        // return $this->RefundMockup($this->model->query()->where('status', [StatusRefundEnum::ACCEPTED->value, StatusRefundEnum::REJECT->value])->oldest());
+        return $this->RefundMockup($this->model->query()->oldest());
+    }
+    /**
      * Method get
      *
      * @return mixed

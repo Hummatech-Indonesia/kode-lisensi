@@ -116,6 +116,13 @@
                 </li>
             </ul>
         </li>
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.refund.my.refund') ? 'active' : '' }}"
+                href="{{ route('dashboard.refund.my.refund') }}">
+                <i class="ri-money-dollar-box-line"></i>
+                <span>Pengajuan Dana</span>
+            </a>
+        </li>
     @endrole
 
     @role('admin')

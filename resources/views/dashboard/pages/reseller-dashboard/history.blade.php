@@ -5,6 +5,7 @@
     @php
         use App\Enums\InvoiceStatusEnum;
         use App\Enums\ProductStatusEnum;
+        use App\Enums\LicenseStatusEnum;
         use App\Enums\UserRoleEnum;
         use App\Helpers\CurrencyHelper;
         use App\Helpers\RatingHelper;
@@ -53,13 +54,13 @@
                                         @if (
                                             $trans->invoice_status == InvoiceStatusEnum::FAILED->value ||
                                                 $trans->invoice_status == InvoiceStatusEnum::EXPIRED->value)
-                                            <span class="badge bg-danger">Dibatalkan</span>
+                                            <span class="badge badge-danger">Dibatalkan</span>
                                         @elseif(
                                             $trans->invoice_status == InvoiceStatusEnum::PAID->value ||
                                                 $trans->invoice_status == InvoiceStatusEnum::SETTLED->value)
-                                            <span class="badge bg-primary">Lunas</span>
+                                            <span class="badge badge-primary">Lunas</span>
                                         @else
-                                            <span class="badge bg-warning text-dark">Pending</span>
+                                            <span class="badge badge-warning text-white">Pending</span>
                                         @endif
                                     </h4>
                                 </div>
@@ -135,7 +136,7 @@
                                                         Proses Mengajukan Pengembalian
                                                     </a>
                                                 @endif
-                                            @else
+                                            @elseif($trans->license_status == LicenseStatusEnum::COMPLETED->value)
                                                 <a id="return" data-id="{{ $trans->id }}"
                                                     class="btn btn-primary btn-sm text-white mt-3">
                                                     Ajukan Pengembalian

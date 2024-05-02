@@ -44,7 +44,6 @@ class RefundService implements ShouldHandleFileUpload, CustomUploadValidation
     public function store(RefundRequest $request, Transaction $transaction): array|bool
     {
         $data = $request->validated();
-
         return [
             'transaction_id' => $transaction->id,
             'status' => StatusRefundEnum::PENDING->value,

@@ -33,9 +33,11 @@
                             {{-- <th>Penggunaan</th>
                             <th>Penarikan Melalui</th> --}}
                             <th>Bukti</th>
+                            <th>Product Dibeli</th>
+                            <th>Dana Diajukan</th>
                             <th>Deskripsi</th>
+                            <th>Status</th>
                             <th>Tanggal Penarikan</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,25 +82,31 @@
             processing: true,
             serverSide: false,
             searching: true,
-            ajax: "{{ route('dashboard.refund.index') }}",
+            ajax: "{{ route('dashboard.refund.my.refund') }}",
             columns: [{
                     data: 'proof',
                     name: 'proof'
+                },
+                {
+                    data: 'product',
+                    name: 'product'
+                },
+                {
+                    data: 'balance',
+                    name: 'balance'
                 },
                 {
                     data: 'description',
                     name: 'description'
                 },
                 {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
                     data: 'created_at',
                     name: 'created_at'
                 },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                }
             ]
         });
     </script>
