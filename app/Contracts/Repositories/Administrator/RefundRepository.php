@@ -7,6 +7,7 @@ use App\Contracts\Repositories\BaseRepository;
 use App\Enums\StatusRefundEnum;
 use App\Models\Refund;
 use App\Traits\Datatables\RefundDatatable;
+use Illuminate\Http\Request;
 
 class RefundRepository extends BaseRepository implements RefundInterface
 {
@@ -29,10 +30,13 @@ class RefundRepository extends BaseRepository implements RefundInterface
      *
      * @return mixed
      */
-    public function getAll(): mixed
+public function search(Request $request): mixed
     {
-        // return $this->RefundMockup($this->model->query()->where('status', [StatusRefundEnum::ACCEPTED->value, StatusRefundEnum::REJECT->value])->oldest());
-        return $this->RefundMockup($this->model->query()->oldest());
+        return $this->RefundMockup($this->model->query()
+            ->when($request->status, function ($query) use ($request) {
+                return $query->where('status', $request->status);
+            })
+            ->oldest());
     }
     /**
      * Method get

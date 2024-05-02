@@ -131,6 +131,10 @@
                                                     <a class="btn-primary btn-sm text-white mt-3">
                                                         Pengajuan Pengembalian Diterima
                                                     </a>
+                                                @elseif($trans->refund->status == 'reject')
+                                                    <a class="btn-danger btn-sm text-white mt-3">
+                                                        Pengajuan Pengembalian Ditolak
+                                                    </a>
                                                 @else
                                                     <a class="btn-warning btn-sm text-white mt-3">
                                                         Proses Mengajukan Pengembalian

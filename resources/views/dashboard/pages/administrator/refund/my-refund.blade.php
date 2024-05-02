@@ -1,3 +1,8 @@
+@php
+    use App\Enums\StatusRefundEnum;
+
+@endphp
+
 @extends('dashboard.layouts.app')
 @section('css')
     <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
@@ -25,6 +30,17 @@
         <div class="card-body">
             <div class="title-header option-title">
                 <h5>Halaman Permintaan Pengajuan Dana Kembali</h5>
+            </div>
+            <div class="d-flex mb-3 justify-content-between">
+
+                <div style="width: 200px">
+                    <select name="" class="form-select" id="status">
+                        <option value="">Tampilkan Semua</option>
+                        <option value="{{ StatusRefundEnum::ACCEPTED }}">Diterima</option>
+                        <option value="{{ StatusRefundEnum::REJECT }}">Ditolak</option>
+                        <option value="{{ StatusRefundEnum::PENDING }}">Diproses</option>
+                    </select>
+                </div>
             </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
@@ -82,7 +98,12 @@
             processing: true,
             serverSide: false,
             searching: true,
-            ajax: "{{ route('dashboard.refund.my.refund') }}",
+            ajax: {
+                url: "{{ route('dashboard.refund.my.refund') }}",
+                data: function(d) {
+                    d.status = $('#status').val();
+                }
+            },
             columns: [{
                     data: 'proof',
                     name: 'proof'
@@ -108,6 +129,10 @@
                     name: 'created_at'
                 },
             ]
+        });
+        $('#status').on('change', function() {
+            console.log($('#status').val());
+            table.ajax.reload();
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

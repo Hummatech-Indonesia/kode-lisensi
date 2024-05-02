@@ -51,7 +51,7 @@ class RefundController extends Controller
     public function getMyRefund(Request $request): View|JsonResponse
     {
         if ($request->ajax())
-            return $this->refund->getAll();
+            return $this->refund->search($request);
         return view('dashboard.pages.administrator.refund.my-refund');
     }
     /**
