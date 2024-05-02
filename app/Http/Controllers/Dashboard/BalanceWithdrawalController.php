@@ -11,6 +11,7 @@ use App\Helpers\TransactionAffiliateHelper;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BalanceWithdrawalRequest;
+use App\Http\Requests\DisapproveBalanceWithdrawalRequest;
 use App\Http\Requests\ProofBalanceWithdrawalRequest;
 use App\Mail\BalanceWithdrawalMail;
 use App\Models\BalanceWithdrawal;
@@ -116,5 +117,19 @@ class BalanceWithdrawalController extends Controller
     {
         $balance_withdrawal->update($this->service->store($request));
         return redirect()->back()->with('success', trans('alert.update_success'));
+    }
+    /**
+     * Method disapprove
+     *
+     * @param DisapproveBalanceWithdrawalRequest $request [explicite description]
+     * @param BalanceWithdrawal $balance_withdrawal [explicite description]
+     * @param mixed $status [explicite description]
+     *
+     * @return RedirectResponse
+     */
+    public function disapprove(DisapproveBalanceWithdrawalRequest $request,BalanceWithdrawal $balance_withdrawal):RedirectResponse{
+        $data=$request->validated();
+        $balance_withdrawal->update($data);
+        return redirect()->back()->with('success',trans('alert.update_success'));
     }
 }

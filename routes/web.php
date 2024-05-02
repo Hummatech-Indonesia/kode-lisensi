@@ -259,6 +259,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::name('balance.withdrawal.admin.')->prefix('balance-withdrawal-admin')->group(function () {
                 Route::get('/', [BalanceWithdrawalController::class, 'index'])->name('index');
                 Route::put('/{balance_withdrawal}', [BalanceWithdrawalController::class, 'update'])->name('update');
+                Route::put('/{balance_withdrawal}/disapprove', [BalanceWithdrawalController::class, 'disapprove'])->name('disapprove');
                 Route::get('history-admin', [BalanceWithdrawalController::class, 'historyAdmin'])->name('history');
             });
             Route::patch('varian-products-update/{product}', [ProductController::class, 'varianProductUpdate'])->name('varian.products.update');

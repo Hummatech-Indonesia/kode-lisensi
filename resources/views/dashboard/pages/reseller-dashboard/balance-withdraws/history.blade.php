@@ -4,7 +4,7 @@
     <link href="{{ asset('dashboard_assets/css/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
-    <h1 class="h3 mb-3">Halaman Penarikan Saldo Reseller</h1>
+    <h1 class="h3 mb-3">Riwayat Penarikan Saldo Reseller</h1>
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger" role="alert">
             {{ $error }}
@@ -57,6 +57,7 @@
 @endsection
 @section('script')
     <x-detail-withdrawal-modal></x-detail-withdrawal-modal>
+    <x-detail-withdrawal-rejected-modal></x-detail-withdrawal-rejected-modal>
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
@@ -131,12 +132,24 @@
             })
 
             $(document).on('click', '.detail-withdrawal', function() {
-                $('#detailModal').modal('show')
                 const id = $(this).attr('data-id');
+                const rejected = $(this).data('rejected');
+                const status = $(this).data('status');
                 const proof = $(this).attr('data-proof');
+
+                if (rejected) {
+                    $('rejectedLabel').text('Alasan Penolakan')
+                    $('#rejected').text(rejected);
+                    $('#detailRejectedModal').modal('show')
+
+                } else {
+                    $('#detailModal').modal('show')
+                }
                 if (proof) {
                     $('#proofImage').attr('src', '/storage/' + proof);
+                    $('#proofLabel').text('Bukti pembayaran');
                 } else {
+                    $('#proofLabel').text('Bukti pembayaran belum ada');
                     $('#proofImage').attr('src', '/image-not-found.jpg');
                 }
                 let url = `{{ route('balance.withdrawal.admin.update', ':id') }}`.replace(':id', id);

@@ -58,6 +58,7 @@
 @endsection
 @section('script')
     <x-approve-withdrawal-modal></x-approve-withdrawal-modal>
+    <x-disapprove-withdrawal-modal></x-disapprove-withdrawal-modal>
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
@@ -135,8 +136,14 @@
                 let url = `{{ route('balance.withdrawal.admin.update', ':id') }}`.replace(':id', id);
                 $('#updateForm').attr('action', url);
             });
+            $(document).on('click', '.disapprove-withdrawal', function() {
+                $('#disapproveModal').modal('show');
+                const id = $(this).attr('data-id');
+                let url = `{{ route('balance.withdrawal.admin.disapprove',':id') }}`.replace(':id', id);
+                $('#disapproveForm').attr('action', url);
+            });
 
-            // Daterangepicker
+            // Daterangepickerx
             $("input[name=\"date\"]").daterangepicker({
                 opens: "left",
                 locale: {

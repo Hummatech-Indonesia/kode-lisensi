@@ -1,5 +1,9 @@
 @if ($data->status == 0)
-    <p class="badge badge-warning">Pending</p>
+    @if ($data->rejected)
+        <p class="badge badge-danger">Ditolak</p>
+    @else
+        <p class="badge badge-warning">Diproses</p>
+    @endif
 @else
-    <p class="badge badge-success">Terima</p>
+    <p class="badge badge-success">Diterima</p>
 @endif
