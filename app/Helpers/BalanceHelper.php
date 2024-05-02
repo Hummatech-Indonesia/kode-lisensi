@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Enums\BalanceUsedEnum;
 use App\Enums\InvoiceStatusEnum;
+use App\Enums\LicenseStatusEnum;
 use App\Models\Expenditure;
 use App\Models\Transaction;
 
@@ -53,6 +54,7 @@ class BalanceHelper
     {
         $handleBalance = Transaction::query()
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where('license_status', LicenseStatusEnum::COMPLETED->value)
             ->sum('amount');
         $overallExpenditure = BalanceHelper::overallExpenditure();
         return $handleBalance - $overallExpenditure;
@@ -68,6 +70,7 @@ class BalanceHelper
         $whatsappBalance = Transaction::query()
             ->where('order_via_whatsapp', 1)
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where('license_status', LicenseStatusEnum::COMPLETED->value)
             ->sum('amount');
         $rekeningExpenditure = BalanceHelper::rekeningExpenditure();
         return $whatsappBalance - $rekeningExpenditure;
@@ -83,6 +86,7 @@ class BalanceHelper
         $tripayBalance = Transaction::query()
             ->where('order_via_whatsapp', 0)
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where('license_status', LicenseStatusEnum::COMPLETED->value)
             ->sum('amount');
         $tripayExpenditure = BalanceHelper::tripayExpenditure();
         return $tripayBalance - $tripayExpenditure;
@@ -95,7 +99,9 @@ class BalanceHelper
      */
     public static function handleRevenue(): int
     {
-        $transactions = Transaction::query()->where('invoice_status', InvoiceStatusEnum::PAID->value)->get();
+        $transactions = Transaction::query()->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where('license_status', LicenseStatusEnum::COMPLETED->value)
+            ->get();
 
         $revenue = 0;
 
@@ -120,7 +126,12 @@ class BalanceHelper
      */
     public static function handleTripayRevenue(): int
     {
-        $transactions = Transaction::query()->where('order_via_whatsapp', 0)->where('invoice_status', InvoiceStatusEnum::PAID->value)->get();
+        $transactions = Transaction::query()->where('order_via_whatsapp', 0)
+            ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where(
+                'license_status',
+                LicenseStatusEnum::COMPLETED->value
+            )->get();
 
         $revenue = 0;
 
@@ -147,6 +158,7 @@ class BalanceHelper
     {
         $transactions = Transaction::query()
             ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where('license_status', LicenseStatusEnum::COMPLETED->value)
             ->where('order_via_whatsapp', 1)
             ->get();
 
