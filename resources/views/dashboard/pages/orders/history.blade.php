@@ -159,8 +159,8 @@
                         name: 'detail_transaction.product.name'
                     },
                     {
-                        data: 'paid_amount',
-                        name: 'paid_amount'
+                        data: 'amount',
+                        name: 'amount'
                     },
                     {
                         data: 'payment_method',
