@@ -6,15 +6,17 @@ use App\Base\Interfaces\HasDetailTransaction;
 use App\Base\Interfaces\HasLineChart;
 use App\Base\Interfaces\HasOneLicense;
 use App\Base\Interfaces\HasOneRefund;
+use App\Base\Interfaces\HasTransactionAffiliates;
 use App\Base\Interfaces\HasUser;
 use App\Enums\InvoiceStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
-class Transaction extends Model implements HasOneLicense, HasDetailTransaction, HasUser, HasLineChart, HasOneRefund
+class Transaction extends Model implements HasOneLicense, HasDetailTransaction, HasUser, HasLineChart, HasOneRefund, HasTransactionAffiliates
 {
     use HasFactory;
 
@@ -81,5 +83,15 @@ class Transaction extends Model implements HasOneLicense, HasDetailTransaction, 
     public function refund(): HasOne
     {
         return $this->hasOne(Refund::class);
+    }
+
+    /**
+     * transaction_affiliates
+     *
+     * @return HasMany
+     */
+    public function transaction_affiliates(): HasMany
+    {
+        return $this->hasMany(TransactionAffiliate::class);
     }
 }

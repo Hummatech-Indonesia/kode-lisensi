@@ -141,4 +141,15 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             ->orderByDesc('created_at')
             ->first();
     }
+
+    /**
+     * findNow
+     *
+     * @return mixed
+     */
+    public function findNow(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->findOrFail($id);
+    }
 }

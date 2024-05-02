@@ -38,5 +38,12 @@ interface TransactionInterface extends GetInterface, StoreInterface, ShowInterfa
      *
      * @return mixed
      */
-    public function getPending():mixed;
+    public function getPending(): mixed;
+
+    /**
+     * findNow
+     *
+     * @return mixed
+     */
+    public function findNow(mixed $id): mixed;
 }
