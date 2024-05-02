@@ -54,7 +54,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     public function getPending(): mixed
     {
         return $this->PendingTransactionMockup($this->model->query()
-            ->whereIn('license_status', [LicenseStatusEnum::PROCESSED->value])
+            ->whereNull('paid_at')
             ->whereHas('detail_transaction.product')
             ->with(['user', 'detail_transaction.product'])
             ->oldest());
