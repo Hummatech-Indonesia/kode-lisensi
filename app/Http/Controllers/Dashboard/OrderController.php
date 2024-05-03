@@ -59,7 +59,7 @@ class OrderController extends Controller
     public function fetchHistories(Request $request): View|JsonResponse
     {
         if ($request->ajax())
-            return $this->transaction->getAll();
+            return $this->transaction->search($request);
 
         return view('dashboard.pages.orders.index');
     }
@@ -120,6 +120,22 @@ class OrderController extends Controller
             $invoice_id = null;
         }
         return view('dashboard.pages.orders.history', ['invoice_id' => $invoice_id]);
+    }
+    /**
+     * Method income
+     *
+     * @return View
+     */
+    public function income(): View
+    {
+        $get_invoice_id = $this->transaction->getInvoice();
+        if ($get_invoice_id) {
+            $invoice_id = substr($get_invoice_id->invoice_id, -4);
+        } else {
+            $invoice_id = null;
+        }
+        return view('dashboard.pages.orders.income',['invoice_id'=>$invoice_id]);
+
     }
     /**
      * Method pendingHistories

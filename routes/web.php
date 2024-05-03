@@ -348,7 +348,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('orders.')->group(function () {
                 Route::get('order-histories', [OrderController::class, 'history'])->name('history');
-                ROute::get('pending-histories', [OrderController::class, 'pendingHistories'])->name('pending');
+                Route::get('income-histories', [OrderController::class, 'income'])->name('income');
+                Route::get('pending-histories', [OrderController::class, 'pendingHistories'])->name('pending');
                 Route::get('/get-pending-histories', [OrderController::class, 'fetchPendingHistories'])->name('fetch-pending-histories');
                 Route::get('/get-all-histories', [OrderController::class, 'fetchHistories'])->name('fetch-histories');
             });

@@ -36,6 +36,9 @@ trait TransactionDatatable
             ->editColumn('amount', function ($data) {
                 return CurrencyHelper::rupiahCurrency($data->amount);
             })
+            ->editColumn('order_via_whatsapp',function($data){
+                return view('dashboard.pages.orders.datatables.via',compact('data'));
+            })
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.orders.datatables.action', compact('data'));
             })

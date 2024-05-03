@@ -494,8 +494,6 @@
                                             <table class="table theme-table" id="table_id">
                                                 <thead>
                                                     <tr>
-                                                        {{-- <th>Penggunaan</th>
-                                                        <th>Penarikan Melalui</th> --}}
                                                         <th>Bukti</th>
                                                         <th>Product Dibeli</th>
                                                         <th>Dana Diajukan</th>

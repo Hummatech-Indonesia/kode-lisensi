@@ -7,6 +7,7 @@ use App\Enums\LicenseStatusEnum;
 use App\Models\Transaction;
 use App\Traits\Datatables\TransactionDatatable;
 use Exception;
+use Illuminate\Http\Request;
 
 class TransactionRepository extends BaseRepository implements TransactionInterface
 {
@@ -43,8 +44,30 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
         return $this->TransactionMockup($this->model->query()
             ->whereIn('license_status', [LicenseStatusEnum::COMPLETED->value])
             ->whereHas('detail_transaction.product')
+            ->when($request->balanceUsed, function ($query) use ($request) {
+                return $query->where('balance_used', $request->balanceUsed);
+            })
             ->with(['user', 'detail_transaction.product'])
             ->oldest());
+    }
+    /**
+     * Method search
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return mixed
+     */
+    public function search(Request $request): mixed
+    {
+        return $this->TransactionMockup($this->model->query()
+            ->whereIn('license_status', [LicenseStatusEnum::COMPLETED->value])
+            ->whereHas('detail_transaction.product')
+            ->when($request->orderViaWhatsapp, function ($query) use ($request) {
+                return $query->where('order_via_whatsapp', $request->orderViaWhatsapp);
+            })
+            ->with(['user', 'detail_transaction.product'])
+            ->oldest());
+
     }
     /**
      * Method getAll

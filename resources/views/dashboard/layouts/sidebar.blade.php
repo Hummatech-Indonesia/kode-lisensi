@@ -29,14 +29,29 @@
                 <span>Transaksi</span>
             </a>
         </li>
-        <li class="sidebar-list">
+        {{-- <li class="sidebar-list">
             <a class="sidebar-link sidebar-title link-nav {{ request()->routeIs('dashboard.fetch.expenditure') ? 'active' : '' }}"
                 href="{{ route('dashboard.fetch.expenditure') }}">
                 <i class="ri-money-dollar-circle-line"></i>
                 <span>Pengeluaran</span>
             </a>
-        </li>
+        </li> --}}
 
+        <li class="sidebar-list">
+            <a
+                class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.fetch.expenditure') || request()->routeIs('orders.income') ? 'active' : '' }}">
+                <i class="ri-money-dollar-box-line"></i>
+                <span>Keuangan</span>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="{{ route('orders.income') }}">Pemasukan</a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.fetch.expenditure') }}">Pengeluaran</a>
+                </li>
+            </ul>
+        </li>
         <li class="sidebar-list">
             <a
                 class="sidebar-link sidebar-title {{ request()->routeIs('dashboard.refund.index') || request()->routeIs('dashboard.refund.histories') ? 'active' : '' }}">
