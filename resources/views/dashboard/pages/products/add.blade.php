@@ -42,7 +42,7 @@
                         <div class="col-sm-9">
                             <input id="short_description_input" autocomplete="off" name="short_description"
                                 class="form-control" type="text"
-                                placeholder="Lisensi ori windows 10 professional untuk perorangan">
+                                placeholder="Lisensi ori windows 10 professional untuk perorangan" value="{{old('short_description')}}">
                             <span id="char_count"></span>
                         </div>
                     </div>
