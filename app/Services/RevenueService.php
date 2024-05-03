@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\InvoiceStatusEnum;
+use App\Enums\LicenseStatusEnum;
 use App\Helpers\CurrencyHelper;
 use App\Models\Transaction;
 use App\Traits\Datatables\RevenueDatatable;
@@ -32,7 +33,7 @@ class RevenueService
     public function handleGetAll(Request $request): object
     {
         return $this->RevenueMockup($this->transaction->query()
-            ->select('id', 'invoice_id', 'created_at', 'invoice_status', 'paid_amount', 'payment_method', 'user_id')
+            ->select('id', 'invoice_id', 'created_at', 'invoice_status', 'amount', 'payment_method', 'user_id')
             ->with(['user' => function ($query) {
                 return $query->select('id', 'name');
             }, 'detail_transaction.product'])
@@ -40,6 +41,7 @@ class RevenueService
                 $date = explode(' - ', $request->date);
                 return $query->whereBetween('created_at', [$date[0] . ' 00:00:00', $date[1] . ' 23:59:59']);
             })
+            ->whereIn('license_status', [LicenseStatusEnum::COMPLETED->value])
             ->whereIn('invoice_status', [InvoiceStatusEnum::SETTLED->value, InvoiceStatusEnum::PAID->value])
             ->latest()
         );

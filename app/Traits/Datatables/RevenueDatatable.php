@@ -29,14 +29,17 @@ trait RevenueDatatable
                 } else {
                     $buyPrice = $data->detail_transaction->product->buy_price;
                 }
-                $amount = $data->paid_amount;
+                $amount = $data->amount;
                 return CurrencyHelper::rupiahCurrency($amount - $buyPrice);
             })
-            ->editColumn('created_at', function ($data) {
-                return Carbon::parse($data->created_at)->format('d M Y h:i');
+            ->editColumn('order_via_whatsapp', function ($data) {
+                return view('dashboard.pages.orders.datatables.via', compact('data'));
             })
-            ->editColumn('paid_amount', function ($data) {
-                return CurrencyHelper::rupiahCurrency($data->paid_amount);
+            ->editColumn('created_at', function ($data) {
+                return view('dashboard.pages.orders.datatables.created_at', compact('data'));
+            })
+            ->editColumn('amount', function ($data) {
+                return CurrencyHelper::rupiahCurrency($data->amount);
             })
             ->rawColumns(['action'])
             ->toJson();
