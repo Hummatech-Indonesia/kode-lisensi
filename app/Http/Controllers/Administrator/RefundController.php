@@ -6,9 +6,11 @@ use App\Contracts\Interfaces\Administrator\ExpenditureInterface;
 use App\Contracts\Interfaces\Administrator\RefundInterface;
 use App\Contracts\Interfaces\TransactionAffiliateInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Enums\BalanceUsedEnum;
 use App\Enums\LicenseStatusEnum;
 use App\Enums\StatusRefundEnum;
 use App\Enums\UsedForEnum;
+use App\Helpers\BalanceHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApproveRefundRequest;
 use App\Http\Requests\RefundRequest;
@@ -61,9 +63,9 @@ class RefundController extends Controller
             return $this->refund->search($request);
         return view('dashboard.pages.administrator.refund.my-refund');
     }
-    public function getRefundHistories(Request $request):View|JsonResponse
+    public function getRefundHistories(Request $request): View|JsonResponse
     {
-        if($request->ajax())return $this->refund->getRefundHistories($request);
+        if ($request->ajax()) return $this->refund->getRefundHistories($request);
         return view('dashboard.pages.administrator.refund.histories');
     }
     /**
@@ -89,6 +91,18 @@ class RefundController extends Controller
         $data = $request->validated();
 
         $transaction = $this->transaction->findNow($refund->transaction_id);
+        if ($data['balance_used'] == BalanceUsedEnum::TRIPAY->value) {
+            $balance_tripay = BalanceHelper::handleTripayBalance();
+            if ($transaction->paid_amount >= $balance_tripay) {
+                return redirect()->back()->withErrors('Saldo anda tidak mencukupi');
+            }
+        } elseif ($data['balance_used'] == BalanceUsedEnum::REKENING->value) {
+            $balance_rekening = BalanceHelper::handleWhatsappBalance();
+            if ($transaction->paid_amount >= $balance_rekening) {
+                return redirect()->back()->withErrors('Saldo anda tidak mencukupi');
+            }
+        }
+
 
         $transaction_affiliate = $this->transaction_affiliate->getWhere(['created_at' => $transaction->created_at]);
 

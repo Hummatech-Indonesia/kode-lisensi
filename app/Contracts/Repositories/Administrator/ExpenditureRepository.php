@@ -30,17 +30,18 @@ class ExpenditureRepository extends BaseRepository implements ExpenditureInterfa
     }
     public function search(Request $request): mixed
     {
-        return $this->ExpenditureMockup($this->model->query()
-            ->when($request->balanceUsed, function ($query) use ($request) {
-                return $query->where('balance_used', $request->balanceUsed);
-            })
-            ->when($request->date, function ($query) use ($request) {
-                $date = explode(' - ', $request->date);
-                return $query->whereBetween('created_at', [$date[0] . ' 00:00:00', $date[1] . ' 23:59:59']);
-            })
-            ->oldest()
-
-           );
+        $test = $this->ExpenditureMockup(
+            $this->model->query()
+                ->when($request->balanceUsed, function ($query) use ($request) {
+                    return $query->where('balance_used', $request->balanceUsed);
+                })
+                ->when($request->date, function ($query) use ($request) {
+                    $date = explode(' - ', $request->date);
+                    return $query->whereBetween('created_at', [$date[0] . ' 00:00:00', $date[1] . ' 23:59:59']);
+                })
+                ->oldest()
+        );
+        return $test;
     }
     /**
      * Method store
@@ -90,4 +91,3 @@ class ExpenditureRepository extends BaseRepository implements ExpenditureInterfa
         return $this->show($id)->delete();
     }
 }
-

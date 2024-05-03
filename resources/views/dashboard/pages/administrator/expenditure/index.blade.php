@@ -1,11 +1,14 @@
 @php
     use App\Enums\BalanceUsedEnum;
 @endphp
+
 @extends('dashboard.layouts.app')
+
 @section('css')
     <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard_assets/css/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
 @endsection
+
 @section('content')
     <div class="card card-table">
         <div class="col-sm-6 mb-3">
@@ -42,9 +45,10 @@
                     </select>
                 </div>
                 <div class="d-flex justify-content-end gap-3">
-                    <form id="search-form" class="row justify-content-end" action="" method="GET">
-                        <div class="col-8"><input type="text" name="date"
-                                value="{{ date('Y-m-d') . ' - ' . date('Y-m-d') }}" class="form-control"></div>
+                    <form id="search-form" class="row justify-content-end" method="GET">
+                        <div class="col-8">
+                            <input type="text" name="date" value="{{ date('Y-m-d') }}" class="form-control">
+                        </div>
                         <div class="col-4 d-flex flex-row">
                             <button class="btn btn-primary me-2" type="submit">Cari</button>
                         </div>
@@ -56,9 +60,8 @@
                 </div>
             </div>
 
-
             <div class="title-header option-title d-flex justify-between">
-
+                <!-- Tambahan lainnya sesuai kebutuhan -->
             </div>
             <div class="table-responsive table-product">
                 <table class="table theme-table" id="table_id">
@@ -80,20 +83,14 @@
     </div>
 @endsection
 
-
 @section('script')
     <x-add-expenditure-modal></x-add-expenditure-modal>
     <x-update-expenditure-modal></x-delete-expenditure-modal>
-        <x-update-expenditure-modal></x-update-expenditure-modal>
         <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
         <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-
-
-
-
                 let table = $("#table_id").DataTable({
                     scrollX: false,
                     scrollY: '500px',
@@ -105,33 +102,22 @@
                     serverSide: false,
                     searching: true,
                     ajax: {
-                        url: "{{ route('dashboard.fetch.expenditure') . '?date=' . date('Y-m-d') . ' - ' . date('Y-m-d') }}",
+                        url: "{{ route('dashboard.fetch.expenditure') }}",
                         data: function(d) {
                             d.balanceUsed = $('#balanceUsed').val();
                         }
                     },
                     columns: [{
                             data: 'used_for',
-                            name: 'used_for',
-                            render: function(data, type, row) {
-                                if (data === 'buy_product') {
-                                    return 'Beli Produk';
-                                } else if (data === 'pay_reseller') {
-                                    return 'Bayar Reseller';
-                                } else if (data === 'others') {
-                                    return 'Lainnya';
-                                } else {
-                                    return data; // fallback to original value if not matched
-                                }
-                            }
+                            name: 'used_for'
                         },
                         {
                             data: 'balance_used',
-                            name: 'balance_used',
+                            name: 'balance_used'
                         },
                         {
                             data: 'balance_withdrawn',
-                            name: 'balance_withdrawn',
+                            name: 'balance_withdrawn'
                         },
                         {
                             data: 'description',
@@ -150,50 +136,22 @@
                     ]
                 });
 
-                $('.dataTables_scrollBody').css({
-                    'position': 'relative',
-                    'overflow': 'auto',
-                    'max-height': 'none',
-                    'height': 'max-content',
-                    'width': '100%'
-                });
-
-
                 $('#balanceUsed').on('change', function() {
-                    console.log($('#balanceUsed').val());
                     table.ajax.reload();
                 });
 
                 $('#search-form').submit(function(e) {
-                    e.preventDefault()
-                    const date = $('input[name="date"]').val()
-                    table.ajax.url("{{ route('dashboard.fetch.expenditure') . '?date=:date' }}".replace(':date', date))
-                    table.ajax.reload()
+                    e.preventDefault();
+                    const date = $('input[name="date"]').val();
+                    const url = "{{ route('dashboard.fetch.expenditure') }}";
 
-                    fetchTotalAmount(url)
-                })
-                $(document).on('click', '.delete-alert', function() {
-                    $('#deleteExpeneditureModal').modal('show')
-                    const id = $(this).attr('data-id');
-                    let url = `{{ route('dashboard.expenditure.destroy', ':id') }}`.replace(':id', id);
-                    $('#deleteForm').attr('action', url);
-                });
-                $(document).on('click', '.update-alert', function() {
-                    $('#updateExpenditureModal').modal('show')
-                    const id = $(this).data('id');
-                    const usedFor = $(this).data('used-for');
-                    const balanceUsed = $(this).data('balance-used');
-                    const balanceWithdrawn = $(this).data('balance-withdrawn');
-                    const description = $(this).data('description');
-                    $('#usedFor').val(usedFor)
-                    $('#balanceUsed').val(balanceUsed)
-                    $('#balanceWithdrawn').val(balanceWithdrawn)
-                    $('#description').val(description)
-                    let url = `{{ route('dashboard.expenditure.update', ':id') }}`.replace(':id', id);
-                    $('#updateForm').attr('action', url);
+                    if (date.trim() !== '') {
+                        table.ajax.url(`${url}?date=${date}`).load();
+                    } else {
+                        alert('Silakan pilih tanggal terlebih dahulu.');
+                    }
                 });
 
-                // Daterangepicker
                 $("input[name=\"date\"]").daterangepicker({
                     opens: "left",
                     locale: {
@@ -201,8 +159,5 @@
                     }
                 });
             });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
     @endsection

@@ -61,6 +61,7 @@ class ExpenditureController extends Controller
         } elseif ($data['balance_used'] == BalanceUsedEnum::REKENING->value && $data['balance_withdrawn'] > $whatsappBalance) {
             return back()->with('error', 'Saldo tidak mencukupi');
         }
+
         $this->expenditure->store($data);
         return back()->with('success', 'Berhasil menambah data');
     }
@@ -83,7 +84,7 @@ class ExpenditureController extends Controller
         } elseif ($data['balance_used'] == BalanceUsedEnum::REKENING->value && $data['balance_withdrawn'] > $whatsappBalance) {
             return back()->with('error', 'Saldo tidak mencukupi');
         }
-        $this->expenditure->update($expenditure->id,$data);
+        $this->expenditure->update($expenditure->id, $data);
         return back()->with('success', 'Berhasil mengubah data');
     }
     /**
