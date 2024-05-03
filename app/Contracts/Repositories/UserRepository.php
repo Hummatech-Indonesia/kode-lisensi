@@ -78,6 +78,13 @@ class UserRepository extends BaseRepository implements UserInterface
             ->latest()
             ->get());
     }
+
+    /**
+     * search
+     *
+     * @param  mixed $request
+     * @return mixed
+     */
     public function search(Request $request): mixed
     {
         return $this->UserMockup($this->model->query()

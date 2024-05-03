@@ -50,6 +50,7 @@
                                         <option value="author">Author</option>
                                         <option value="reseller">Reseller</option>
                                         <option value="customer">Customer</option>
+                                        <option value="administrator">Administrator</option>
                                     </select>
                                 </div>
                             </div>
@@ -63,7 +64,6 @@
 
                             <div class="mb-4 row align-items-center">
                                 <div class="col-sm-6">
-
                                     <button class="btn btn-primary" type="submit"><i
                                             class="ri-add-line ri-1x me-2"></i>Tambah
                                         Data

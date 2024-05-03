@@ -323,6 +323,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::name('author.')->prefix('author')->group(function () {
                     Route::get('/', [UserController::class, 'author'])->name('index');
                 });
+                Route::name('administrator.')->prefix('administrator')->group(function () {
+                    Route::get('/', [UserController::class, 'administrator'])->name('index');
+                });
             });
 
             Route::prefix('configuration')->group(function () {

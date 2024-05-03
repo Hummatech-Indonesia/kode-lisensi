@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\CustomerInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Enums\UserRoleEnum;
 use App\Http\Requests\UserCustomerRequest;
@@ -11,13 +12,16 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View as ViewView;
 
 class UserController extends Controller
 {
     private UserInterface $user;
-    public function __construct(UserInterface $user)
+    private CustomerInterface $customer;
+    public function __construct(UserInterface $user, CustomerInterface $customer)
     {
         $this->user = $user;
+        $this->customer = $customer;
     }
 
     /**
@@ -58,7 +62,7 @@ class UserController extends Controller
         } elseif ($data['role'] == UserRoleEnum::CUSTOMER->value) {
             return redirect()->route('users.customer.index');
         } elseif ($data['role'] == UserRoleEnum::ADMINISTRATOR->value) {
-            return redirect()->route('administrator.index');
+            return redirect()->route('users.administrator.index');
         }
         return redirect()->route('users.admin.index')->with('success', trans('alert.add_success'));
     }
@@ -131,5 +135,16 @@ class UserController extends Controller
     {
         $this->user->delete($user->id);
         return redirect()->back();
+    }
+
+    /**
+     * administrator
+     *
+     * @return View
+     */
+    public function administrator(Request $request): object
+    {
+        if ($request->ajax()) return $this->customer->getAll();
+        return view('dashboard.pages.administrator-users.index');
     }
 }

@@ -30,4 +30,16 @@ class CustomerRepository extends BaseRepository implements CustomerInterface
             ->role(UserRoleEnum::CUSTOMER->value)
             ->latest());
     }
+
+    /**
+     * getAll
+     *
+     * @return mixed
+     */
+    public function getAll(): mixed
+    {
+        return $this->CustomerMockup($this->model->query()
+            ->role(UserRoleEnum::ADMINISTRATOR->value)
+            ->latest());
+    }
 }

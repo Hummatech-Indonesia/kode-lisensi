@@ -178,4 +178,17 @@ class BalanceHelper
 
         return $revenue;
     }
+
+    /**
+     * tripat_tax
+     *
+     * @return int
+     */
+    public static function tripay_tax(): int
+    {
+        return Transaction::query()
+            ->where('invoice_status', InvoiceStatusEnum::PAID->value)
+            ->where('license_status', LicenseStatusEnum::COMPLETED->value)
+            ->sum('fee_amount');
+    }
 }
