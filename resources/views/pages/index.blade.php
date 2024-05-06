@@ -313,7 +313,7 @@
                                                 <h4>
 
                                                     <a href="{{ route('home.products.show', $product->slug) }}"
-                                                        class="badge rounded p-1 text-bg-info text-white">
+                                                        class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                         Beli Sekarang
                                                     </a>
                                                 </h4>
@@ -584,7 +584,7 @@
                                                     <h4>
 
                                                         <a href="{{ route('home.products.show', $product->slug) }}"
-                                                            class="badge rounded p-1 text-bg-info text-white">
+                                                            class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                             Beli Sekarang
                                                         </a>
                                                     </h4>
@@ -828,7 +828,7 @@
                                                             <h4>
 
                                                                 <a href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}"
-                                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                                    class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                                     Beli Sekarang
                                                                 </a>
                                                             </h4>
@@ -1075,7 +1075,7 @@
                                                             <h4>
 
                                                                 <a href="{{ route('home.products.show', $latestProductNotBestSellers[$i]->slug) }}"
-                                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                                    class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                                     Beli Sekarang
                                                                 </a>
                                                             </h4>
@@ -1349,7 +1349,7 @@
                                                     <h4>
 
                                                         <a href="{{ route('home.products.show', $product->slug) }}"
-                                                            class="badge rounded p-1 text-bg-info text-white">
+                                                            class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                             Beli Sekarang
                                                         </a>
                                                     </h4>
@@ -1595,7 +1595,7 @@
                                                             <h4>
 
                                                                 <a href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}"
-                                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                                    class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                                     Beli Sekarang
                                                                 </a>
                                                             </h4>
@@ -1840,7 +1840,7 @@
                                                             <h4>
 
                                                                 <a href="{{ route('home.products.show', $latestProductNotRatings[$i]->slug) }}"
-                                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                                    class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                                     Beli Sekarang
                                                                 </a>
                                                             </h4>
@@ -2173,7 +2173,7 @@
                                             <h4>
 
                                                 <a href="{{ route('home.products.show', $product->slug) }}"
-                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                    class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                     Beli Sekarang
                                                 </a>
                                             </h4>

@@ -70,7 +70,8 @@
                         <div class="col-xl-9 wow fadeInUp" data-wow-delay="0.1s"
                             style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                             <div class="right-box-contain">
-                                <h6 class="offer-top">{{ $product->category->name }}</h6>
+                                <a class="offer-top"
+                                    href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                 @auth
                                     @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                         @if ($product->discount > 0)
@@ -122,9 +123,9 @@
                                             </h4>
                                         @endif
                                     @else
-                                        <h4 class="mt-3">
+                                        {{-- <h4 class="mt-3">
                                             <span class="badge rounded-pill text-bg-danger">Preorder Produk</span>
-                                        </h4>
+                                        </h4> --}}
                                     @endif
 
                                 </div>
@@ -1190,7 +1191,7 @@
                                             <h4>
 
                                                 <a href="{{ route('home.products.show', $product->slug) }}"
-                                                    class="badge rounded p-1 text-bg-info text-white">
+                                                    class="btn btn-sm theme-bg-color cart-button text-white w-100">
                                                     Beli Sekarang
                                                 </a>
                                             </h4>
