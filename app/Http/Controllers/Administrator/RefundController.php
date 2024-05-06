@@ -106,7 +106,9 @@ class RefundController extends Controller
 
         $transaction_affiliate = $this->transaction_affiliate->getWhere(['created_at' => $transaction->created_at]);
 
-        $this->transaction_affiliate->delete($transaction_affiliate->id);
+        if ($transaction_affiliate) {
+            $this->transaction_affiliate->delete($transaction_affiliate->id);
+        }
 
         $transaction->update(['license_status' => LicenseStatusEnum::CANCELED->value]);
 
