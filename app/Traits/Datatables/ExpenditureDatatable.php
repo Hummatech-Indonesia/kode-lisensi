@@ -25,6 +25,9 @@ trait ExpenditureDatatable
         return DataTables::of($collection)
             ->addIndexColumn()
             ->setFilteredRecords(250)
+            ->editColumn('used_for',function($data){
+                return view('dashboard.pages.administrator.expenditure.datatable.used-for',compact('data'));
+            })
             ->editColumn('action', function ($data) {
                 return view('dashboard.pages.administrator.expenditure.datatable.action', compact('data'));
             })
