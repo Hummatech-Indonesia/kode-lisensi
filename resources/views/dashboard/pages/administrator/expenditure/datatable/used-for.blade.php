@@ -1,12 +1,11 @@
 @php
     use App\Enums\UsedForEnum;
-
 @endphp
 
-@if (UsedForEnum::BUYPRODUCT->value)
+@if ($data->used_for == UsedForEnum::BUYPRODUCT->value)
     <p>Beli Produk</p>
-@elseif(UsedForEnum::PAYRESELLER->value)
+@elseif($data->used_for == UsedForEnum::PAYRESELLER->value)
     <p>Membayar Reseller</p>
-@elseif(UsedFOrEnum::OTHERS->value)
+@elseif($data->used_for == UsedFOrEnum::OTHERS->value)
     <p>Lainnya</p>
 @endif

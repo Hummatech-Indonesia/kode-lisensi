@@ -85,79 +85,103 @@
 
 @section('script')
     <x-add-expenditure-modal></x-add-expenditure-modal>
-    <x-update-expenditure-modal></x-delete-expenditure-modal>
-        <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
-        <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
-        <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                let table = $("#table_id").DataTable({
-                    scrollX: false,
-                    scrollY: '500px',
-                    paging: true,
-                    ordering: true,
-                    responsive: true,
-                    pageLength: 50,
-                    processing: true,
-                    serverSide: false,
-                    searching: true,
-                    ajax: {
-                        url: "{{ route('dashboard.fetch.expenditure') }}",
-                        data: function(d) {
-                            d.balanceUsed = $('#balanceUsed').val();
-                        }
+    <x-delete-expenditure-modal></x-delete-expenditure-modal>
+    <x-update-expenditure-modal></x-update-expenditure-modal>
+    <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let table = $("#table_id").DataTable({
+                scrollX: false,
+                scrollY: '500px',
+                paging: true,
+                ordering: true,
+                responsive: true,
+                pageLength: 50,
+                processing: true,
+                serverSide: false,
+                searching: true,
+                ajax: {
+                    url: "{{ route('dashboard.fetch.expenditure') }}",
+                    data: function(d) {
+                        d.balanceUsed = $('#balanceUsed').val();
+                    }
+                },
+                columns: [{
+                        data: 'used_for',
+                        name: 'used_for'
                     },
-                    columns: [{
-                            data: 'used_for',
-                            name: 'used_for'
-                        },
-                        {
-                            data: 'balance_used',
-                            name: 'balance_used'
-                        },
-                        {
-                            data: 'balance_withdrawn',
-                            name: 'balance_withdrawn'
-                        },
-                        {
-                            data: 'description',
-                            name: 'description'
-                        },
-                        {
-                            data: 'created_at',
-                            name: 'created_at'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false
-                        }
-                    ]
-                });
-
-                $('#balanceUsed').on('change', function() {
-                    table.ajax.reload();
-                });
-
-                $('#search-form').submit(function(e) {
-                    e.preventDefault();
-                    const date = $('input[name="date"]').val();
-                    const url = "{{ route('dashboard.fetch.expenditure') }}";
-
-                    if (date.trim() !== '') {
-                        table.ajax.url(`${url}?date=${date}`).load();
-                    } else {
-                        alert('Silakan pilih tanggal terlebih dahulu.');
+                    {
+                        data: 'balance_used',
+                        name: 'balance_used'
+                    },
+                    {
+                        data: 'balance_withdrawn',
+                        name: 'balance_withdrawn'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
                     }
-                });
-
-                $("input[name=\"date\"]").daterangepicker({
-                    opens: "left",
-                    locale: {
-                        format: 'Y-M-D'
-                    }
-                });
+                ]
             });
-        </script>
-    @endsection
+
+            $('#balanceUsed').on('change', function() {
+                table.ajax.reload();
+            });
+
+
+            $(document).on('click', '.update-alert', function() {
+                $('#updateExpenditureModal').modal('show')
+                const id = $(this).attr('data-id');
+                const usedFor = $(this).data('used-for');
+                const balanceUsed = $(this).data('balance-used');
+                const balanceWithdrawn = $(this).data('balance-withdrawn');
+                const description = $(this).data('description');
+                $('#usedFor').val(usedFor);
+                $('#balanceUsed').val(balanceUsed);
+                $('#balanceWithdrawn').val(balanceWithdrawn);
+                $('#description').val(description);
+
+
+                let url = `{{ route('dashboard.expenditure.update', ':id') }}`.replace(':id', id);
+                $('#updateForm').attr('action', url);
+            });
+            $(document).on('click', '.delete-alert', function() {
+                $('#deleteExpenditureModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('dashboard.expenditure.destroy', ':id') }}`.replace(':id', id);
+                $('#deleteForm').attr('action', url);
+            });
+            $('#search-form').submit(function(e) {
+                e.preventDefault();
+                const date = $('input[name="date"]').val();
+                const url = "{{ route('dashboard.fetch.expenditure') }}";
+
+                if (date.trim() !== '') {
+                    table.ajax.url(`${url}?date=${date}`).load();
+                } else {
+                    alert('Silakan pilih tanggal terlebih dahulu.');
+                }
+            });
+
+            $("input[name=\"date\"]").daterangepicker({
+                opens: "left",
+                locale: {
+                    format: 'Y-M-D'
+                }
+            });
+        });
+    </script>
+@endsection
