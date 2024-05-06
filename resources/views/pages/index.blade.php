@@ -439,7 +439,7 @@
                                         </div>
                                         <div class="product-footer">
                                             <div class="product-detail">
-                                                <h4><a
+                                                <h4><a class="badge bg-success p-1 text-white"
                                                         href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                                 </h4>
                                                 <a href="{{ route('home.products.show', $product->slug) }}">
@@ -695,7 +695,7 @@
                                                 <div class="product-footer">
                                                     <div class="product-detail">
 
-                                                        <h4><a
+                                                        <h4><a class="badge bg-success p-1 text-white"
                                                                 href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->slug) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
                                                         </h4>
                                                         <a
@@ -938,7 +938,7 @@
                                                 <div class="product-footer">
                                                     <div class="product-detail">
 
-                                                        <h4><a
+                                                        <h4><a class="badge bg-success p-1 text-white"
                                                                 href="{{ route('home.category', $latestProductNotBestSellers[$i]->category->slug) }}">{{ $latestProductNotBestSellers[$i]->category->name }}</a>
                                                         </h4>
                                                         <a
@@ -1203,7 +1203,7 @@
                                         </div>
                                         <div class="product-footer">
                                             <div class="product-detail">
-                                                <h4><a
+                                                <h4><a class="badge bg-success p-1 text-white"
                                                         href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                                 </h4>
                                                 <a href="{{ route('home.products.show', $product->slug) }}">
@@ -1459,7 +1459,7 @@
                                                 </div>
                                                 <div class="product-footer">
                                                     <div class="product-detail">
-                                                        <h4><a
+                                                        <h4><a class="badge bg-success p-1 text-white"
                                                                 href="{{ route('home.category', $latestProductNotRatings[$i]->category->slug) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
                                                         </h4>
 
@@ -1704,7 +1704,7 @@
                                                 </div>
                                                 <div class="product-footer">
                                                     <div class="product-detail">
-                                                        <h4><a
+                                                        <h4><a class="badge bg-success p-1 text-white"
                                                                 href="{{ route('home.category', $latestProductNotRatings[$i]->category->slug) }}">{{ $latestProductNotRatings[$i]->category->name }}</a>
                                                         </h4>
 
@@ -2028,8 +2028,8 @@
                                 </div>
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <h4><a
-                                                href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
+                                        <h4><a  class="badge bg-success p-1 text-white"
+                                                href="{{ route('home.category', $product->category->slug) }}" >{{ $product->category->name }}</a>
                                         </h4>
                                         <a href="{{ route('home.products.show', $product->slug) }}">
                                             <h3 class="name mb-1">{{ $product->name }}</h3>

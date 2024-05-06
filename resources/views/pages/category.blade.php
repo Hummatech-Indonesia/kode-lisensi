@@ -142,7 +142,7 @@
                                         </div>
                                         <div class="product-footer">
                                             <div class="product-detail">
-                                                <h4><a
+                                                <h4><a class="badge bg-success p-1 text-white"
                                                         href="{{ route('home.category', $product->category->id) }}">{{ $product->category->name }}</a>
                                                 </h4>
                                                 <a href="{{ route('home.products.show', $product->slug) }}">
