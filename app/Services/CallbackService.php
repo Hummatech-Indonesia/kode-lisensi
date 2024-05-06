@@ -57,7 +57,6 @@ class CallbackService
                 'invoice_status' => $request->status
             ]);
 
-            dd($detail->varianProduct);
             Mail::to($detail->email)->send(new PaidInvoiceMail(
                 [
                     'name' => $detail->name,

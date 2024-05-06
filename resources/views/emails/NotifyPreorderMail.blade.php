@@ -59,10 +59,10 @@
                                                             <td>Nama Produk</td>
                                                             <td>:</td>
                                                             @if ($data['varian_product'])
-                                                                <td>{{ $data['pack_name'] }}</td>
-                                                            @else
                                                                 <td>{{ $data['pack_name'] }}
                                                                     ({{ $data['varian_product'] }})</td>
+                                                            @else
+                                                                <td>{{ $data['pack_name'] }}</td>
                                                             @endif
                                                         </tr>
                                                         <tr>
