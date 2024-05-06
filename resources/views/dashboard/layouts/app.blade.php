@@ -45,8 +45,9 @@
                 <h3>
                     <span class="badge badge-success">Login Sebagai : {{ UserHelper::getUserRole() }}</span>
                 </h3>
-                @role(['reseller','administrator'])
-                <h3 class="ms-3"><a href="{{route('home.index')}}" target="_blank" class="badge badge-warning">Beli Produk <i class="ri-shopping-cart-line"></i></a></h3>
+                @role(['reseller', 'administrator'])
+                    <h3 class="ms-3"><a href="{{ route('home.index') }}" target="_blank" class="badge badge-warning">Beli
+                            Produk <i class="ri-shopping-cart-line"></i></a></h3>
                 @endrole
                 <div class="nav-right col-6 pull-right right-header p-0">
                     <ul class="nav-menus">
@@ -210,7 +211,6 @@
     @include('dashboard.layouts.footer')
     @yield('script')
     <script>
-        
         $.ajax({
             url: '{{ route('categories.ajax') }}',
             method: "GET",
