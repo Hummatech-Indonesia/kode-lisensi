@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="{{ $title ?? config('app.name') }}">
-    <meta name="description" content="{{ $description ?? config('app.name') }}">
+    <meta name="description" content="<?php echo strip_tags($metaDescription ?? 'Kodelisensi.com - Pusatnya Lisensi Original'); ?>">
     <meta name="keywords" content="{{ $keywords ?? config('app.name') }}">
     <meta name="author" content="{{ $author ?? config('app.name') }}">
     <meta property="og:title" content="{{ $title ?? 'KodeLisensi.com - Pusatnya Lisensi Original' }}">
