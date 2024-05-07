@@ -42,6 +42,16 @@
                                             value="{{ $transaction->detail_transaction->product->name }}">
                                     </div>
                                 </div>
+                                @if ($transaction->detail_transaction->varianProduct)
+
+                                <div class="mb-4 row align-items-center">
+                                    <div class="col-sm-3 form-label-title">Variasi Produk</div>
+                                    <div class="col-sm-9">
+                                        <input name="icon" class="form-control" type="text" readonly
+                                        value="{{ $transaction->detail_transaction->varianProduct->name }}">
+                                    </div>
+                                </div>
+                                @endif
 
                                 <div id="divUsername" class="mb-4 row align-items-center">
                                     <label class="form-label-title col-sm-3 mb-0">Username <span

@@ -276,7 +276,8 @@ class TransactionService
         $user = $this->fcmToken->get();
         $user->notify(new OrderNotification($product, $transaction));
 
-        if ($license_id) $this->license->update($license->id, ['is_purchased' => 1]);
+        if ($license_id)
+            $this->license->update($license->id, ['is_purchased' => 1]);
 
         dispatch(new TransactionJob([
             'name' => $data['name'],
@@ -306,28 +307,30 @@ class TransactionService
         $transaction = $this->transaction->show($invoice_id);
         $product = $transaction->detail_transaction->product;
 
-        Mail::to($transaction->detail_transaction->email)->send(new SendLicenseMail(
-            [
-                'name' => $transaction->detail_transaction->name,
-                'email' => $transaction->detail_transaction->email,
-                'product' => $product,
-                'varian_product' => $product->varianProduct?->name,
-                'invoice_id' => $transaction->invoice_id,
-                'pack_name' => $product->name,
-                'pack_price' => $product->sell_price,
-                'total_amount' => $transaction->paid_amount,
-                'payment_method' => $transaction->payment_method,
-                'paid_at' => $transaction->paid_at,
-                'product_type' => $product->type,
-                'created_at' => $transaction->created_at,
-                'licenses' => [
-                    'username' => $request->username ?? null,
-                    'password' => $request->password ?? null,
-                    'serial_key' => $request->serial_key ?? null,
-                    'description' => $request->description ?? null
+        Mail::to($transaction->detail_transaction->email)->send(
+            new SendLicenseMail(
+                [
+                    'name' => $transaction->detail_transaction->name,
+                    'email' => $transaction->detail_transaction->email,
+                    'product' => $product,
+                    'varian_product' => $transaction->detail_transaction->varianProduct->name ?? null,
+                    'invoice_id' => $transaction->invoice_id,
+                    'pack_name' => $product->name,
+                    'pack_price' => $product->sell_price,
+                    'total_amount' => $transaction->paid_amount,
+                    'payment_method' => $transaction->payment_method,
+                    'paid_at' => $transaction->paid_at,
+                    'product_type' => $product->type,
+                    'created_at' => $transaction->created_at,
+                    'licenses' => [
+                        'username' => $request->username ?? null,
+                        'password' => $request->password ?? null,
+                        'serial_key' => $request->serial_key ?? null,
+                        'description' => $request->description ?? null
+                    ]
                 ]
-            ]
-        ));
+            )
+        );
 
         $transaction->update(['license_status' => LicenseStatusEnum::COMPLETED->value]);
     }
