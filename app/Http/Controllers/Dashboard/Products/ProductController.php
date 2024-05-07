@@ -71,7 +71,10 @@ class ProductController extends Controller
      */
     public function show(Product $product): View
     {
-        return view('dashboard.pages.products.show', compact('product'));
+        return view('dashboard.pages.products.show', [
+            'product' => $product,
+           
+        ]);
     }
 
     /**

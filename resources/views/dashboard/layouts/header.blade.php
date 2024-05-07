@@ -1,19 +1,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta name="description"
-      content="Kode Lisensi Dashboard">
-<meta name="keywords"
-      content="Kode Lisensi Dashboard">
+<meta name="description" content="Kode Lisensi Dashboard">
+<meta name="keywords" content="Kode Lisensi Dashboard">
 <meta name="author" content="Kode Lisensi">
 <link rel="icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
-<link rel="shortcut icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}"
+    type="image/x-icon">
 @if (request()->routeIs('articles.create'))
-<title>{{'Tambah Artikel - KodeLisensi.com'}}</title>
+    <title>{{ 'Tambah Artikel - KodeLisensi.com' }}</title>
 @else
-
-<title>{{ config('app.name') }}</title>
+    <title>{{ config('app.name') }}</title>
 @endif
 
 <!-- CSRF Token -->

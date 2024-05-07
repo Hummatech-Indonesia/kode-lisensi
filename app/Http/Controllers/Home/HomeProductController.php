@@ -112,12 +112,15 @@ class HomeProductController extends Controller
         }
 
         if (auth()->user()) {
+
             if ($roleReseller) {
                 return view('pages.product-detail', [
                     'code' => $code,
                     'roleReseller' => $roleReseller,
                     'shareButtons' => $shareButtons,
                     'title' => trans('title.product_detail', ['product' => $product->name]),
+                    'metaDescription' => $product->description,
+                    'metaImage' => $product->photo,
                     'user' => $user,
                     'product' => $product,
                     'recommendProducts' => $this->summaryService->handleRecommendProducts(5, $product),
@@ -127,6 +130,8 @@ class HomeProductController extends Controller
                 return view('pages.product-detail', [
                     'shareButtons' => $shareButtons,
                     'title' => trans('title.product_detail', ['product' => $product->name]),
+                    'metaDescription' => $product->description,
+                    'metaImage' => $product->photo,
                     'user' => $user,
                     'product' => $product,
                     'recommendProducts' => $this->summaryService->handleRecommendProducts(5, $product),
@@ -137,6 +142,8 @@ class HomeProductController extends Controller
             return view('pages.product-detail', [
                 'shareButtons' => $shareButtons,
                 'title' => trans('title.product_detail', ['product' => $product->name]),
+                'metaDescription' => $product->description,
+                'metaImage' => $product->photo,
                 'user' => $user,
                 'product' => $product,
                 'recommendProducts' => $this->summaryService->handleRecommendProducts(5, $product),
