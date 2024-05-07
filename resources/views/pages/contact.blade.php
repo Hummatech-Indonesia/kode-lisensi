@@ -186,8 +186,8 @@
                                 <div class="col-12 fv-row mb-10">
                                     {!! htmlFormSnippet() !!}
                                 </div>
+                                <button type="submit" class="btn btn-animation btn-md fw-bold ms-auto">Kirim</button>
                             </div>
-                            <button type="submit" class="btn btn-animation btn-md fw-bold ms-auto">Kirim</button>
                         </div>
                     </form>
                 </div>
