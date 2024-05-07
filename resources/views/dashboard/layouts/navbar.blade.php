@@ -18,7 +18,7 @@
 </div>
 <div class="logo-icon-wrapper">
     <a href="{{ route('home.index') }}">
-        <img class="img-fluid main-logo main-white" src="assets/images/logo/logo.png" alt="logo">
+        <img class="img-fluid main-logo main-white" src="{{asset('favicon.png')}}" alt="logo">
         <img class="img-fluid main-logo main-dark" src="assets/images/logo/logo-white.png" alt="logo">
     </a>
 </div>

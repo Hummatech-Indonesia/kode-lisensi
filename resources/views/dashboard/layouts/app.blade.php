@@ -30,14 +30,17 @@
                 <div class="header-logo-wrapper p-0">
                     <div class="logo-wrapper">
                         <a href="{{ route('home.index') }}">
-                            <img class="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo">
+                            <img class="img-fluid main-logo"
+                                src="https://kodelisensi.com/storage/site_setting//profil-kodelisensi-2024-04-05-10-03-49.png"
+                                alt="logo">
                             <img class="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo">
                         </a>
                     </div>
                     <div class="toggle-sidebar">
                         <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
                         <a href="{{ route('home.index') }}">
-                            <img src="assets/images/logo/1.png" class="img-fluid" alt="">
+                            <img src="https://kodelisensi.com/storage/site_setting//profil-kodelisensi-2024-04-05-10-03-49.png"
+                                class="img-fluid" alt="">
                         </a>
                     </div>
                 </div>

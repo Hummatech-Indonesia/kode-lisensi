@@ -17,7 +17,8 @@
                             <tr>
                                 <td
                                     style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';padding:25px 0;text-align:center">
-                                    <img width="20%" src="{{ config('app.url') . 'storage/' . $site->logo }}"
+                                    <img width="20%"
+                                        src="https://kodelisensi.com/storage/site_setting//profil-kodelisensi-2024-04-05-10-03-49.png"
                                         alt="Logo">
                                 </td>
                             </tr>

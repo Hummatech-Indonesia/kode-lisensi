@@ -15,8 +15,9 @@
                         </span>
                     </button>
                     <a href="{{ route('home.index') }}" class="web-logo nav-logo">
-                        <img src="{{ asset('storage/' . $site->logo) }}" alt="">
-                    </a>
+                        <img width="20%"
+                            src="https://kodelisensi.com/storage/site_setting//profil-kodelisensi-2024-04-05-10-03-49.png"
+                            alt="Logo"> </a>
 
                     <div class="middle-box">
                         <div class="center-box">
@@ -64,8 +65,7 @@
                                                 onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                         </li>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
                                     </ul>

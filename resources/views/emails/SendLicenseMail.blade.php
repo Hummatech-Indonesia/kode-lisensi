@@ -11,7 +11,9 @@
     <div class="container" style="margin: 2rem">
 
         <div style="text-align: center">
-            <img width="20%" src="{{ config('app.url') . 'storage/' . $site->logo }}" alt="Logo">
+            <img width="20%"
+                src="https://kodelisensi.com/storage/site_setting//profil-kodelisensi-2024-04-05-10-03-49.png"
+                alt="Logo">
         </div>
 
         <h2 style="text-align: center; margin-bottom:1.5rem">Terimakasih Telah Membeli Produk Kami</h2>
