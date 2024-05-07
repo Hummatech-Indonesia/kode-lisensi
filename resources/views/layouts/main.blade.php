@@ -12,7 +12,7 @@
     <meta property="og:title" content="{{ $title ?? 'KodeLisensi.com - Pusatnya Lisensi Original' }}">
     <meta property="og:description" content="<?php echo strip_tags($metaDescription ?? 'Kodelisensi.com - Pusatnya Lisensi Original'); ?>">
     <meta property="og:image"
-        content="{{ asset('storage/$metaImage') ?? asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}">
+        content="{{ asset('storage/' . $metaImage) ?? asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}">
     @yield('meta')
     <link rel="icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}"
         type="image/x-icon">
