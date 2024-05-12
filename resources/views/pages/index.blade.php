@@ -534,7 +534,7 @@
                                                                     {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($product->varianProducts)) }}</del>
                                                             @endif
                                                             <h4 class="theme-color fw-bold">
-                                                                {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount,false,$product->discount_price)) }}
+                                                                {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, false, $product->discount_price)) }}
                                                                 -
                                                                 {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true, $product->discount_price) }}
                                                             </h4>
@@ -723,10 +723,12 @@
                                                             @auth
                                                                 @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
                                                                     <h4 class="badge bg-warning">Discount:
-                                                                        {{ $latestProductNotBestSellers[$i]->reseller_discount }}%</h4>
+                                                                        {{ $latestProductNotBestSellers[$i]->reseller_discount }}%
+                                                                    </h4>
                                                                 @else
                                                                     <h4><span class="badge bg-warning">Discount:
-                                                                            {{ $latestProductNotBestSellers[$i]->discount }}%</span></h4>
+                                                                            {{ $latestProductNotBestSellers[$i]->discount }}%</span>
+                                                                    </h4>
                                                                 @endif
                                                             @else
                                                                 <h4><span class="badge bg-warning">Discount:
@@ -1299,7 +1301,7 @@
                                                                     {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPriceMax($product->varianProducts)) }}</del>
                                                             @endif
                                                             <h4 class="theme-color fw-bold">
-                                                                {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, $product->discount_price)) }}
+                                                                {{ CurrencyHelper::rupiahCurrency(CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPrice($product->varianProducts), $product->discount, false, $product->discount_price)) }}
                                                                 -
                                                                 {{ CurrencyHelper::countPriceAfterDiscount(CurrencyHelper::varianPriceMax($product->varianProducts), $product->discount, true, $product->discount_price) }}
                                                             </h4>
@@ -2028,8 +2030,8 @@
                                 </div>
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <h4><a  class="badge bg-success p-1 text-white"
-                                                href="{{ route('home.category', $product->category->slug) }}" >{{ $product->category->name }}</a>
+                                        <h4><a class="badge bg-success p-1 text-white"
+                                                href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
                                         </h4>
                                         <a href="{{ route('home.products.show', $product->slug) }}">
                                             <h3 class="name mb-1">{{ $product->name }}</h3>
