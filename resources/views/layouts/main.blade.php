@@ -9,7 +9,10 @@
     <meta name="description" content="<?php echo strip_tags($metaDescription ?? 'Kodelisensi.com - Pusatnya Lisensi Original'); ?>">
     <meta name="keywords" content="{{ $keywords ?? config('app.name') }}">
     <meta name="author" content="{{ $author ?? config('app.name') }}">
-    
+    <meta property="og:title" content="{{ $title ?? 'KodeLisensi.com - Pusatnya Lisensi Original' }}">
+    <meta property="og:description" content="<?php echo strip_tags($metaDescription ?? 'Kodelisensi.com - Pusatnya Lisensi Original'); ?>">
+    <meta property="og:image"
+        content="{{ isset($metaImage) ? asset('storage/' . $metaImage) : asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}">
     @yield('meta')
     <link rel="icon" href="{{ asset('dashboard_assets/images/dashboard/LogoKodeLisensi.png') }}"
         type="image/x-icon">
