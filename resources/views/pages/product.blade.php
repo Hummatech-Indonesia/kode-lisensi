@@ -128,14 +128,15 @@
                                                     {{-- pemicu tombol share --}}
                                                     <li data-bs-toggle="tooltip" data-bs-original-title="Bagikan Produk">
                                                         @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                            <a href="#">
+                                                            <a href="#" onclick="return false;">
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
-                                                                    data-slug="{{ $product->slug }}" id="shareButtonsTrigger"
+                                                                    data-slug="{{ $product->slug }}"
+                                                                    id="shareButtonsTrigger"
                                                                     data-code="{{ auth()->user()->code_affiliate }}"></i>
                                                             </a>
                                                         @else
-                                                            <a href="#">
+                                                            <a href="#" onclick="return false;">
                                                                 <i data-feather="share-2" data-bs-toggle="modal"
                                                                     data-bs-target="#shareProductModal"
                                                                     data-slug="{{ $product->slug }}"
@@ -548,9 +549,9 @@
     <script>
         $(document).on('click', '#shareButtonsTrigger', function() {
             var slug = $(this).data('slug');
-            var code = $(this).data('code');
             $('#shareProductModal').modal('show');
             // berikan nilai slug pada value sharewhatsappbutton
+            console.log(slug);
 
             $.ajax({
                 url: "{{ route('home.share.product') }}" + "/" + slug,
@@ -558,6 +559,7 @@
                 success: function(response) {
                     console.log(response);
                     // Gunakan data yang diterima dari server (misalnya, update href)
+                    $('#shareLinkButton').attr('href', response.data.getRawLinks);
                     $('#shareWhatsappButton').attr('href', response.data.whatsapp);
                     $('#shareFacebookButton').attr('href', response.data.facebook);
                     $('#shareTelegramButton').attr('href', response.data.telegram);
@@ -568,12 +570,8 @@
             });
 
             $('#shareLinkButton').click(function() {
-                var currentURL = "{{ URL::to('/products') }}"
-                if (code) {
-                    var urlToCopy = currentURL + '/' + slug + '/' + code;
-                } else {
-                    var urlToCopy = currentURL;
-                }
+                // Perhatikan penggunaan URL::to() untuk mendapatkan URL lengkap
+                var urlToCopy = "{{ URL::to('/products') }}/" + slug;
                 navigator.clipboard.writeText(urlToCopy).then(function() {
                     alert('Tautan berhasil disalin!');
                 }, function(err) {
@@ -581,7 +579,6 @@
                     alert('Gagal menyalin tautan. Silakan coba lagi.');
                 });
             });
-
         });
     </script>
 @endsection

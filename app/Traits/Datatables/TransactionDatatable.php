@@ -33,7 +33,7 @@ trait TransactionDatatable
                 $amount = $data->amount;
                 return CurrencyHelper::rupiahCurrency($amount - $buyPrice);
             })
-            ->editColumn('paid_amount', function ($data) {
+            ->editColumn('amount', function ($data) {
                 return CurrencyHelper::rupiahCurrency($data->amount);
             })
             ->editColumn('order_via_whatsapp',function($data){

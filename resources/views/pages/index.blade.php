@@ -88,9 +88,10 @@
                                     style="visibility: visible; animation-name: fadeInUp;">
                                     <div class="product-header">
                                         <div class="product-image">
-                                            <h4><a class="badge bg-success p-1 text-white"
-                                                href="{{ route('home.category', $product->category->slug) }}">{{ $product->category->name }}</a>
-                                        </h4>
+                                            <a href="{{ route('home.products.show', $product->slug) }}">
+                                                <img src="{{ asset('storage/' . $product->photo) }}"
+                                                    class="img-fluid blur-up lazyloaded" alt="">
+                                            </a>
 
                                             <ul class="product-option">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title=""
