@@ -202,10 +202,10 @@
             </a>
             <ul class="sidebar-submenu">
                 <li>
-                    <a href="{{ route('orders.index') }}">Preorder</a>
+                    <a href="{{ route('orders.index') }}">Belum diproses</a>
                 </li>
                 <li>
-                    <a href="{{ route('orders.pending') }}">Transaksi yang Belum dibayar</a>
+                    <a href="{{ route('orders.pending') }}">Belum dibayar</a>
                 </li>
                 <li>
                     <a href="{{ route('orders.history') }}">Riwayat Transaksi</a>
