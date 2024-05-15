@@ -128,8 +128,9 @@
 
                     <div class="blog-detail-contain">
                         <div class="col-12 col-md-12">
-                            <h3><span
-                                    class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span>
+                            <h3><a href="{{route('home.articles.index',$article->sub_article_category->slug)}}">
+                                <span
+                                    class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span></a>
                             </h3>
                         </div>
                         <div class="blog-image-contain">
