@@ -215,7 +215,7 @@
                                 </li>
                                 <li class="nav-item dropdown new-nav-item">
                                     <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                        data-bs-toggle="dropdown">Artikel</a>
+                                        data-bs-toggle="dropdown">Blog</a>
                                     <ul class="dropdown-menu">
                                         @foreach (CategoryHelper::articleCategory() as $articleCategory)
                                             <li class="sub-dropdown-hover">
