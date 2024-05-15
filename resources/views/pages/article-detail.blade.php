@@ -128,9 +128,9 @@
 
                     <div class="blog-detail-contain">
                         <div class="col-12 col-md-12">
-                            <h3><a href="{{route('home.articles.index',$article->sub_article_category->slug)}}">
-                                <span
-                                    class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span></a>
+                            <h3><a href="{{ route('home.articles.index', $article->sub_article_category->slug) }}">
+                                    <span
+                                        class="badge rounded-pill theme-bg-color">{{ $article->sub_article_category->name }}</span></a>
                             </h3>
                         </div>
                         <div class="blog-image-contain">
@@ -175,3 +175,10 @@
         </div>
     </section>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+        $('#panelsStayOpen-collapseOne').collapse('show');
+    });
+</script>
