@@ -155,6 +155,7 @@
                         </p>
                     </div>
                     <div class="comment-box overflow-hidden">
+
                         <div class="leave-title">
                             <h3>Tags:</h3>
                         </div>
@@ -162,9 +163,11 @@
                         <div class="row flex-row d-flex">
                             <div class="col-12">
                                 @foreach (explode(',', $article->tags) as $tag)
-                                    <span class="mx-2 mt-2 badge rounded-pill text-bg-dark fs-5">
-                                        <h5> {{ $tag }}</h5>
-                                    </span>
+                                    <a href="{{ route('home.articles.show.tag', $tag) }}">
+                                        <span class="mx-2 mt-2 badge rounded-pill text-bg-dark fs-5">
+                                            <h5> {{ $tag }}</h5>
+                                        </span>
+                                    </a>
                                 @endforeach
                             </div>
 
@@ -177,7 +180,6 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
     $(document).ready(function() {
         $('#panelsStayOpen-collapseOne').collapse('show');
     });

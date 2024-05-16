@@ -26,4 +26,12 @@ interface ArticleInterface extends GetInterface, StoreInterface, UpdateInterface
      * @return int
      */
     public function getByUser(): mixed;
+    /**
+     * Method getByTag
+     *
+     * @param string $tag [explicite description]
+     *
+     * @return mixed
+     */
+    public function getByTag(string $tag):mixed;
 }

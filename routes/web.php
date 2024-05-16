@@ -105,6 +105,7 @@ Route::name('home.')->group(function () {
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
     ], ['only' => ['index', 'show', 'showShare']]);
+    Route::get('articles/tag/{tag}',[HomeArticleController::class,'showTag'])->name('articles.show.tag');
 
     Route::get('products/{slug}/{code_affiliate?}', [HomeProductController::class, 'show']);
 

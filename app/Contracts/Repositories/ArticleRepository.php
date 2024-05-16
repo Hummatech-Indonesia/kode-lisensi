@@ -120,6 +120,21 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
             ->with(['sub_article_category', 'user'])
             ->firstOrFail();
     }
+    /**
+     * Method getByTag
+     *
+     * @param string $tag [explicite description]
+     *
+     * @return mixed
+     */
+    public function getByTag(string $tag): mixed
+    {
+        return $this->model->query()
+            ->where('status', ArticleStatusEnum::PUBLISHED->value)
+            ->where('tags', 'like', '%' . $tag . '%')
+            ->with(['sub_article_category', 'user'])
+            ->get();
+    }
 
     /**
      * Handle paginate data event from models.

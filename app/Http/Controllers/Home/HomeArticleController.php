@@ -54,4 +54,17 @@ class HomeArticleController extends Controller
             'categories' => $this->category->get()
         ]);
     }
+    public function showTag(Request $request,string $tag): View
+    {
+        $articles = $this->article->getByTag($tag);
+        dd($articles);
+        return view('pages.articles-by-tag', [
+            'title' => 'Artikel dengan Tag - ' . $tag . ' - KodeLisensi.com',
+            'articles' => $articles,
+            'tag' => $tag,
+            'categories' => $this->category->get()
+        ]);
+    }
+
+
 }
