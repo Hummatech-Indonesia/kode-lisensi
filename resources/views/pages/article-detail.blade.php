@@ -10,6 +10,10 @@
         td {
             border: 1px solid black;
         }
+
+        .blog-section .blog-detail-contain p {
+            color: black
+        }
     </style>
 @endsection
 @section('content')
@@ -151,7 +155,10 @@
                             </ul>
                         </div>
                         <p data-style="no-styling">
+                        <div class="article-content">
+                            <p>hahaha</p>
                             {!! $article->content !!}
+                        </div>
                         </p>
                     </div>
                     <div class="comment-box overflow-hidden">
