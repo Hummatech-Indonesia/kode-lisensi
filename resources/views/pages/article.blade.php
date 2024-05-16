@@ -5,19 +5,19 @@
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
-                    <div class="breadscrumb-contain">
-                        <h2>Artikel</h2>
-                        <nav>
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('home.index') }}">
-                                        <i class="fa-solid fa-house"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Artikel</li>
-                            </ol>
-                        </nav>
-                    </div>
+                    <nav>
+
+                            <div class="breadscrumb-contain">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('home.index') }}">
+                                            <i class="fa-solid fa-house"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Artikel</li>
+                                </ol>
+                            </div>
+                    </nav>
                 </div>
             </div>
         </div>

@@ -66,8 +66,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Checkout {{ $product->name }}</h2>
                         <nav>
+                        {{-- <h2>Checkout {{ $product->name }}</h2> --}}
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('home.index') }}">
@@ -76,8 +76,8 @@
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                             </ol>
-                        </nav>
-                    </div>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -1180,7 +1180,7 @@
                                                         $discount,
                                                         false,
                                                         $product->discount_price,
-                                                        
+
                                                     );
                                                 @endphp
                                                 <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
