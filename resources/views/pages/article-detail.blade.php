@@ -163,12 +163,13 @@
                         <div class="row flex-row d-flex">
                             <div class="col-12">
                                 @foreach (explode(',', $article->tags) as $tag)
-                                    <a href="{{ route('home.articles.show.tag', $tag) }}">
+                                    <a href="{{ route('home.articles.index', ['tag' => $tag]) }}">
                                         <span class="mx-2 mt-2 badge rounded-pill text-bg-dark fs-5">
-                                            <h5> {{ $tag }}</h5>
+                                            <h5>{{ $tag }}</h5>
                                         </span>
                                     </a>
                                 @endforeach
+
                             </div>
 
                         </div>

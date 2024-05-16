@@ -154,6 +154,10 @@ class ArticleRepository extends BaseRepository implements ArticleInterface
             ->when($request->searchArticle, function ($query) use ($request) {
                 return $query->whereLike('title', $request->searchArticle);
             })
+            ->when($request->tag, function ($query) use ($request) {
+                return $query->where('tags', 'like', '%' . $request->tag . '%');
+
+            })
             ->with(['sub_article_category', 'user'])
             ->latest()
             ->paginate($pagination);
