@@ -13,9 +13,9 @@
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
-                    <div class="breadscrumb-contain">
-                        <h2>Checkout {{ $product->name }}</h2>
-                        <nav>
+                    <nav>
+                        <div class="breadscrumb-contain">
+                            {{-- <h2>Checkout {{ $product->name }}</h2> --}}
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('home.index') }}">
@@ -24,8 +24,8 @@
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                             </ol>
-                        </nav>
-                    </div>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -381,21 +381,21 @@
                                         <li>
                                             <h4>Discount</h4>
                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                    @if ($product->discount_price == 1)
-                                                        <h4 class="price">
-                                                            {{ currencyHelper::rupiahCurrency($product->reseller_discount) }}
-                                                        </h4>
-                                                    @else
-                                                        <h4 class="price">{{ $product->reseller_discount }}%</h4>
-                                                    @endif
+                                                @if ($product->discount_price == 1)
+                                                    <h4 class="price">
+                                                        {{ currencyHelper::rupiahCurrency($product->reseller_discount) }}
+                                                    </h4>
                                                 @else
-                                                    @if ($product->discount_price == 1)
-                                                        <h4 class="price">
-                                                            {{ CurrencyHelper::rupiahCurrency($product->discount) }}</h4>
-                                                    @else
-                                                        <h4 class="price">{{ $product->discount }}%</h4>
-                                                    @endif
+                                                    <h4 class="price">{{ $product->reseller_discount }}%</h4>
                                                 @endif
+                                            @else
+                                                @if ($product->discount_price == 1)
+                                                    <h4 class="price">
+                                                        {{ CurrencyHelper::rupiahCurrency($product->discount) }}</h4>
+                                                @else
+                                                    <h4 class="price">{{ $product->discount }}%</h4>
+                                                @endif
+                                            @endif
                                         </li>
                                         <li>
                                             <h4>Subtotal</h4>
@@ -465,39 +465,38 @@
                                         <li>
                                             <h4>Discount</h4>
                                             @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                    @if ($product->discount_price == 1)
-                                                        <h4 class="price">
-                                                            {{ currencyHelper::rupiahCurrency($product->reseller_discount) }}
-                                                        </h4>
-                                                    @else
-                                                        <h4 class="price">{{ $product->reseller_discount }}%</h4>
-                                                    @endif
+                                                @if ($product->discount_price == 1)
+                                                    <h4 class="price">
+                                                        {{ currencyHelper::rupiahCurrency($product->reseller_discount) }}
+                                                    </h4>
                                                 @else
-                                                    @if ($product->discount_price == 1)
-                                                        <h4 class="price">
-                                                            {{ CurrencyHelper::rupiahCurrency($product->discount) }}</h4>
-                                                    @else
-                                                        <h4 class="price">{{ $product->discount }}%</h4>
-                                                    @endif
+                                                    <h4 class="price">{{ $product->reseller_discount }}%</h4>
                                                 @endif
+                                            @else
+                                                @if ($product->discount_price == 1)
+                                                    <h4 class="price">
+                                                        {{ CurrencyHelper::rupiahCurrency($product->discount) }}</h4>
+                                                @else
+                                                    <h4 class="price">{{ $product->discount }}%</h4>
+                                                @endif
+                                            @endif
                                         </li>
                                         <li>
                                             <h4>Subtotal</h4>
                                             @php
 
-                                                    $discount =
-                                                        UserHelper::getUserRole() == UserRoleEnum::RESELLER->value
-                                                            ? $product->reseller_discount
-                                                            : $product->discount;
+                                                $discount =
+                                                    UserHelper::getUserRole() == UserRoleEnum::RESELLER->value
+                                                        ? $product->reseller_discount
+                                                        : $product->discount;
 
-                                                    $subtotal = CurrencyHelper::countPriceAfterDiscount(
-                                                        $product->sell_price,
-                                                        $discount,
-                                                        false,
-                                                        $product->discount_price,
-                                                        
-                                                    );
-                                                @endphp
+                                                $subtotal = CurrencyHelper::countPriceAfterDiscount(
+                                                    $product->sell_price,
+                                                    $discount,
+                                                    false,
+                                                    $product->discount_price,
+                                                );
+                                            @endphp
                                             <h4 class="price">{{ CurrencyHelper::rupiahCurrency($subtotal) }}</h4>
                                         </li>
 

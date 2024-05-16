@@ -21,8 +21,8 @@
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
-                    <div class="breadscrumb-contain">
-                        <nav>
+                    <nav>
+                        <div class="breadscrumb-contain">
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('home.index') }}">
@@ -32,8 +32,8 @@
                                 <li class="breadcrumb-item" aria-current="page">Artikel</li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ $article->title }}</li>
                             </ol>
-                        </nav>
-                    </div>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

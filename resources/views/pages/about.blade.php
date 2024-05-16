@@ -4,9 +4,9 @@
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
-                    <div class="breadscrumb-contain">
-                        <h2>Tentang {{ $site->name }}</h2>
-                        <nav>
+                    <nav>
+                        <div class="breadscrumb-contain">
+                            {{-- <h2>Tentang {{ $site->name }}</h2> --}}
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('home.index') }}">
@@ -15,10 +15,10 @@
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">Tentang Kami</li>
                             </ol>
-                        </nav>
-                    </div>
+                        </div>
+                    </nav>
                 </div>
-            </div> 
+            </div>
         </div>
     </section>
     <section class="fresh-vegetable-section section-lg-space">
@@ -30,7 +30,7 @@
                             <div class="fresh-image-2">
                                 <div class="bg-size blur-up lazyloaded">
                                     <img src="{{ asset('assets/images/inner-page/about-us/2.jpg') }}"
-                                         class="bg-img blur-up lazyloaded" alt="" style="display: none;">
+                                        class="bg-img blur-up lazyloaded" alt="" style="display: none;">
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                             <div class="fresh-image">
                                 <div class="bg-size blur-up lazyloaded">
                                     <img src="{{ asset('assets/images/inner-page/about-us/1.jpg') }}"
-                                         class="bg-img blur-up lazyloaded" alt="" style="display: none;">
+                                        class="bg-img blur-up lazyloaded" alt="" style="display: none;">
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,6 @@
             </div>
         </div>
     </section>
-
 @endsection
 
 <!-- mobile fix menu start -->

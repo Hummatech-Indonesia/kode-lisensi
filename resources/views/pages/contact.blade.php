@@ -7,9 +7,9 @@
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
-                    <div class="breadscrumb-contain">
-                        <h2>Kontak Kami</h2>
-                        <nav>
+                    <nav>
+                        <div class="breadscrumb-contain">
+                            {{-- <h2>Kontak Kami</h2> --}}
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('home.index') }}">
@@ -18,8 +18,8 @@
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">Kontak Kami</li>
                             </ol>
-                        </nav>
-                    </div>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                             <div class="col-xl-12">
                                 <div class="contact-image">
                                     <img src="{{ asset('assets/images/inner-page/contact-us.png') }}"
-                                         class="img-fluid blur-up lazyloaded" alt="">
+                                        class="img-fluid blur-up lazyloaded" alt="">
                                 </div>
                             </div>
                             <div class="col-xl-12">
@@ -88,7 +88,7 @@
                         @csrf
                         <div class="right-sidebar-box">
                             <div class="row">
-                                @if(session('success'))
+                                @if (session('success'))
                                     <x-alert-success></x-alert-success>
                                 @endif
 
@@ -97,14 +97,13 @@
                                         <label for="exampleFormControlInput" class="form-label">Nama depan</label>
                                         <div class="custom-input">
                                             <input autofocus value="{{ old('firstname') }}" type="text" name="firstname"
-                                                   class="form-control @error('firstname') is-invalid @enderror"
-                                                   autocomplete="off"
-                                                   placeholder="John">
+                                                class="form-control @error('firstname') is-invalid @enderror"
+                                                autocomplete="off" placeholder="John">
                                             <i class="fa-solid fa-user"></i>
                                             @error('firstname')
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -115,13 +114,13 @@
                                         <label for="exampleFormControlInput1" class="form-label">Nama Belakang</label>
                                         <div class="custom-input">
                                             <input name="lastname" value="{{ old('lastname') }}" type="text"
-                                                   class="form-control @error('lastname') is-invalid @enderror"
-                                                   autocomplete="off" placeholder="Doe">
+                                                class="form-control @error('lastname') is-invalid @enderror"
+                                                autocomplete="off" placeholder="Doe">
                                             <i class="fa-solid fa-user"></i>
                                             @error('lastname')
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -132,14 +131,13 @@
                                         <label for="exampleFormControlInput2" class="form-label">Email</label>
                                         <div class="custom-input">
                                             <input autocomplete="off" type="email"
-                                                   class="form-control @error('email') is-invalid @enderror"
-                                                   value="{{ old('email') }}" name="email"
-                                                   placeholder="johndoe@gmail.com">
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                value="{{ old('email') }}" name="email" placeholder="johndoe@gmail.com">
                                             <i class="fa-solid fa-envelope"></i>
                                             @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -149,17 +147,15 @@
                                     <div class="mb-md-4 mb-3 custom-form">
                                         <label for="exampleFormControlInput3" class="form-label">Nomor telepon</label>
                                         <div class="custom-input">
-                                            <input autocomplete="off" value="{{ old('phone_number') }}"
-                                                   name="phone_number"
-                                                   type="number"
-                                                   class="form-control @error('phone_number') is-invalid @enderror"
-                                                   id="exampleFormControlInput3"
-                                                   placeholder="0812648321">
+                                            <input autocomplete="off" value="{{ old('phone_number') }}" name="phone_number"
+                                                type="number"
+                                                class="form-control @error('phone_number') is-invalid @enderror"
+                                                id="exampleFormControlInput3" placeholder="0812648321">
                                             <i class="fa-solid fa-mobile-screen-button"></i>
                                             @error('phone_number')
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -170,15 +166,13 @@
                                         <label for="exampleFormControlTextarea" class="form-label">Kritik, Saran, dan
                                             Masukan</label>
                                         <div class="custom-textarea">
-                                        <textarea name="message"
-                                                  class="form-control @error('message') is-invalid @enderror"
-                                                  placeholder="Silahkan masukan pesan anda.."
-                                                  rows="6">{{ old('message') }}</textarea>
+                                            <textarea name="message" class="form-control @error('message') is-invalid @enderror"
+                                                placeholder="Silahkan masukan pesan anda.." rows="6">{{ old('message') }}</textarea>
                                             <i class="fa-solid fa-message"></i>
                                             @error('message')
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
