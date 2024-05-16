@@ -83,7 +83,6 @@ class CurrencyHelper
         foreach ($varianProducts as $varianProduct) {
             $minSellPrice = min($minSellPrice, $varianProduct->sell_price);
         }
-
         return $minSellPrice;
     }
     public static function varianPriceMax(mixed $varianProducts)

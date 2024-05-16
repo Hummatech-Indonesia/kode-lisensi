@@ -1,4 +1,8 @@
-@php use Carbon\Carbon; @endphp
+@php
+    use Carbon\Carbon;
+
+    use App\Helpers\CurrencyHelper;
+@endphp
 @extends('layouts.main')
 @section('content')
     <section class="breadscrumb-section pt-0">
@@ -7,16 +11,16 @@
                 <div class="col-12">
                     <nav>
 
-                            <div class="breadscrumb-contain">
-                                <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item">
-                                        <a href="{{ route('home.index') }}">
-                                            <i class="fa-solid fa-house"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Artikel</li>
-                                </ol>
-                            </div>
+                        <div class="breadscrumb-contain">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('home.index') }}">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Artikel</li>
+                            </ol>
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -159,7 +163,7 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
                                     aria-controls="panelsStayOpen-collapseTwo">
-                                    Category
+                                    Kategori
                                 </button>
                             </h2>
                             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
@@ -189,6 +193,52 @@
 
                                         </ul>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion left-accordion-box" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseTwo">
+                                    Produk Terbaru
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
+                                aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body p-0">
+                                    <div class="recent-post-box">
+                                        @foreach ($products as $product)
+                                            <div class="recent-box">
+
+                                                <a href="{{ route('home.products.show', $product->slug) }}"
+                                                    class="recent-image">
+                                                    <img src="{{ asset('storage/' . $product->photo) }}"
+                                                        class="img-fluid blur-up lazyloaded"
+                                                        alt="{{ $product->name }}">
+                                                </a>
+                                                <div class="recent-detail">
+                                                    <a href="{{ route('home.products.show', $product->slug) }}">
+                                                        <h5 class="recent-name">{{ $product->name }}</h5>
+                                                    </a>
+                                                    <span
+                                                        class="badge bg-primary text-white">{{ $product->category->name }}</span>
+
+                                                    @if (!$product->varianProducts->isEmpty())
+                                                        <h6>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}
+                                                        </h6>
+                                                    @else
+                                                        <h6>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}
+                                                        </h6>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
