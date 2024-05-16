@@ -247,15 +247,21 @@ class ProductRepository extends BaseRepository implements ProductInterface
     }
 
     /**
-     * Handle the Get all data event from models.
+     * Method getAll
      *
      * @return mixed
      */
     public function getAll(): mixed
     {
         return $this->model->query()
+            // ->whereHas('detailTransactions') // Filter hanya produk yang memiliki setidaknya satu detail transaksi terkait
+            // ->withCount('detailTransactions') // Menghitung jumlah detail transaksi untuk setiap produk
+            // ->orderByDesc('detail_transactions_count') // Mengurutkan berdasarkan jumlah transaksi secara descending
+            // ->limit(5)
             ->get();
     }
+
+
 
     /**
      * Handle the Get all data event from models.

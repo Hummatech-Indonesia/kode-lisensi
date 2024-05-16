@@ -1,5 +1,7 @@
 @php
     use App\Helpers\ArticleHelper;
+    use App\Helpers\UserHelper;
+    use App\Helpers\CurrencyHelper;
     use Carbon\Carbon;
 @endphp
 @extends('layouts.main')
@@ -65,62 +67,83 @@
                                         Kategori
                                     </button>
                                 </h2>
-                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
                                     aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body p-0">
                                         <div class="category-list-box">
                                             <ul>
                                                 @foreach ($categories as $category)
                                                     <li>
-                                                        <a
-                                                            href="{{ route('home.articles.index') . '?category=' . $category->name }}">
-                                                            <div class="category-name">
-                                                                <h5>{{ $category->name }}</h5>
-                                                                <span>{{ $category->sub_article_categories->count() }}</span>
-                                                            </div>
+                                                        <a href="#">
+                                                            <h5 style="font-weight:500;">{{ $category->name }}
+                                                                <span>({{ $category->sub_article_categories_count }})</span>
+                                                            </h5>
                                                         </a>
+                                                        <div class="my-2">
+                                                            @foreach ($category->sub_article_categories as $sub_article_category)
+                                                                <a href="{{ route('home.articles.index') . '?sub_category=' . $sub_article_category->name }}"
+                                                                    style="margin-left: 1.5rem" href="#">
+                                                                    <p>{{ $sub_article_category->name }}
+                                                                        <span>({{ $sub_article_category->articles->count() }})</span>
+                                                                    </p>
+                                                                </a>
+                                                            @endforeach
+                                                        </div>
                                                     </li>
                                                 @endforeach
+    
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+    
+                        </div>
+                        <div class="accordion left-accordion-box" id="accordionPanelsStayOpenExample">
                             <div class="accordion-item">
-                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                        aria-controls="panelsStayOpen-collapseOne">
-                                        Artikel Terbaru
+                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseTwo">
+                                        Produk Terbaru
                                     </button>
                                 </h2>
-                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
-                                    aria-labelledby="panelsStayOpen-headingOne">
-                                    <div class="accordion-body pt-0">
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
+                                    aria-labelledby="panelsStayOpen-headingTwo">
+                                    <div class="accordion-body p-0">
                                         <div class="recent-post-box">
-                                            @foreach (ArticleHelper::topArticles() as $articles)
+                                            @foreach ($products as $product)
                                                 <div class="recent-box">
-                                                    <a href="{{ route('home.articles.show', $articles->slug) }}"
+    
+                                                    <a href="{{ route('home.products.show', $product->slug) }}"
                                                         class="recent-image">
-                                                        <img src="{{ asset('storage/' . $articles->photo) }}"
+                                                        <img src="{{ asset('storage/' . $product->photo) }}"
                                                             class="img-fluid blur-up lazyloaded"
-                                                            alt="{{ $articles->title }}">
+                                                            alt="{{ $product->name }}">
                                                     </a>
-
                                                     <div class="recent-detail">
-                                                        <a href="{{ route('home.articles.show', $articles->slug) }}">
-                                                            <h5 class="recent-name">{{ $articles->title }}</h5>
+                                                        <a href="{{ route('home.products.show', $product->slug) }}">
+                                                            <h5 class="recent-name">{{ $product->name }}</h5>
                                                         </a>
-                                                        <h6>{{ Carbon::parse($articles->created_at)->translatedFormat('d F Y') }}
-                                                        </h6>
+                                                        <span
+                                                            class="badge bg-primary text-white">{{ $product->category->name }}</span>
+    
+                                                        @if (!$product->varianProducts->isEmpty())
+                                                            <h6>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}
+                                                            </h6>
+                                                        @else
+                                                            <h6>{{ CurrencyHelper::rupiahCurrency($product->sell_price) }}
+                                                            </h6>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             @endforeach
-
                                         </div>
+    
                                     </div>
                                 </div>
                             </div>
+    
                         </div>
                     </div>
                 </div>

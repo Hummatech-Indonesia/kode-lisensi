@@ -49,11 +49,13 @@ class HomeArticleController extends Controller
      */
     public function show(string $slug): View
     {
+        $products=$this->product->getAll();
         $article = $this->article->showWithSlug($slug);
         $article->update(['view' => $article->view + 1]);
 
         return view('pages.article-detail', [
             'title' => 'Artikel-' . $article->slug . ' - KodeLisensi.com',
+            'products'=>$products,
             'description' => $article->description,
             'keywords' => $article->tags,
             'author' => $article->user->name,

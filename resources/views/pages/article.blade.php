@@ -156,7 +156,6 @@
                             </form>
                         </div>
                     </div>
-
                     <div class="accordion left-accordion-box" id="accordionPanelsStayOpenExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
