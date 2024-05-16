@@ -72,7 +72,7 @@
                                                             href="{{ route('home.articles.index') . '?category=' . $category->name }}">
                                                             <div class="category-name">
                                                                 <h5>{{ $category->name }}</h5>
-                                                                <span>{{ $category->articles_count }}</span>
+                                                                <span>{{ $category->sub_article_categories->count() }}</span>
                                                             </div>
                                                         </a>
                                                     </li>
