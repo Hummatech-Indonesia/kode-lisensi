@@ -41,7 +41,7 @@
         </div>
     </section>
 
-    <section class="blog-section section-b-space">
+    <section class="blog-section section-b-space " style="z-index: 1000;">
         <div class="container-fluid-lg">
             <div class="row g-sm-4 g-3">
                 <div class="col-xxl-3 col-xl-4 col-lg-5 d-lg-block d-none">
@@ -76,7 +76,7 @@
                                                     <li>
                                                         <a href="#">
                                                             <h5 style="font-weight:500;">{{ $category->name }}
-                                                                <span>({{ $category->sub_article_categories_count }})</span>
+                                                                <span>({{ $category->sub_article_categories->count() }})</span>
                                                             </h5>
                                                         </a>
                                                         <div class="my-2">
@@ -91,13 +91,13 @@
                                                         </div>
                                                     </li>
                                                 @endforeach
-    
+
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-    
+
                         </div>
                         <div class="accordion left-accordion-box" id="accordionPanelsStayOpenExample">
                             <div class="accordion-item">
@@ -114,7 +114,7 @@
                                         <div class="recent-post-box">
                                             @foreach ($products as $product)
                                                 <div class="recent-box">
-    
+
                                                     <a href="{{ route('home.products.show', $product->slug) }}"
                                                         class="recent-image">
                                                         <img src="{{ asset('storage/' . $product->photo) }}"
@@ -127,7 +127,7 @@
                                                         </a>
                                                         <span
                                                             class="badge bg-primary text-white">{{ $product->category->name }}</span>
-    
+
                                                         @if (!$product->varianProducts->isEmpty())
                                                             <h6>{{ CurrencyHelper::rupiahCurrency(CurrencyHelper::varianPrice($product->varianProducts)) }}
                                                             </h6>
@@ -139,11 +139,11 @@
                                                 </div>
                                             @endforeach
                                         </div>
-    
+
                                     </div>
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
