@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             AdministratorSeeder::class,
             // ProductSeeder::class,
             SlideSeeder::class,
-            BannerSeeder::class
+            BannerSeeder::class,
+            TermPrivacySeeder::class,
         ]);
     }
 }

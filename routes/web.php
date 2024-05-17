@@ -42,6 +42,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductEmailController;
 use App\Http\Controllers\TermController;
+use App\Http\Controllers\TermPrivacyController;
 use App\Http\Controllers\TransactionAffiliateController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionWhatsappController;
@@ -99,8 +100,8 @@ Route::name('home.')->group(function () {
 
     Route::get('categories/{slug}', [HomeCategoryController::class, 'show'])->name('category');
 
-    Route::get('term-and-condition', [TermController::class, 'homepage'])->name('term');
-    Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy');
+    Route::get('term-and-condition', [TermPrivacyController::class, 'term'])->name('term');
+    Route::get('privacy-policy', [TermPrivacyController::class, 'privacy'])->name('privacy');
     Route::resources([
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
@@ -337,7 +338,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 });
                 Route::resources([
                     'site-setting' => SiteSettingController::class,
-                    'terms' => TermController::class,
+                    'terms' => TermPrivacyController::class,
                     'about-us' => AboutController::class,
                     'slider' => SliderController::class,
                     'banners' => BannerController::class
