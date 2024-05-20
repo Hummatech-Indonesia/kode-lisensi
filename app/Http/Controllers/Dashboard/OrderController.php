@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
@@ -17,11 +18,13 @@ class OrderController extends Controller
 {
     private TransactionInterface $transaction;
     private TransactionService $service;
+    private ProductInterface $product;
 
-    public function __construct(TransactionInterface $transaction, TransactionService $service)
+    public function __construct(TransactionInterface $transaction, TransactionService $service,ProductInterface $product)
     {
         $this->transaction = $transaction;
         $this->service = $service;
+        $this->product = $product;
     }
 
     /**
@@ -113,13 +116,14 @@ class OrderController extends Controller
      */
     public function history(): View
     {
+        $products = $this->product->getProduct();
         $get_invoice_id = $this->transaction->getInvoice();
         if ($get_invoice_id) {
             $invoice_id = substr($get_invoice_id->invoice_id, -4);
         } else {
             $invoice_id = null;
         }
-        return view('dashboard.pages.orders.history', ['invoice_id' => $invoice_id]);
+        return view('dashboard.pages.orders.history', ['invoice_id' => $invoice_id, 'products' => $products]);
     }
     /**
      * Method income
@@ -134,7 +138,7 @@ class OrderController extends Controller
         } else {
             $invoice_id = null;
         }
-        return view('dashboard.pages.orders.income',['invoice_id'=>$invoice_id]);
+        return view('dashboard.pages.orders.income', ['invoice_id' => $invoice_id]);
 
     }
     /**

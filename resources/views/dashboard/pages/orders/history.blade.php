@@ -61,8 +61,14 @@
                                 class="btn btn-primary">Update ID Invoice</a>
                             <!-- Button trigger modal -->
                             @role('administrator')
-                                <a id="btnUpdateIdInvoice" data-bs-toggle="modal" data-bs-target="#updateIdInvoice"
-                                    class="btn btn-primary">Tambahkan Transaksi</a>
+                                <select class="js-example-basic-single w-100" name="product" id="selectProduct">
+                                    <option value="">pilih produk</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->slug }}">{{ $product->name }}</option>
+                                    @endforeach
+                                </select>
+                                <a id="addTransaction" href="#" class="btn btn-primary" target="_blank">Tambahkan
+                                    Transaksi</a>
                             @endrole
                         </div>
                         <div class="">
@@ -132,6 +138,11 @@
     <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
     <script>
+        $('#selectProduct').on('change', function() {
+            const slug = $(this).val();
+            let url = `{{ route('home.products.show', ':slug') }}`.replace(':slug', slug);
+            $('#addTransaction').attr('href', url);
+        });
         $.ajax({
             type: "method",
             url: "url",
