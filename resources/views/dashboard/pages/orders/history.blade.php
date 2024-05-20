@@ -61,7 +61,7 @@
                                 class="btn btn-primary">Update ID Invoice</a>
                             <!-- Button trigger modal -->
                             @role('administrator')
-                                <a href="{{route('dashboard.manual.checkout')}}"
+                                <a id="btnUpdateIdInvoice" data-bs-toggle="modal" data-bs-target="#updateIdInvoice"
                                     class="btn btn-primary">Tambahkan Transaksi</a>
                             @endrole
                         </div>
@@ -96,7 +96,6 @@
 
                 </div>
             </div>
-            
             <div class="modal fade" id="updateIdInvoice" tabindex="-1" role="dialog" aria-hidden="true"
                 data-bs-backdrop="static" data-bs-keyboard="false">
                 <div class="modal-dialog modal-lg" role="document">

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Contracts\Interfaces\Products\ProductInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
@@ -18,13 +17,11 @@ class OrderController extends Controller
 {
     private TransactionInterface $transaction;
     private TransactionService $service;
-    private ProductInterface $product;
 
-    public function __construct(TransactionInterface $transaction, TransactionService $service, ProductInterface $product)
+    public function __construct(TransactionInterface $transaction, TransactionService $service)
     {
         $this->transaction = $transaction;
         $this->service = $service;
-        $this->product = $product;
     }
 
     /**
@@ -35,10 +32,9 @@ class OrderController extends Controller
      */
     public function index(Request $request): View|JsonResponse
     {
-        $products = $this->product->getProduct();
         if ($request->ajax())
             return $this->transaction->get();
-        return view('dashboard.pages.orders.index', ['products', $products]);
+        return view('dashboard.pages.orders.index');
     }
 
     /**
@@ -138,7 +134,7 @@ class OrderController extends Controller
         } else {
             $invoice_id = null;
         }
-        return view('dashboard.pages.orders.income', ['invoice_id' => $invoice_id]);
+        return view('dashboard.pages.orders.income',['invoice_id'=>$invoice_id]);
 
     }
     /**

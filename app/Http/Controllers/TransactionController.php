@@ -39,7 +39,8 @@ class TransactionController extends Controller
 
     public function index(string $slug, string $slug_varian = null): View
     {
-        $product = $this->product->getWhere(['slug' => $slug, 'slug_varian' => $slug_varian]);
+        $product = $this->product->getWhere(['slug'=>$slug,'slug_varian'=>$slug_varian]);
+
         return view('pages.checkout', [
             'product' => $product,
             'varian' => $slug_varian,
@@ -64,27 +65,12 @@ class TransactionController extends Controller
         }
 
         $this->service->handleCheckout($request, $product, $slug_varian);
-
-        if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value) {
-            return to_route('dashboard.history.transaction')->with('success', trans('alert.checkout_success'));
-        } else {
-            return to_route('users.account.index')->with('success', trans('alert.checkout_success'));
+        
+        if(UserHelper::getUserRole() == UserRoleEnum::RESELLER->value){
+            return to_route('dashboard.history.transaction')->with('success',trans('alert.checkout_success'));
+        }else{
+            return to_route('users.account.index')->with('success',trans('alert.checkout_success'));
         }
-    }    
-    /**
-     * Method manualCheckout
-     *
-     * @return View
-     */
-    public function manualCheckout():View|JsonResponse
-    {
-        $products = $this->product->getProduct();
-        $product= $products->last();
-        return view('dashboard.pages.administrator.manual-checkout', [
-            'payment_channels' => $this->tripayService->handlePaymentChannels(),
-            'products' => $products,
-            'product'=>$product
-        ]);
     }
 
     /**
