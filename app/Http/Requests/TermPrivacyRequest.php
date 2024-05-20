@@ -27,13 +27,13 @@ class TermPrivacyRequest extends FormRequest
             'term' => 'required',
             'privacy' => 'required',
         ];
-    }
+    }        
     /**
      * Method messages
      *
-     * @return void
+     * @return array
      */
-    public function messages()
+    public function messages():array
     {
         return [
             'term.required' => 'Syarat tidak boleh kosong',

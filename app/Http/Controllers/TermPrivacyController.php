@@ -19,9 +19,9 @@ class TermPrivacyController extends Controller
         $termPrivacy = $this->termPrivacy->get();
         return view('dashboard.pages.terms.index', compact('termPrivacy'));
     }
-    public function update(TermPrivacyRequest $request, TermPrivacy $termPrivacy)
+    public function update(TermPrivacyRequest $request, TermPrivacy $term_privacy)
     {
-        $this->termPrivacy->update($termPrivacy->id, $request->validated());
+        $this->termPrivacy->update($term_privacy->id, $request->validated());
         return back()->with('success', 'berhasil melakukan update data');
     }
     public function term()

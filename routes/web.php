@@ -338,7 +338,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 });
                 Route::resources([
                     'site-setting' => SiteSettingController::class,
-                    'terms' => TermPrivacyController::class,
+                    'term-privacy' => TermPrivacyController::class,
                     'about-us' => AboutController::class,
                     'slider' => SliderController::class,
                     'banners' => BannerController::class

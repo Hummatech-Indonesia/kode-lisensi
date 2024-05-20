@@ -2,7 +2,6 @@
 
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\TermInterface;
 use App\Contracts\Interfaces\TermPrivacyInterface;
 use App\Models\TermPrivacy;
 
@@ -35,7 +34,7 @@ class TermPrivacyRepository extends BaseRepository implements TermPrivacyInterfa
      */
     public function update(mixed $id, array $data): mixed
     {
-        return $this->model->show($id)->update($data);
+        return $this->show($id)->update($data);
     }
     /**
      * Method show
@@ -44,7 +43,8 @@ class TermPrivacyRepository extends BaseRepository implements TermPrivacyInterfa
      *
      * @return mixed
      */
-    public function show(mixed $id):mixed{
+    public function show(mixed $id): mixed
+    {
         return $this->model->query()->findOrFail($id);
     }
 }

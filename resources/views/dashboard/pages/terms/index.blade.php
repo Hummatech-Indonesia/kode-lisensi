@@ -13,7 +13,7 @@
         </div>
 
         <div class="row">
-            <form method="POST" action="{{ route('terms.update', $termPrivacy->id) }}">
+            <form method="POST" action="{{ route('term-privacy.update', $termPrivacy->id) }}">
                 @method("PATCH")
                 @csrf
                 <div class="card">
