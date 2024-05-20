@@ -55,10 +55,15 @@
             <div class="card">
                 <div class="card-body">
                     <div class="col-12 d-flex justify-content-between">
-                        <div class="">
+                        <div class="d-flex gap-3">
                             <!-- Button trigger modal -->
                             <a id="btnUpdateIdInvoice" data-bs-toggle="modal" data-bs-target="#updateIdInvoice"
                                 class="btn btn-primary">Update ID Invoice</a>
+                            <!-- Button trigger modal -->
+                            @role('administrator')
+                                <a id="btnUpdateIdInvoice" data-bs-toggle="modal" data-bs-target="#updateIdInvoice"
+                                    class="btn btn-primary">Tambahkan Transaksi</a>
+                            @endrole
                         </div>
                         <div class="">
                             <form id="search-form" class="row justify-content-end" action="" method="GET">
@@ -80,6 +85,7 @@
                                     <th>Bayar</th>
                                     <th>Metode</th>
                                     <th>Laba</th>
+                                    <th>Media Transaksi</th>
                                     <th>Tanggal Transaksi</th>
                                 </tr>
                             </thead>
@@ -188,6 +194,10 @@
                     {
                         data: 'revenue',
                         name: 'revenue'
+                    },
+                    {
+                        data: 'order_via_whatsapp',
+                        name: 'order_via_whatsapp'
                     },
 
                     {

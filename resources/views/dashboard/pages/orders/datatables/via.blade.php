@@ -1,5 +1,5 @@
 @if ($data->order_via_whatsapp == 1)
-    <p>Rekening</p>
+    <p>Manual</p>
 @elseif($data->order_via_whatsapp == 0)
-    <p>Tripay</p>
+    <p>E-Commerce</p>
 @endif
