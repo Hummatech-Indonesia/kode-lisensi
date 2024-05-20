@@ -35,6 +35,7 @@ use App\Contracts\Interfaces\SiteSettingInterface;
 use App\Contracts\Interfaces\SliderInterface;
 use App\Contracts\Interfaces\SubArticleCategoryInterface;
 use App\Contracts\Interfaces\TermInterface;
+use App\Contracts\Interfaces\TermPrivacyInterface;
 use App\Contracts\Interfaces\TransactionAffiliateInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\UpdateIdInvoiceInterface;
@@ -71,6 +72,7 @@ use App\Contracts\Repositories\ResellerRepository;
 use App\Contracts\Repositories\SiteSettingRepository;
 use App\Contracts\Repositories\SliderRepository;
 use App\Contracts\Repositories\SubArticleCategoryRepository;
+use App\Contracts\Repositories\TermPrivacyRepository;
 use App\Contracts\Repositories\TermRepository;
 use App\Contracts\Repositories\TransactionAffiliateRepository;
 use App\Contracts\Repositories\TransactionRepository;
@@ -122,7 +124,8 @@ class AppServiceProvider extends ServiceProvider
         SubArticleCategoryInterface::class => SubArticleCategoryRepository::class,
         TransactionWhatsappInterface::class => TransactionWhatsappRepository::class,
         ExpenditureInterface::class => ExpenditureRepository::class,
-        RefundInterface::class => RefundRepository::class
+        RefundInterface::class => RefundRepository::class,
+        TermPrivacyInterface::class => TermPrivacyRepository::class
     ];
 
     /**

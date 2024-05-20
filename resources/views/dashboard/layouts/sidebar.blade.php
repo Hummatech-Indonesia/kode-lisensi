@@ -264,7 +264,7 @@
                     <a href="{{ route('about-us.index') }}">Tentang Kami</a>
                     <a href="{{ route('contact-us.index') }}">Kontak Kami</a>
                     <a href="{{ route('faqs.index') }}">FAQ</a>
-                    {{-- <a href="{{ route('terms.index') }}">Terms and Policy</a> --}}
+                    <a href="{{ route('terms.index') }}">Terms and Policy</a>
                 </li>
             </ul>
         </li>

@@ -13,7 +13,7 @@
         </div>
 
         <div class="row">
-            <form method="POST" action="{{ route('terms.update', $term) }}">
+            <form method="POST" action="{{ route('terms.update', $termPrivacy->id) }}">
                 @method("PATCH")
                 @csrf
                 <div class="card">
@@ -29,7 +29,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-9">
                                     <textarea class="form-control" id="term"
-                                              name="term">{{ $term->term }}</textarea>
+                                              name="term">{{ $termPrivacy->term }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-9">
                                     <textarea class="form-control" id="privacy"
-                                              name="privacy">{{ $term->privacy }}</textarea>
+                                              name="privacy">{{ $termPrivacy->privacy }}</textarea>
                                     </div>
                                 </div>
                             </div>

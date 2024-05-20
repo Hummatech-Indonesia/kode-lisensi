@@ -3,9 +3,10 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\TermInterface;
+use App\Contracts\Interfaces\TermPrivacyInterface;
 use App\Models\TermPrivacy;
 
-class TermPrivacyRepository extends BaseRepository implements TermInterface
+class TermPrivacyRepository extends BaseRepository implements TermPrivacyInterface
 {
 
     public function __construct(TermPrivacy $termPrivacy)
