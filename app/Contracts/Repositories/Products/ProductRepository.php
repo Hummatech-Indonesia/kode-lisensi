@@ -283,6 +283,9 @@ class ProductRepository extends BaseRepository implements ProductInterface
                 ->oldest('licenses_count')
         );
     }
+    public function getProduct():mixed{
+        return $this->model->query()->get();
+    }
 
     /**
      * getProductRecommendation

@@ -179,6 +179,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:administrator')->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::name('dashboard.')->group(function () {
+                Route::get('manual-checkout',[TransactionController::class,'manualCheckout'])->name('manual.checkout');
                 Route::resource('expenditure', ExpenditureController::class);
                 Route::get('expenditure', [ExpenditureController::class, 'fetchExpenditure'])->name('fetch.expenditure');
                 Route::name('refund.')->prefix('refund')->group(function () {

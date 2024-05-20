@@ -29,5 +29,11 @@ interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderP
      * @return mixed
      */
 
-    public function getProductRecommendation(): mixed;
+    public function getProductRecommendation(): mixed;    
+    /**
+     * Method getProduct
+     *
+     * @return mixed
+     */
+    public function getProduct():mixed;
 }
