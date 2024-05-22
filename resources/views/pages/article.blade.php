@@ -5,6 +5,15 @@
 @endphp
 @extends('layouts.main')
 @section('content')
+    <style>
+        .faq-box-contain li {
+            display: list-item;
+        }
+
+        .faq-box-contain ul {
+            padding-left: 40px;
+        }
+    </style>
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
             <div class="row">

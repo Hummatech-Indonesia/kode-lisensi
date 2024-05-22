@@ -5172,12 +5172,12 @@ body ::selection {
 }
 
 ul {
-    /* padding-left: 0; */
-    /* margin-bottom: 0 */
+    padding-left: 0;
+    margin-bottom: 0
 }
 
 li {
-    /* display: inline-block; */
+    display: inline-block;
     font-size: 14px
 }
 
