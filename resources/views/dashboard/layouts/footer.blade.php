@@ -38,6 +38,7 @@
 
 <!-- ck editor js -->
 <script src="{{ asset('dashboard_assets/js/ckeditor/ckeditor.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 <!-- sweetalert js -->
 <script src="{{ asset('dashboard_assets/js/sweetalert.min.js') }}"></script>

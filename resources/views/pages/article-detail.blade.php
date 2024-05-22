@@ -20,11 +20,11 @@
 @endsection
 @section('content')
     <style>
-        .faq-box-contain li {
+        .article-content li {
             display: list-item;
         }
 
-        .faq-box-contain ul {
+        .article-content ul {
             padding-left: 40px;
         }
     </style>
@@ -188,7 +188,6 @@
                         </div>
                         <p data-style="no-styling">
                         <div class="article-content">
-                            <p>hahaha</p>
                             {!! $article->content !!}
                         </div>
                         </p>
