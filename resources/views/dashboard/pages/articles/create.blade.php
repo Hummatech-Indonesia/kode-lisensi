@@ -117,10 +117,9 @@
         });
     </script> --}}
     <script>
-        ClassicEditor
-            .create( document.querySelector( '#content' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+        CKEDITOR.replace('content', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
     </script>
 @endsection

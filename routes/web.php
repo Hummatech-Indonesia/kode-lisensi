@@ -234,6 +234,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resources([
                 'article-categories' => ArticleCategoryController::class,
             ]);
+            Route::post('upload_image', [ArticleController::class, 'uploadImage'])->name('upload');
+
             Route::resource('sub-article-categories', SubArticleCategoryController::class)->except(['create', 'store', 'show', 'update', 'edit']);
             Route::get('sub-article-categories/{article_category}', [SubArticleCategoryController::class, 'create'])->name('sub-article-categories.create');
             Route::post('sub-article-categories/{article_category}', [SubArticleCategoryController::class, 'store'])->name('sub-article-categories.store');
