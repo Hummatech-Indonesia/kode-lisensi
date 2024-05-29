@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Contracts\Interfaces\BannerInterface;
+use App\Contracts\Interfaces\CategoryInterface;
 use App\Contracts\Interfaces\ProductFavoriteInterface;
 use App\Contracts\Interfaces\SliderInterface;
 use App\Helpers\ResponseHelper;
@@ -18,13 +19,15 @@ class HomeController extends Controller
     private SliderInterface $slider;
     private BannerInterface $banner;
     private ProductFavoriteInterface $productFavorite;
+    private CategoryInterface $category;
 
-    public function __construct(SummaryService $summaryService, SliderInterface $slider, BannerInterface $banner, ProductFavoriteInterface $productFavorite)
+    public function __construct(SummaryService $summaryService, SliderInterface $slider, BannerInterface $banner, ProductFavoriteInterface $productFavorite, CategoryInterface $category)
     {
         $this->summaryService = $summaryService;
         $this->slider = $slider;
         $this->banner = $banner;
         $this->productFavorite = $productFavorite;
+        $this->category = $category;
     }
 
     /**
@@ -46,7 +49,8 @@ class HomeController extends Controller
             'bestSellerProductPage' => $this->summaryService->handleBestSellerPage(8),
             'highestRatingProducts' => $this->summaryService->handleHighestRatings(12),
             'sliders' => $this->slider->get(),
-            'banners' => $this->banner->get()
+            'banners' => $this->banner->get(),
+            'categories' => $this->category->get()
         ]);
     }
 

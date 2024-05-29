@@ -34,7 +34,6 @@
             margin-left: 15%;
             list-style: none;
         }
-
     </style>
 @endsection
 @section('meta')
@@ -52,23 +51,31 @@
                         <!-- Carousel Indicators -->
                         <div class="carousel-indicators">
                             @foreach ($sliders as $index => $slider)
-                                <button type="button" data-bs-target="#sliderCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                                <button type="button" data-bs-target="#sliderCarousel"
+                                    data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"
+                                    aria-current="{{ $index == 0 ? 'true' : 'false' }}"
+                                    aria-label="Slide {{ $index + 1 }}"></button>
                             @endforeach
                         </div>
                         <div class="carousel-inner">
                             @foreach ($sliders as $index => $slider)
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                     <div class="home-contain rounded-0 p-0">
-                                        <img src="{{ asset('storage/' . $slider->image) }}" class="img-fluid bg-img blur-up lazyload" alt="{{ $slider->offer }}">
-                                        <div class="home-detail home-big-space p-center-left home-overlay position-relative">
+                                        <img src="{{ asset('storage/' . $slider->image) }}"
+                                            class="img-fluid bg-img blur-up lazyload" alt="{{ $slider->offer }}">
+                                        <div
+                                            class="home-detail home-big-space p-center-left home-overlay position-relative">
                                             <div class="container-fluid-lg">
                                                 <div>
-                                                    <h6 class="ls-expanded theme-color text-uppercase">{{ $slider->offer }}</h6>
+                                                    <h6 class="ls-expanded theme-color text-uppercase">{{ $slider->offer }}
+                                                    </h6>
                                                     <h1 class="heding-2">{{ $slider->header }}</h1>
                                                     <h2 class="content-2">{{ $slider->sub_header }}</h2>
                                                     <h5 class="text-content">{{ $slider->description }}</h5>
-                                                    <button class="btn theme-bg-color btn-md text-white fw-bold mt-md-4 mt-2 mend-auto" onclick="location.href = '{{ $slider->product_url }}';">
-                                                        Lihat Sekarang 
+                                                    <button
+                                                        class="btn theme-bg-color btn-md text-white fw-bold mt-md-4 mt-2 mend-auto"
+                                                        onclick="location.href = '{{ $slider->product_url }}';">
+                                                        Lihat Sekarang
                                                         <i class="ri-arrow-right-line"></i>
                                                     </button>
                                                 </div>
@@ -78,11 +85,13 @@
                                 </div>
                             @endforeach
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#sliderCarousel" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#sliderCarousel"
+                            data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#sliderCarousel" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#sliderCarousel"
+                            data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -91,7 +100,31 @@
             </div>
         </div>
     </section>
-    
+    <section class="container my-4">
+        <div class="d-flex justify-content-center mb-4 title">
+            <h2 class="">Kategori</h2>
+        </div>
+        <div class="row my-2">
+            @foreach ($categories as $index => $category)
+                @if ($index < 8)
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <a href="{{ route('home.category', $category->slug) }}" class="text-decoration-none">
+                                <img src="{{ asset('storage/' . $category->icon) }}" class="img-fluid my-2"
+                                    style="width: 64px; height: 64px;" alt="{{ $category->name }}">
+                                <p class="mt-2 text-center">{{ $category->name }}</p>
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-primary">Lihat Semua Kategori</button>
+        </div>
+    </section>
+
+
 
 
     <!-- Home Section End -->
