@@ -23,7 +23,7 @@ class SliderRepository extends BaseRepository implements SliderInterface
     public function get(): mixed
     {
         return $this->model->query()
-            ->firstOrFail();
+            ->get();
     }
     /**
      * Method search

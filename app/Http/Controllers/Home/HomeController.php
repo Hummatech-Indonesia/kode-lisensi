@@ -45,7 +45,7 @@ class HomeController extends Controller
             'bestSellerProducts' => $this->summaryService->handleBestSeller(8),
             'bestSellerProductPage' => $this->summaryService->handleBestSellerPage(8),
             'highestRatingProducts' => $this->summaryService->handleHighestRatings(12),
-            'slider' => $this->slider->get(),
+            'sliders' => $this->slider->get(),
             'banners' => $this->banner->get()
         ]);
     }

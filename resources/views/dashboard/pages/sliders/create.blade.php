@@ -45,7 +45,7 @@
                                 <option value="{{ route('home.products.index') }}">Semua Produk</option>
                                 @foreach($products as $product)
                                     <option
-                                        {{ route('home.products.show', $product->slug) == $data->product_url ? 'selected' : '' }}
+                                        
                                         value="{{ route('home.products.show', $product->slug) }}">{{ $product->name }}</option>
                                 @endforeach
 
