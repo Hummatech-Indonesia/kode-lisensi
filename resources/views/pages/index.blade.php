@@ -120,7 +120,7 @@
             @endforeach
         </div>
         <div class="d-flex justify-content-center">
-            <button class="btn btn-primary">Lihat Semua Kategori</button>
+            <a href="{{route('home.get.categories')}}" class="btn btn-primary">Lihat Semua Kategori</a >
         </div>
     </section>
 

@@ -53,6 +53,12 @@ class HomeController extends Controller
             'categories' => $this->category->get()
         ]);
     }
+    public function getCategories(): View
+    {
+        return view('pages.categories', [
+            'categories' => $this->category->get()
+        ]);
+    }
 
     /**
      * latestProduct

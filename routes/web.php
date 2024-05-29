@@ -87,6 +87,7 @@ Route::name('home.')->group(function () {
         return view('emails.SendLicenseMail');
     });
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('categories',[HomeController::class,'getCategories'])->name('get.categories');
     Route::get('latest-product', [HomeController::class, 'latestProduct']);
 
     Route::post('share-product-reseller/{product}/{code}', [HomeProductController::class, 'shareProductReseller'])->name('share.product.reseller');
