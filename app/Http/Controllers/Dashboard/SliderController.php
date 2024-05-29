@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\SliderRequest;
 use App\Models\Slider;
 use App\Services\SliderService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SliderController extends Controller
@@ -25,16 +27,53 @@ class SliderController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Method index
+     *
+     * @param Request $request [explicite description]
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View|JsonResponse
     {
-        return view('dashboard.pages.sliders.index', [
-            'data' => $this->slider->get(),
+        if ($request->ajax())
+            return $this->slider->search($request);
+        return view('dashboard.pages.sliders.index');
+        //     return view('dashboard.pages.sliders.index', [
+        //         'data' => $this->slider->get(),
+        //         'products' => $this->product->getAll()
+        //     ]);
+    }
+    public function create()
+    {
+
+        return view('dashboard.pages.sliders.create', [
             'products' => $this->product->getAll()
         ]);
+    }
+    /**
+     * Method store
+     *
+     * @param SliderRequest $request [explicite description]
+     *
+     * @return RedirectResponse
+     */
+    public function store(SliderRequest $request): RedirectResponse
+    {
+        $this->slider->store($this->service->store($request));
+        return to_route('slider.index')->with('success', 'Berhasil menambah data');
+    }
+    /**
+     * Method edit
+     *
+     * @param Slider $slider [explicite description]
+     *
+     * @return View
+     */
+    public function edit(Slider $slider): View
+    {
+        $data = $this->slider->show($slider->id);
+        $products = $this->product->getAll();
+        return view('dashboard.pages.sliders.edit', compact('data', 'products'));
     }
 
     /**
@@ -48,7 +87,20 @@ class SliderController extends Controller
     {
         $this->slider->update($slider->id, $this->service->update($slider, $request));
 
-        return back()->with('success', trans('alert.update_success'));
+        return to_route('slider.index')->with('success', 'Berhasil memperbarui data');
+    }    
+    /**
+     * Method destroy
+     *
+     * @param Slider $slider [explicite description]
+     *
+     * @return RedirectResponse
+     */
+    public function destroy(Slider $slider): RedirectResponse
+    {
+        $this->slider->delete($slider->id);
+        return to_route('slider.index')->with('success', 'Berhasil menghapus data');
+
     }
 
 }

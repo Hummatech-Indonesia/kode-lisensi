@@ -1,117 +1,120 @@
+@php
+    use App\Enums\BalanceUsedEnum;
+@endphp
+
 @extends('dashboard.layouts.app')
+
+@section('css')
+    <link href="{{ asset('dashboard_assets/css/datatables.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard_assets/css/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <div class="title-header option-title">
-                <h5>Pengaturan Home Slider</h5>
-            </div>
-            <div class="col-sm-6 mt-3 mb-3">
-                <div class="alert alert-warning">
-                    Catatan: <br>
-                    <ul>
-                        <li>Gambar slider harus berupa jpg,png,jpeg dengan ukuran maksimal 5Mb</li>
-                        <li>Tiap input dibatasi maksimal 50 karakter</li>
-                    </ul>
-
-                </div>
-            </div>
-
-            <div class="col-sm-6 mb-3">
-                @if (session('success'))
-                    <x-alert-success></x-alert-success>
-                @elseif(session('error'))
-                    <x-alert-failed></x-alert-failed>
-
-                @endif
-            </div>
-            @if($errors->any())
-                <x-validation-errors :errors="$errors"></x-validation-errors>
+    <div class="card card-table">
+        <div class="col-sm-6 mb-3">
+            @if (session('success'))
+                <x-alert-success></x-alert-success>
+            @elseif(session('error'))
+                <x-alert-failed></x-alert-failed>
             @endif
 
-            <div class="col-sm-12 mt-3 mb-3">
-                <img class="img-fluid" src="{{ asset('slider_tutorial.png') }}" alt="">
-            </div>
-
-            <form enctype="multipart/form-data" class="theme-form theme-form-2 mega-form" method="POST"
-                  action="{{ route('slider.update', $data) }}">
-                @csrf
-                @method("PATCH")
-                <div class="row">
-
-                    <div class="mb-4 row align-items-center">
-                        <label class="col-sm-2 col-form-label form-label-title">Promo Produk <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-10">
-                            <select class="js-example-basic-single w-100" name="product_url">
-                                <option value="{{ route('home.products.index') }}">Semua Produk</option>
-                                @foreach($products as $product)
-                                    <option
-                                        {{ route('home.products.show', $product->slug) == $data->product_url ? 'selected' : '' }}
-                                        value="{{ route('home.products.show', $product->slug) }}">{{ $product->name }}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mb-4 row align-items-center">
-                        <label class="form-label-title col-sm-2 mb-0">Offer <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-10">
-                            <input autocomplete="off" class="form-control" type="text" name="offer"
-                                   value="{{ $data->offer }}">
-                        </div>
-                    </div>
-
-                    <div class="mb-4 row align-items-center">
-                        <label class="form-label-title col-sm-2 mb-0">Header <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-10">
-                            <input autocomplete="off" class="form-control" type="text" name="header"
-                                   value="{{ $data->header }}">
-                        </div>
-                    </div>
-
-                    <div class="mb-4 row align-items-center">
-                        <label class="form-label-title col-sm-2 mb-0">Sub Header <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-10">
-                            <input autocomplete="off" class="form-control" type="text" name="sub_header"
-                                   value="{{ $data->sub_header }}">
-                        </div>
-                    </div>
-
-                    <div class="mb-4 row align-items-center">
-                        <label class="form-label-title col-sm-2 mb-0">Deskripsi <span
-                                class="text-danger">*</span></label>
-                        <div class="col-sm-10">
-                            <input autocomplete="off" class="form-control" type="text" name="description"
-                                   value="{{ $data->description }}">
-                        </div>
-                    </div>
-
-                    <div class="mb-4 row align-items-center">
-                        <label class="col-sm-2 col-form-label form-label-title"></label>
-                        <div class="col-sm-10">
-                            <img style="width: 20%" src="{{ asset('storage/'. $data->image)}}"
-                                 alt="{{ $data->header }}">
-                        </div>
-                    </div>
-
-                    <div class="mb-4 row align-items-center">
-                        <label class="col-sm-2 col-form-label form-label-title">Background Slide</label>
-                        <div class="col-sm-10">
-                            <input class="form-control form-choose" type="file" name="image">
-                        </div>
-                    </div>
-
-                    <div class="mb-4 row align-items-center">
-                        <div class="col-sm-10">
-                            <button class="btn btn-primary" type="submit">Update</button>
-                        </div>
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert-message">
+                        <strong>Terjadi Kesalahan!</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
-            </form>
+            @endif
+        </div>
+        <div class="card-body">
+            <div class="title-header option-title">
+                <h5>Halaman Konfigurasi Slider</h5>
+            </div>
+            <div class="col-12 d-flex justify-content-end mb-3">
+                <a href="{{ route('slider.create') }}" class="btn btn-primary">Tambah Slider</a>
+            </div>
+
+
+            <div class="table-responsive table-product">
+                <table class="table theme-table" id="table_id">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Promo</th>
+                            <th>Judul</th>
+                            <th>Sub-judul</th>
+                            <th>Description</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <x-delete-slider-modal></x-delete-slider-modal>
+    <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/daterangepicker.min.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let table = $("#table_id").DataTable({
+                scrollX: false,
+                scrollY: '500px',
+                paging: true,
+                ordering: true,
+                responsive: true,
+                pageLength: 50,
+                processing: true,
+                serverSide: false,
+                searching: true,
+                ajax: "{{ route('slider.index') }}",
+                columns: [{
+                        data: 'image',
+                        name: 'image'
+                    },
+                    {
+                        data: 'offer',
+                        name: 'offer'
+                    },
+                    {
+                        data: 'header',
+                        name: 'header'
+                    },
+                    {
+                        data: 'sub_header',
+                        name: 'sub_header'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+            $(document).on('click', '.delete-alert', function() {
+                $('#deleteSliderModal').modal('show')
+                const id = $(this).attr('data-id');
+                let url = `{{ route('slider.destroy', ':id') }}`.replace(':id', id);
+                $('#deleteForm').attr('action', url);
+            });
+
+
+        });
+    </script>
 @endsection

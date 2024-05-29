@@ -342,9 +342,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'site-setting' => SiteSettingController::class,
                     'term-privacy' => TermPrivacyController::class,
                     'about-us' => AboutController::class,
-                    'slider' => SliderController::class,
                     'banners' => BannerController::class
                 ], ['only' => ['index', 'update']]);
+                route::resource('slider',SliderController::class);
             });
         });
     });

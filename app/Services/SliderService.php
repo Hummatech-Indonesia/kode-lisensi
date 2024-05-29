@@ -21,20 +21,45 @@ class SliderService implements ShouldHandleFileUpload
     }
 
     /**
-     * Handle store data event to models.
+     * Store a newly created slider.
+     *
+     * @param SliderRequest $request
+     * @return array|bool
+     */
+    public function store(SliderRequest $request): array|bool
+    {
+        $data = $request->validated();
+
+        // Handle file upload
+        $photo = null;
+        if ($request->hasFile('image')) {
+            $photo = $this->uploadSlug(UploadDiskEnum::SLIDERS->value, $request->file('image'), "slider-kodelisensi-" . now());
+        }
+
+        return [
+            'offer' => $data['offer'],
+            'header' => $data['header'],
+            'sub_header' => $data['sub_header'],
+            'description' => $data['description'],
+            'image' => $photo,
+            'product_url' => $data['product_url']
+        ];
+    }
+
+    /**
+     * Update the specified slider.
      *
      * @param Slider $slider
      * @param SliderRequest $request
-     *
      * @return array|bool
      */
-
     public function update(Slider $slider, SliderRequest $request): array|bool
     {
         $data = $request->validated();
 
         $old_photo = $slider->image;
 
+        // Handle file upload
         if ($request->hasFile('image')) {
             $this->remove($old_photo);
             $old_photo = $this->uploadSlug(UploadDiskEnum::SLIDERS->value, $request->file('image'), "slider-kodelisensi-" . now());
