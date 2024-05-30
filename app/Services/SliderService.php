@@ -46,13 +46,6 @@ class SliderService implements ShouldHandleFileUpload
         ];
     }
 
-    /**
-     * Update the specified slider.
-     *
-     * @param Slider $slider
-     * @param SliderRequest $request
-     * @return array|bool
-     */
     public function update(Slider $slider, SliderRequest $request): array|bool
     {
         $data = $request->validated();
@@ -75,3 +68,4 @@ class SliderService implements ShouldHandleFileUpload
         ];
     }
 }
+e

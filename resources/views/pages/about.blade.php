@@ -29,7 +29,7 @@
                         <div class="col-6">
                             <div class="fresh-image-2">
                                 <div class="bg-size blur-up lazyloaded">
-                                    <img src="{{ asset('assets/images/inner-page/about-us/2.jpg') }}"
+                                    <img src="{{ asset('storage/'.$about->image_1) }}"
                                         class="bg-img blur-up lazyloaded" alt="" style="display: none;">
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                         <div class="col-6">
                             <div class="fresh-image">
                                 <div class="bg-size blur-up lazyloaded">
-                                    <img src="{{ asset('assets/images/inner-page/about-us/1.jpg') }}"
+                                    <img src="{{ asset('storage/'.$about->image_2) }}"
                                         class="bg-img blur-up lazyloaded" alt="" style="display: none;">
                                 </div>
                             </div>

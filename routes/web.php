@@ -342,9 +342,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::resources([
                     'site-setting' => SiteSettingController::class,
                     'term-privacy' => TermPrivacyController::class,
-                    'about-us' => AboutController::class,
                     'banners' => BannerController::class
                 ], ['only' => ['index', 'update']]);
+                Route::resource('about', AboutController::class)->only(['index', 'update', 'store']);
                 route::resource('slider',SliderController::class);
             });
         });

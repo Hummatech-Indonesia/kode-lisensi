@@ -22,6 +22,17 @@ class AboutRepository extends BaseRepository implements AboutInterface
         return $this->model->query()
             ->first();
     }
+    /**
+     * Method store
+     *
+     * @param array $data [explicite description]
+     *
+     * @return mixed
+     */
+    public function store(array $data): mixed
+    {
+        return $this->model->query()->create($data);
+    }
 
     /**
      * Handle show method and update data instantly from models.

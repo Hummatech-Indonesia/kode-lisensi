@@ -13,4 +13,5 @@ enum UploadDiskEnum: string
     case SLIDERS = 'sliders';
     case BANNERS = 'banners';
     case PROOF = 'proof';
+    case ABOUT = 'about';
 }

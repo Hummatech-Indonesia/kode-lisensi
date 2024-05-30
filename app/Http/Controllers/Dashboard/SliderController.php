@@ -88,7 +88,7 @@ class SliderController extends Controller
         $this->slider->update($slider->id, $this->service->update($slider, $request));
 
         return to_route('slider.index')->with('success', 'Berhasil memperbarui data');
-    }    
+    }
     /**
      * Method destroy
      *
