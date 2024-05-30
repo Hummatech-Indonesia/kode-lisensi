@@ -106,8 +106,8 @@
         </div>
         <div class="row my-2">
             @foreach ($categories as $index => $category)
-                @if ($index < 8)
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                @if ($index < 12)
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
                         <div class="d-flex flex-column align-items-center">
                             <a href="{{ route('home.category', $category->slug) }}" class="text-decoration-none">
                                 <img src="{{ asset('storage/' . $category->icon) }}" class="img-fluid my-2"
@@ -123,6 +123,7 @@
             <a href="{{ route('home.get.categories') }}" class="btn theme-bg-color text-white">Lihat Semua Kategori</a>
         </div>
     </section>
+    
 
 
 
