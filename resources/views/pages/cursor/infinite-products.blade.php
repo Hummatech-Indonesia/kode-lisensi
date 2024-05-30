@@ -193,7 +193,7 @@
 
                         </h5>
                         <div class="product-rating mt-2">
-                            <ul class="rating">
+                            <div class="rating">
                                 @for ($i = 1; $i <= 5; $i++)
                                     <li>
                                         @if ($i <= RatingHelper::sumProductRatings($product->id)['stars'])
@@ -218,7 +218,7 @@
                                     </li>
                                 @endfor
 
-                            </ul>
+                            </div>
                             @if (RatingHelper::sumProductRatings($product->id)['sumRating'] == 0)
                                 <span>(Belum ada ulasan)</span>
                             @else
