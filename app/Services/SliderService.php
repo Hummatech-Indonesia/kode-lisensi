@@ -68,4 +68,3 @@ class SliderService implements ShouldHandleFileUpload
         ];
     }
 }
-e
