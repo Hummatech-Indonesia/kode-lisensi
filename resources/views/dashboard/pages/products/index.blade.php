@@ -69,6 +69,7 @@
     <x-product-recommendation></x-product-recommendation>
     <x-delete-modal></x-delete-modal>
     <x-soft-delete-modal></x-soft-delete-modal>
+    <x-custom-slug></x-custom-slug>
 
     <script src="{{ asset('dashboard_assets/js/jquery.dataTables.js') }}"></script>
     <script>
@@ -149,6 +150,14 @@
                 $('#deleteProductRecommendationModal').modal('show')
                 const id = $(this).attr('data-id');
                 $('#deleteProductRecommendation').attr('action', url);
+            });
+            $(document).on('click', '.custom-slug', function() {
+                $('#customSlugModal').modal('show')
+                const id = $(this).attr('data-id');
+                const slug = $(this).attr('data-slug');
+                $('#slug').val(slug);
+                let url = `{{ route('products.update', ':id') }}`.replace(':id', id);
+                $('#customSlugForm').attr('action', url);
             });
 
             $(document).on('click', '.delete-soft', function() {

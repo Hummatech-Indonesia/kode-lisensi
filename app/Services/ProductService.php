@@ -162,6 +162,10 @@ class ProductService implements ShouldHandleFileUpload
             'attachment_file' => $old_attachment
         ];
     }
+    public function customSlug(Product $product,ProductUpdateRequest $request){
+        $data=$request->validated();
+        $slug=str_slug($data['slug']);
+    }
 
     /**
      * varianProductUpdate

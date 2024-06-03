@@ -30,4 +30,8 @@
         <a href="#" data-toggle="modal" data-target="#softModal" data-id='{{ $data->id }}'
             class="text-warning delete-soft" title="arsipkan produk"><i class="ri-archive-line"></i></a>
     </li>
+    <li>
+        <a href="#" data-toggle="modal" data-target="#customSlugModal" data-id='{{ $data->id }}' data-slug='{{$data->slug}}'
+            class="text-primary custom-slug" title="custom slug"><i class="ri-settings-line"></i></a>
+    </li>
 </ul>

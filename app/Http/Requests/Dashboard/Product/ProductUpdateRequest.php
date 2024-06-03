@@ -30,6 +30,7 @@ class ProductUpdateRequest extends BaseRequest
             'discount_price' => 'required',
             'installation' => 'required',
             'photo' => 'nullable|max:5000|mimes:jpg,png,jpeg',
+            'slug'=>'nullable',
         ];
 
         if ($this->input('discount_price') == 1) {

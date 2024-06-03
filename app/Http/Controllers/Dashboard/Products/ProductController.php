@@ -73,7 +73,7 @@ class ProductController extends Controller
     {
         return view('dashboard.pages.products.show', [
             'product' => $product,
-           
+
         ]);
     }
 
@@ -102,6 +102,10 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
+        if ($request['slug']) {
+            $this->product->customSlug($product->id, $request->validated());
+            return back()->with('success', 'Berhasil melakukan update data');
+        }
         if (!$data = $this->productService->update($product, $request)) {
             return back()->with('error', trans('alert.file_exist'));
         }

@@ -109,6 +109,23 @@ class ProductRepository extends BaseRepository implements ProductInterface
         }
         return $product;
     }
+    /**
+     * Method customSlug
+     *
+     * @param mixed $id [explicite description]
+     * @param array $data [explicite description]
+     *
+     * @return mixed
+     */
+    public function customSlug(mixed $id, array $data): mixed
+    {
+        $slug = str_slug($data['slug']);
+        $data['slug'] = $slug;
+
+        return $this->show($id)->update($data);
+
+    }
+
 
     /**
      * Handle get the specified data by id from models.

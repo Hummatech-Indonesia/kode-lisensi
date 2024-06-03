@@ -22,6 +22,15 @@ interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderP
      */
 
     public function showCategory(mixed $id): mixed;
+    /**
+     * Method customSlug
+     *
+     * @param mixed $id [explicite description]
+     * @param array $data [explicite description]
+     *
+     * @return mixed
+     */
+    public function customSlug(mixed $id,array $data):mixed;
 
     /**
      * Handle the Get all data event from models.
@@ -29,7 +38,7 @@ interface ProductInterface extends BaseInterface, SoftDeleteInterface, PreorderP
      * @return mixed
      */
 
-    public function getProductRecommendation(): mixed;    
+    public function getProductRecommendation(): mixed;
     /**
      * Method getProduct
      *
