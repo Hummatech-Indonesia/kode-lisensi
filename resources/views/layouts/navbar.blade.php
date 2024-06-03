@@ -7,6 +7,9 @@
     .rightside-menu{
         margin-left: 0 !important;
     }
+    .main-nav{
+        padding: 0 !important;
+    }
 </style>
 <div class="top-nav top-header">
     <div class="container-fluid-lg">

@@ -34,6 +34,31 @@
             margin-left: 15%;
             list-style: none;
         }
+
+        .category-item {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: scale(1.1);
+        }
+
+        .category-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover .category-icon {
+            transform: scale(1.1);
+        }
+
+        .category-name {
+            transition: color 0.3s ease;
+        }
+
+        .category-item:hover .category-name {
+            color: #007bff;
+            /* You can change this color to whatever you prefer */
+        }
     </style>
 @endsection
 @section('meta')
@@ -107,23 +132,25 @@
         <div class="row my-2">
             @foreach ($categories as $index => $category)
                 @if ($index < 12)
-                    <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
-                        <div class="d-flex flex-column align-items-center">
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6 mb-4">
+                        <div class="d-flex flex-column align-items-center category-item">
                             <a href="{{ route('home.category', $category->slug) }}" class="text-decoration-none">
-                                <img src="{{ asset('storage/' . $category->icon) }}" class="img-fluid my-2"
-                                    style="width: 64px; height: 64px;" alt="{{ $category->name }}">
-                                <p class="mt-2 text-center">{{ $category->name }}</p>
+                                <img src="{{ asset('storage/' . $category->icon) }}" class="img-fluid my-2 category-icon"
+                                     style="width: 64px; height: 64px;" alt="{{ $category->name }}">
+                                <p class="mt-2 text-center category-name">{{ $category->name }}</p>
                             </a>
                         </div>
                     </div>
                 @endif
             @endforeach
         </div>
+
+
         <div class="d-flex justify-content-center">
             <a href="{{ route('home.get.categories') }}" class="btn theme-bg-color text-white">Lihat Semua Kategori</a>
         </div>
     </section>
-    
+
 
 
 
