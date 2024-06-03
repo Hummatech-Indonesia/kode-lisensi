@@ -69,7 +69,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes([
     'verify' => true
 ]);
-
+route::get('test',function(){
+    return view('mail');
+});
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::get('profit', [ResellerDashboardController::class, 'profit'])->name('profit.transaction');
