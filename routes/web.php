@@ -69,8 +69,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes([
     'verify' => true
 ]);
-route::get('test',function(){
-    return view('mail');
+route::get('test', function () {
+    return view('emails.InvoicePaidMail');
 });
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
@@ -89,7 +89,7 @@ Route::name('home.')->group(function () {
         return view('emails.SendLicenseMail');
     });
     Route::get('/', [HomeController::class, 'index'])->name('index');
-    Route::get('categories',[HomeController::class,'getCategories'])->name('get.categories');
+    Route::get('categories', [HomeController::class, 'getCategories'])->name('get.categories');
     Route::get('latest-product', [HomeController::class, 'latestProduct']);
 
     Route::post('share-product-reseller/{product}/{code}', [HomeProductController::class, 'shareProductReseller'])->name('share.product.reseller');
@@ -109,7 +109,7 @@ Route::name('home.')->group(function () {
         'products' => HomeProductController::class,
         'articles' => HomeArticleController::class
     ], ['only' => ['index', 'show', 'showShare']]);
-    Route::get('articles/tag/{tag}',[HomeArticleController::class,'showTag'])->name('articles.show.tag');
+    Route::get('articles/tag/{tag}', [HomeArticleController::class, 'showTag'])->name('articles.show.tag');
 
     Route::get('products/{slug}/{code_affiliate?}', [HomeProductController::class, 'show']);
 
@@ -347,7 +347,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'banners' => BannerController::class
                 ], ['only' => ['index', 'update']]);
                 Route::resource('about', AboutController::class)->only(['index', 'update', 'store']);
-                route::resource('slider',SliderController::class);
+                route::resource('slider', SliderController::class);
             });
         });
     });
