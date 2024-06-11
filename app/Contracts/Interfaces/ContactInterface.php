@@ -8,5 +8,4 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 
 interface ContactInterface extends GetInterface, StoreInterface, DeleteInterface
 {
-
 }
