@@ -203,7 +203,7 @@
                                                         class="img-1 blur-up lazyloaded" alt="">
                                                     <img src="{{ asset('assets/images/svg/order.svg') }}"
                                                         class="blur-up lazyloaded" alt="">
-                                                    <div class="totle-detail">
+                                                    <div class="title-detail">
                                                         <h5>Order Pending</h5>
                                                         <h3>{{ UserSummaryHelper::countUserOrders('pending') }}</h3>
                                                     </div>
@@ -301,10 +301,8 @@
                                         <div class="alert alert-warning">
                                             Catatan: <br>
                                             Ulasan hanya bisa ditulis sebanyak satu kali tiap jenis produk yang berhasil
-                                            dibeli.
-                                            <br>
+                                            dibeli.<br>
                                             Ulasan yang telah dikirim tidak bisa dihapus maupun diedit.
-
                                         </div>
                                     </div>
 
@@ -316,7 +314,7 @@
                                                         <i data-feather="box"></i>
                                                     </div>
                                                     <div class="order-detail">
-                                                        <h4> {{ $trans->invoice_id }}
+                                                        <h4>{{ $trans->invoice_id }}
                                                             @if (
                                                                 $trans->invoice_status == InvoiceStatusEnum::FAILED->value ||
                                                                     $trans->invoice_status == InvoiceStatusEnum::EXPIRED->value)
@@ -329,9 +327,8 @@
                                                                 <span>Pending</span>
                                                             @endif
                                                         </h4>
-                                                        <h6 class="text-content">Total
-                                                            Harga: {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
-                                                        </h6>
+                                                        <h6 class="text-content">Total Harga:
+                                                            {{ CurrencyHelper::rupiahCurrency($trans->amount) }}</h6>
                                                     </div>
                                                 </div>
 
@@ -361,9 +358,8 @@
                                                                         class="bi bi-arrow-up-short" viewBox="0 0 16 16">
                                                                         <path fill-rule="evenodd"
                                                                             d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-                                                                    </svg> </a>
-                                                            @else
-                                                                <div class=""></div>
+                                                                    </svg>
+                                                                </a>
                                                             @endif
                                                         </div>
                                                         <p class="text-content">
@@ -373,86 +369,48 @@
                                                             <li>
                                                                 <div class="size-box">
                                                                     <h6 class="text-content">Harga : </h6>
-                                                                    <h5>
-                                                                        @if (UserHelper::getUserRole() == UserRoleEnum::RESELLER->value)
-                                                                            @if ($trans->detail_transaction->varianProduct)
-                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
-                                                                                <span>({{ $trans->detail_transaction->varianProduct->name }})</span>
-                                                                            @else
-                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
-                                                                            @endif
-                                                                        @else
-                                                                            @if ($trans->detail_transaction->varianProduct)
-                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
-                                                                                <span>({{ $trans->detail_transaction->varianProduct->name }})</span>
-                                                                            @else
-                                                                                {{ CurrencyHelper::rupiahCurrency($trans->amount) }}
-                                                                            @endif
-                                                                        @endif
+                                                                    <h5>{{ CurrencyHelper::rupiahCurrency($trans->amount) }}
                                                                     </h5>
                                                                 </div>
                                                             </li>
-
                                                             <li>
                                                                 <div class="size-box">
                                                                     <h6 class="text-content">Rate : </h6>
                                                                     <div class="product-rating ms-2">
                                                                         <div class="rating">
                                                                             @for ($i = 1; $i <= 5; $i++)
-                                                                                <li>
-                                                                                    @if ($i <= RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['stars'])
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    @else
-                                                                                        <i data-feather="star"></i>
-                                                                                    @endif
-                                                                                </li>
+                                                                                <i data-feather="star"
+                                                                                    class="{{ $i <= RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['stars'] ? 'fill' : '' }}"></i>
                                                                             @endfor
-
                                                                         </div>
-                                                                        @if (RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['sumRating'] == 0)
-                                                                            <span>(Belum ada ulasan)</span>
-                                                                        @else
-                                                                            <span>{{ RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['sumRating'] }}
-                                                                                ({{ $trans->detail_transaction->product->product_ratings_count }}
-                                                                                ulasan)
-                                                                            </span>
-                                                                        @endif
+                                                                        <span>{{ RatingHelper::sumProductRatings($trans->detail_transaction->product->id)['sumRating'] }}
+                                                                            ({{ $trans->detail_transaction->product->product_ratings_count }}
+                                                                            ulasan)</span>
                                                                     </div>
                                                                 </div>
                                                             </li>
-
                                                             <li>
                                                                 <div class="size-box">
                                                                     <h6 class="text-content">Jenis Produk : </h6>
-                                                                    <h5>
-                                                                        @if ($trans->detail_transaction->product->status === ProductStatusEnum::AVAILABLE->value)
-                                                                            Tersedia
-                                                                        @else
-                                                                            Preorder
-                                                                        @endif
+                                                                    <h5>{{ $trans->detail_transaction->product->status === ProductStatusEnum::AVAILABLE->value ? 'Tersedia' : 'Preorder' }}
                                                                     </h5>
                                                                 </div>
                                                             </li>
-
                                                             <li class="mt-3">
                                                                 <div class="size-box">
                                                                     @if (RatingHelper::checkUserHasRating($trans->detail_transaction->product->id))
                                                                         <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                                                            class="btn btn-warning btn-sm text-white">
-                                                                            Cek Ulasan Saya
-                                                                        </a>
+                                                                            class="btn btn-warning btn-sm text-white">Cek
+                                                                            Ulasan Saya</a>
                                                                     @else
                                                                         <a href="{{ route('home.products.show', $trans->detail_transaction->product->slug) }}"
-                                                                            class="btn btn-success btn-sm text-white">
-                                                                            Tambah ulasan baru
-                                                                        </a>
+                                                                            class="btn btn-success btn-sm text-white">Tambah
+                                                                            ulasan baru</a>
                                                                     @endif
                                                                 </div>
                                                             </li>
                                                         </ul>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         @empty
