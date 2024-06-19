@@ -91,6 +91,7 @@ class CallbackService
             if (ProductStatusEnum::PREORDER->value === $product_status) {
                 dispatch(new NotifyPreorderJob([
                     'name' => $detail->name,
+                    'phone_number' => $detail->phone_number,
                     'email' => config('mail.notify_preorder'),
                     'invoice_id' => $data->invoice_id,
                     'pack_name' => $product_relation->name,

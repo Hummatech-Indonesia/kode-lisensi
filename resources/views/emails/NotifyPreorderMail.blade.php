@@ -52,6 +52,21 @@
                                                     <table
                                                         style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-size:16px;line-height:1.5em;">
                                                         <tr>
+                                                            <td>Nama Pelanggan</td>
+                                                            <td>:</td>
+                                                            <td>{{ $data['name'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nomor Telepon Pelanggan</td>
+                                                            <td>:</td>
+                                                            <td>{{ $data['phone_number'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Email Pelanggan</td>
+                                                            <td>:</td>
+                                                            <td>{{ $data['email'] }}</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>Kode Pembayaran</td>
                                                             <td>:</td>
                                                             <td>{{ $data['invoice_id'] }}</td>

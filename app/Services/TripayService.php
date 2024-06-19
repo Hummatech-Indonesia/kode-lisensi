@@ -50,7 +50,7 @@ class TripayService
         $res = Http::withToken(config('tripay.api_key'))
             ->get(config('tripay.api_url') . "merchant/payment-channel")
             ->json();
-
+            
         return collect($res['data'])->groupBy('group');
     }
 
