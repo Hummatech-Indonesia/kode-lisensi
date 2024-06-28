@@ -413,17 +413,19 @@
                                     </div>
                                 </div>
                             </div>
+
                         @empty
                             <p>Tidak ada produk direkomendasikan</p>
                         @endforelse
                     </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{ route('home.products.index') }}"
+                            class="btn theme-bg-color text-white align-items-center">Lihat Selengkapnya</a>
+                    </div>
 
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
-                <a href="{{ route('home.products.index') }}"
-                    class="btn theme-bg-color text-white align-items-center">Lihat Selengkapnya</a>
-            </div>
+
         </div>
     </section>
 
