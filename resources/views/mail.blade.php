@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-{{-- <div class="container">
+    {{-- <div class="container">
 
     <div class="card">
         <div class="card-header">
@@ -55,53 +55,59 @@
         </div>
     </div>
 </div> --}}
-<div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-    <div style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
-        <div style="background-color: #f8f9fa; padding: 10px;">
-            <img src="{{ asset('images/YellowKodelisensi.png') }}" alt="" style="width: 100%;">
-        </div>
-        <div style="padding: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                <div style="">
-                    <h2 style="font-weight: bold; color: #007bff;">Terima Kasih</h2>
+    <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
+        <div style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+            <div style="background-color: #f8f9fa; padding: 10px;">
+                <img src="https://kodelisensi.com/storage/site_setting//profil-kodelisensi-2024-04-05-10-03-49.png"
+                    alt="" style="width: 100%;">
+            </div>
+            <div style="padding: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <div style="">
+                        <h2 style="font-weight: bold; color: #007bff;">Terima Kasih</h2>
+                    </div>
+                    <div style=""><span style="">No. Invoice</span></div>
                 </div>
-                <div style=""><span style="">No. Invoice</span></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <div style=""><span style="font-weight: bold;">Pembelian anda telah berhasil,di bawah ini adalah detail pembelian Anda:</span></div>
-                <div style=""><span style="font-weight: bold;">KLHM0540</span></div>
-            </div>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                <tr>
-                    <td style="border: 1px solid #ddd; padding: 10px;" colspan="2">
-                        <div style=""><span style="font-weight: bold;">Nama Produk</span></div>
-                        <p style="font-weight: bold;">Microsoft Windows 10 Professional</p>
-                    </td>
-                    <td class="d-none"></td>
-                    <td style="border: 1px solid #ddd; padding: 10px;" colspan="1">
-                        <div style=""><span style="font-weight: bold;">Harga</span></div>
-                        <p style="font-weight: bold;">Rp. 215.000</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid #ddd; padding: 10px;" colspan="3">
-                        <div style=""><span style="font-weight: bold;">Serial Number</span></div>
-                        <p style="font-weight: bold;">ABCD-DEFG-HIJK</p>
-                    </td>
-                </tr>
-            </table>
-            <div style="background-color: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-top: 20px;">
-                <p style="font-weight: bold; color: #ffc107;">Download Windows 10</p>
-                <p>Jika belum memiliki windows 10, bisa langsung download di situs resminya, yaitu: <a href="https://www.facebook.com" style="color: #000; text-decoration: none;">https://www.facebook.com</a></p>
-            </div>
-            <div style="background-color: #fff; border: 1px solid #dc3545; border-radius: 8px; padding: 20px; margin-top: 20px;">
-                <p style="font-weight: bold; color: #dc3545;">PERHATIAN !!</p>
-                <p>Jika belum memiliki windows 10, bisa langsung download di situs resminya, yaitu: <a href="https://www.facebook.com" style="color: #000; text-decoration: none;">https://www.facebook.com</a></p>
-                <p>Jika mengalami kesulitan/masalah ketika aktivasi, silahkan hubungi CS kami di No.WA: </p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div style=""><span style="font-weight: bold;">Pembelian anda telah berhasil,di bawah ini adalah
+                            detail pembelian Anda:</span></div>
+                    <div style=""><span style="font-weight: bold;">KLHM0540</span></div>
+                </div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 10px;" colspan="2">
+                            <div style=""><span style="font-weight: bold;">Nama Produk</span></div>
+                            <p style="font-weight: bold;">Microsoft Windows 10 Professional</p>
+                        </td>
+                        <td class="d-none"></td>
+                        <td style="border: 1px solid #ddd; padding: 10px;" colspan="1">
+                            <div style=""><span style="font-weight: bold;">Harga</span></div>
+                            <p style="font-weight: bold;">Rp. 215.000</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 10px;" colspan="3">
+                            <div style=""><span style="font-weight: bold;">Serial Number</span></div>
+                            <p style="font-weight: bold;">ABCD-DEFG-HIJK</p>
+                        </td>
+                    </tr>
+                </table>
+                <div
+                    style="background-color: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                    <p style="font-weight: bold; color: #ffc107;">Download Windows 10</p>
+                    <p>Jika belum memiliki windows 10, bisa langsung download di situs resminya, yaitu: <a
+                            href="https://www.facebook.com"
+                            style="color: #000; text-decoration: none;">https://www.facebook.com</a></p>
+                </div>
+                <div
+                    style="background-color: #fff; border: 1px solid #dc3545; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                    <p style="font-weight: bold; color: #dc3545;">PERHATIAN !!</p>
+                    <p>Jika belum memiliki windows 10, bisa langsung download di situs resminya, yaitu: <a
+                            href="https://www.facebook.com"
+                            style="color: #000; text-decoration: none;">https://www.facebook.com</a></p>
+                    <p>Jika mengalami kesulitan/masalah ketika aktivasi, silahkan hubungi CS kami di No.WA: </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
-    @endsection
+@endsection
