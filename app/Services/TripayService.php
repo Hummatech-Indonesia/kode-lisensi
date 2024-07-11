@@ -51,8 +51,7 @@ class TripayService
             ->get(config('tripay.api_url') . "merchant/payment-channel")
             ->json();
 
-        dd($res, config('tripay.api_key'));
-        return collect($res['data'])->groupBy('group');
+            return collect($res['data'])->groupBy('group');
     }
 
     /**
