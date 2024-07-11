@@ -36,13 +36,6 @@ class ProductService implements ShouldHandleFileUpload
     public function store(ProductStoreRequest $request): array|bool
     {
         $data = $request->validated();
-        // if ($data['discount_price'] == 1) {
-        //     $discount = $data['discount'] / $data['sell_price'] * 100;
-        //     $reseller_discount = $data['reseller_discount'] / $data['sell_price'] * 100;
-        //     $data['sell_price'];
-        //     $data['discount'] = $discount;
-        //     $data['reseller_discount'] = $reseller_discount;
-        // }
 
         $slug = str_slug($data['name']);
 
