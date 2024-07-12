@@ -57,26 +57,28 @@ class CallbackService
                 'invoice_status' => $request->status
             ]);
 
-            Mail::to($detail->email)->send(new PaidInvoiceMail(
-                [
-                    'name' => $detail->name,
-                    'email' => $detail->email,
-                    'product' => $product_relation,
-                    'invoice_id' => $data->invoice_id,
-                    'pack_name' => $product_relation->name,
-                    'pack_price' => $request->amount_received,
-                    'paid_at' => $paid_at,
-                    'varian_product' => $detail->varianProduct?->name,
-                    'product_status' => $product_status,
-                    'product_type' => $product_relation->type,
-                    'licenses' => [
-                        'username' => ($license_relation) ? $license_relation->username : null,
-                        'password' => ($license_relation) ? $license_relation->password : null,
-                        'serial_key' => ($license_relation) ? $license_relation->serial_key : null,
-                        'description' => ($license_relation) ? $license_relation->description : null
+            Mail::to($detail->email)->send(
+                new PaidInvoiceMail(
+                    [
+                        'name' => $detail->name,
+                        'email' => $detail->email,
+                        'product' => $product_relation,
+                        'invoice_id' => $data->invoice_id,
+                        'pack_name' => $product_relation->name,
+                        'pack_price' => $request->amount_received,
+                        'paid_at' => $paid_at,
+                        'varian_product' => $detail->varianProduct?->name,
+                        'product_status' => $product_status,
+                        'product_type' => $product_relation->type,
+                        'licenses' => [
+                            'username' => ($license_relation) ? $license_relation->username : null,
+                            'password' => ($license_relation) ? $license_relation->password : null,
+                            'serial_key' => ($license_relation) ? $license_relation->serial_key : null,
+                            'description' => ($license_relation) ? $license_relation->description : null
+                        ]
                     ]
-                ]
-            ));
+                )
+            );
 
             Notification::send($buyer, new DashboardNotification([
                 'name' => trans('notification.user_pack_purchased_title', ['pack_name' => $product_relation->name, 'price' => CurrencyHelper::rupiahCurrency($request->amount_received)]),
@@ -92,7 +94,7 @@ class CallbackService
                 dispatch(new NotifyPreorderJob([
                     'name' => $detail->name,
                     'phone_number' => $detail->phone_number,
-                    'email' => config('mail.notify_preorder'),
+                    'email' => $detail->email,
                     'invoice_id' => $data->invoice_id,
                     'pack_name' => $product_relation->name,
                     'varian_product' => $detail->varianProduct?->name,
@@ -132,7 +134,8 @@ class CallbackService
 
             $license_id = ($product_status === ProductStatusEnum::PREORDER->value) ? null : $data->license_id;
 
-            if ($license_id) $this->license->update($data->license_id, ['is_purchased' => 0]);
+            if ($license_id)
+                $this->license->update($data->license_id, ['is_purchased' => 0]);
 
             dispatch(new ExpiredInvoiceJob([
                 'name' => $detail->name,
